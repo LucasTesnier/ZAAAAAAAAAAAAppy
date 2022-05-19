@@ -103,9 +103,21 @@ Try not to exceed 24 hours before reading your PRs.
 
 It is obviously forbidden to approve a merge until all the reviewers have accepted the PR as well as the success of the workflows.
 
-### HotFixe Policy
-
 ### Issue Policy
+
+### HotFix Policy
+
+When you encounter a bug :
+
+* If the bug relates to the feature you are working on, you can fix it directly in your branch.
+
+* Otherwise, it will be necessary to create an issue explaining the nature of the bug and to associate the bug label with it. You can then fix the bug by creating a new branch and requesting a review from the creator of the affected feature.
+
+> Hotfix/Functionnality/Wich/I/Refer/To/IssueNumber
+
+```bash
+    git checkout -b HotFix/Architecture/Setup/Readme/14
+```
 
 ### Testing Policy
 
