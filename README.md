@@ -113,6 +113,8 @@ When you encounter a bug :
 
 * Otherwise, it will be necessary to create an issue explaining the nature of the bug and to associate the bug label with it. You can then fix the bug by creating a new branch and requesting a review from the creator of the affected feature.
 
+Your HotFix branch must follow the following format :
+
 > Hotfix/Functionnality/Wich/I/Refer/To/IssueNumber
 
 ```bash
@@ -120,6 +122,14 @@ When you encounter a bug :
 ```
 
 ### Testing Policy
+
+You are asked to try to practice Test Driven Development, which basically consists of carrying out tests before the realization of the associated source code.
+
+Any PR not being a minimum tested will be refused, regardless of the language used.
+
+For carrying out tests in C and C++, refer to the Tests Template located inside the tests folder.
+
+### Documentation Policy
 
 ## Authors
 
