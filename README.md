@@ -131,6 +131,45 @@ For carrying out tests in C and C++, refer to the Tests Template located inside 
 
 ### Documentation Policy
 
+We using Doxygen for documentation, and in order to allow the proper deployment of the documentation, please respect the following protocol:
+
+* Please add the \file at the top of each of your files :
+
+```bash
+    /// \file path/from/the/repository/root.h
+```
+
+* Please document your defines and typedefs as follows :
+
+```bash
+    ///
+    /// \brief I'm a basic define wich say hello 
+    ///
+```
+
+* Please document your functions in the .h as follows:
+
+```bash
+    ///
+    /// \brief I'm a basic function wich print hello
+    ///
+    /// \param str I'm the first param and i'm the string to display
+    /// \return int The success value
+    ///
+```
+
+* No functions should have documentation within .c/.cpp files except static functions
+
+Any undocumented elements will lead to the refusal of the PR.
+
+## Thank for reading
+
+Do not hesitate to contact me for any questions or remarks.
+
+* [Mail](lucas.tesnier@epitech.eu)
+
+* [Discord](Waroth#4623)
+
 ## Authors
 
 * **Lucas Tesnier, Guillaume Terriere, Thomas Prudhomme, Julien Hourcadette, Nathan Rousseau, Constant Vigneron**
