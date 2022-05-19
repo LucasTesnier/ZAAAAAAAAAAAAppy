@@ -88,7 +88,7 @@ Please briefly describe all the features contained in the PR.
 
 Please refer to the table below for people to request in review :
 
-| Part | Contributor | Reviewver |
+| Part | Contributor | Reviewver  |
 | :-----: | :-: |
 | Server | Lucas | Constant - Nathan |
 | Server | Constant | Lucas - Nathan |
