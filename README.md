@@ -12,7 +12,7 @@ If you're not, no worries! You're welcome here!
 
 ### Prerequisites
 
-To use this project, you'll need Cmake 3.17.0 Compiler, SFML-devel library, python 3.0, C11.
+To use this project, you'll need Cmake 3.17.0 Compiler, SFML-devel library, python 3.0 and C11.
 
 ### Building program
 
@@ -31,6 +31,42 @@ To use this project, you'll need Cmake 3.17.0 Compiler, SFML-devel library, pyth
 ### Coding Style
 
 Zappy is developed with C. EPITECH impose the Epitech Coding Style. [Check it right here.](https://intra.epitech.eu/file/Public/technical-documentations/epitech_c_coding_style.pdf)
+
+## Development Policy
+
+You will find below all the best practices to adopt by contributing to the project.
+
+### Commit Policy
+
+Your commits should follow the following format:
+
+> \[Symbol\] Verb Description #IssueNumber
+
+| Symbol | Meaning  |
+| :-----: | :-: |
+| + | Addition |
+| - | Deletion |
+| * | Modification |
+
+For example :
+
+```bash
+    git commit -m \"[+] Implement readme.md commit policy table \#12
+```
+
+It is recommended to commit on a regular basis.
+
+Any commit that does not meet this standard will not be deleted. Just be careful.
+
+### Branch Policy
+
+### Pull Request Policy
+
+### HotFixe Policy
+
+### Issue Policy
+
+### Testing Policy
 
 ## Authors
 
