@@ -1,11 +1,13 @@
-# Zaaaaaaaaaaaapy
+# Zaaaaaaaaaaaappy
 
 The Zappy project consists of the realization of a simulation of a "Spore Like".
+
 Composed of three parts, namely the server, developed in C, the GUI, developed in C++/SFML and the ClientIA, developed in C/Python.
 
 ## Before continuing...
 
 This project is an EPITECH Project. If you are an EPITECH student, move out the way! Nothing to see here... The groups don't want to be involved to your -42.
+
 If you're not, no worries! You're welcome here!
 
 ### Prerequisites
@@ -15,11 +17,14 @@ To use this project, you'll need Cmake 3.17.0 Compiler, SFML-devel library, pyth
 ### Building program
 
 ``cmake -B ./build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+
 cmake --build ./build``
 
 ### Testing program
 ``cmake --build ./build
+
 cd ./build
+
 ctest --output-on-failure``
 
 ### Coding Style
