@@ -16,16 +16,17 @@ To use this project, you'll need Cmake 3.17.0 Compiler, SFML-devel library, pyth
 
 ### Building program
 
-``cmake -B ./build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-
-cmake --build ./build``
+```bash
+    cmake -B ./build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+    cmake --build ./build
+```
 
 ### Testing program
-``cmake --build ./build
-
-cd ./build
-
-ctest --output-on-failure``
+```bash
+    cmake --build ./build
+    cd ./build
+    ctest --output-on-failure
+```
 
 ### Coding Style
 
