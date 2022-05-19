@@ -78,6 +78,31 @@ Try to push as regularly as possible so everyone can see where you are at.
 
 ### Pull Request Policy
 
+It is necessary to make at least one pull request per branch.
+
+All PRs should be directed to main.
+
+When creating a pull request, please follow the same standard as for branches.
+
+Please briefly describe all the features contained in the PR.
+
+Please refer to the table below for people to request in review :
+
+| Part | Contributor | Reviewver |
+| :-----: | :-: |
+| Server | Lucas | Constant - Nathan |
+| Server | Constant | Lucas - Nathan |
+| GUI | Thomas | Guillaume - Lucas |
+| GUI | Guillaume | Thomas - Lucas |
+| IAClient | Julien | Nathan - Constant |
+| IAClient | Nathan | Julien - Constant |
+
+Prioritize verbal dialogue during your reviews instead of putting a lot of comments.
+
+Try not to exceed 24 hours before reading your PRs.
+
+It is obviously forbidden to approve a merge until all the reviewers have accepted the PR as well as the success of the workflows.
+
 ### HotFixe Policy
 
 ### Issue Policy
