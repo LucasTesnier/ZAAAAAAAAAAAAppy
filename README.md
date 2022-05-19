@@ -109,7 +109,9 @@ When identifying a new functionality, it is necessary to create a new issue resp
 
 * The name of the issue must correspond to the part of the code concerned
 
-> Architecture - Setup - Add the Readme
+```bash
+    Name : Architecture - Setup - Add the Readme
+```
 
 * Try to describe as much as possible in the issue the modifications that it will apply in the project.
 
@@ -124,6 +126,8 @@ When identifying a new functionality, it is necessary to create a new issue resp
 | Pull Request | Refere to a PR |
 | Bug | Signal a bug on the project |
 | Documentation | Create some technical documentation |
+
+* Normally all the issues will be moved into the projects automatically.
 
 ### HotFix Policy
 
