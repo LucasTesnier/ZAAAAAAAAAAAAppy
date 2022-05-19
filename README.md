@@ -90,12 +90,12 @@ Please refer to the table below for people to request in review :
 
 | Part | Contributor | Reviewver  |
 | :-----: | :-: | :-: |
-| Server | Lucas | Constant - Nathan |
-| Server | Constant | Lucas - Nathan |
-| GUI | Thomas | Guillaume - Lucas |
-| GUI | Guillaume | Thomas - Lucas |
-| IAClient | Julien | Nathan - Constant |
-| IAClient | Nathan | Julien - Constant |
+| Server | Lucas | Constant - Nathan - Thomas |
+| Server | Constant | Lucas - Nathan - Thomas |
+| GUI | Thomas | Guillaume - Lucas - Julien |
+| GUI | Guillaume | Thomas - Lucas  - Julien |
+| IAClient | Julien | Nathan - Constant - Guillaume |
+| IAClient | Nathan | Julien - Constant - Guillaume |
 
 Prioritize verbal dialogue during your reviews instead of putting a lot of comments.
 
@@ -104,6 +104,26 @@ Try not to exceed 24 hours before reading your PRs.
 It is obviously forbidden to approve a merge until all the reviewers have accepted the PR as well as the success of the workflows.
 
 ### Issue Policy
+
+When identifying a new functionality, it is necessary to create a new issue respecting the following format:
+
+* The name of the issue must correspond to the part of the code concerned
+
+> Architecture - Setup - Add the Readme
+
+* Try to describe as much as possible in the issue the modifications that it will apply in the project.
+
+* Add the different labels according to the table below :
+
+| Label | Meaning |
+| :-----: | :-: |
+| Implementing | Add a new feature |
+| Refactoring | Change an actual feature |
+| Question | An interrogation on the subject |
+| Help | Need some help on the issue |
+| Pull Request | Refere to a PR |
+| Bug | Signal a bug on the project |
+| Documentation | Create some technical documentation |
 
 ### HotFix Policy
 
@@ -158,7 +178,7 @@ We using Doxygen for documentation, and in order to allow the proper deployment 
     ///
 ```
 
-* No functions should have documentation within .c/.cpp files except static functions
+* No functions should have documentation within .c/.cpp files except static functions.
 
 Any undocumented elements will lead to the refusal of the PR.
 
@@ -166,9 +186,9 @@ Any undocumented elements will lead to the refusal of the PR.
 
 Do not hesitate to contact me for any questions or remarks.
 
-* [Mail](lucas.tesnier@epitech.eu)
+* Mail -> lucas.tesnier@epitech.eu
 
-* [Discord](Waroth#4623)
+* Discord -> Waroth#4623
 
 ## Authors
 
