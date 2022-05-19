@@ -51,14 +51,30 @@ Your commits should follow the following format:
 For example :
 
 ```bash
-    git commit -m \"[+] Implement readme.md commit policy table \#12
+    git commit -m "[+] Implement readme.md commit policy table #12"
 ```
-
-It is recommended to commit on a regular basis.
 
 Any commit that does not meet this standard will not be deleted. Just be careful.
 
+It is recommended to commit on a regular basis.
+
 ### Branch Policy
+
+Your branch should follow the following format:
+
+> Issue/Which/I/Refer/To/IssueNumber
+
+For example :
+
+```bash
+    git checkout -b Architecture/Setup/Readme/12
+```
+
+Any branch that does not respect this format will be refused all of its associated PRs.
+
+Please make one branch per issue.
+
+Try to push as regularly as possible so everyone can see where you are at.
 
 ### Pull Request Policy
 
