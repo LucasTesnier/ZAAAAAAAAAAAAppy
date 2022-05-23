@@ -1,0 +1,3 @@
+add_subdirectory(zappy_ai)
+add_subdirectory(zappy_gui)
+add_subdirectory(zappy_server)
