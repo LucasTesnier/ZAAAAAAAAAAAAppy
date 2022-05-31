@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+
+import sys
+import argparse
+
+def displayHelp():
+    print("USAGE: ./zappy_ai -p port -n name -h machine")
+    print("\tport is the port number")
+    print("\tname is the name of the team")
+    print("\tmachine is the name of the machine; localhost by default")
+
+def needHelp(ac : int, av):
+    if ac == 2:
+        if av[1] == "--help" or av[1] == "-h":
+            return True
+    return False
+
+def main():
+    if needHelp(len(sys.argv), sys.argv):
+        displayHelp()
+        return 0
+
+    print("toto")
+if __name__ == '__main__':
+    sys.exit(main())
