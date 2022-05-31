@@ -19,6 +19,11 @@ def main():
     if needHelp(len(sys.argv), sys.argv):
         displayHelp()
         return 0
+    argsParser = argparse.ArgumentParser(add_help=False)
+    argsParser.add_argument("-p", dest="port", type=int)
+    argsParser.add_argument("-n", dest="name", type=str)
+    argsParser.add_argument("-h", dest="machine", type=str, required=False, default="127.0.0.1")
+    argsParser.parse_args()
 
     print("toto")
 if __name__ == '__main__':
