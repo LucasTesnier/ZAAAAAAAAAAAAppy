@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from ast import Try
 import sys
 import argparse
 
@@ -20,8 +21,8 @@ def main():
         displayHelp()
         return 0
     argsParser = argparse.ArgumentParser(add_help=False)
-    argsParser.add_argument("-p", dest="port", type=int)
-    argsParser.add_argument("-n", dest="name", type=str)
+    argsParser.add_argument("-p", dest="port", type=int, required=True)
+    argsParser.add_argument("-n", dest="name", type=str, required=True)
     argsParser.add_argument("-h", dest="machine", type=str, required=False, default="127.0.0.1")
     validArgs = argsParser.parse_args()
 
