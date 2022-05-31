@@ -25,6 +25,6 @@ def main():
     argsParser.add_argument("-h", dest="machine", type=str, required=False, default="127.0.0.1")
     validArgs = argsParser.parse_args()
 
-    print("Valid arguments")
+
 if __name__ == '__main__':
     sys.exit(main())
