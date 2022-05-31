@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+
+from ast import Try
+import sys
+import argparse
+
+def displayHelp():
+    """ Display the Usage of the Zappy AI """
+    print("USAGE: ./zappy_ai -p port -n name -h machine")
+    print("\tport\tis the port number")
+    print("\tname\tis the name of the team")
+    print("\tmachine\tis the name of the machine; localhost by default")
+
+def needHelp(ac : int, av):
+    """
+    Check the arguments for help
+    Return True is flag found, false otherwise
+    """
+
+    if ac == 2:
+        if av[1] == "--help" or av[1] == "-h":
+            return True
+    return False
+
+def main():
+    """ Main Function """
+    if needHelp(len(sys.argv), sys.argv):
+        displayHelp()
+        return 0
+    argsParser = argparse.ArgumentParser(add_help=False)
+    argsParser.add_argument("-p", dest="port", type=int, required=True)
+    argsParser.add_argument("-n", dest="name", type=str, required=True)
+    argsParser.add_argument("-h", dest="machine", type=str, required=False, default="127.0.0.1")
+    validArgs = argsParser.parse_args()
+
+
+if __name__ == '__main__':
+    sys.exit(main())
