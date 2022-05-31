@@ -23,8 +23,8 @@ def main():
     argsParser.add_argument("-p", dest="port", type=int)
     argsParser.add_argument("-n", dest="name", type=str)
     argsParser.add_argument("-h", dest="machine", type=str, required=False, default="127.0.0.1")
-    argsParser.parse_args()
+    validArgs = argsParser.parse_args()
 
-    print("toto")
+    print("Valid arguments")
 if __name__ == '__main__':
     sys.exit(main())
