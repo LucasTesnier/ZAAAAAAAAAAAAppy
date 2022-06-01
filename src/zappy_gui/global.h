@@ -5,6 +5,7 @@
 ** enum
 */
 
+/// \brief status of the player
 enum player_status_e {
     STATUSUNDEFINED = 0,
     STANDSTILL,
@@ -19,6 +20,7 @@ enum player_status_e {
 };
 typedef enum player_status_e player_status;
 
+/// \brief level of the player
 enum player_level_e{
     LEVELUNDEFINED = 0,
     LEVEL1,
@@ -32,6 +34,7 @@ enum player_level_e{
 };
 typedef enum player_level_e player_level;
 
+/// \brief orientation of the player
 enum player_orientation_e{
     ORIENTATIONUNDEFINED = 0,
     NORTH,
@@ -41,6 +44,7 @@ enum player_orientation_e{
 };
 typedef enum player_orientation_e player_orientation;
 
+/// \brief status of the game
 enum game_status_e{
     GAMESTATUSUNDEFINED = 0,
     PAUSE,
@@ -49,6 +53,7 @@ enum game_status_e{
 };
 typedef enum game_status_e game_status;
 
+/// \brief ressources of a player or of a tile
 struct ressource_s{
     char *name;
     int quantity;
@@ -62,15 +67,18 @@ typedef struct ressource_s ressource_t;
 //     {.name = "mendiane", .quantity = 0},
 //     {.name = "phiras", .quantity = 0},
 //     {.name = "thystame", .quantity = 0},
+//     {.name = "food", .quantity = 0},
 //     {.name = 0, .quantity = 0},
 // };
 
+/// \brief egg belonging to a team and with a life
 struct egg_s{
     char *team;
     int life;
 };
 typedef struct egg_s egg_t;
 
+/// \brief player
 struct player_s {
     int x;
     int y;
@@ -84,6 +92,7 @@ struct player_s {
 };
 typedef struct player_s player_t;
 
+/// \brief tile
 struct tile_s {
     int x;
     int y;
@@ -92,6 +101,7 @@ struct tile_s {
 };
 typedef struct tile_s tile_t;
 
+/// \brief data
 struct data_s {
     player_t *players;
     tile_t *tiles;

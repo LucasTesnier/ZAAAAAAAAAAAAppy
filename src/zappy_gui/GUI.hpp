@@ -28,8 +28,11 @@ class GUI {
     void displayGUI();
    protected:
    private:
+    /// \brief width of the map
     size_t _width;
+    /// \brief height of the map
     size_t _height;
+    /// \brief sfml window
     sf::RenderWindow _window;
 };
 }  // namespace gui
