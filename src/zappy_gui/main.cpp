@@ -5,7 +5,7 @@
 ** main
 */
 
-#include "global.h"
+#include "data_game.h"
 #include "GameInfo.hpp"
 #include <exception>
 #include <iostream>
