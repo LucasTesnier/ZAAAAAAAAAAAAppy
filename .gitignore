@@ -53,3 +53,6 @@ dkms.conf
 
 # VisualStudioCode config
 .vscode
+
+# build of CMake
+build/
