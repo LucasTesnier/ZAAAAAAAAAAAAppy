@@ -5,6 +5,8 @@
 ** GameInfo
 */
 
+/// \file Game Info class
+
 #ifndef GAMEINFO_HPP_
 #define GAMEINFO_HPP_
 

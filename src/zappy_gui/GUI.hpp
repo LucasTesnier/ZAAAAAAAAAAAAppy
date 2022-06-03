@@ -5,11 +5,15 @@
 ** GUI
 */
 
+/// \file GUI class
+
 #ifndef GUI_HPP_
 #define GUI_HPP_
 
 #include <SFML/Graphics.hpp>
+#include "data_game.h"
 #include <string>
+#include <vector>
 
 namespace gui {
 class GUI {
@@ -34,6 +38,8 @@ class GUI {
     size_t _height;
     /// \brief sfml window
     sf::RenderWindow _window;
+    /// \brief vector of player
+    data_t data;
 };
 }  // namespace gui
 

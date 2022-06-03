@@ -5,6 +5,8 @@
 ** GUI
 */
 
+/// \file GUI class functions
+
 #include "GUI.hpp"
 
 gui::GUI::GUI(size_t width, size_t height) : _width(width), _height(height)

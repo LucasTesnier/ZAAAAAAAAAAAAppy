@@ -5,6 +5,8 @@
 ** main
 */
 
+/// \file main of GUI
+
 #include "data_game.h"
 #include "GameInfo.hpp"
 #include <exception>

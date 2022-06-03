@@ -5,22 +5,35 @@
 ** enum
 */
 
+
+/// \file data_game : struct and enum shared between server and gui
+
 /// \brief status of the player
 enum player_status_e {
+    /// \brief undifined status
     STATUSUNDEFINED = 0,
-    STANDSTILL,
+    /// \brief stationary status
+    STATIONARY,
+    /// \brief moving status
     MOVING,
+    /// \brief rotating status
     ROTATING,
+    /// \brief incantation status
     INCANTATION,
+    /// \brief laying egg status
     LAYING_EGG,
+    /// \brief taking object status
     TAKE_OBJECT,
+    /// \brief setting object status
     SET_OBJECT,
+    /// \brief dying status
     DYING,
+    /// \brief broadcasting status
     BROADCASTING
 };
 typedef enum player_status_e player_status;
 
-/// \brief level of the player
+/// \brief level of the player from 0 to 8
 enum player_level_e{
     LEVELUNDEFINED = 0,
     LEVEL1,
