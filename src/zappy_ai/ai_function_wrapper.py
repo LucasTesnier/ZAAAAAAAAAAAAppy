@@ -1,4 +1,5 @@
 from ai_DLLib_wrapper import WrapperAI
+import ctypes
 
 class ServerWrapper:
     def __init__(self, libName : str):
@@ -87,3 +88,10 @@ class ServerWrapper:
         except:
             return False
         return True
+
+
+    def ConnectToServer(self, machineName : str, port : int):
+        """ Wrapped Function : Try to connect the AI to the server """
+        c_machineName = ctypes.create_string_buffer(machineName)
+        c_port = ctypes.c_int(port)
+        self.__ConnectToServer(c_machineName, c_port)
