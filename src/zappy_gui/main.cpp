@@ -9,12 +9,9 @@
 
 #include <iostream>
 #include <string>
-#include "Core.hpp"
 
 int main(int ac, char **av)
 {
-    Core core;
-
     if (ac == 2 && (std::string(av[1]) == "-h" || std::string(av[1]) == "--help")) {
         std::cerr << "USAGE: ./zappy_ai -p port -h machine" <<
         std::endl << "\tport\t is the port number" <<std::endl <<
