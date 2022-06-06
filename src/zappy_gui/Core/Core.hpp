@@ -15,8 +15,10 @@
 /// \brief The core of the zappy_gui. It's the most important part of the project.
 class Core {
     public:
+        /// \brief Constructor of the Core.
         Core(int ac, char **av);
         void run();
+        /// \brief Destructor of the Core.
         ~Core();
     private:
         SFML _sfml;

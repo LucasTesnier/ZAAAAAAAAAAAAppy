@@ -5,6 +5,8 @@
 ** SFML
 */
 
+/// \file src/zappy_gui/Core/SFML/SFML.hpp
+
 #ifndef SFML_HPP_
 #define SFML_HPP_
 
@@ -13,9 +15,11 @@
 
 class SFML {
     public:
+        /// \brief Constructor of the SFML.
         SFML();
         void display();
         bool isWorking() const;
+        /// \brief Destructor of the SFML.
         ~SFML();
     private:
         Map map;

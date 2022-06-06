@@ -15,7 +15,9 @@
 
 class Map {
     public:
+        /// \brief Constructor of the Map.
         Map();
+        /// \brief Destructor of the Map.
         ~Map();
         /// \warning Be carefull, this function will remove tiles if the total
         /// size is less than the previous
