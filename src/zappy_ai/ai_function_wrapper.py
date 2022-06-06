@@ -97,9 +97,13 @@ class ServerWrapper:
         self.__ConnectToServer(c_machineName, c_port)
 
 
-    def AskJoinTeam(self, teamName : str):
+    def AskJoinTeam(self, teamName : str) -> None:
         """ Wrapped Function : Try to join a Team """
         c_teamName = ctypes.create_string_buffer(teamName)
         self.__AskJoinTeam(c_teamName)
 
 
+    def GetRepJoinTeam(self) -> int:
+        """ Wrapped Function : Get the response about joining a team """
+        c_value : ctypes.c_int = self.__GetRepJoinTeam()
+        return int(c_value)
