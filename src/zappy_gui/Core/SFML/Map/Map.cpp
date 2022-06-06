@@ -9,16 +9,23 @@
 
 #include "Map.hpp"
 #include <math.h>
+#include <exception>
 
 Map::Map()
 {
-    _shape.setFillColor(sf::Color::Red);
-    _shape.setPosition(500, 500);
-    _shape.setPointCount(4);
-    _shape.setPoint(0, _toIsoProjection(sf::Vector2f({0, 0}), sf::Vector2f({35, 45})));
-    _shape.setPoint(1, _toIsoProjection(sf::Vector2f({100, 0}), sf::Vector2f({35, 45})));
-    _shape.setPoint(2, _toIsoProjection(sf::Vector2f({100, 100}), sf::Vector2f({35, 45})));
-    _shape.setPoint(3, _toIsoProjection(sf::Vector2f({0, 100}), sf::Vector2f({35, 45})));
+}
+
+void Map::setSize(int x, int y)
+{
+    _mapSize.x = x;
+    _mapSize.y = y;
+    _updateTilesVectorSize();
+}
+
+void Map::setSize(sf::Vector2f size)
+{
+    _mapSize = size;
+    _updateTilesVectorSize();
 }
 
 void Map::setWindow(sf::RenderWindow *window)
@@ -28,7 +35,25 @@ void Map::setWindow(sf::RenderWindow *window)
 
 void Map::draw()
 {
-    _window->draw(_shape);
+}
+
+void Map::_updateTilesVectorSize()
+{
+    while (_mapSize.x * _mapSize.y > _tiles.size())
+        _tiles.pop_back();
+    while (_mapSize.x * _mapSize.y < _tiles.size())
+        _tiles.push_back(sf::ConvexShape());
+}
+
+sf::Vector2f Map::_indexToPosition(std::size_t index)
+{
+    sf::Vector2f position(0, 0);
+
+    if (index > _mapSize.x * _mapSize.y)
+        throw (std::exception());
+    position.x = index % (int)_mapSize.y;
+    position.y = index / (int)_mapSize.y;
+    return position;
 }
 
 sf::Vector2f Map::_toIsoProjection(sf::Vector2f point, sf::Vector2f angles)
@@ -39,18 +64,6 @@ sf::Vector2f Map::_toIsoProjection(sf::Vector2f point, sf::Vector2f angles)
     newPoint.y = sin(angles.y / 2 * M_PI / 180) * point.y + sin(angles.y / 2 * M_PI / 180) * point.x;
     return newPoint;
 }
-
-// sf::Vector2f Map::isoProjection(int x, int y, int z, sf::Vector2f angles)
-
-// {
-//     sf::Vector2f point;
-
-//     point.x = cos((360 - angles.x / 2) * M_PI / 180) *
-//     x - cos(angles.x / 2 * M_PI / 180) * y;
-//     point.y = sin(angles.y / 2 * M_PI / 180) * y +
-//     sin(angles.y / 2 * M_PI / 180) * x - z;
-//     return (point);
-// }
 
 Map::~Map()
 {
