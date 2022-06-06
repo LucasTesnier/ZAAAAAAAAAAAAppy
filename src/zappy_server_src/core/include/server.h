@@ -18,6 +18,9 @@
     /// \brief Return value when operation failed
     #define FAILED 84
 
+/// Pointer to the server state for sigint handle
+extern volatile bool *server_state;
+
 ///
 /// \brief List of all the different client types
 ///

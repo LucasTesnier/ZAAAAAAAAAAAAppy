@@ -21,3 +21,11 @@ zappy_server_t *create_new_server(long port)
         return NULL;
     return new_server;
 }
+
+void destroy_zappy_server(zappy_server_t *server)
+{
+    if (server->network_server)
+        free(server->network_server);
+    if (server->network_server)
+        free(server);
+}

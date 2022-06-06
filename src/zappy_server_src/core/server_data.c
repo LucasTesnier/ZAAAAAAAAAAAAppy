@@ -80,5 +80,6 @@ void destroy_server_data(server_data_t *server_data)
     for (size_t i = 0; i < server_data->active_player_n; i++)
         free(server_data->active_players[i]);
     free(server_data->active_players);
+    destroy_zappy_server(server_data->server);
     free(server_data);
 }

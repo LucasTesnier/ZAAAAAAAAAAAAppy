@@ -29,4 +29,8 @@ typedef struct zappy_server_s {
 /// \return The newly created server
 zappy_server_t *create_new_server(long port);
 
+/// \brief Destroy a zappy server
+/// \param server Zappy server to destroy
+void destroy_zappy_server(zappy_server_t *server);
+
 #endif /* MY_ZAPPY_SERVER_H */
