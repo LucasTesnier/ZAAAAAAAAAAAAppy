@@ -2,7 +2,7 @@
 
 import sys
 import argparse
-from ai_function_wrapper import WrapperAI
+from ai_DLLib_wrapper import WrapperAI
 
 def displayHelp() -> None:
     """ Display the Usage of the Zappy AI """
