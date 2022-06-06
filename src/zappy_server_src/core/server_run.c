@@ -8,6 +8,7 @@
 /// \file src/zappy_server_src/core/server_run.c
 
 #include "server.h"
+#include "fd_set_manage.h"
 #include <signal.h>
 
 volatile bool *server_state = NULL;
@@ -33,6 +34,35 @@ int server_run(int ac, char **av)
     return SUCCESS;
 }
 
+/// \brief Get the player list by peer object
+/// \param server_data Server data info
+/// \param peer Peer to match
+/// \return player_list_t* player list matched, NULL otherwise
+static player_list_t *get_player_list_by_peer(server_data_t *server_data,
+peer_t *peer)
+{
+    for (size_t i = 0; i < server_data->active_player_n; i++)
+        if (server_data->active_players[i]->player_peer == peer)
+            return server_data->active_players[i];
+    return NULL;
+}
+
+/// \brief Cross all the peer_t list and get pending read
+/// \param server_data Server data
+static void process_command_inspection(server_data_t *server_data)
+{
+    tcp_server_t *srv = server_data->server->network_server;
+    peer_t *tmp = NULL;
+
+    CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
+        if (tmp->pending_read == true) {
+            printf("Client tell this : %s", fetch_message(tmp));
+            get_player_list_by_peer(server_data, tmp);
+            //get_user_list_by_peer(server_data, tmp), server_data);
+        }
+    }
+}
+
 void server_loop(server_data_t *server_data)
 {
     tcp_server_t *network_server = server_data->server->network_server;
@@ -44,7 +74,7 @@ void server_loop(server_data_t *server_data)
             break;
         if (server_manage_fd_update(network_server))
             server_add_player(server_data);
-        //process_command_inspection(server_data);
+        process_command_inspection(server_data);
         remove_disconnected_player(server_data, TO_LOGOUT);
         server_fill_fd_sets(network_server);
     }
