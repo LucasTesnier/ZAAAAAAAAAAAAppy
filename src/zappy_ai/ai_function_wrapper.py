@@ -1,5 +1,4 @@
 import ctypes
-import sys
 import os
 from _ctypes import dlopen
 from _ctypes import dlsym
