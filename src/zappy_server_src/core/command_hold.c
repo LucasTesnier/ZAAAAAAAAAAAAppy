@@ -12,19 +12,19 @@
 
 /// List of all the ai command
 static const command_data_t ai_command_list[2] = {
-    {"/logout", NULL, NULL},
+    {"/logout", NULL, &command_logout},
     {NULL, NULL, NULL}
 };
 
 /// List of all the gui command
 static const command_data_t gui_command_list[2] = {
-    {"/logout", NULL, NULL},
+    {"/logout", NULL, &command_logout},
     {NULL, NULL, NULL}
 };
 
 /// List of all the unknown command
 static const command_data_t unknown_command_list[2] = {
-    {"/login", "Args", NULL},
+    {"/login", "Args", &command_login},
     {NULL, NULL, NULL}
 };
 
@@ -115,6 +115,10 @@ static bool find_unknown_command(command_data_t *command, char *cmd)
     return false;
 }
 
+/// \brief Parse and match the given command to a existing one
+/// \param command Command to parse
+/// \param player_info Player informations
+/// \return command_data_t* Newly created command data
 static command_data_t *find_command_data(char *command,
 player_list_t *player_info)
 {
@@ -141,14 +145,14 @@ server_data_t *server_data)
 {
     command_data_t *command_data = NULL;
 
-    command[strlen(command)] = '\0';
+    command[strlen(command) - 2] = '\0';
     command_data = find_command_data(command, player_info);
-    free(command);
-    printf("HERE\n");
-    if (command_data == NULL)
+    if (command_data == NULL) {
+        free(command);
         return;
-    printf("Why not :) %s\n", command_data->name);
-    (void) server_data;
-    /// EXECUTE THE COMMAND
+    }
+    if (!command_data->ptr(command_data->arg, player_info, server_data))
+        printf("INTERNAL ERROR.\n"); /// TO REPLACE WITH PEER WRITTING
+    free(command);
     free(command_data);
 }

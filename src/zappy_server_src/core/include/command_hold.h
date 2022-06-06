@@ -30,4 +30,20 @@ typedef struct command_data_s {
 void compute_command(char *command, player_list_t *player_info,
 server_data_t *server_data);
 
+/// \brief Command for disconnection
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Serveur informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_logout(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief Command for login
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Serveur informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_login(char *arg, player_list_t *player, server_data_t *serv);
+
 #endif /* !COMMAND_H_ */

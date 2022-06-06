@@ -8,6 +8,7 @@ set (SRC
     ${SRC_ROOT}/server_data.c
     ${SRC_ROOT}/my_zappy_server.c
     ${SRC_ROOT}/command_hold.c
+    ${SRC_ROOT}/auth_command.c
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h
