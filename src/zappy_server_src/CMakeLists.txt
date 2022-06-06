@@ -18,5 +18,9 @@ target_link_libraries(${TARGET}
     PUBLIC ${TARGET}_core
 )
 
+set_target_properties(${TARGET} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
 add_subdirectory(net_utils)
 add_subdirectory(core)

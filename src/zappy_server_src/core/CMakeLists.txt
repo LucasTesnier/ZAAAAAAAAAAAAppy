@@ -5,8 +5,12 @@ set (TARGET ${PROJECT_NAME}_server_core)
 
 set (SRC
     ${SRC_ROOT}/server_run.c
+    ${SRC_ROOT}/server_data.c
+    ${SRC_ROOT}/my_zappy_server.c
 
     ${INC_ROOT}/entrypoint.h
+    ${INC_ROOT}/my_zappy_server.h
+    ${INC_ROOT}/server.h
 )
 
 add_library(${TARGET} ${SRC})

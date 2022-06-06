@@ -5,6 +5,8 @@
 ** entrypoint
 */
 
+/// \file src/zappy_server_src/core/include/entrypoint.h
+
 #ifndef ENTRYPOINT_H_
     #define ENTRYPOINT_H_
 
