@@ -5,12 +5,6 @@
 ** Interface
 */
 
+/// \file src/zappy_gui/Core/Interface/Interface.cpp
+
 #include "Interface.hpp"
-
-Interface::Interface()
-{
-}
-
-Interface::~Interface()
-{
-}

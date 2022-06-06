@@ -5,12 +5,6 @@
 ** SFML
 */
 
+/// \file src/zappy_gui/Core/SFML/SFML.cpp
+
 #include "SFML.hpp"
-
-SFML::SFML()
-{
-}
-
-SFML::~SFML()
-{
-}

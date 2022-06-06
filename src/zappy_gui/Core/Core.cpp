@@ -8,13 +8,3 @@
 /// \file src/zappy_gui/Core/Core.cpp
 
 #include "Core.hpp"
-
-Core::Core()
-{
-
-}
-
-Core::~Core()
-{
-
-}

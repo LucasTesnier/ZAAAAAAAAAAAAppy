@@ -5,6 +5,8 @@
 ** SFML
 */
 
+/// \file src/zappy_gui/Core/SFML/SFML.hpp
+
 #ifndef SFML_HPP_
 #define SFML_HPP_
 
@@ -12,8 +14,10 @@
 
 class SFML {
     public:
-        SFML();
-        ~SFML();
+        /// \brief Constructor of the SFML.
+        SFML() = default;
+        /// \brief Destructor of the SFML.
+        ~SFML() = default;
 
     protected:
     private:

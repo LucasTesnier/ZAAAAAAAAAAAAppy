@@ -13,8 +13,10 @@
 /// \brief The core of the zappy_gui. It's the most important part of the project.
 class Core {
     public:
-        Core();
-        ~Core();
+        /// \brief Constructor of the Core.
+        Core() = default;
+        /// \brief Destructor of the Core.
+        ~Core() = default;
 };
 
 #endif /* !CORE_HPP_ */

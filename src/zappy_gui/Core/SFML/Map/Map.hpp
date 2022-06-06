@@ -12,8 +12,10 @@
 
 class Map {
     public:
-        Map();
-        ~Map();
+        /// \brief Constructor of the Map.
+        Map() = default;
+        /// \brief Destructor of the Map.
+        ~Map() = default;
 };
 
 #endif /* !MAP_HPP_ */
