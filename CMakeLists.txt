@@ -16,3 +16,5 @@ if (TESTING)
     add_link_options("--coverage" "-fprofile-arcs" "-ftest-coverage")
     add_subdirectory(tests)
 endif()
+
+add_subdirectory(src)
