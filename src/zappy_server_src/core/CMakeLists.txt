@@ -7,10 +7,12 @@ set (SRC
     ${SRC_ROOT}/server_run.c
     ${SRC_ROOT}/server_data.c
     ${SRC_ROOT}/my_zappy_server.c
+    ${SRC_ROOT}/command_hold.c
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h
     ${INC_ROOT}/server.h
+    ${INC_ROOT}/command_hold.h
 )
 
 add_library(${TARGET} ${SRC})

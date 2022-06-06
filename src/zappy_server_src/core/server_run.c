@@ -9,6 +9,7 @@
 
 #include "server.h"
 #include "fd_set_manage.h"
+#include "command_hold.h"
 #include <signal.h>
 
 volatile bool *server_state = NULL;
@@ -56,9 +57,8 @@ static void process_command_inspection(server_data_t *server_data)
 
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
         if (tmp->pending_read == true) {
-            printf("Client tell this : %s", fetch_message(tmp));
-            get_player_list_by_peer(server_data, tmp);
-            //get_user_list_by_peer(server_data, tmp), server_data);
+            compute_command(fetch_message(tmp),
+            get_player_list_by_peer(server_data, tmp), server_data);
         }
     }
 }
