@@ -236,3 +236,10 @@ class ServerWrapper:
         self.__GetRepBroadcastText.restype = ctypes.c_bool
         c_value = self.__GetRepBroadcastText()
         return c_value
+
+    def GetRepConnectNbr(self) -> bool:
+        """ Wrapped Function : Get the reponse of AskConnectNbr() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepConnectNbr.restype = ctypes.c_bool
+        c_value = self.__GetRepConnectNbr()
+        return c_value
