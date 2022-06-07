@@ -264,3 +264,10 @@ class ServerWrapper:
         self.__GetRepTakeObject.restype = ctypes.c_bool
         c_value = self.__GetRepTakeObject()
         return c_value
+
+    def GetRepPlaceObject(self) -> bool:
+        """ Wrapped Function : Get the reponse of AskPlaceObject() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepPlaceObject.restype = ctypes.c_bool
+        c_value = self.__GetRepPlaceObject()
+        return c_value
