@@ -271,3 +271,10 @@ class ServerWrapper:
         self.__GetRepPlaceObject.restype = ctypes.c_bool
         c_value = self.__GetRepPlaceObject()
         return c_value
+
+    def GetRepIncantation(self) -> int:
+        """ Wrapped Function : Get the reponse of AskIncantation() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepIncantation.restype = ctypes.c_int
+        c_value = self.__GetRepIncantation()
+        return c_value
