@@ -201,3 +201,17 @@ class ServerWrapper:
         self.__GetRepForward.restype = ctypes.c_bool
         c_value = self.__GetRepForward()
         return c_value
+
+    def GetRepTurnRight(self) -> bool:
+        """ Wrapped Function : Get the reponse of AskTurnRight() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepTurnRight.restype = ctypes.c_bool
+        c_value = self.__GetRepTurnRight()
+        return c_value
+
+    def GetRepTurnLeft(self) -> bool:
+        """ Wrapped Function : Get the reponse of AskTurnLeft() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepTurnLeft.restype = ctypes.c_bool
+        c_value = self.__GetRepTurnLeft()
+        return c_value
