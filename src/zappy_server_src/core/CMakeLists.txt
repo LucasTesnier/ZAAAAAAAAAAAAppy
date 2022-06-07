@@ -14,6 +14,7 @@ set (SRC
     ${INC_ROOT}/my_zappy_server.h
     ${INC_ROOT}/server.h
     ${INC_ROOT}/command_hold.h
+    ${INC_ROOT}/rcodes.h
 )
 
 add_library(${TARGET} ${SRC})

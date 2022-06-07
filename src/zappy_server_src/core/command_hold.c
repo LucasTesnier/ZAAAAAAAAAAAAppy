@@ -9,6 +9,7 @@
 
 #include "server.h"
 #include "command_hold.h"
+#include "rcodes.h"
 
 /// List of all the ai command
 static const command_data_t ai_command_list[2] = {
@@ -148,11 +149,12 @@ server_data_t *server_data)
     command[strlen(command) - 2] = '\0';
     command_data = find_command_data(command, player_info);
     if (command_data == NULL) {
+        print_retcode(501, command, player_info->player_peer, false);
         free(command);
         return;
     }
     if (!command_data->ptr(command_data->arg, player_info, server_data))
-        printf("INTERNAL ERROR.\n"); /// TO REPLACE WITH PEER WRITTING
+        print_retcode(502, command, player_info->player_peer, false);
     free(command);
     free(command_data);
 }
