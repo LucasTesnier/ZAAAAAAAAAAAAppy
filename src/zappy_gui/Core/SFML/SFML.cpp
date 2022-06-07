@@ -18,16 +18,24 @@ SFML::SFML()
     _window->setFramerateLimit(60);
     _isWorking = true;
     map.setWindow(_window);
+    map.setSize(10, 10);
 }
 
 void SFML::display()
 {
     while (_window->pollEvent(_event)) {
-    if (_event.type == sf::Event::Closed || (_event.type == sf::Event::KeyPressed && _event.key.code == sf::Keyboard::Escape))
-        _window->close();
+        if (_event.type == sf::Event::Closed || (_event.type == sf::Event::KeyPressed && _event.key.code == sf::Keyboard::Escape))
+            _window->close();
+        if (_event.type == sf::Event::KeyPressed) {
+            map.move(_event.key.code);
+            if (_event.key.code == sf::Keyboard::Add)
+                map.setSize(map.getSize().x + 1, map.getSize().y + 1);
+            if (_event.key.code == sf::Keyboard::Subtract)
+                map.setSize(map.getSize().x - 1, map.getSize().y - 1);
+        }
     }
     _isWorking = _window->isOpen();
-    _window->clear();
+    _window->clear(sf::Color(127, 127, 127, 255));
     map.draw();
     _window->display();
 }
