@@ -189,3 +189,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_object = object.encode("UTF-8")
         self.__AskPlaceObject(ctypes.c_char_p(b_object))
+
+    def AskIncantation(self) -> None:
+        """ Wrapped Function : Start an incantation on the client tile """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__AskIncantation()
