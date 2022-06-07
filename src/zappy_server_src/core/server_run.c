@@ -59,7 +59,7 @@ static void process_command_inspection(server_data_t *server_data)
     peer_t *tmp = NULL;
 
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
-        if (tmp->pending_read == true) {
+        if (tmp->pending_read) {
             compute_command(fetch_message(tmp),
             get_player_list_by_peer(server_data, tmp), server_data);
         }
@@ -73,7 +73,6 @@ void server_loop(server_data_t *server_data)
     server_fill_fd_sets(network_server);
     server_state = &server_data->server->state;
     while (server_data->server->state) {
-        printf("NON BLOQUAND YAY\n");
         if (server_wait(network_server) == -1)
             break;
         if (server_manage_fd_update(network_server))

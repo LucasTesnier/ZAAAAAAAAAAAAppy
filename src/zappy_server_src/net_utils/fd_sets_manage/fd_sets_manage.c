@@ -18,7 +18,7 @@ void server_fill_fd_sets(tcp_server_t *srv)
     FD_ZERO(&srv->write_fds);
     FD_ZERO(&srv->err_fds);
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
-        if (!tmp->pending_read)
+        if (tmp->pending_read < 10)
             FD_SET(tmp->sock_fd, &srv->read_fds);
         if (tmp->pending_write)
             FD_SET(tmp->sock_fd, &srv->write_fds);
@@ -34,7 +34,7 @@ bool server_manage_fd_update(tcp_server_t *srv)
         return server_accept_new_client(srv);
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
         if (FD_ISSET(tmp->sock_fd, &srv->read_fds))
-            tmp->pending_read = server_read_client(srv, tmp);
+            server_read_client(srv, tmp);
         if (FD_ISSET(tmp->sock_fd, &srv->write_fds))
             server_write_client(srv, tmp);
         if (FD_ISSET(tmp->sock_fd, &srv->err_fds))

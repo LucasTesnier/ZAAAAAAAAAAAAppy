@@ -23,6 +23,7 @@ bool command_logout(char *arg, player_list_t *player, server_data_t *serv)
         type = "UNKNOWN";
     (void) arg;
     (void) serv;
+    pop_message(player->player_peer);
     return print_retcode(202, type, player->player_peer, true);
 }
 
@@ -42,5 +43,6 @@ bool command_login(char *arg, player_list_t *player, server_data_t *serv)
         return print_retcode(402, arg, player->player_peer, false);
     player->is_auth = true;
     (void) serv;
+    pop_message(player->player_peer);
     return print_retcode(201, type, player->player_peer, true);
 }

@@ -47,4 +47,8 @@ bool client_set_output_buffer(peer_t *tmp, char const *message);
 /// \warning The return pointer is allocated, you must free it
 char *fetch_message(peer_t *peer);
 
+/// \brief Pop the last message from the peer_t::input_buffer
+/// \param peer the peer to pop the message from
+void pop_message(peer_t *peer);
+
 #endif /* FD_SET_MANAGE_H */

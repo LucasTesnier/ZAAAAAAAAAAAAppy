@@ -45,7 +45,7 @@ typedef struct peer_s {
     /// true if the transaction as been started but not finished
     /// false if the transaction has been finished or not started
     /// defaulted to false
-    bool pending_read;
+    int pending_read;
 
     /// Represents the state of an outcoming message
     /// true if the transaction as been started but not finished
@@ -54,7 +54,7 @@ typedef struct peer_s {
     bool pending_write;
 
     /// The buffer for the incoming message
-    char input_buffer[MAX_MSG];
+    char input_buffer[10][MAX_MSG];
 
     /// The buffer for the outcoming message
     char output_buffer[MAX_MSG];

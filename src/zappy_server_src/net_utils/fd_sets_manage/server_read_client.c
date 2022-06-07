@@ -16,8 +16,16 @@ char *fetch_message(peer_t *peer)
         return NULL;
     if (!peer->pending_read)
         return NULL;
-    peer->pending_read = false;
-    return strdup(peer->input_buffer);
+    return strdup(peer->input_buffer[peer->pending_read - 1]);
+}
+
+void pop_message(peer_t *peer)
+{
+    if (!peer)
+        return;
+    if (!peer->pending_read)
+        return;
+    peer->pending_read -= 1;
 }
 
 bool server_read_client(tcp_server_t *srv, peer_t *tmp)
@@ -26,16 +34,18 @@ bool server_read_client(tcp_server_t *srv, peer_t *tmp)
 
     if (!tmp || !srv)
         return false;
-    read_size = read(tmp->sock_fd, tmp->input_buffer, MAX_MSG);
-    if (read_size < 0) {
-        TEAMS_LOG("read");
+    if (tmp->pending_read >= 10)
         return false;
-    }
+    read_size = read(tmp->sock_fd,
+    tmp->input_buffer[tmp->pending_read], MAX_MSG);
+    if (read_size < 0)
+        return false;
     if (read_size == 0) {
         TEAMS_LOG("Client disconnected");
         server_close_client(srv, tmp);
         return false;
     }
-    tmp->input_buffer[read_size] = '\0';
+    tmp->input_buffer[tmp->pending_read][read_size] = '\0';
+    tmp->pending_read += 1;
     return true;
 }

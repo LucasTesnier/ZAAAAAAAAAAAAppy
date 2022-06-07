@@ -162,12 +162,15 @@ server_data_t *server_data)
     command[strlen(command) - 2] = '\0';
     command_data = find_command_data(command, player_info);
     if (command_data == NULL) {
+        pop_message(player_info->player_peer);
         print_retcode(501, command, player_info->player_peer, false);
         free(command);
         return;
     }
-    if (!command_data->ptr(command_data->arg, player_info, server_data))
+    if (!command_data->ptr(command_data->arg, player_info, server_data)) {
         print_retcode(502, command, player_info->player_peer, false);
+        pop_message(player_info->player_peer);
+    }
     free(command);
     free(command_data);
 }
