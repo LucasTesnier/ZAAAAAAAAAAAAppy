@@ -131,3 +131,8 @@ class ServerWrapper:
         self.__GetUnexpectedResponse.restype = ctypes.c_char_p
         c_value = self.__GetUnexpectedResponse()
         return c_value.decode("UTF-8")
+
+    def AskForward(self) -> None:
+        """ Wrapped Function : Ask the server to move the client forward """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__AskForward()
