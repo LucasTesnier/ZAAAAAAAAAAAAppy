@@ -1,5 +1,6 @@
 from ai_DLLib_wrapper import WrapperAI
 import ctypes
+import numpy
 
 class ServerWrapper:
     def __init__(self, libName : str):
@@ -92,18 +93,20 @@ class ServerWrapper:
 
     def ConnectToServer(self, machineName : str, port : int):
         """ Wrapped Function : Try to connect the AI to the server """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         c_machineName = ctypes.create_string_buffer(machineName)
         c_port = ctypes.c_int(port)
         self.__ConnectToServer(c_machineName, c_port)
 
-
     def AskJoinTeam(self, teamName : str) -> None:
         """ Wrapped Function : Try to join a Team """
-        c_teamName = ctypes.create_string_buffer(teamName)
-        self.__AskJoinTeam(c_teamName)
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        b_teamName = teamName.encode("UTF-8")
+        self.__AskJoinTeam(ctypes.c_char_p(b_teamName))
 
-
-    def GetRepJoinTeam(self) -> int:
+    def GetRepJoinTeam(self):
         """ Wrapped Function : Get the response about joining a team """
-        c_value : ctypes.c_int = self.__GetRepJoinTeam()
-        return int(c_value)
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepJoinTeam.restype = ctypes.c_char_p
+        c_value = self.__GetRepJoinTeam()
+        return c_value.decode("UTF-8")
