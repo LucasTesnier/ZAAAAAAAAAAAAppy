@@ -68,7 +68,9 @@ typedef enum game_status_e game_status;
 
 /// \brief ressources of a player or of a tile
 struct ressource_s{
+    /// \brief name of the ressource
     char *name;
+    /// \brief quantity of the ressource
     int quantity;
 };
 typedef struct ressource_s ressource_t;
@@ -86,39 +88,58 @@ typedef struct ressource_s ressource_t;
 
 /// \brief egg belonging to a team and with a life
 struct egg_s{
+    /// \brief team of the egg
     char *team;
+    /// \brief life of the egg
     int life;
 };
 typedef struct egg_s egg_t;
 
 /// \brief player
 struct player_s {
+    /// \brief position x of the player
     int x;
+    /// \brief position y of the player
     int y;
+    /// \brief life of the player
     int life;
+    /// \brief time of a player action
     int action_time;
+    /// \brief status of the player
     player_status status_player;
+    /// \brief inventory of the player
     ressource_t *inventory;
+    /// \brief name of the player team
     char *team_name;
+    /// \brief level of the player
     player_level level;
+    /// \brief orientation of the player
     player_orientation orientation;
 };
 typedef struct player_s player_t;
 
 /// \brief tile
 struct tile_s {
+    /// \brief position x of the tile
     int x;
+    /// \brief position y of the tile
     int y;
+    /// \brief ressources of the tile
     ressource_t *ressources;
+    /// \brief eggs of the tile
     egg_t *eggs;
 };
 typedef struct tile_s tile_t;
 
 /// \brief data
 struct data_s {
+    /// \brief all players of the game
     player_t *players;
+    /// \brief all tiles of the game
     tile_t *tiles;
+    /// \brief status of the game
     game_status status;
+    /// \brief time between the start of the game and now
     int game_time;
 };
 typedef struct data_s data_t;
