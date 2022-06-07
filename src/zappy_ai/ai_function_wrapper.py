@@ -257,3 +257,10 @@ class ServerWrapper:
         self.__GetRepEject.restype = ctypes.c_bool
         c_value = self.__GetRepEject()
         return c_value
+
+    def GetRepTakeObject(self) -> bool:
+        """ Wrapped Function : Get the reponse of AskTakeObject() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepTakeObject.restype = ctypes.c_bool
+        c_value = self.__GetRepTakeObject()
+        return c_value
