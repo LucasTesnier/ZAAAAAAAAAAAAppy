@@ -10,9 +10,9 @@ void toto() { printf("TOTO\n"); }
 void add(int a) { return a + 1;}
 """
 
-class WrapperAI:
+class DLLibWrapper:
     def __init__(self, libraryPath : str = "./libToto.so") -> None:
-        """ Constructor of the WrapperAI Class """
+        """ Constructor of the DLLibWrapper Class """
         self.library : str = libraryPath
         self.libInfo = None
 

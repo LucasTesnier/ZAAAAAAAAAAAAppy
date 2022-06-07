@@ -1,11 +1,11 @@
-from ai_DLLib_wrapper import WrapperAI
+from ai_DLLib_wrapper import DLLibWrapper
 import ctypes
 import numpy
 
 class ServerWrapper:
     def __init__(self, libName : str):
         """ Constructor of the ServerWrapper class """
-        self.DLLibWrapper : WrapperAI = WrapperAI(libName)
+        self.DLLibWrapper : DLLibWrapper = DLLibWrapper(libName)
         self.DLLibWrapper.openLibrary()
 
         """ Private members functions pointer """
