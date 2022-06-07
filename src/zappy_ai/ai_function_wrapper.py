@@ -133,32 +133,32 @@ class ServerWrapper:
         return c_value.decode("UTF-8")
 
     def AskForward(self) -> None:
-        """ Wrapped Function : Ask the server to move the client forward """
+        """ Wrapped Function : Move the client forward """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskForward()
 
     def AskTurnRight(self) -> None:
-        """ Wrapped Function : Ask the server to turn the client to the right """
+        """ Wrapped Function : Turn the client to the right """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskTurnRight()
 
     def AskTurnLeft(self) -> None:
-        """ Wrapped Function : Ask the server to turn the client to the left """
+        """ Wrapped Function : Turn the client to the left """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskTurnLeft()
 
     def AskLook(self) -> None:
-        """ Wrapped Function : Ask the server to Look around for the AI """
+        """ Wrapped Function : Look around the client """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskLook()
 
     def AskInventory(self) -> None:
-        """ Wrapped Function : Ask the server for the AI inventory """
+        """ Wrapped Function : Ask for the client inventory """
         """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskInventory()
 
     def AskBroadcastText(self, message : str) -> None:
-        """ Wrapped Function : Ask the server to broadcast a text """
+        """ Wrapped Function : Broadcast a text """
         """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
         b_message = message.encode("UTF-8")
         self.__AskBroadcastText(ctypes.c_char_p(b_message))
