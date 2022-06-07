@@ -10,7 +10,7 @@
 
 /// \brief status of the player
 enum player_status_e {
-    /// \brief undifined status
+    /// \brief undefined status
     STATUSUNDEFINED = 0,
     /// \brief stationary status
     STATIONARY,
