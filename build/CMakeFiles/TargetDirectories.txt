@@ -1,2 +1,0 @@
-/home/Guyom/TEK2/ZAPPYMIRROR/build/CMakeFiles/rebuild_cache.dir
-/home/Guyom/TEK2/ZAPPYMIRROR/build/CMakeFiles/edit_cache.dir
