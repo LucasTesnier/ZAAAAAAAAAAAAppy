@@ -10,17 +10,21 @@
 
 #include "data_game.h"
 #include "GameInfo.hpp"
+#include "Exception.hpp"
 #include <exception>
 #include <iostream>
 #include <string>
 
+void check_ac(int ac)
+{
+    if (ac != 3)
+        throw gui::ErrorArgs("Wrong number of arguments, Must be only 3.", "main: " + std::to_string(ac));
+}
+
 int main(int ac, char **av)
 {
-    if (ac < 3)
-        std::cerr << "Not enough arguments" << std::endl;
-    if (ac > 3)
-        std::cerr << "Too many arguments" << std::endl;
     try {
+        check_ac(ac);
         std::string machine(av[2]);
         gui::GameInfo info = gui::GameInfo(std::stoi(av[1]), machine);
     } catch (std::exception const &e) {
