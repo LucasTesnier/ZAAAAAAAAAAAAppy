@@ -167,3 +167,8 @@ class ServerWrapper:
         """ Wrapped Function : Ask for the place left on the client's team """
         """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskConnectNbr()
+
+    def AskFork(self) -> None:
+        """ Wrapped Function : Fork the client to lay an egg """
+        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__AskFork()
