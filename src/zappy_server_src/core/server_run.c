@@ -73,6 +73,7 @@ void server_loop(server_data_t *server_data)
     server_fill_fd_sets(network_server);
     server_state = &server_data->server->state;
     while (server_data->server->state) {
+        printf("NON BLOQUAND YAY\n");
         if (server_wait(network_server) == -1)
             break;
         if (server_manage_fd_update(network_server))
