@@ -5,17 +5,14 @@
 ** GUI
 */
 
-/// \file GUI class functions
+/// \file src/zappy_gui/GUI.cpp
+/// \brief GUI class functions
 
 #include "GUI.hpp"
 
 gui::GUI::GUI(size_t width, size_t height) : _width(width), _height(height)
 {
     initWindow();
-}
-
-gui::GUI::~GUI()
-{
 }
 
 void gui::GUI::closeWindow()

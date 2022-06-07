@@ -5,7 +5,8 @@
 ** GUI
 */
 
-/// \file GUI class
+/// \file src/zappy_gui/GUI.hpp
+/// \brief GUI class
 
 #ifndef GUI_HPP_
 #define GUI_HPP_
@@ -18,9 +19,13 @@
 namespace gui {
 class GUI {
    public:
+    /// \brief create a GUI object
+    /// \param width width of the map
+    /// \param height height of the map
     GUI(size_t width, size_t height);
-    ~GUI();
+    ~GUI() = default;
     /// \brief create the window with a name
+    /// \param name name of the SFML window
     void initWindow(std::string const &name = "ZappyGUI");
     /// \brief close the window
     void closeWindow();
@@ -39,7 +44,7 @@ class GUI {
     /// \brief sfml window
     sf::RenderWindow _window;
     /// \brief vector of player
-    data_t data;
+    data_t _data;
 };
 }  // namespace gui
 

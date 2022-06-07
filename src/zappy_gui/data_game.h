@@ -5,8 +5,8 @@
 ** enum
 */
 
-
-/// \file data_game : struct and enum shared between server and gui
+/// \file src/zappy_gui/data_game.h
+/// \brief data_game : struct and enum shared between server and gui
 
 /// \brief status of the player
 enum player_status_e {

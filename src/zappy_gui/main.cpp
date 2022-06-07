@@ -5,7 +5,8 @@
 ** main
 */
 
-/// \file main of GUI
+/// \file src/zappy_gui/main.cpp
+
 
 #include "data_game.h"
 #include "GameInfo.hpp"

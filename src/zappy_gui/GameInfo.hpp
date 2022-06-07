@@ -5,7 +5,8 @@
 ** GameInfo
 */
 
-/// \file Game Info class
+/// \file src/zappy_gui/GameInfo.hpp
+/// \brief Game Info class
 
 #ifndef GAMEINFO_HPP_
 #define GAMEINFO_HPP_

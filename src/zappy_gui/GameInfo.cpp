@@ -5,7 +5,8 @@
 ** GameInfo
 */
 
-/// \file Game Info class functions
+/// \file src/zappy_gui/GameInfo.cpp
+/// \brief Game Info class functions
 
 #include "GameInfo.hpp"
 
