@@ -18,7 +18,7 @@
 void check_ac(int ac)
 {
     if (ac != 3)
-        throw gui::ErrorArgs("Wrong number of arguments, Must be only 3.", "main: " + std::to_string(ac));
+        throw gui::ErrorArgs("Wrong number of arguments, Must be only 2.", "main: " + std::to_string(ac));
 }
 
 int main(int ac, char **av)
