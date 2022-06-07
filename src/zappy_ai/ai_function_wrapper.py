@@ -177,3 +177,9 @@ class ServerWrapper:
         """ Wrapped Function : Eject the other clients of the client's tile """
         """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskEject()
+
+    def AskTakeObject(self, object : str) -> None:
+        """ Wrapped Function : Take an object on the client tile """
+        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        b_object = object.encode("UTF-8")
+        self.__AskTakeObject(ctypes.c_char_p(b_object))
