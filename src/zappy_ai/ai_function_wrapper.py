@@ -154,32 +154,38 @@ class ServerWrapper:
 
     def AskInventory(self) -> None:
         """ Wrapped Function : Ask for the client inventory """
-        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskInventory()
 
     def AskBroadcastText(self, message : str) -> None:
         """ Wrapped Function : Broadcast a text """
-        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_message = message.encode("UTF-8")
         self.__AskBroadcastText(ctypes.c_char_p(b_message))
 
     def AskConnectNbr(self) -> None:
         """ Wrapped Function : Ask for the place left on the client's team """
-        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskConnectNbr()
 
     def AskFork(self) -> None:
         """ Wrapped Function : Fork the client to lay an egg """
-        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskFork()
 
     def AskEject(self) -> None:
         """ Wrapped Function : Eject the other clients of the client's tile """
-        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskEject()
 
     def AskTakeObject(self, object : str) -> None:
         """ Wrapped Function : Take an object on the client tile """
-        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        b_object = object.encode("UTF-8")
+        self.__AskTakeObject(ctypes.c_char_p(b_object))
+
+    def AskPlaceObject(self, object : str) -> None:
+        """ Wrapped Function : Place an object on the client tile """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_object = object.encode("UTF-8")
         self.__AskTakeObject(ctypes.c_char_p(b_object))
