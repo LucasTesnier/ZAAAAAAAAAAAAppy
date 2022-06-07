@@ -194,3 +194,10 @@ class ServerWrapper:
         """ Wrapped Function : Start an incantation on the client tile """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskIncantation()
+
+    def GetRepForward(self) -> bool:
+        """ Wrapped Function : Get the reponse of AskForward() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepForward.restype = ctypes.c_bool
+        c_value = self.__GetRepForward()
+        return c_value
