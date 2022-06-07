@@ -222,3 +222,10 @@ class ServerWrapper:
         self.__GetRepLook.restype = ctypes.c_char_p
         c_value = self.__GetRepLook()
         return c_value.decode("UTF-8")
+
+    def GetRepInventory(self) -> str:
+        """ Wrapped Function : Get the reponse of AskInventory() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepInventory.restype = ctypes.c_char_p
+        c_value = self.__GetRepInventory()
+        return c_value.decode("UTF-8")
