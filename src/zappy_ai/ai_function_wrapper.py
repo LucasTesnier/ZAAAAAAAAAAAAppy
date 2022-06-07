@@ -151,3 +151,14 @@ class ServerWrapper:
         """ Wrapped Function : Ask the server to Look around for the AI """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskLook()
+
+    def AskInventory(self) -> None:
+        """ Wrapped Function : Ask the server for the AI inventory """
+        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__AskInventory()
+
+    def AskBroadcastText(self, message : str) -> None:
+        """ Wrapped Function : Ask the server to broadcast a text """
+        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        b_message = message.encode("UTF-8")
+        self.__AskBroadcastText(ctypes.c_char_p(b_message))
