@@ -172,3 +172,8 @@ class ServerWrapper:
         """ Wrapped Function : Fork the client to lay an egg """
         """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskFork()
+
+    def AskEject(self) -> None:
+        """ Wrapped Function : Eject the other clients of the client's tile """
+        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__AskEject()
