@@ -215,3 +215,10 @@ class ServerWrapper:
         self.__GetRepTurnLeft.restype = ctypes.c_bool
         c_value = self.__GetRepTurnLeft()
         return c_value
+
+    def GetRepLook(self) -> str:
+        """ Wrapped Function : Get the reponse of AskLook() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepLook.restype = ctypes.c_char_p
+        c_value = self.__GetRepLook()
+        return c_value.decode("UTF-8")
