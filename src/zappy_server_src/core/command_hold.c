@@ -12,20 +12,33 @@
 #include "rcodes.h"
 
 /// List of all the ai command
-static const command_data_t ai_command_list[2] = {
+static const command_data_t ai_command_list[] = {
     {"/logout", NULL, &command_logout},
+    {"/move", NULL, NULL},
+    {"/turn", "Args Left Right", NULL},
+    {"/look", NULL, NULL},
+    {"/inventory", NULL, NULL},
+    {"/broadcast", "Args message", NULL},
+    {"/connectnbr", NULL, NULL},
+    {"/fork", NULL, NULL},
+    {"/eject", NULL, NULL},
+    {"/take", "Args type", NULL},
+    {"/place", "Args type", NULL},
+    {"/incantation", NULL, NULL},
+    {"/join", "Args Team", NULL},
     {NULL, NULL, NULL}
 };
 
 /// List of all the gui command
-static const command_data_t gui_command_list[2] = {
+static const command_data_t gui_command_list[] = {
     {"/logout", NULL, &command_logout},
+    {"/restart", "Args config", NULL},
     {NULL, NULL, NULL}
 };
 
 /// List of all the unknown command
-static const command_data_t unknown_command_list[2] = {
-    {"/login", "Args", &command_login},
+static const command_data_t unknown_command_list[] = {
+    {"/login", "Args type", &command_login},
     {NULL, NULL, NULL}
 };
 
