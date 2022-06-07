@@ -188,4 +188,4 @@ class ServerWrapper:
         """ Wrapped Function : Place an object on the client tile """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_object = object.encode("UTF-8")
-        self.__AskTakeObject(ctypes.c_char_p(b_object))
+        self.__AskPlaceObject(ctypes.c_char_p(b_object))
