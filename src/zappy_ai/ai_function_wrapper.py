@@ -229,3 +229,10 @@ class ServerWrapper:
         self.__GetRepInventory.restype = ctypes.c_char_p
         c_value = self.__GetRepInventory()
         return c_value.decode("UTF-8")
+
+    def GetRepBroadcastText(self) -> bool:
+        """ Wrapped Function : Get the reponse of AskBroadcastText() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepBroadcastText.restype = ctypes.c_bool
+        c_value = self.__GetRepBroadcastText()
+        return c_value
