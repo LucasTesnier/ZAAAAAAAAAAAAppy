@@ -136,3 +136,8 @@ class ServerWrapper:
         """ Wrapped Function : Ask the server to move the client forward """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskForward()
+
+    def AskTurnRight(self) -> None:
+        """ Wrapped Function : Ask the server to turn the client to the right """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__AskTurnRight()
