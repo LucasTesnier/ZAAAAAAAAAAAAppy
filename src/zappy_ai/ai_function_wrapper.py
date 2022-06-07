@@ -94,9 +94,9 @@ class ServerWrapper:
     def ConnectToServer(self, machineName : str, port : int):
         """ Wrapped Function : Try to connect the AI to the server """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        c_machineName = ctypes.create_string_buffer(machineName)
+        b_machineName = machineName.encode("UTF-8")
         c_port = ctypes.c_int(port)
-        self.__ConnectToServer(c_machineName, c_port)
+        self.__ConnectToServer(b_machineName, c_port)
 
     def AskJoinTeam(self, teamName : str) -> None:
         """ Wrapped Function : Try to join a Team """
@@ -104,9 +104,16 @@ class ServerWrapper:
         b_teamName = teamName.encode("UTF-8")
         self.__AskJoinTeam(ctypes.c_char_p(b_teamName))
 
-    def GetRepJoinTeam(self):
+    def GetRepJoinTeam(self) -> str:
         """ Wrapped Function : Get the response about joining a team """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__GetRepJoinTeam.restype = ctypes.c_char_p
         c_value = self.__GetRepJoinTeam()
         return c_value.decode("UTF-8")
+
+    def GetResponseState(self) -> bool:
+        """ Wrapped Function : Return true if a response is available, false otherwise """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetResponseState.restype = ctypes.c_bool
+        c_value = self.__GetResponseState()
+        return c_value
