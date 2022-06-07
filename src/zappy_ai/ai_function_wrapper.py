@@ -117,3 +117,17 @@ class ServerWrapper:
         self.__GetResponseState.restype = ctypes.c_bool
         c_value = self.__GetResponseState()
         return c_value
+
+    def GetUnexpectedResponseState(self) -> bool:
+        """ Wrapped Function : Return true if a response is available, false otherwise """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetUnexpectedResponseState.restype = ctypes.c_bool
+        c_value = self.__GetUnexpectedResponseState()
+        return c_value
+
+    def GetUnexpectedResponse(self) -> str:
+        """ Wrapped Function : Return the unexpected message """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetUnexpectedResponse.restype = ctypes.c_char_p
+        c_value = self.__GetUnexpectedResponse()
+        return c_value.decode("UTF-8")
