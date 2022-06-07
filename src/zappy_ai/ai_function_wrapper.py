@@ -162,3 +162,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
         b_message = message.encode("UTF-8")
         self.__AskBroadcastText(ctypes.c_char_p(b_message))
+
+    def AskConnectNbr(self) -> None:
+        """ Wrapped Function : Ask for the place left on the client's team """
+        """ BEWARE : Any use of this function before calling getNen before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__AskConnectNbr()
