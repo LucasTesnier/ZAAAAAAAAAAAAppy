@@ -21,7 +21,8 @@
  *
  */
 
-static const char *look_response = "toto, toto food linemate deraumere sibur mendiane phiras thrystame";
+#include "look_responses.h"
+
 static const char *inventory_response = "food 3000, linemate 100, deraumere 100, sibur 100, mendiane 100, phiras 100, thystame 100";
 static const int new_level = 2;
 
@@ -136,13 +137,33 @@ bool c_interface_get_right_response()
  */
 const char *c_interface_get_look_response()
 {
-    return look_response;
+    int current_level = new_level - 1;
+    switch (current_level) {
+        case 1 :
+            return look_response_level_1;
+        case 2 :
+            return look_response_level_2;
+        case 3 :
+            return look_response_level_3;
+        case 4 :
+            return look_response_level_4;
+        case 5 :
+            return look_response_level_5;
+        case 6 :
+            return look_response_level_6;
+        case 7 :
+            return look_response_level_7;
+        case 8 :
+            return look_response_level_8;
+        default:
+            return NULL;
+    }
 }
 
 /*
  * @brief  : resources seperator ":"
  * @format : "food n, sibur n, phiras n, ..., deraumere 0\n"
- * @return : In this example we can see 3 tiles with one resource of each component
+ * @return : In this example inventory is full of component like 100 for each and 3000 food
  */
 const char *c_interface_get_inventory_response()
 {

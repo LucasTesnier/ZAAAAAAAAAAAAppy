@@ -13,7 +13,7 @@ NAME    =	libmy_temporary.so
 
 LDFLAGS	= -shared -lm
 
-CFLAGS	=	-Wall -Werror -Wextra -Wshadow -fPIC
+CFLAGS	=	-Wall -Werror -Wextra -Wshadow -fPIC -I includes
 
 CC	=	gcc
 
