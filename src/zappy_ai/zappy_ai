@@ -1,17 +1,17 @@
 #!/usr/bin/python3
 
-from ast import Try
 import sys
 import argparse
 
-def displayHelp():
+def displayHelp() -> None:
     """ Display the Usage of the Zappy AI """
     print("USAGE: ./zappy_ai -p port -n name -h machine")
     print("\tport\tis the port number")
     print("\tname\tis the name of the team")
     print("\tmachine\tis the name of the machine; localhost by default")
 
-def needHelp(ac : int, av):
+
+def needHelp(ac : int, av) ->  bool:
     """
     Check the arguments for help
     Return True is flag found, false otherwise
@@ -22,7 +22,7 @@ def needHelp(ac : int, av):
             return True
     return False
 
-def main():
+def main() -> int:
     """ Main Function """
     if needHelp(len(sys.argv), sys.argv):
         displayHelp()
@@ -32,6 +32,8 @@ def main():
     argsParser.add_argument("-n", dest="name", type=str, required=True)
     argsParser.add_argument("-h", dest="machine", type=str, required=False, default="127.0.0.1")
     validArgs = argsParser.parse_args()
+
+    return 0
 
 
 if __name__ == '__main__':
