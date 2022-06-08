@@ -18,6 +18,7 @@
  * mendiane
  * phiras
  * thystame
+ *
  */
 
 static const char *look_response = "toto, toto food linemate deraumere sibur mendiane phiras thrystame";
