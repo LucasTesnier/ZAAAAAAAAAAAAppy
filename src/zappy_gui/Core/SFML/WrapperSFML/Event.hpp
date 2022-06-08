@@ -16,6 +16,7 @@
 /// It will simplify the use of all event from keyboard and mouse button.
 class Event {
     public:
+        /// \brief Constructor of the Event. Set all variables to false or 0;
         Event() : _keyPressed(false), _buttonPressed(false), _altPressed(false), _ctrlPressed(false), _shiftPressed(false), _key(sf::Keyboard::A), _button(sf::Mouse::Left) {};
         inline void keyPressed(sf::Keyboard::Key key = sf::Keyboard::A) {
             _key = key;
@@ -48,6 +49,33 @@ class Event {
         };
         inline void shiftReleased() {
             _shiftPressed = false;
+        };
+        inline bool isKeyPressed() const {
+            return _keyPressed;
+        };
+        inline bool isKeyPressed(sf::Keyboard::Key key) const {
+            return (_keyPressed && key == _key) ? true : false;
+        };
+        inline bool isButtonPressed() const {
+            return _buttonPressed;
+        }
+        inline bool isButtonPressed(sf::Mouse::Button button) const {
+            return (_buttonPressed && button == _button) ? true : false;
+        };
+        inline bool isAltPressed() const {
+            return _altPressed;
+        };
+        inline bool isCtrlPressed() const {
+            return _ctrlPressed;
+        };
+        inline bool isShiftPressed() const {
+            return _shiftPressed;
+        };
+        inline sf::Keyboard::Key getKey() const {
+            return _key;
+        };
+        inline sf::Mouse::Button getButton() const {
+            return _button;
         };
         ~Event() = default;
     private:
