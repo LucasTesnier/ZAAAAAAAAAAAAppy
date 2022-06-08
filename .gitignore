@@ -58,3 +58,9 @@ __pycache__
 # Folders
 build
 .vscode
+build
+graph
+vgcore*
+zappy_server
+zappy_gui
+./zappy_ai
