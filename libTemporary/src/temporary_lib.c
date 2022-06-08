@@ -131,7 +131,7 @@ bool c_interface_get_right_response()
 }
 
 /*
- * @brief  : tiles separator ";" / resources seperator ":"
+ * @brief  : tiles separator "," / resources seperator " "
  * @format : "player, object-on-tile1, ..., object-on-tileP,..."
  * @return : In this example we can see 1 tile with one resource of each component
  */
