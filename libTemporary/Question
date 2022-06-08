@@ -1,9 +1,5 @@
 Dans les fonctions de la lib qui gérent les resources :
 
-    get_inventory_response()        -> Comment on gère les différentes team et les différents membre d'une team ?
-                                    -> Le temps de vie restant a été oublié ?
-
-    c_interface_get_look_response() -> Se mettre d'accord sur le format proposé pour le get_look_response
-                                    -> Format proposé (voir fonction) : "unitsOfTime:nbLinemate:nbDeraumere:nbSibur:nbMendiane:nbPhiras:nbThystame"
+    c_interface_get_look_response() -> changer la rfc car pas trés claire : prendre l'exmple du sujet
 
     c_interface_get_join_response() -> Rien compris aux valeurs de retour [CHAR] / c_int ? ?

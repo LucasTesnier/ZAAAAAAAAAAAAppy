@@ -5,12 +5,23 @@
 ** Created by hjulien,
 */
 
-#include "temporary_lib.h"
 #include <stdbool.h>
 #include <stddef.h>
 
-static const char *look_response = "1:1:1:1:1:1:1;1:1:1:1:1:1:1;1:1:1:1:1:1:1;1:1:1:1:1:1:1";
-static const char *inventory_reponse = "2000:100:100:100:100:100:100:100";
+/*
+ * Resources :
+ *
+ * food
+ * linemate
+ * deraumere
+ * sibur
+ * mendiane
+ * phiras
+ * thystame
+ */
+
+static const char *look_response = "toto, toto food linemate deraumere sibur mendiane phiras thrystame";
+static const char *inventory_response = "food 3000, linemate 100, deraumere 100, sibur 100, mendiane 100, phiras 100, thystame 100";
 static const int new_level = 2;
 
 //------------------------------------------------Python try to connect to the machine and port------------------------------------//
@@ -119,8 +130,8 @@ bool c_interface_get_right_response()
 
 /*
  * @brief  : tiles separator ";" / resources seperator ":"
- * @format : "food:linemate:deraumere:sibur:mendiane:phiras:thystame:"
- * @return : In this example we can see 3 tiles with one resource of each component
+ * @format : "player, object-on-tile1, ..., object-on-tileP,..."
+ * @return : In this example we can see 1 tile with one resource of each component
  */
 const char *c_interface_get_look_response()
 {
@@ -129,12 +140,12 @@ const char *c_interface_get_look_response()
 
 /*
  * @brief  : resources seperator ":"
- * @format : "linemate:deraumere:sibur:mendiane:phiras:thystame:"
+ * @format : "food n, sibur n, phiras n, ..., deraumere 0\n"
  * @return : In this example we can see 3 tiles with one resource of each component
  */
 const char *c_interface_get_inventory_response()
 {
-    return inventory_reponse;
+    return inventory_response;
 }
 
 bool c_interface_get_broadcast_response()
