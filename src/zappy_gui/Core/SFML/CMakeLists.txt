@@ -22,11 +22,4 @@ target_link_libraries(${TARGET}_sfml
 
 add_subdirectory(Map)
 add_subdirectory(Interface)
-
-find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
-
-add_library(wrapper_sfml INTERFACE)
-
-target_link_libraries(wrapper_sfml
-    INTERFACE ${SFML_LIBRARIES}
-)
+add_subdirectory(WrapperSFML)
