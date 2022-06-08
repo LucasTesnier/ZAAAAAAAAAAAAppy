@@ -1,6 +1,6 @@
 from ai_DLLib_wrapper import DLLibWrapper
 import ctypes
-import numpy
+from sys import stderr
 
 class ServerWrapper:
     def __init__(self, libName : str):
@@ -87,6 +87,7 @@ class ServerWrapper:
             self.__GetRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
             self.__GetRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
         except:
+            print("The provided lib doesn't contain all the required funtions.", file=stderr)
             return False
         return True
 
