@@ -10,12 +10,13 @@
 #include "Map.hpp"
 #include <math.h>
 #include <exception>
+#include <iostream>
 
 Map::Map()
 {
     _mapSize = {10, 10};
     _tileSize = {100, 100};
-    _tileOrigin = {-1000, -100};
+    _tileOrigin = {0, 0};
     _rotation = 0;
 }
 
@@ -71,24 +72,57 @@ void Map::_drawRotation0()
     }
 }
 
-void Map::draw()
+void Map::Tile::setStatus(status_e status)
+{
+    _status = status;
+}
+
+void Map::Tile::setColor(sf::Color color)
+{
+    _shape.setFillColor(color);
+}
+
+void Map::selectTile()
+{
+    sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
+
+    for (auto &it : _tiles) {
+        if (it.inTile(mouse)) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+                if (it.isSelected())
+                    it.setStatus(Map::Tile::NONE);
+                else
+                    it.setStatus(Map::Tile::SELECTED);
+                it.setColor(sf::Color::Blue);
+            } else if (!it.isSelected()) {
+                it.setStatus(Map::Tile::HOVER);
+                it.setColor(sf::Color::Red);
+            }
+        } else if (!it.isSelected()) {
+            it.setStatus(Map::Tile::NONE);
+            it.setColor(sf::Color::Green);
+        }
+    }
+}
+
+void Map::draw() const
 {
     for (auto &it : _tiles) {
         _window->draw(it.getConvexShape());
     }
 }
 
-void Map::move(sf::Keyboard::Key key)
+void Map::move(direction_e direction)
 {
     sf::Vector2f move(0, 0);
 
-    if (key == sf::Keyboard::Up || key == sf::Keyboard::Z)
+    if (direction == UP)
         move.y = -10;
-    if (key == sf::Keyboard::Down || key == sf::Keyboard::S)
+    if (direction == DOWN)
         move.y = 10;
-    if (key == sf::Keyboard::Left || key == sf::Keyboard::Q)
+    if (direction == LEFT)
         move.x = -10;
-    if (key == sf::Keyboard::Right || key == sf::Keyboard::D)
+    if (direction == RIGHT)
         move.x = 10;
     if (move.x == 0 && move.y == 0)
         return;
@@ -210,11 +244,37 @@ void Map::Tile::setOrigin(const sf::Vector2f &origin)
     _shape.setOrigin(origin);
 }
 
+bool Map::Tile::inTile(sf::Vector2i mouse)
+{
+    int res = 0;
+    res += _onRight(_shape.getPoint(0) + _shape.getPosition() - _shape.getOrigin(), _shape.getPoint(1) + _shape.getPosition() - _shape.getOrigin(), mouse);
+    res += _onRight(_shape.getPoint(1) + _shape.getPosition() - _shape.getOrigin(), _shape.getPoint(2) + _shape.getPosition() - _shape.getOrigin(), mouse);
+    res += _onRight(_shape.getPoint(2) + _shape.getPosition() - _shape.getOrigin(), _shape.getPoint(3) + _shape.getPosition() - _shape.getOrigin(), mouse);
+    res += _onRight(_shape.getPoint(3) + _shape.getPosition() - _shape.getOrigin(), _shape.getPoint(0) + _shape.getPosition() - _shape.getOrigin(), mouse);
+    if (res >= 4) {
+        _shape.setOutlineThickness(2);
+        return true;
+    }
+    _shape.setOutlineThickness(1);
+    return false;
+}
+
 sf::Vector2f Map::Tile::_toIsoProjection(sf::Vector2f point, sf::Vector2f angles)
 {
-    sf::Vector2f newPoint = {0, 0};
+    sf::Vector2f newPoint __attribute__((unused)) = {0, 0};
 
     newPoint.x = cos((360 - angles.x / 2) * M_PI / 180) * point.x - cos(angles.x / 2 * M_PI / 180) * point.y;
     newPoint.y = sin(angles.y / 2 * M_PI / 180) * point.y + sin(angles.y / 2 * M_PI / 180) * point.x;
     return newPoint;
+}
+
+int Map::Tile::_onRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse)
+{
+    sf::Vector2f vector1 = {point2.x - point1.x, point2.y - point1.y};
+    sf::Vector2f vector2 = {mouse.x - point1.x, mouse.y - point1.y};
+    int res = vector1.x * vector2.y - vector1.y * vector2.x;
+
+    if (res > 0)
+        return 1;
+    return 0;
 }
