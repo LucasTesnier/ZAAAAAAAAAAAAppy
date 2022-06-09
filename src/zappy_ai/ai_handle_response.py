@@ -16,6 +16,17 @@ class Inventory:
     def __fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
         """ Parse the string given in parameter and fill the Inventory object """
+        inventorySplit = inventoryStr.split(", ")
+        try:
+            self.__food = int(inventorySplit[0].split(" ")[1])
+            self.__linemate = int(inventorySplit[1].split(" ")[1])
+            self.__deraumere = int(inventorySplit[2].split(" ")[1])
+            self.__sibur = int(inventorySplit[3].split(" ")[1])
+            self.__mendiane = int(inventorySplit[4].split(" ")[1])
+            self.__phiras = int(inventorySplit[5].split(" ")[1])
+            self.__thysmane = int(inventorySplit[6].split(" ")[1])
+        except ValueError:
+            return False
         return True
 
     def GetFood(self) -> int:
