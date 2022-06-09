@@ -57,6 +57,11 @@ graph
 vgcore*
 zappy_server
 ./zappy_ai
+
+# Clion config
+.idea/
+cmake-build-debug/
+
 # Python Cache
 __pycache__
 
