@@ -35,7 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
-zappy_gui
+
 
 # Debug files
 *.dSYM/
@@ -51,6 +51,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+build
+graph
+vgcore*
+zappy_server
+./zappy_ai
 
 # Clion config
 .idea/
