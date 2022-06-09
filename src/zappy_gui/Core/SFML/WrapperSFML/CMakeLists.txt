@@ -5,11 +5,7 @@ find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
 
 set (TARGET wrapper_sfml)
 
-set (SRC
-    ${INCLUDE_ROOT}/Event.hpp
-)
-
-add_library(${TARGET} INTERFACE ${SRC})
+add_library(${TARGET} INTERFACE)
 
 target_include_directories(${TARGET}
     INTERFACE ${INCLUDE_ROOT}
