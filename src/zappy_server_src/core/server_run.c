@@ -25,11 +25,8 @@ int server_run(int ac, char **av)
 {
     server_data_t *server_data = init_server_data(ac, av);
 
-    if (server_data == NULL) {
-        dprintf(2, "Invalid port, bind failed : %li\n",
-        server_data->arguments->port);
+    if (server_data == NULL)
         return FAILED;
-    }
     signal(SIGINT, sigint_handler);
     server_loop(server_data);
     destroy_server_data(server_data);
