@@ -17,7 +17,7 @@ static bool bind_and_listen_on_socket(tcp_server_t *srv, long port)
 {
     srv->sock_fd = socket(PF_INET, SOCK_STREAM, 0);
     if (srv->sock_fd < 0) {
-        TEAMS_LOG("socket");
+        ZAPPY_LOG("socket");
         return false;
     }
     memset(&srv->self, 0, sizeof(srv->self));
@@ -26,11 +26,11 @@ static bool bind_and_listen_on_socket(tcp_server_t *srv, long port)
     srv->self.sin_addr.s_addr = htonl(INADDR_ANY);
     if (bind(srv->sock_fd, (struct sockaddr *) &srv->self,
         sizeof(struct sockaddr)) < 0) {
-        TEAMS_LOG("bind");
+        ZAPPY_LOG("bind");
         return false;
     }
     if (listen(srv->sock_fd, LISTEN_BACKLOG) < 0) {
-        TEAMS_LOG("listen");
+        ZAPPY_LOG("listen");
         return false;
     }
     return true;
@@ -41,7 +41,7 @@ tcp_server_t *create_tcp_server(long port)
     tcp_server_t *server = malloc(sizeof(tcp_server_t));
 
     if (!server)
-        TEAMS_LOG("malloc");
+        ZAPPY_LOG("malloc");
     server->port = htons(port);
     if (!bind_and_listen_on_socket(server, port)) {
         free(server);

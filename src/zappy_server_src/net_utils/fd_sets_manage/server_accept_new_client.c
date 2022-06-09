@@ -23,12 +23,12 @@ static peer_t *accept_client(tcp_server_t *srv)
         (struct sockaddr *)&client_addr,
         &client_addr_size);
     if (client_fd < 0) {
-        TEAMS_LOG("accept");
+        ZAPPY_LOG("accept");
         return (NULL);
     }
     new_client = new_peer(client_fd, client_addr);
     if (new_client == NULL) {
-        TEAMS_LOG("peer_create");
+        ZAPPY_LOG("peer_create");
         return (NULL);
     }
     FD_SET(client_fd, &srv->read_fds);
@@ -40,7 +40,7 @@ bool server_accept_new_client(tcp_server_t *srv)
     peer_t *new = accept_client(srv);
 
     if (new == NULL) {
-        TEAMS_LOG("Internal Error: could not accept new client.\n");
+        ZAPPY_LOG("Internal Error: could not accept new client.\n");
         return (false);
     }
     CIRCLEQ_INSERT_HEAD(&srv->peers_head, new, peers);

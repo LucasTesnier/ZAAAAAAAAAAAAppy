@@ -41,7 +41,7 @@ bool server_read_client(tcp_server_t *srv, peer_t *tmp)
     if (read_size < 0)
         return false;
     if (read_size == 0) {
-        TEAMS_LOG("Client disconnected");
+        ZAPPY_LOG("Client disconnected");
         server_close_client(srv, tmp);
         return false;
     }
