@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+import sys
+
+sys.path.append('../')
+
+from ai_handle_response import Inventory
+
+def InventoryTest(testStr : str) -> Inventory:
+    """ Main Function """
+    InventoryObject : Inventory = Inventory(testStr)
+    return InventoryObject
+
+Test1 : Inventory = InventoryTest("food 3000, linemate 10, deraumere 12, sibur 100, mendiane 15, phiras 5, thystame 67")
+assert(Test1.GetFood() == 3000 and Test1.GetLinemate() == 10 and Test1.GetDeraumere() == 12 \
+        and Test1.GetSibur() == 100 and Test1.GetMendiane() == 15 and Test1.GetPhiras() == 5 and Test1.GetThysmane() == 67)
+print("Everything is good !!")
