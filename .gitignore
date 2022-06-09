@@ -36,6 +36,7 @@
 *.x86_64
 *.hex
 
+
 # Debug files
 *.dSYM/
 *.su
@@ -55,5 +56,10 @@ build
 graph
 vgcore*
 zappy_server
-zappy_gui
 ./zappy_ai
+# Python Cache
+__pycache__
+
+# Folders
+build
+.vscode
