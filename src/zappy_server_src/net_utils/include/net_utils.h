@@ -95,7 +95,7 @@ typedef struct tcp_server_s {
 
 } tcp_server_t;
 
-/// \brief DO NOT USE THIS FUNCTION, USE THE `TEAMS_LOG` MACRO INSTEAD
+/// \brief DO NOT USE THIS FUNCTION, USE THE `ZAPPY_LOG` MACRO INSTEAD
 static inline void log_error(int line __attribute__((unused)),
     const char *file __attribute__((unused)),
     const char *func __attribute__((unused)),
@@ -108,7 +108,7 @@ static inline void log_error(int line __attribute__((unused)),
 }
 
     /// \brief Simple macro used to log a message
-    #define TEAMS_LOG(msg) \
+    #define ZAPPY_LOG(msg) \
         do {log_error(__LINE__, \
 strrchr(__FILE__, '/') + 1, __func__, msg);} while (0)
 

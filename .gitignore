@@ -35,7 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
-zappy_gui
+
 
 # Debug files
 *.dSYM/
@@ -52,6 +52,17 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+graph
+vgcore*
+zappy_server
+zappy_ai
+zappy_gui
+
+# Clion config
+.idea/
+cmake-build-debug/
+
+
 # Python Cache
 __pycache__
 
@@ -61,6 +72,3 @@ build
 build
 graph
 vgcore*
-zappy_server
-zappy_gui
-./zappy_ai

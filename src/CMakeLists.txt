@@ -1,3 +1,3 @@
 add_subdirectory(zappy_ai_src)
-add_subdirectory(zappy_gui_src)
+add_subdirectory(zappy_gui)
 add_subdirectory(zappy_server_src)

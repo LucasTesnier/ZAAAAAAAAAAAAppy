@@ -28,15 +28,15 @@ bool server_write_client(tcp_server_t *srv, peer_t *tmp)
     if (!srv || !tmp)
         return (false);
     if ((msg_size = strlen(tmp->output_buffer)) <= 0) {
-        TEAMS_LOG("Internal Error: empty output buffer.\n");
+        ZAPPY_LOG("Internal Error: empty output buffer.\n");
         return (false);
     }
     if ((write_size = write(tmp->sock_fd, tmp->output_buffer, msg_size)) < 0) {
-        TEAMS_LOG("write\n");
+        ZAPPY_LOG("write\n");
         return (false);
     }
     if (write_size != (ssize_t)msg_size) {
-        TEAMS_LOG("Internal Error: could not write all the message.\n");
+        ZAPPY_LOG("Internal Error: could not write all the message.\n");
         return (false);
     }
     tmp->pending_write = false;

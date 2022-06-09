@@ -21,7 +21,7 @@ int server_wait(tcp_server_t *srv)
         &srv->write_fds,
         &srv->err_fds,
         &time) == -1) {
-        TEAMS_LOG("select");
+        ZAPPY_LOG("select");
         return (-1);
     }
     return (0);
