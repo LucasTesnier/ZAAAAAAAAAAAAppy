@@ -10,7 +10,7 @@
 
 /// \brief status of the player
 enum player_status_e {
-    /// \brief undifined status
+    /// \brief undefined status
     STATUSUNDEFINED = 0,
     /// \brief stationary status
     STATIONARY,
@@ -68,23 +68,15 @@ typedef enum game_status_e game_status;
 
 /// \brief ressources of a player or of a tile
 struct ressource_s{
-    /// \brief name of the ressource
-    char *name;
-    /// \brief quantity of the ressource
-    int quantity;
+    int food;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
 };
 typedef struct ressource_s ressource_t;
-
-// static const ressource_t ressources[] = {
-//     {.name = "linemate", .quantity = 0},
-//     {.name = "deraumere", .quantity = 0},
-//     {.name = "sibur", .quantity = 0},
-//     {.name = "mendiane", .quantity = 0},
-//     {.name = "phiras", .quantity = 0},
-//     {.name = "thystame", .quantity = 0},
-//     {.name = "food", .quantity = 0},
-//     {.name = 0, .quantity = 0},
-// };
 
 /// \brief egg belonging to a team and with a life
 struct egg_s{
@@ -103,14 +95,16 @@ struct player_s {
     int y;
     /// \brief life of the player
     int life;
-    /// \brief time of a player action
+    /// \brief name of the player team
+    char *team_name;
+    /// \brief time of the player action
     int action_time;
+    /// \brief info the the player action
+    char *action_info;
     /// \brief status of the player
     player_status status_player;
     /// \brief inventory of the player
-    ressource_t *inventory;
-    /// \brief name of the player team
-    char *team_name;
+    ressource_t inventory;
     /// \brief level of the player
     player_level level;
     /// \brief orientation of the player
@@ -125,7 +119,7 @@ struct tile_s {
     /// \brief position y of the tile
     int y;
     /// \brief ressources of the tile
-    ressource_t *ressources;
+    ressource_t ressources;
     /// \brief eggs of the tile
     egg_t *eggs;
 };
