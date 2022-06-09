@@ -52,6 +52,10 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Clion config
+.idea/
+cmake-build-debug/
+
 # Python Cache
 __pycache__
 
