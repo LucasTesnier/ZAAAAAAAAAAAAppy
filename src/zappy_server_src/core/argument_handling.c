@@ -13,6 +13,13 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+/// \brief Cross all the args list to detect flags
+/// \param args Argument data structure
+/// \param ac Number of args
+/// \param av List of all the args
+/// \param is_team Is the -n option has been detected ?
+/// \return true When operation succeed
+/// \return false When operation failed
 static bool process_argument_handling(argument_t *args, int ac, char **av,
 bool *is_team)
 {
@@ -37,6 +44,13 @@ bool *is_team)
     return true;
 }
 
+/// \brief Compute the team name list
+/// \param args Argument data structure
+/// \param ac Number of args
+/// \param av List of all the args
+/// \param is_team Is the -n option has been detected ?
+/// \return true When operation succeed
+/// \return false When operation failed
 static bool process_team_list(argument_t *args, int ac, char **av,
 bool is_team)
 {
@@ -61,6 +75,10 @@ bool is_team)
     return true;
 }
 
+/// \brief Check the arguments integrity
+/// \param args Argument data structure
+/// \return true When operation succeed
+/// \return false When operation failed
 static bool process_integrity(argument_t *args)
 {
     if (args->port == 0) {
