@@ -1,5 +1,5 @@
-set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core)
-set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core)
+set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core)
+set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core)
 
 set (TARGET zappy_gui)
 

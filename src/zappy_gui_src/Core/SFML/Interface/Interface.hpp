@@ -5,7 +5,7 @@
 ** Interface
 */
 
-/// \file src/zappy_gui/Core/Interface/Interface.hpp
+/// \file src/zappy_gui_src/Core/Interface/Interface.hpp
 
 #ifndef INTERFACE_HPP_
 #define INTERFACE_HPP_

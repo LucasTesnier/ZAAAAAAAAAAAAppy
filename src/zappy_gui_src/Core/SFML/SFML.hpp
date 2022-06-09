@@ -5,7 +5,7 @@
 ** SFML
 */
 
-/// \file src/zappy_gui/Core/SFML/SFML.hpp
+/// \file src/zappy_gui_src/Core/SFML/SFML.hpp
 
 #ifndef SFML_HPP_
 #define SFML_HPP_

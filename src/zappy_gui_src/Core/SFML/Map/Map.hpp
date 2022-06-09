@@ -5,7 +5,7 @@
 ** Map
 */
 
-/// \file src/zappy_gui/Core/SFML/Map/Map.hpp
+/// \file src/zappy_gui_src/Core/SFML/Map/Map.hpp
 
 #ifndef MAP_HPP_
 #define MAP_HPP_

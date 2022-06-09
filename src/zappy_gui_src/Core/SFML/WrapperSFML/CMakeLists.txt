@@ -1,5 +1,5 @@
-set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core/SFML/WrapperSFML)
-set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core/SFML/WrapperSFML)
+set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/SFML/WrapperSFML)
+set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/SFML/WrapperSFML)
 
 find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
 

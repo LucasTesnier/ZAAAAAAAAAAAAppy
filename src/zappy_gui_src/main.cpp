@@ -5,7 +5,7 @@
 ** main
 */
 
-/// \file src/zappy_gui/main.cpp
+/// \file src/zappy_gui_src/main.cpp
 
 #include "Core.hpp"
 #include <iostream>
@@ -25,12 +25,14 @@ int main(int ac, char **av)
     try {
         core.setup(ac, av);
     } catch (Core::CoreException &e) {
-        std::cout << "Core setup failed" << std::endl;
+        std::cerr << e.what() << std::endl;
+        return (84);
     }
     try {
         core.run();
     } catch (Core::CoreException &e) {
-        std::cout << "Core run failed" << std::endl;
+        std::cerr << e.what() << std::endl;
+        return (84);
     }
     return 0;
 }

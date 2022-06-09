@@ -5,13 +5,14 @@
 ** Core
 */
 
-/// \file src/zappy_gui/Core/Core.cpp
+/// \file src/zappy_gui_src/Core/Core.cpp
 
 #include "Core.hpp"
 
 void Core::run()
 {
-    /// Need to implement game loop
+    while (_sfml.isRunning())
+        _sfml.display();
 }
 
 void Core::_getArgs(int ac, char **av)
@@ -40,4 +41,16 @@ void Core::_getArgs(int ac, char **av)
 void Core::setup(int ac, char **av)
 {
     _getArgs(ac, av);
+}
+
+Core::CoreException::CoreException(std::string title, std::string description)
+{
+    _title = title;
+    _description = description;
+    _what = _title + ": " + _description;
+}
+
+const char *Core::CoreException::what() const noexcept
+{
+    return _what.c_str();
 }
