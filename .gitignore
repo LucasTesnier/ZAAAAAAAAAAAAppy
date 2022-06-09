@@ -35,6 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
+zappy_gui
 
 # Debug files
 *.dSYM/
@@ -54,3 +55,10 @@ dkms.conf
 # Clion config
 .idea/
 cmake-build-debug/
+
+# Python Cache
+__pycache__
+
+# Folders
+build
+.vscode
