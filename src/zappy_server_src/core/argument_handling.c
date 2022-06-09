@@ -16,3 +16,11 @@ argument_t *argument_handling(int ac, char **av)
     (void) av;
     return NULL;
 }
+
+void argument_destroy(argument_t *args)
+{
+    if (!args)
+        return;
+    free(args->team_list);
+    free(args);
+}
