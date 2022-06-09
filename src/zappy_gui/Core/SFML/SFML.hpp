@@ -10,80 +10,40 @@
 #ifndef SFML_HPP_
 #define SFML_HPP_
 
+#include "Event.hpp"
 #include <SFML/Graphics.hpp>
-#include "Map.hpp"
+#include <memory>
 
+/// \brief Class for the SFML. This class is used to display the GUI.
 class SFML {
     public:
+
         /// \brief Constructor of the SFML.
         SFML();
-        void display();
-        bool isWorking() const;
+
         /// \brief Destructor of the SFML.
-        ~SFML();
-        class Event {
-            public:
-                Event();
-                void keyPressed(sf::Keyboard::Key key);
-                void keyReleased();
-                void mousePressed(sf::Mouse::Button button);
-                void mouseReleased();
-                void wheelScroll(float delta);
-                void altPressed();
-                void altReleased();
-                void ctrlPressed();
-                void ctrlReleased();
-                void shiftPressed();
-                void shiftReleased();
-                inline sf::Keyboard::Key getKeyPressed(void) const {
-                    return _key;
-                };
-                inline sf::Mouse::Button getButtonPressed(void) const {
-                    return _button;
-                };
-                inline bool isKeyPressed() const {
-                    return _keyPressed;
-                };
-                inline bool isKeyPressed(sf::Keyboard::Key key) const {
-                    if (key == _key)
-                        return _keyPressed;
-                    return false;
-                };
-                inline bool isButtonPressed() const {
-                    return _mousePressed;
-                };
-                inline bool isButtonPressed(sf::Mouse::Button button) const {
-                    if (_button == button)
-                        return _mousePressed;
-                    return false;
-                };
-                inline bool isAltPressed() const {
-                    return _altPressed;
-                };
-                inline bool isCtrlPressed() const {
-                    return _ctrlPressed;
-                };
-                inline bool isShiftPressed() const {
-                    return _shiftPressed;
-                };
-                ~Event() = default;
-            private:
-                bool _keyPressed;
-                bool _mousePressed;
-                bool _altPressed;
-                bool _ctrlPressed;
-                bool _shiftPressed;
-                bool _wheelScrolled;
-                sf::Keyboard::Key _key;
-                sf::Mouse::Button _button;
-                float _delta;
+        ~SFML() = default;
+
+        /// \brief Return if the SFML is running.
+        /// \return True if the SFML is running, false otherwise.
+        inline bool isRunning() const {
+            return _run;
         };
+
+        /// \brief Display the SFML.
+        void display();
+
     private:
-        Event _event;
-        void _eventHandling();
-        Map map;
-        sf::RenderWindow *_window;
-        bool _isWorking;
+
+        void _getEvent();
+        /// \brief The status of the SFML.
+        bool _run;
+
+        /// \brief SFML event manager.
+        std::shared_ptr<Event> _event;
+
+        /// \brief SFML window.
+        std::shared_ptr<sf::RenderWindow> _window;
 };
 
 #endif /* !SFML_HPP_ */

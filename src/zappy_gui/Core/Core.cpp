@@ -17,7 +17,7 @@ Core::Core(int ac, char **av)
 
 void Core::run()
 {
-    while (_sfml.isWorking()) {
+    while (_sfml.isRunning()) {
         _sfml.display();
     }
 }

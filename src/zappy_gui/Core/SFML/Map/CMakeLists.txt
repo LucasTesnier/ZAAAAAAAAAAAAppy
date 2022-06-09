@@ -6,6 +6,8 @@ set (TARGET zappy_gui_map)
 set (SRC
     ${SRC_ROOT}/Map.cpp
     ${INCLUDE_ROOT}/Map.hpp
+    ${SRC_ROOT}/Tile.cpp
+    ${INCLUDE_ROOT}/Tile.hpp
 )
 
 add_library(${TARGET} ${SRC})
