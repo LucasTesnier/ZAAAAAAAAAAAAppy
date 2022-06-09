@@ -56,6 +56,21 @@ typedef struct player_list_s {
     /// ADD THE GAME DATA OF player HERE
 } player_list_t;
 
+typedef struct argument_s {
+    /// Port of the server
+    long port;
+    /// Width of the map
+    int width;
+    /// Height of the map
+    int height;
+    /// List of all the teams name
+    char **team_list;
+    /// Max client number authorized
+    int client_nb;
+    /// Frequence of time
+    int freq;
+} argument_t;
+
 /// \brief Major data for the server
 typedef struct server_data_s {
     /// Network instance of NetUtils
@@ -64,13 +79,14 @@ typedef struct server_data_s {
     player_list_t **active_players;
     /// Size of the list
     size_t active_player_n;
-    /// ADD ALL THE ARGS HERE
+    /// Arguments list
+    argument_t *arguments;
 } server_data_t;
 
 /// \brief Init the server data structure
 /// \param port Port to setup the serveur
 /// \return server_data_t* Newly created server_data
-server_data_t *init_server_data(long port);
+server_data_t *init_server_data(int ac, char **av);
 
 /// \brief Destroy the server_data
 /// \param server_data Server_data to destroy
