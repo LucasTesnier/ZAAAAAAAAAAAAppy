@@ -120,6 +120,7 @@ struct tile_s {
     int y;
     /// \brief ressources of the tile
     ressource_t ressources;
+    int nb_eggs;
     /// \brief eggs of the tile
     egg_t *eggs;
 };
@@ -127,8 +128,12 @@ typedef struct tile_s tile_t;
 
 /// \brief data
 struct data_s {
+    /// \brief number of player on the game
+    int nb_players;
     /// \brief all players of the game
     player_t *players;
+    /// \brief number of tiles on the game
+    int nb_tiles;
     /// \brief all tiles of the game
     tile_t *tiles;
     /// \brief status of the game
