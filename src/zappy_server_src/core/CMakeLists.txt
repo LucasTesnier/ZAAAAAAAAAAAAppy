@@ -9,12 +9,14 @@ set (SRC
     ${SRC_ROOT}/my_zappy_server.c
     ${SRC_ROOT}/command_hold.c
     ${SRC_ROOT}/auth_command.c
+    ${SRC_ROOT}/scheduler.c
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h
     ${INC_ROOT}/server.h
     ${INC_ROOT}/command_hold.h
     ${INC_ROOT}/rcodes.h
+    ${INC_ROOT}/scheduler/scheduler.h
 )
 
 add_library(${TARGET} ${SRC})
@@ -26,4 +28,5 @@ target_include_directories(${TARGET}
 
 target_link_libraries(${TARGET}
     PRIVATE net_utils
+    PRIVATE uuid
 )
