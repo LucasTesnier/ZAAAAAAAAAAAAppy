@@ -11,6 +11,10 @@ set (SRC
 
 add_library(${TARGET} INTERFACE ${SRC})
 
+target_include_directories(${TARGET}
+    INTERFACE ${INCLUDE_ROOT}
+)
+
 target_link_libraries(${TARGET}
     INTERFACE ${SFML_LIBRARIES}
 )
