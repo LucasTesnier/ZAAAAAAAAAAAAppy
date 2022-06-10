@@ -7,6 +7,7 @@
 
 /// \file src/zappy_gui_src/main.cpp
 
+#include "ZappyGuiException.hpp"
 #include "Core.hpp"
 #include <iostream>
 #include <string>
@@ -28,13 +29,13 @@ int main(int ac, char **av)
         return 84;
     try {
         core.setup(ac, av);
-    } catch (Core::CoreException &e) {
+    } catch (CoreException &e) {
         std::cerr << e.what() << std::endl;
         return 84;
     }
     try {
         core.run();
-    } catch (Core::CoreException &e) {
+    } catch (CoreException &e) {
         std::cerr << e.what() << std::endl;
         return 84;
     }

@@ -10,7 +10,6 @@
 #ifndef CORE_HPP_
 #define CORE_HPP_
 
-#include <exception>
 #include <string>
 #include "SFML.hpp"
 
@@ -20,29 +19,6 @@
 /// \brief The core of the zappy_gui. It's the most important part of the project.
 class Core {
     public:
-        /// \brief Exception for the Core.
-        class CoreException : std::exception {
-            public:
-
-                /// \brief Constructor of the CoreException.
-                /// \param title The title of the exception.
-                /// \param description The description of the exception.
-                CoreException(std::string title = "", std::string description = "");
-
-                /// \brief Destructor of the CoreException.
-                /// \return The exception.
-                const char *what() const noexcept override;
-            private:
-
-                /// \brief The title of the exception.
-                std::string _title;
-
-                /// \brief The description of the exception.
-                std::string _description;
-
-                /// \brief The message of the exception.
-                std::string _what;
-        };
 
         /// \brief Constructor of the Core.
         Core() = default;

@@ -10,6 +10,7 @@
 #include "Core.hpp"
 #include <getopt.h>
 #include <unistd.h>
+#include "ZappyGuiException.hpp"
 
 void Core::run()
 {
@@ -46,16 +47,4 @@ void Core::_getArgs(int ac, char **av)
 void Core::setup(int ac, char **av)
 {
     _getArgs(ac, av);
-}
-
-Core::CoreException::CoreException(std::string title, std::string description)
-{
-    _title = title;
-    _description = description;
-    _what = _title + ": " + _description;
-}
-
-const char *Core::CoreException::what() const noexcept
-{
-    return _what.c_str();
 }

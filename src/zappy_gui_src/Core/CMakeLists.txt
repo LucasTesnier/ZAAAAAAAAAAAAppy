@@ -17,6 +17,7 @@ target_include_directories(${TARGET}_core
 
 target_link_libraries(${TARGET}_core
     PUBLIC zappy_gui_sfml
+    PUBLIC zappy_gui_exception
 )
 
 set_target_properties(${TARGET} PROPERTIES
