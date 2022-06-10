@@ -37,4 +37,7 @@ static inline container_t *new_container(void)
 /// \brief Display a container
 void debug_display_container(container_t *container);
 
+/// \brief Destroy a container
+void delete_container(container_t *container);
+
 #endif /* CONTAINER_H */
