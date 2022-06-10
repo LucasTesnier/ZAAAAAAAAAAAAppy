@@ -64,6 +64,7 @@ typedef struct server_s {
     void (*stop)(struct server_s *);
 } client_net_server_t;
 
+/// \brief DO NOT USE THIS FUNCTION, USE THE `ZAPPY_LOG` MACRO INSTEAD
 static inline void log_error(int line __attribute__((unused)),
     const char *file __attribute__((unused)),
     const char *func __attribute__((unused)),
@@ -71,7 +72,7 @@ static inline void log_error(int line __attribute__((unused)),
 {
     char *errmsg = strerror(errno);
 
-    printf("%s:%d:%s():\n\t%s: %s\n", file, line, func, msg, errmsg);
+    dprintf(2, "%s:%d:%s():\n\t%s: %s\n", file, line, func, msg, errmsg);
 }
 
     /// \brief Simple macro used to log a message
@@ -105,5 +106,10 @@ char *fetch_message(client_net_server_t *server);
 /// \brief Update the mes_équipes client by sending and receiving messages
 /// \param server The mes_équipes client to update
 void update_client(client_net_server_t *server);
+
+/// \brief Utility function to detect if the server fd has been closed
+/// \param server the remote server
+/// \return true if the server fd has been closed, false otherwise
+bool check_for_disconnection(client_net_server_t *server);
 
 #endif /* INCLUDE_UTILS_H */

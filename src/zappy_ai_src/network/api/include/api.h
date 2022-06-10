@@ -35,6 +35,11 @@ bool c_interface_ask_join(char *team_name);
 /// \return false When operation failed
 bool c_interface_get_response_sate(void);
 
+/// \brief Return the state of the network connection
+/// \return true When everything is alright
+/// \return false When the network connexion hase been closed
+bool c_interface_get_network_state(void);
+
 /// \brief Get the response for the connect command
 /// \return true If connection is okay
 /// \return false If connection failed

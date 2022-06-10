@@ -104,7 +104,7 @@ static inline void log_error(int line __attribute__((unused)),
     char *errmsg = strerror(errno);
 
     if (strcmp(errmsg, "Success") == 0)
-        printf("%s:%d:%s():\n\t%s: %s\n", file, line, func, msg, errmsg);
+        dprintf(2, "%s:%d:%s():\n\t%s: %s\n", file, line, func, msg, errmsg);
 }
 
     /// \brief Simple macro used to log a message

@@ -24,6 +24,17 @@ bool c_interface_get_response_sate(void)
     if (resp == NULL)
         return false;
     client_data->current_response = resp;
-    printf("Get response : %s\n", resp);
+    dprintf(2, "Get response : %s\n", resp);
+    return true;
+}
+
+bool c_interface_get_network_state(void)
+{
+    if (client_data == NULL)
+        return false;
+    if (!client_data->current_response)
+        return true;
+    if (!strcmp(client_data->current_response, "close"))
+        return false;
     return true;
 }

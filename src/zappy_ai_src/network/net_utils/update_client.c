@@ -16,7 +16,7 @@
 /// \brief Utility function to detect if the server fd has been closed
 /// \param server the remote server
 /// \return true if the server fd has been closed, false otherwise
-static bool check_for_disconnection(client_net_server_t *server)
+bool check_for_disconnection(client_net_server_t *server)
 {
     if (!(fcntl(server->sock_fd, F_GETFD) != -1 || errno != EBADF)) {
         server->connected = false;
