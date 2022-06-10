@@ -29,7 +29,9 @@ int main(int ac, char **av)
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
         return 84;
     while (1) {
-        c_interface_get_response_sate();
+        if (c_interface_get_response_sate())
+            if (!c_interface_get_connect_to_server_response())
+                break;
     };
     return 0;
 }

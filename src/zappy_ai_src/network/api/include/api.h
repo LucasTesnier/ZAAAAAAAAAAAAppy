@@ -35,4 +35,9 @@ bool c_interface_ask_join(char *team_name);
 /// \return false When operation failed
 bool c_interface_get_response_sate(void);
 
+/// \brief Get the response for the connect command
+/// \return true If connection is okay
+/// \return false If connection failed
+bool c_interface_get_connect_to_server_response(void);
+
 #endif /* !API_H_ */
