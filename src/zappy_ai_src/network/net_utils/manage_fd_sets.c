@@ -5,7 +5,7 @@
 ** manage_fd_sets
 */
 
-/// \file client/client_net_utils/manage_fd_sets.c
+/// \file src/zappy_ai_src/network/net_utils/manage_fd_sets.c
 
 #include "internals.h"
 

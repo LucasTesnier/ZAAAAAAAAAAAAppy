@@ -5,7 +5,7 @@
 ** internals
 */
 
-/// \file client/client_net_utils/include/internals.h
+/// \file src/zappy_ai_src/network/net_utils/include/internals.h
 
 #ifndef INTERNALS_H
     #define INTERNALS_H

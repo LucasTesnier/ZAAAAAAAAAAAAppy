@@ -5,7 +5,7 @@
 ** update_server
 */
 
-/// \file client/client_net_utils/update_server.c
+/// \file src/zappy_ai_src/network/net_utils/update_client.c
 
 #include "client_utils.h"
 #include "internals.h"

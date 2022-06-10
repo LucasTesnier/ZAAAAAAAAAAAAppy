@@ -5,6 +5,8 @@
 ** entrpypoint
 */
 
+/// THIS FILE IS GOING TO BE DELETED. USE IT ONLY FOR DEVELOPMENT
+
 #include "api.h"
 #include <stdlib.h>
 #include <signal.h>

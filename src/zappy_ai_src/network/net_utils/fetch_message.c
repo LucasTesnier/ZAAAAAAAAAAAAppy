@@ -5,7 +5,7 @@
 ** fetch_message
 */
 
-/// \file client/client_net_utils/fetch_message.c
+/// \file src/zappy_ai_src/network/net_utils/fetch_message.c
 
 #include "client_utils.h"
 #include <string.h>
