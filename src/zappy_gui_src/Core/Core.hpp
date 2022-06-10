@@ -14,6 +14,9 @@
 #include <string>
 #include "SFML.hpp"
 
+/// \brief The default value for the machine if it's not specify.
+#define DEFAULT_MACHINE "127.0.0.1"
+
 /// \brief The core of the zappy_gui. It's the most important part of the project.
 class Core {
     public:

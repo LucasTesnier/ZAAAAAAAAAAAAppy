@@ -8,6 +8,8 @@
 /// \file src/zappy_gui_src/Core/Core.cpp
 
 #include "Core.hpp"
+#include <getopt.h>
+#include <unistd.h>
 
 void Core::run()
 {
@@ -17,25 +19,28 @@ void Core::run()
 
 void Core::_getArgs(int ac, char **av)
 {
+    int opt = 0;
+
     if (ac < 3 || ac > 5)
         throw (CoreException("Core setup", "Invalid arguments number."));
-    for (int i = 1; i < ac; i++) {
-        if (std::string(av[i]) == "-p") {
-            if (i + 1 >= ac)
-                throw (CoreException("Core setup", "Flag \"-p\" doesn't have argument."));
-            if (!_port.empty())
-                throw (CoreException("Core setup", "Flag \"-p\" already have argument."));
-            _port = av[i + 1];
-        }
-        if (std::string(av[i]) == "-h") {
-            if (!_machine.empty())
-                throw (CoreException("Core setup", "Flag \"-h\" already have argument."));
-            if (i + 1 >= ac && std::string(av[i + 1]) != "-h")
-                _machine = "127.0.0.1";
-            else
-                _machine = av[i + 1];
+    for (opt = getopt(ac, av, "ph:"); opt != -1; opt = getopt(ac, av, "ph")) {
+        if (optind >= ac)
+            throw (CoreException("Core setup", "Invalid argument"));
+        switch (opt) {
+            case 'p':
+                _port = std::string(av[optind]);
+                break;
+            case 'h':
+                _machine = av[optind];
+                break;
+            default:
+                throw (CoreException("Core seupt", "Invalid argument"));
         }
     }
+    if (_machine.empty())
+        _machine = DEFAULT_MACHINE;
+    if (_port.empty())
+        throw (CoreException("Core setup", "Empty port. Please select port with the flag \"-p PORT\"."));
 }
 
 void Core::setup(int ac, char **av)
