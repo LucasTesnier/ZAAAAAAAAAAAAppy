@@ -14,6 +14,14 @@
     #include <string.h>
     #include <stdlib.h>
 
+/// \brief orientation of the player
+enum player_orientation_e{
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST
+};
+
 /// Reprensents a player
 typedef struct player_s {
     /// Unique player id
@@ -28,6 +36,8 @@ typedef struct player_s {
     /// The player inventory
     container_t *inventory;
 
+    /// The current player orientation, default NORTH
+    enum player_orientation_e orientation;
 } player_t;
 
 static inline player_t *create_player(char *team_name)

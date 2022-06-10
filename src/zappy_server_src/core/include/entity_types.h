@@ -10,10 +10,8 @@
 
     #define ENTITY_PLAYER_TYPE 0
 
-    #define ENTITY_CONTAINER_TYPE 2
+    #define ENTITY_EGG_TYPE 1
 
-    #define ENTITY_EGG_TYPE 4
-
-    #define ENTITY_CELL_TYPE 8
+    #define ENTITY_TILE_TYPE 2
 
 #endif /* ENTITY_TYPES_H */
