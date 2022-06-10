@@ -13,8 +13,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-zappy_client_t *client_data = NULL;
-
 /// \brief Init the client_data structure and network info
 /// \param host Server adress
 /// \param port Port to connect

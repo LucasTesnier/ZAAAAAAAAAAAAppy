@@ -21,8 +21,8 @@ typedef struct zappy_client_s {
     void (*stop)(void);
 } zappy_client_t;
 
-/// Pointer to the client network data
-extern zappy_client_t *client_data;
+/// Pointer to the network data of the client
+static zappy_client_t *client_data = NULL;
 
 /// \brief Stop a connected client and destroy all associated ressources
 void stop_zappy_client(void);
