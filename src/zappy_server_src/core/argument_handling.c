@@ -89,7 +89,7 @@ static bool process_integrity(argument_t *args)
         dprintf(2, "Please give a valid map size.\n");
         return false;
     }
-    if (args->client_nb == 0 || args->client_nb > 8) {
+    if (args->client_nb == 0 || args->client_nb > 6) {
         dprintf(2, "Please give a valid client nb.\n");
         return false;
     }
