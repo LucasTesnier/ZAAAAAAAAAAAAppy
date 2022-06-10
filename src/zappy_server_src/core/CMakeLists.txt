@@ -10,6 +10,7 @@ set (SRC
     ${SRC_ROOT}/command_hold.c
     ${SRC_ROOT}/auth_command.c
     ${SRC_ROOT}/scheduler.c
+    ${SRC_ROOT}/argument_handling.c
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h
@@ -17,6 +18,7 @@ set (SRC
     ${INC_ROOT}/command_hold.h
     ${INC_ROOT}/rcodes.h
     ${INC_ROOT}/scheduler/scheduler.h
+    ${INC_ROOT}/argument_handling.h
 )
 
 add_library(${TARGET} ${SRC})

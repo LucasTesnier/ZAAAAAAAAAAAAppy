@@ -12,8 +12,10 @@
 /// \brief bind the socket to the port
 /// \param srv the server to update
 /// \param port the port to bind
+/// \param size_queue the size of the listen queue
 /// \return true if the bind is successful, false otherwise
-static bool bind_and_listen_on_socket(tcp_server_t *srv, long port)
+static bool bind_and_listen_on_socket(tcp_server_t *srv, long port,
+int size_queue)
 {
     srv->sock_fd = socket(PF_INET, SOCK_STREAM, 0);
     if (srv->sock_fd < 0) {
@@ -29,21 +31,21 @@ static bool bind_and_listen_on_socket(tcp_server_t *srv, long port)
         ZAPPY_LOG("bind");
         return false;
     }
-    if (listen(srv->sock_fd, LISTEN_BACKLOG) < 0) {
+    if (listen(srv->sock_fd, size_queue) < 0) {
         ZAPPY_LOG("listen");
         return false;
     }
     return true;
 }
 
-tcp_server_t *create_tcp_server(long port)
+tcp_server_t *create_tcp_server(long port, int size_queue)
 {
     tcp_server_t *server = malloc(sizeof(tcp_server_t));
 
     if (!server)
         ZAPPY_LOG("malloc");
     server->port = htons(port);
-    if (!bind_and_listen_on_socket(server, port)) {
+    if (!bind_and_listen_on_socket(server, port, size_queue)) {
         free(server);
         return (NULL);
     }
