@@ -25,6 +25,7 @@ typedef struct scheduler_event_s {
     TAILQ_ENTRY(scheduler_event_s) events;
 } scheduler_event_t;
 
+/// Scheduler events list definition
 TAILQ_ENTRY(scheduler_event_s) scheduler_event_head;
 
 typedef struct scheduler_s {
