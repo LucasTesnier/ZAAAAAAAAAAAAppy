@@ -17,8 +17,10 @@ zappy_server_t *create_new_server(long port)
     if (!new_server)
         return NULL;
     new_server->network_server = create_tcp_server(port);
-    if (!new_server->network_server)
+    if (!new_server->network_server) {
+        dprintf(2, "Bind have failed to port :%li.\n", port);
         return NULL;
+    }
     return new_server;
 }
 
