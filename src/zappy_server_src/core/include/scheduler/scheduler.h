@@ -22,6 +22,7 @@ typedef struct scheduler_event_s {
     /// \brief The amount of time to wait before the event is over
     int ticks;
 
+    /// \brief The collection of events
     TAILQ_ENTRY(scheduler_event_s) events;
 } scheduler_event_t;
 
