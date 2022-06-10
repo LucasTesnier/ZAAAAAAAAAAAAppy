@@ -20,7 +20,7 @@ static bool connect_socket(client_net_server_t *srv, long port)
 {
     srv->sock_fd = socket(PF_INET, SOCK_STREAM, 0);
     if (srv->sock_fd < 0) {
-        TEAMS_LOG("socket");
+        ZAPPY_LOG("socket");
         return false;
     }
     srv->srv_addr.sin_family = AF_INET;
@@ -28,7 +28,7 @@ static bool connect_socket(client_net_server_t *srv, long port)
     if (connect(srv->sock_fd,
         (struct sockaddr *)&srv->srv_addr,
         sizeof(srv->srv_addr)) < 0) {
-        TEAMS_LOG("connect\n");
+        ZAPPY_LOG("connect\n");
         return false;
     }
     return true;
@@ -43,7 +43,7 @@ client_net_server_t *create_net_server(const char *ip, long port)
         return NULL;
     pton_return = inet_pton(AF_INET, ip, &new_server->srv_addr.sin_addr);
     if (pton_return <= 0) {
-        TEAMS_LOG("inet_pton: Invalid ip address provided\n");
+        ZAPPY_LOG("inet_pton: Invalid ip address provided\n");
         return NULL;
     }
     if (!connect_socket(new_server, port)) {

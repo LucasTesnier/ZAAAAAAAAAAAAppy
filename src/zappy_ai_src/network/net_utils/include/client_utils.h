@@ -75,7 +75,7 @@ static inline void log_error(int line __attribute__((unused)),
 }
 
     /// \brief Simple macro used to log a message
-    #define TEAMS_LOG(msg) \
+    #define ZAPPY_LOG(msg) \
         do {log_error(__LINE__, \
 strrchr(__FILE__, '/') + 1, __func__, msg);} while (0)
 

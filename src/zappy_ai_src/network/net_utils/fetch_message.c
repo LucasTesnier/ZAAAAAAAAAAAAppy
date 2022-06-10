@@ -21,11 +21,11 @@ char *fetch_message(client_net_server_t *server)
     server->pending_read = false;
     read_size = read(server->sock_fd, server->input_buffer, MAX_MSG);
     if (read_size < 0) {
-        TEAMS_LOG("Internal Server Error: read\n");
+        ZAPPY_LOG("Internal Server Error: read\n");
         return NULL;
     }
     if (read_size == 0) {
-        TEAMS_LOG("Connection to the server lost\n");
+        ZAPPY_LOG("Connection to the server lost\n");
         return NULL;
     }
     server->input_buffer[read_size] = '\0';
