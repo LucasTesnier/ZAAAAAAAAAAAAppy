@@ -5,6 +5,8 @@
 ** scheduler
 */
 
+/// \file src/zappy_server_src/core/include/scheduler/scheduler.h
+
 #ifndef SCHEDULER_H
     #define SCHEDULER_H
 

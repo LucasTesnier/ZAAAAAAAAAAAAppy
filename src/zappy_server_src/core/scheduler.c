@@ -5,8 +5,11 @@
 ** scheduler
 */
 
+/// \file src/zappy_server_src/core/scheduler.c
+
 #include "scheduler/scheduler.h"
 #include <stdlib.h>
+#include <math.h>
 
 scheduler_t *create_scheduler(double freq)
 {
@@ -35,6 +38,7 @@ bool scheduler_has_event(scheduler_t *self, uuid_t uuid)
 bool scheduler_schedule_event(scheduler_t *self, uuid_t uuid, int ticks)
 {
     scheduler_event_t *new_event = NULL;
+
     if (!self)
         return false;
     if (scheduler_has_event(self, uuid))
@@ -55,7 +59,7 @@ void scheduler_update(scheduler_t *self)
     if (!self)
         return;
     TAILQ_FOREACH(tmp, &self->events, events) {
-        tmp->ticks -= (now - self->clock) * self->freq;
+        tmp->ticks -= floor((now - self->clock) * self->freq);
         if (tmp->ticks <= 0) {
             TAILQ_REMOVE(&self->events, tmp, events);
             free(tmp);

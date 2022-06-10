@@ -29,4 +29,5 @@ target_include_directories(${TARGET}
 target_link_libraries(${TARGET}
     PRIVATE net_utils
     PRIVATE uuid
+    PRIVATE m
 )
