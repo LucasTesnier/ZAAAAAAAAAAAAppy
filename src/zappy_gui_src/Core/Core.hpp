@@ -31,6 +31,9 @@ namespace gui {
             void setup(int ac, char **av);
         private:
 
+            /// \brief Resolve the hostname to ip address to connect the client to the server.
+            void _resolveMachineHostname();
+
             /// \brief Get the parameters of the program and set the core with them.
             /// \param ac The number of parameters.
             /// \param av The parameters.

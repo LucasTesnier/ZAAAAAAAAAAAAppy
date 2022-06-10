@@ -7,10 +7,11 @@
 
 /// \file src/zappy_gui_src/Core/Core.cpp
 
+#include "ZappyGuiException.hpp"
 #include "Core.hpp"
 #include <getopt.h>
 #include <unistd.h>
-#include "ZappyGuiException.hpp"
+#include <netdb.h>
 
 using namespace gui;
 
@@ -21,6 +22,14 @@ void Core::run()
 {
     while (_sfml.isRunning())
         _sfml.display();
+}
+
+void Core::_resolveMachineHostname()
+{
+    hostent *host = gethostbyname2(_machine.c_str(), AF_INET);
+
+    if (host)
+        _machine = std::string(host->h_addr_list[0]);
 }
 
 void Core::_getArgs(int ac, char **av)
@@ -40,13 +49,14 @@ void Core::_getArgs(int ac, char **av)
                 _machine = av[optind];
                 break;
             default:
-                throw (CoreException("Core seupt", "Invalid argument"));
+                throw (CoreException("Core setup", "Invalid argument"));
         }
     }
     if (_machine.empty())
         _machine = DEFAULT_MACHINE;
     if (_port.empty())
         throw (CoreException("Core setup", "Empty port. Please select port with the flag \"-p PORT\"."));
+    _resolveMachineHostname();
 }
 
 void Core::setup(int ac, char **av)
