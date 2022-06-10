@@ -7,6 +7,7 @@ set (SRC
     ${SRC_ROOT}/authentification.c
 
     ${INCLUDE_ROOT}/api.h
+    ${INCLUDE_ROOT}/intern_data.h
 )
 
 add_library(${TARGET} ${SRC})
