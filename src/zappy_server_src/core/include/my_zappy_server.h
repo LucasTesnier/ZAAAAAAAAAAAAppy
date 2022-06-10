@@ -26,8 +26,9 @@ typedef struct zappy_server_s {
 
 /// \brief creates a new zappy server
 /// \param port The port the server will listen to
+/// \param size_queue The size of the listen queue
 /// \return The newly created server
-zappy_server_t *create_new_server(long port);
+zappy_server_t *create_new_server(long port, int size_queue);
 
 /// \brief Destroy a zappy server
 /// \param server Zappy server to destroy
