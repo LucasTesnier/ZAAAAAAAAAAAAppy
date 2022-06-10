@@ -11,6 +11,7 @@ set (SRC
     ${SRC_ROOT}/auth_command.c
     ${SRC_ROOT}/argument_handling.c
     ${SRC_ROOT}/container_utils.c
+    ${ENTITY_SRC}
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h
@@ -18,11 +19,20 @@ set (SRC
     ${INC_ROOT}/command_hold.h
     ${INC_ROOT}/rcodes.h
     ${INC_ROOT}/argument_handling.h
-    ${INC_ROOT}/entity.h
     ${INC_ROOT}/container.h
-    ${INC_ROOT}/container_manip.h
-    ${INC_ROOT}/player.h
 )
+
+set (ENTITY_INTERFACE_SRC
+    ${INC_ROOT}/container_manip.h
+    ${INC_ROOT}/entity/entity.h
+    ${INC_ROOT}/entity/player.h
+    ${INC_ROOT}/entity/tile.h
+    ${INC_ROOT}/entity/eggs.h
+)
+
+set (TARGET_ENTITY_INTERFACE ${PROJECT_NAME}_entity_interface)
+
+add_library(${TARGET_ENTITY_INTERFACE} INTERFACE ${ENTITY_INTERFACE_SRC})
 
 add_library(${TARGET} ${SRC})
 
@@ -33,4 +43,5 @@ target_include_directories(${TARGET}
 
 target_link_libraries(${TARGET}
     PRIVATE net_utils
+    PRIVATE ${TARGET_ENTITY_INTERFACE}
 )
