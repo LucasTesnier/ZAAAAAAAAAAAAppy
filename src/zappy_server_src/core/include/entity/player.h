@@ -5,6 +5,8 @@
 ** player
 */
 
+/// \file src/zappy_server/core/include/entity/player.h
+
 #ifndef PLAYER_H
     #define PLAYER_H
 
@@ -13,9 +15,10 @@
     #include <uuid/uuid.h>
     #include <string.h>
     #include <stdlib.h>
+    #include <stdbool.h>
 
 /// \brief orientation of the player
-enum player_orientation_e{
+enum player_orientation_e {
     NORTH,
     SOUTH,
     EAST,
@@ -40,20 +43,17 @@ typedef struct player_s {
     enum player_orientation_e orientation;
 } player_t;
 
-static inline player_t *create_player(char *team_name)
-{
-    player_t *player = (player_t*)malloc(sizeof(player_t));
+/// \brief Creates a new player and associate it with the given team name
+player_t *create_player(char *team_name);
 
-    if (!player)
-        return NULL;
+/// \brief Level up the player
+bool player_level_up(player_t *player);
 
-    memset(player, 0, sizeof(player_t));
-    player->team = strdup(team_name);
-    player->inventory = new_container();
-    CONTAINER_ADD_FOOD(player->inventory, 10);
-    player->level = 1;
-    uuid_generate(player->uuid);
-    return player;
-}
+/// \brief Updates the player orientation
+bool player_set_orientation(player_t *player,
+enum player_orientation_e orientation);
+
+/// \brief Delete the player
+void delete_player(player_t *player);
 
 #endif /* PLAYER_H */

@@ -10,6 +10,7 @@
 
     #include "entity_types.h"
     #include "sys/queue.h"
+    #include <stdbool.h>
 
 /// Represents a generic position in the game
 typedef struct position_s {
@@ -20,7 +21,7 @@ typedef struct position_s {
 /// Represents a generic entity
 typedef struct entity_s {
     /// The entity type, defined in \file entity_types.h
-    unsigned int type;
+    entity_type_t type;
 
     /// The position of the entity
     position_t position;
@@ -34,5 +35,9 @@ typedef struct entity_s {
 
 /// Entity list head
 TAILQ_HEAD(entities_list_s, entity_s);
+
+entity_t *create_entity(unsigned int type, position_t position);
+
+bool entity_set_data(entity_t *entity, void *data);
 
 #endif /* ENTITY_H */

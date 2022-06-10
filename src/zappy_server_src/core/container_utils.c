@@ -22,3 +22,10 @@ void debug_display_container(container_t *container)
     printf("\tthystame: %d\n", container->thystame);
     printf("=====================\n");
 }
+
+void delete_container(container_t *container)
+{
+    if (!container)
+        return;
+    free(container);
+}
