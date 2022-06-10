@@ -161,6 +161,7 @@ server_data_t *server_data)
 
     command[strlen(command) - 2] = '\0';
     command_data = find_command_data(command, player_info);
+    dprintf(2, "Get command : %s\n", command);
     if (command_data == NULL) {
         pop_message(player_info->player_peer);
         print_retcode(501, command, player_info->player_peer, false);

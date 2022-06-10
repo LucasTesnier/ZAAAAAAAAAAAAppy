@@ -24,4 +24,15 @@ bool c_interface_try_to_connect_to_server(char *host, long port);
 /// \return false When operation failed
 bool c_interface_try_to_disconnect_to_server(void);
 
+/// \brief Ask to join a team in the server
+/// \param team_name Name of the team to join
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_join(char *team_name);
+
+/// \brief Return the state of the precedend response of the server
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_get_response_sate(void);
+
 #endif /* !API_H_ */

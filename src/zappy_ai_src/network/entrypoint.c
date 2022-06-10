@@ -28,6 +28,8 @@ int main(int ac, char **av)
     signal(SIGINT, sigint_handler);
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
         return 84;
-    while (1);
+    while (1) {
+        c_interface_get_response_sate();
+    };
     return 0;
 }

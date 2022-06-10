@@ -19,10 +19,13 @@ typedef struct zappy_client_s {
 
     /// Stop a connected client and destroy all associated ressources
     void (*stop)(void);
+
+    /// Current response from the server
+    char *current_response;
 } zappy_client_t;
 
 /// Pointer to the network data of the client
-static zappy_client_t *client_data = NULL;
+extern zappy_client_t *client_data;
 
 /// \brief Stop a connected client and destroy all associated ressources
 void stop_zappy_client(void);
