@@ -55,7 +55,6 @@ int main(void)
     data.tiles[0].eggs[0].life = 0;
     data.tiles[0].eggs[0].team = strdup("lala");
     std::string t;
-    std::cout << "test\n";
     t = pack(data);
     std::cout << t << std::endl;
 }

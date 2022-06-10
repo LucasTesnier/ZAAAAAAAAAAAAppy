@@ -8,6 +8,7 @@
 #include "data_game.h"
 #include <string.h>
 #include <string>
+#include <vector>
 #include <iostream>
 
 ressource_t init_ressources(void)
@@ -53,9 +54,31 @@ tile_t *init_tile(void)
     return t;
 }
 
+std::vector<std::string> stov(const std::string &str, char separator, bool pushEmptyStrings = false)
+    {
+        std::vector<std::string> vector;
+        std::string temp;
+        size_t len = str.size();
+
+        for (size_t i = 0; i < len; i++) {
+            if (str[i] == separator) {
+                if (pushEmptyStrings || !temp.empty()) {
+                    vector.push_back(temp);
+                    temp.clear();
+                }
+            }
+            else
+                temp.push_back(str[i]);
+        }
+        if (pushEmptyStrings || !temp.empty())
+            vector.push_back(temp);
+        return vector;
+    }
+
 data_t unpack(char *data_string)
 {
     data_t data;
+    auto parsed = stov(data_string, '{');
     return data;
 };
 
@@ -66,25 +89,28 @@ std::string pack(data_t data)
     player_t p;
     for (int i = 0; i < data.nb_players; i++) {
         p = data.players[i];
-        packed.append("player{" + std::to_string(p.x) + ';' + std::to_string(p.y) + ';'
+        auto tmp = "player{" + std::to_string(p.x) + ';' + std::to_string(p.y) + ';'
         + std::to_string(p.life) + ';' + std::to_string(p.action_time) + ';'
         + std::to_string(p.status_player) + ";inventory{"
         + std::to_string(p.inventory.food) + ';' + std::to_string(p.inventory.linemate)
         + ';' +std::to_string(p.inventory.deraumere) + ';' + std::to_string(p.inventory.sibur) + ';'
         + std::to_string(p.inventory.mendiane) + ';' + std::to_string(p.inventory.thystame) + ';'
         + std::to_string(p.inventory.phiras) + ';' + std::to_string(p.inventory.thystame)
-        + "};" + p.team_name + ';' + std::to_string(p.level) + ';' + std::to_string(p.orientation) + "}");
+        + "};" + p.team_name + ';' + std::to_string(p.level) + ';' + std::to_string(p.orientation) + "}";
+        packed.append(tmp);
     }
     for (int i = 0; i < data.nb_tiles; i++) {
         t = data.tiles[i];
-        packed.append("tile{" + std::to_string(t.x) + ";" + std::to_string(t.y) + ";"
+        auto tmp = "tile{" + std::to_string(t.x) + ";" + std::to_string(t.y) + ";"
         + "ressources{" + std::to_string(t.ressources.food) + ';' + std::to_string(t.ressources.linemate) + ';'
         + ';' +std::to_string(t.ressources.deraumere) + ';' + std::to_string(t.ressources.sibur) + ';'
         + std::to_string(t.ressources.mendiane) + ';' + std::to_string(t.ressources.thystame) + ';'
         + std::to_string(t.ressources.phiras) + ';' + std::to_string(t.ressources.thystame)
-        + "};");
+        + "};";
+        packed.append(tmp);
         for (int i = 0; i < t.nb_eggs; i++) {
-            packed.append("egg{" + std::to_string(t.eggs[i].life) + ';' + t.eggs[i].team + "};");
+            auto tmp = "egg{" + std::to_string(t.eggs[i].life) + ';' + t.eggs[i].team + "};";
+            packed.append(tmp);
         }
     }
     return packed;
