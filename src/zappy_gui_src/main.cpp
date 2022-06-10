@@ -12,6 +12,8 @@
 #include <iostream>
 #include <string>
 
+using namespace gui;
+
 static int usage(int ac, char **av)
 {
     if (ac == 2 && (std::string(av[1]) == "-h" || std::string(av[1]) == "--help")) {
@@ -26,14 +28,9 @@ int main(int ac, char **av)
     Core core;
 
     if (usage(ac, av) < 0)
-        return 84;
+        return 0;
     try {
         core.setup(ac, av);
-    } catch (CoreException &e) {
-        std::cerr << e.what() << std::endl;
-        return 84;
-    }
-    try {
         core.run();
     } catch (CoreException &e) {
         std::cerr << e.what() << std::endl;

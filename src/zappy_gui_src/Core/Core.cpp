@@ -12,6 +12,11 @@
 #include <unistd.h>
 #include "ZappyGuiException.hpp"
 
+using namespace gui;
+
+/// \brief The default value for the machine if it's not specify.
+static const char *DEFAULT_MACHINE = "localhost";
+
 void Core::run()
 {
     while (_sfml.isRunning())
