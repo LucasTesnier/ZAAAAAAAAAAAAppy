@@ -14,6 +14,7 @@
 server_data_t *init_server_data(int ac, char **av)
 {
     server_data_t *server_data = malloc(sizeof(server_data_t) * 1);
+    int size_queue = 0;
 
     if (server_data == NULL)
         return NULL;
@@ -24,7 +25,10 @@ server_data_t *init_server_data(int ac, char **av)
         return NULL;
     server_data->active_players[0] = NULL;
     server_data->active_player_n = 0;
-    server_data->server = create_new_server(server_data->arguments->port);
+    for (int i = 0; server_data->arguments->team_list[i]; i++)
+        size_queue += server_data->arguments->client_nb;
+    server_data->server = create_new_server(server_data->arguments->port,
+    size_queue);
     if (server_data->server == NULL)
         return NULL;
     server_data->server->state = true;
