@@ -7,6 +7,8 @@
 
 #include "ZappyGuiException.hpp"
 
+using namespace gui;
+
 ZappyGuiException::ZappyGuiException(std::string title, std::string description)
 {
     _title = title;
