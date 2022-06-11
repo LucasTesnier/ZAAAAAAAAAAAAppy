@@ -23,6 +23,7 @@ set (SRC
 )
 
 set (ENTITY_INTERFACE_SRC
+    ${INC_ROOT}/container.h
     ${INC_ROOT}/container_manip.h
     ${INC_ROOT}/entity/entity.h
     ${INC_ROOT}/entity/player.h

@@ -5,6 +5,8 @@
 ** player
 */
 
+/// \file src/zappy_server_src/core/entity/player.c
+
 #include "entity/player.h"
 
 player_t *create_player(char *team_name)
@@ -13,7 +15,6 @@ player_t *create_player(char *team_name)
 
     if (!player)
         return NULL;
-
     memset(player, 0, sizeof(player_t));
     player->team = strdup(team_name);
     player->inventory = new_container();

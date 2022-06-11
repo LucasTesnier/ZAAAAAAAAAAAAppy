@@ -10,12 +10,12 @@
 #ifndef TILE_H
     #define TILE_H
 
-#include "container.h"
-#include "entity.h"
-#include <sys/queue.h>
-#include <stdlib.h>
-#include <uuid/uuid.h>
-#include <stdbool.h>
+    #include "container.h"
+    #include "entity.h"
+    #include <sys/queue.h>
+    #include <stdlib.h>
+    #include <uuid/uuid.h>
+    #include <stdbool.h>
 
 /// Represents a tile from the zappy map
 typedef struct tile_s {

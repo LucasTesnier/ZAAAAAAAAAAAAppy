@@ -36,8 +36,16 @@ typedef struct entity_s {
 /// Entity list head
 TAILQ_HEAD(entities_list_s, entity_s);
 
+/// \brief Create a new entity
+/// \param type the entity typ
+/// \param position the entity position
+/// \return a new entity or NULL if it failed
 entity_t *create_entity(unsigned int type, position_t position);
 
+/// \brief Sets the entity data
+/// \param entity the entity
+/// \param data the entity data
+/// \return true if it succeeded, false otherwise
 bool entity_set_data(entity_t *entity, void *data);
 
 #endif /* ENTITY_H */

@@ -25,14 +25,8 @@ typedef struct container_s {
 } container_t;
 
 /// \brief Create a new container and initialize it with 0
-static inline container_t *new_container(void)
-{
-    container_t *container = (container_t*)malloc(sizeof(container_t));
-
-    if (!container)
-        return NULL;
-    memset(container, 0, sizeof(container_t));
-}
+/// \return a new container or NULL if it failed
+container_t *new_container(void);
 
 /// \brief Display a container
 void debug_display_container(container_t *container);
