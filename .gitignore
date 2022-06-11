@@ -52,11 +52,9 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-build
 graph
 vgcore*
 zappy_server
-./zappy_ai
 zappy_ai
 zappy_gui
 
@@ -64,9 +62,13 @@ zappy_gui
 .idea/
 cmake-build-debug/
 
+
 # Python Cache
 __pycache__
 
 # Folders
 build
 .vscode
+build
+graph
+vgcore*
