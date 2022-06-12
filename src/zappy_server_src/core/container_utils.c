@@ -38,4 +38,5 @@ container_t *new_container(void)
     if (!container)
         return NULL;
     memset(container, 0, sizeof(container_t));
+    return container;
 }
