@@ -9,6 +9,7 @@ set (SRC
     ${SRC_ROOT}/my_zappy_server.c
     ${SRC_ROOT}/command_hold.c
     ${SRC_ROOT}/auth_command.c
+    ${SRC_ROOT}/scheduler.c
     ${SRC_ROOT}/argument_handling.c
     ${SRC_ROOT}/container_utils.c
     ${ENTITY_SRC}
@@ -18,6 +19,7 @@ set (SRC
     ${INC_ROOT}/server.h
     ${INC_ROOT}/command_hold.h
     ${INC_ROOT}/rcodes.h
+    ${INC_ROOT}/scheduler/scheduler.h
     ${INC_ROOT}/argument_handling.h
     ${INC_ROOT}/container.h
 )
@@ -45,4 +47,6 @@ target_include_directories(${TARGET}
 target_link_libraries(${TARGET}
     PRIVATE net_utils
     PRIVATE ${TARGET_ENTITY_INTERFACE}
+    PRIVATE uuid
+    PRIVATE m
 )
