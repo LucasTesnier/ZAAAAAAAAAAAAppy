@@ -10,8 +10,8 @@
 #ifndef EGGS_H
     #define EGGS_H
 
-#include <uuid/uuid.h>
-#include <string.h>
+    #include <uuid/uuid.h>
+    #include <string.h>
 
 /// \brief Represents an egg that will hatch after a given time
 typedef struct egg_s {
@@ -27,6 +27,7 @@ typedef struct egg_s {
 egg_t *create_new_egg(const char *team_name);
 
 /// \brief Delete an egg
+/// \param egg egg to delete the
 void delete_egg(egg_t *egg);
 
 #endif /* EGGS_H */

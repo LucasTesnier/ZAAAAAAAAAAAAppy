@@ -15,12 +15,19 @@
 
 /// Generic type for items storage
 typedef struct container_s {
+    /// The amount of food inside the container
     unsigned int food;
+    /// The amount of linemate inside the container
     unsigned int linemate;
+    /// The amount of deraumere inside the container
     unsigned int deraumere;
+    /// The amount of sibur inside the container
     unsigned int sibur;
+    /// The amount of mendiane inside the container
     unsigned int mendiane;
+    /// The amount of phiras inside the container
     unsigned int phiras;
+    /// The amount of thystame inside the container
     unsigned int thystame;
 } container_t;
 

@@ -12,10 +12,12 @@
 
 /// Enumerates the different types of entities.
 typedef enum entity_type_e {
+    /// The player entity
     ENTITY_PLAYER_TYPE,
+    /// The egg entity
     ENTITY_EGG_TYPE,
+    /// The tile entity
     ENTITY_TILE_TYPE,
-
     /// The number of entity types - Keep last
     ENTITY_TYPE_SIZE
 } entity_type_t;
