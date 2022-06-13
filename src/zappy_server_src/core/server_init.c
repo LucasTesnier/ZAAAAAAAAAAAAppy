@@ -20,12 +20,13 @@
 static bool init_args(server_data_t *server_data, int ac, char **av)
 {
     if (!(server_data->arguments = argument_handling(ac, av)))
-        return NULL;
+        return false;
     server_data->active_players = malloc(sizeof(player_list_t *) * 1);
     if (server_data->active_players == NULL)
-        return NULL;
+        return false;
     server_data->active_players[0] = NULL;
     server_data->active_player_n = 0;
+    return true;
 }
 /// \brief Init the server scheduler, map and inial entities
 /// \param server_data the server data
@@ -35,18 +36,19 @@ static bool init_objects(server_data_t *server_data)
     server_data->map = create_new_map(server_data->arguments->width,
     server_data->arguments->height);
     if (server_data->map == NULL)
-        return NULL;
+        return false;
     if (!(server_data->scheduler = create_scheduler(
         server_data->arguments->freq)))
-        return NULL;
+        return false;
     if (!(server_data->entities = create_entity_wrapper()))
-        return NULL;
+        return false;
     for (int i = 0; i < server_data->arguments->width; i++) {
         for (int j = 0; j < server_data->arguments->height; j++) {
             TAILQ_INSERT_HEAD(server_data->entities->tiles,
             get_tile(server_data->map, i, j), entities);
         }
     }
+    return true;
 }
 
 server_data_t *init_server_data(int ac, char **av)
