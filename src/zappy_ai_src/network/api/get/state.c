@@ -11,6 +11,15 @@
 #include "client_utils.h"
 #include "api.h"
 
+bool c_interface_get_unexpected_response_state(void)
+{
+    if (client_data == NULL || !client_data->current_response)
+        return false;
+    if (get_retcodes().type == UNEXPECTED)
+        return true;
+    return false;
+}
+
 bool c_interface_get_response_sate(void)
 {
     char *resp = NULL;

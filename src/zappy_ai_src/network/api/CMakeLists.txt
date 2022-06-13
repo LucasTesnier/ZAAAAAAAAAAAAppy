@@ -9,6 +9,7 @@ set (SRC
     ${SRC_ROOT}/ask/join.c
 
     ${SRC_ROOT}/get/state.c
+    ${SRC_ROOT}/get/retcode.c
 
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h

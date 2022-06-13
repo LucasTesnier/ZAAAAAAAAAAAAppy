@@ -35,6 +35,11 @@ bool c_interface_ask_join(char *team_name);
 /// \return false When operation failed
 bool c_interface_get_response_sate(void);
 
+/// \brief Get the type of a response. Call after get_response_state
+/// \return true If the response is unexpected
+/// \return false If the response is expected
+bool c_interface_get_unexpected_response_state(void);
+
 /// \brief Return the state of the network connection
 /// \return true When everything is alright
 /// \return false When the network connexion hase been closed
