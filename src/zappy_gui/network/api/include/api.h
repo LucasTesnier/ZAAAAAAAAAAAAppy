@@ -55,4 +55,8 @@ bool c_interface_get_connect_to_server_response(void);
 /// \return false If restart have failed
 bool c_interface_get_restart_response(void);
 
+/// \brief Get the response af an unexpected command
+/// \return The parsed string Donc forget to free it (NULL Otherwise)
+char *c_interface_get_unexpected_response(void);
+
 #endif /* !API_H_ */
