@@ -5,6 +5,8 @@
 ** map
 */
 
+/// \file src/zappy_server/core/include/entity/map.c
+
 #include "map.h"
 #include "entity/entity.h"
 #include "entity/tile.h"
@@ -29,6 +31,8 @@ map_t *create_new_map(int width, int height)
     map->tiles = malloc(sizeof(entity_t *) * height * width);
     if (!map->tiles)
         return NULL;
+    map->height = height;
+    map->width = width;
     for (int i = 0; i < height; i++){
         for (int j = 0; j < width; j++){
             map->tiles[i * width + j] = create_entity(ENTITY_TILE_TYPE,

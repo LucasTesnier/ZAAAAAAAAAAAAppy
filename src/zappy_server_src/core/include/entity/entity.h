@@ -43,11 +43,11 @@ TAILQ_HEAD(entities_list_s, entity_s);
 /// Entity wrapper used at the top level
 typedef struct entity_wrapper_s {
     /// The players list
-    struct entities_list_s *players;
+    struct entities_list_s players;
     /// The eggs list
-    struct entities_list_s *eggs;
+    struct entities_list_s eggs;
     /// The tiles list
-    struct entities_list_s *tiles;
+    struct entities_list_s tiles;
 } entity_wrapper_t;
 
 /// \brief Create a new entity

@@ -24,7 +24,7 @@ const char *team_name)
         return;
     entity->position = pos;
     entity->data = player_data;
-    TAILQ_INSERT_TAIL(wrapper->players, entity, entities);
+    TAILQ_INSERT_TAIL(&wrapper->players, entity, entities);
 }
 
 void entity_wrapper_add_egg(entity_wrapper_t *wrapper, position_t pos,
@@ -37,7 +37,7 @@ const char *team_name)
         return;
     entity->position = pos;
     entity->data = egg_data;
-    TAILQ_INSERT_TAIL(wrapper->eggs, entity, entities);
+    TAILQ_INSERT_TAIL(&wrapper->eggs, entity, entities);
 }
 
 void entity_wrapper_add_tile(entity_wrapper_t *wrapper, position_t pos)
@@ -49,5 +49,5 @@ void entity_wrapper_add_tile(entity_wrapper_t *wrapper, position_t pos)
         return;
     entity->position = pos;
     entity->data = tile_data;
-    TAILQ_INSERT_TAIL(wrapper->tiles, entity, entities);
+    TAILQ_INSERT_TAIL(&wrapper->tiles, entity, entities);
 }

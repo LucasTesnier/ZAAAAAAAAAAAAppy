@@ -44,7 +44,7 @@ static bool init_objects(server_data_t *server_data)
         return false;
     for (int i = 0; i < server_data->arguments->width; i++) {
         for (int j = 0; j < server_data->arguments->height; j++) {
-            TAILQ_INSERT_HEAD(server_data->entities->tiles,
+            TAILQ_INSERT_HEAD(&server_data->entities->tiles,
             get_tile(server_data->map, i, j), entities);
         }
     }

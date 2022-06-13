@@ -21,13 +21,13 @@ void entity_wrapper_remove_entity(entity_wrapper_t *wrapper, entity_t *entity)
         return;
     switch (entity->type) {
         case ENTITY_PLAYER_TYPE:
-            TAILQ_REMOVE(wrapper->players, entity, entities);
+            TAILQ_REMOVE(&wrapper->players, entity, entities);
             break;
         case ENTITY_EGG_TYPE:
-            TAILQ_REMOVE(wrapper->eggs, entity, entities);
+            TAILQ_REMOVE(&wrapper->eggs, entity, entities);
             break;
         case ENTITY_TILE_TYPE:
-            TAILQ_REMOVE(wrapper->tiles, entity, entities);
+            TAILQ_REMOVE(&wrapper->tiles, entity, entities);
             break;
         default:
             break;
