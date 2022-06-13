@@ -22,9 +22,6 @@
     #include <unistd.h>
     #include <errno.h>
 
-    /// Defines the maximum connections allowed at the same time on a server
-    #define LISTEN_BACKLOG 50
-
     /// Defines the maximum size of a message
     #define MAX_MSG 55555
 
@@ -124,8 +121,9 @@ void display_clients(struct peers_head *peers_head);
 
 /// \brief Create a TCP server
 /// \param port Port to listen on
+/// \param size_queue The size of the listen queue
 /// \return The tcp server
-tcp_server_t *create_tcp_server(long port);
+tcp_server_t *create_tcp_server(long port, int size_queue);
 
 /// \brief Add a user to the server.
 /// \param srv The server to add the user to.

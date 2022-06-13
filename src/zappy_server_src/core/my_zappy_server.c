@@ -10,15 +10,17 @@
 #include "my_zappy_server.h"
 #include "fd_set_manage.h"
 
-zappy_server_t *create_new_server(long port)
+zappy_server_t *create_new_server(long port, int size_queue)
 {
     zappy_server_t *new_server = malloc(sizeof(zappy_server_t));
 
     if (!new_server)
         return NULL;
-    new_server->network_server = create_tcp_server(port);
-    if (!new_server->network_server)
+    new_server->network_server = create_tcp_server(port, size_queue);
+    if (!new_server->network_server) {
+        dprintf(2, "Bind have failed to port :%li.\n", port);
         return NULL;
+    }
     return new_server;
 }
 

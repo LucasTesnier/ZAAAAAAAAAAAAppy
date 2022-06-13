@@ -23,15 +23,10 @@ void sigint_handler(int var __attribute__((unused)))
 
 int server_run(int ac, char **av)
 {
-    int port = atoi(av[1]);
-    server_data_t *server_data = init_server_data(port);
-    /// TO REFACTO WITH ARGS GESTION
+    server_data_t *server_data = init_server_data(ac, av);
 
-    (void) ac;
-    if (server_data == NULL) {
-        dprintf(2, "Invalid port, bind failed : %i\n", port);
+    if (server_data == NULL)
         return FAILED;
-    }
     signal(SIGINT, sigint_handler);
     server_loop(server_data);
     destroy_server_data(server_data);
