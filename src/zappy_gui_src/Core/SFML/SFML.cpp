@@ -5,7 +5,7 @@
 ** SFML
 */
 
-/// \file src/zappy_gui/Core/SFML/SFML.cpp
+/// \file src/zappy_gui_src/Core/SFML/SFML.cpp
 
 #include "SFML.hpp"
 

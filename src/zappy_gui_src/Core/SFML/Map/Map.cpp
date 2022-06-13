@@ -5,6 +5,6 @@
 ** Map
 */
 
-/// \file src/zappy_gui/Core/SFML/Map/Map.cpp
+/// \file src/zappy_gui_src/Core/SFML/Map/Map.cpp
 
 #include "Map.hpp"

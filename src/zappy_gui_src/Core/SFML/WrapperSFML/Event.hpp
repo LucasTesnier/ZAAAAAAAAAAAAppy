@@ -5,7 +5,7 @@
 ** Event
 */
 
-/// \file src/zappy_gui/Core/SFML/WrapperSFML/Event.hpp
+/// \file src/zappy_gui_src/Core/SFML/WrapperSFML/Event.hpp
 
 #ifndef EVENT_HPP_
 #define EVENT_HPP_

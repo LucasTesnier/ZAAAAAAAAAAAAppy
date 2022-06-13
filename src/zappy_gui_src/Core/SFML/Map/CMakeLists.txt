@@ -1,5 +1,5 @@
-set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core/SFML/Map)
-set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core/SFML/Map)
+set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/SFML/Map)
+set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/SFML/Map)
 
 set (TARGET zappy_gui_map)
 

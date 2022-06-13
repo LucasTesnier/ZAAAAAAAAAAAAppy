@@ -1,5 +1,5 @@
-set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core)
-set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/Core)
+set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core)
+set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core)
 
 set (TARGET zappy_gui)
 
@@ -17,6 +17,7 @@ target_include_directories(${TARGET}_core
 
 target_link_libraries(${TARGET}_core
     PUBLIC zappy_gui_sfml
+    PUBLIC zappy_gui_exception
 )
 
 set_target_properties(${TARGET} PROPERTIES
