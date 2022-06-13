@@ -6,6 +6,7 @@ set (TARGET ${PROJECT_NAME}_server_core)
 set (SRC
     ${SRC_ROOT}/server_run.c
     ${SRC_ROOT}/server_data.c
+    ${SRC_ROOT}/server_init.c
     ${SRC_ROOT}/my_zappy_server.c
     ${SRC_ROOT}/command_hold.c
     ${SRC_ROOT}/auth_command.c
