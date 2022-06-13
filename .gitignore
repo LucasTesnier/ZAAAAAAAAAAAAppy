@@ -56,7 +56,6 @@ graph
 vgcore*
 zappy_server
 zappy_ai
-zappy_gui
 
 # Clion config
 .idea/
