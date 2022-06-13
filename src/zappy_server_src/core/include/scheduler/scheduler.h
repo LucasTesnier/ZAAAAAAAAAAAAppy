@@ -27,7 +27,7 @@ typedef struct scheduler_event_s {
 } scheduler_event_t;
 
 /// Scheduler events list definition
-TAILQ_ENTRY(scheduler_event_s) scheduler_event_head;
+TAILQ_HEAD(scheduler_event_list, scheduler_event_s);
 
 typedef struct scheduler_s {
     /// \brief The clock of the scheduler
@@ -37,7 +37,7 @@ typedef struct scheduler_s {
     double freq;
 
     /// \brief The list of events
-    TAILQ_HEAD(scheduler_event_head, scheduler_event_s) events;
+    struct scheduler_event_list events;
 } scheduler_t;
 
 /// \brief Create a new scheduler with a given frequency
