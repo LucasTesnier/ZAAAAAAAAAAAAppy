@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from sys import stderr
 
 class Inventory:
@@ -57,17 +58,17 @@ class Inventory:
         """ Getter for the thystame """
         return self.__thystame
 
-
+@dataclass
 class Tile:
-    def __init__(self, player : int = 0, linemate : int = 0, deraumere : int = 0, sibur : int = 0, mendiane : int = 0, phiras : int = 0, thystame : int = 0):
-        """ Constructor of the Tile Class """
-        self.player : int = player
-        self.linemate : int = linemate
-        self.deraumere : int = deraumere
-        self.sibur : int = sibur
-        self.mendiane : int = mendiane
-        self.phiras : int = phiras
-        self.thystame : int = thystame
+    """ Dataclass for the Map Class """
+    player : int
+    food : int
+    linemate : int
+    deraumere : int
+    sibur : int
+    mendiane : int
+    phiras : int
+    thystame : int
 
 
 class Map:
@@ -83,13 +84,14 @@ class Map:
         mapTab = lookStr.split(", ")
         for x in range(0, len(mapTab)):
             player = self.__countItem(mapTab[x], "player")
+            food = self.__countItem(mapTab[x], "food")
             linemate = self.__countItem(mapTab[x], "linemate")
             deraumere = self.__countItem(mapTab[x], "deraumere")
             sibur = self.__countItem(mapTab[x], "sibur")
             mendiane = self.__countItem(mapTab[x], "mendiane")
-            phiras = self.__countItem(mapTab[x], "player")
+            phiras = self.__countItem(mapTab[x], "phiras")
             thystame = self.__countItem(mapTab[x], "thystame")
-            newTile = Tile(player, linemate, deraumere, sibur, mendiane, phiras, thystame)
+            newTile = Tile(player, food, linemate, deraumere, sibur, mendiane, phiras, thystame)
             self.__map.append(newTile)
 
     def __countItem(self, tileStr : str, searchedItem : str) -> int:
@@ -99,4 +101,8 @@ class Map:
 
     def GetTile(self, x : int, y : int = 0) -> Tile:
         """" Get one Tile of the Map """
-        return self.__map[((y - 1) * 2) + 1 + x]
+        return self.__map[x + (y * y)]
+
+    def GetMapSize(self) -> int:
+        """" Get the size of the Map """
+        return len(self.__map)
