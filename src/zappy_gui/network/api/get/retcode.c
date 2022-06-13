@@ -43,3 +43,17 @@ retcodes_t get_retcodes(void)
     free(temp);
     return invalid_retcode;
 }
+
+char *get_retcode_arg(retcodes_t ret)
+{
+    size_t size = 0;
+
+    if (client_data == NULL || !client_data->current_response)
+        return NULL;
+    if (ret.arg_n == 0)
+        return NULL;
+    for (; size < strlen(client_data->current_response); size++)
+        if (client_data->current_response[size] == ':')
+            break;
+    return strdup(client_data->current_response + size + 1);
+}

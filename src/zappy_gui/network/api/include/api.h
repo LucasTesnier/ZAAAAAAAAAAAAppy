@@ -50,4 +50,9 @@ bool c_interface_get_network_state(void);
 /// \return false If connection failed
 bool c_interface_get_connect_to_server_response(void);
 
+/// \brief Get the response of the restart command
+/// \return true If restart have succeed
+/// \return false If restart have failed
+bool c_interface_get_restart_response(void);
+
 #endif /* !API_H_ */
