@@ -31,6 +31,8 @@ static bool connect_socket(client_net_server_t *srv, long port)
         ZAPPY_LOG("connect\n");
         return false;
     }
+    srv->pending_read = false;
+    srv->pending_write = false;
     return true;
 }
 

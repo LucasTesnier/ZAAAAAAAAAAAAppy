@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+zappy_client_t *client_data = NULL;
+
 /// \brief Init the client_data structure and network info
 /// \param host Server adress
 /// \param port Port to connect
@@ -29,6 +31,7 @@ static bool zappy_client_create(const char *host, long port)
         return false;
     client_data->stop = stop_zappy_client;
     client_data->net_srv->connected = true;
+    client_data->current_response = NULL;
     return true;
 }
 
@@ -42,6 +45,18 @@ bool c_interface_try_to_connect_to_server(char *host, long port)
         dprintf(2, "Error when initialize the server.\n");
         return false;
     }
+    set_output_buffer(client_data->net_srv, "/login AI\n\n");
+    return true;
+}
+
+bool c_interface_get_connect_to_server_response(void)
+{
+    if (client_data == NULL || !client_data->current_response)
+        return false;
+    if (strncmp(client_data->current_response, "201", 3))
+        return false;
+    free(client_data->current_response);
+    client_data->current_response = NULL;
     return true;
 }
 
