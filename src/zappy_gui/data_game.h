@@ -8,8 +8,8 @@
 /// \file src/zappy_gui/data_game.h
 /// \brief data_game : struct and enum shared between server and gui
 
-/// \brief status of the player
-enum player_status_e {
+/// \brief status of the tochange
+enum tochange_status_e {
     /// \brief undefined status
     STATUSUNDEFINED = 0,
     /// \brief stationary status
@@ -31,10 +31,10 @@ enum player_status_e {
     /// \brief broadcasting status
     BROADCASTING
 };
-typedef enum player_status_e player_status;
+typedef enum tochange_status_e tochange_status;
 
-/// \brief level of the player from 0 to 8
-enum player_level_e{
+/// \brief level of the tochange from 0 to 8
+enum tochange_level_e{
     LEVELUNDEFINED = 0,
     LEVEL1,
     LEVEL2,
@@ -45,17 +45,17 @@ enum player_level_e{
     LEVEL7,
     LEVEL8
 };
-typedef enum player_level_e player_level;
+typedef enum tochange_level_e tochange_level;
 
-/// \brief orientation of the player
-enum player_orientation_e{
+/// \brief orientation of the tochange
+enum tochange_orientation_e{
     ORIENTATIONUNDEFINED = 0,
     NORTH,
     SOUTH,
     EAST,
     WEST
 };
-typedef enum player_orientation_e player_orientation;
+typedef enum tochange_orientation_e tochange_orientation;
 
 /// \brief status of the game
 enum game_status_e{
@@ -66,7 +66,7 @@ enum game_status_e{
 };
 typedef enum game_status_e game_status;
 
-/// \brief ressources of a player or of a tile
+/// \brief ressources of a tochange or of a tile
 struct ressource_s{
     int food;
     int linemate;
@@ -87,30 +87,30 @@ struct egg_s{
 };
 typedef struct egg_s egg_t;
 
-/// \brief player
-struct player_s {
-    /// \brief position x of the player
+/// \brief tochange
+struct tochange_s {
+    /// \brief position x of the tochange
     int x;
-    /// \brief position y of the player
+    /// \brief position y of the tochange
     int y;
-    /// \brief life of the player
+    /// \brief life of the tochange
     int life;
-    /// \brief name of the player team
+    /// \brief name of the tochange team
     char *team_name;
-    /// \brief time of the player action
+    /// \brief time of the tochange action
     int action_time;
-    /// \brief info the the player action
+    /// \brief info the the tochange action
     char *action_info;
-    /// \brief status of the player
-    player_status status_player;
-    /// \brief inventory of the player
+    /// \brief status of the tochange
+    tochange_status status_tochange;
+    /// \brief inventory of the tochange
     ressource_t inventory;
-    /// \brief level of the player
-    player_level level;
-    /// \brief orientation of the player
-    player_orientation orientation;
+    /// \brief level of the tochange
+    tochange_level level;
+    /// \brief orientation of the tochange
+    tochange_orientation orientation;
 };
-typedef struct player_s player_t;
+typedef struct tochange_s tochange_t;
 
 /// \brief tile
 struct tile_s {
@@ -128,10 +128,10 @@ typedef struct tile_s tile_t;
 
 /// \brief data
 struct data_s {
-    /// \brief number of player on the game
-    int nb_players;
-    /// \brief all players of the game
-    player_t *players;
+    /// \brief number of tochange on the game
+    int nb_tochanges;
+    /// \brief all tochanges of the game
+    tochange_t *tochanges;
     /// \brief number of tiles on the game
     int nb_tiles;
     /// \brief all tiles of the game
