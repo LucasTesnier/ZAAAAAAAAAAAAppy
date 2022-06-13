@@ -6,6 +6,8 @@ set (TARGET ${PROJECT_NAME}_gui_api)
 set (SRC
     ${SRC_ROOT}/authentification.c
 
+    ${SRC_ROOT}/ask/restart.c
+
     ${SRC_ROOT}/get/retcode.c
     ${SRC_ROOT}/get/state.c
 

@@ -19,13 +19,10 @@
 /// code as char *, an int which represent the return code, and a array of
 /// char * which contains the arguments to be used.
 typedef struct retcodes_s {
-
     /// \brief char * The name of the return code.
     char *repr;
-
     /// \brief int The return code.
     int code;
-
     /// \brief char ** The arguments of the return code.
     char **params;
 } retcodes_t;

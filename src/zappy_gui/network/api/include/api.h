@@ -24,6 +24,12 @@ bool c_interface_try_to_connect_to_server(char *host, long port);
 /// \return false When operation failed
 bool c_interface_try_to_disconnect_to_server(void);
 
+/// \brief Ask the server to do a restart
+/// \param configuration New configuration for the restart
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_restart(char *configuration);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
