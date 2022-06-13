@@ -1,5 +1,5 @@
-set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/network/api/include)
-set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui/network/api)
+set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/network/api/include)
+set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/network/api)
 
 set (TARGET ${PROJECT_NAME}_gui_api)
 
