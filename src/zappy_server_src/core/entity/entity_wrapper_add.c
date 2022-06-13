@@ -31,7 +31,7 @@ void entity_wrapper_add_egg(entity_wrapper_t *wrapper, position_t pos,
 const char *team_name)
 {
     entity_t *entity = create_entity(ENTITY_EGG_TYPE, pos);
-    egg_t *egg_data = create_egg(team_name);
+    egg_t *egg_data = create_new_egg(team_name);
 
     if (!wrapper || !entity || !egg_data)
         return;

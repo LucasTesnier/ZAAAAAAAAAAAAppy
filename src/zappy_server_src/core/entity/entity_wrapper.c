@@ -7,9 +7,10 @@
 
 /// \file src/zappy_server/core/include/entity/entity_wrapper.c
 
-#include "entity.h"
-#include "entity_types.h"
-#include "stdlib.h"
+#include "entity/entity.h"
+#include "entity/entity_types.h"
+#include <stdlib.h>
+#include <string.h>
 
 entity_wrapper_t *create_entity_wrapper(void)
 {
@@ -17,6 +18,7 @@ entity_wrapper_t *create_entity_wrapper(void)
 
     if (!wrapper)
         return NULL;
+    memset(wrapper, 0, sizeof(entity_wrapper_t));
     TAILQ_INIT(wrapper->players);
     TAILQ_INIT(wrapper->eggs);
     TAILQ_INIT(wrapper->tiles);

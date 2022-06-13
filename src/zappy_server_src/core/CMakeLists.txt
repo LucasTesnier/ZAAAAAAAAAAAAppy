@@ -3,6 +3,8 @@ set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_server_src/core)
 
 set (TARGET ${PROJECT_NAME}_server_core)
 
+add_subdirectory(entity)
+
 set (SRC
     ${SRC_ROOT}/server_run.c
     ${SRC_ROOT}/server_data.c
@@ -13,8 +15,8 @@ set (SRC
     ${SRC_ROOT}/scheduler.c
     ${SRC_ROOT}/argument_handling.c
     ${SRC_ROOT}/container_utils.c
-    ${SRC_ROOT}/map.c
     ${ENTITY_SRC}
+    ${SRC_ROOT}/map.c
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h

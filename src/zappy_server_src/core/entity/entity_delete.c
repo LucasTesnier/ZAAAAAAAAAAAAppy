@@ -11,10 +11,10 @@
 #include "entity/eggs.h"
 #include "entity/player.h"
 #include "entity/tile.h"
-#include "entity_types.h"
+#include "entity/entity_types.h"
 
 /// \brief Entity data delete functions
-static const void (*entity_delete_funcs[])(void *) = {
+static void (*entity_delete_funcs[])(void *) = {
     [ENTITY_PLAYER_TYPE] = delete_player,
     [ENTITY_EGG_TYPE] = delete_egg,
     [ENTITY_TILE_TYPE] = delete_tile
