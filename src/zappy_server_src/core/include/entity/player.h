@@ -19,9 +19,13 @@
 
 /// \brief orientation of the player
 enum player_orientation_e {
+    /// North orientation
     NORTH,
+    /// South orientation
     SOUTH,
+    /// East orientation
     EAST,
+    /// West orientation
     WEST
 };
 
@@ -47,9 +51,14 @@ typedef struct player_s {
 player_t *create_player(char *team_name);
 
 /// \brief Level up the player
+/// \param player the player
+/// \return true if the player level up, false otherwise
 bool player_level_up(player_t *player);
 
 /// \brief Updates the player orientation
+/// \param player the player
+/// \param orientation the new orientation
+/// \return true if the orientation was updated, false otherwise
 bool player_set_orientation(player_t *player,
 enum player_orientation_e orientation);
 

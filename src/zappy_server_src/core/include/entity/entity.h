@@ -16,7 +16,9 @@
 
 /// Represents a generic position in the game
 typedef struct position_s {
+    /// x
     int x;
+    /// y
     int y;
 } position_t;
 
