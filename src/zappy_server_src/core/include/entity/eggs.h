@@ -27,7 +27,7 @@ typedef struct egg_s {
 egg_t *create_new_egg(const char *team_name);
 
 /// \brief Delete an egg
-/// \param egg egg to delete the
+/// \param egg the egg to delete
 void delete_egg(egg_t *egg);
 
 #endif /* EGGS_H */

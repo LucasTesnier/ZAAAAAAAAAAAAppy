@@ -5,6 +5,8 @@
 ** entity
 */
 
+/// \file src/zappy_server_src/core/include/entity/entity.h
+
 #ifndef ENTITY_H
     #define ENTITY_H
 
