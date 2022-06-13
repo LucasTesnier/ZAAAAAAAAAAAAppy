@@ -5,6 +5,8 @@
 ** entity_wrapper_remove
 */
 
+/// \file src/zappy_server/core/include/entity/entity_wrapper_remove.c
+
 #include <stdlib.h>
 #include "entity/entity.h"
 #include "entity/entity_types.h"
