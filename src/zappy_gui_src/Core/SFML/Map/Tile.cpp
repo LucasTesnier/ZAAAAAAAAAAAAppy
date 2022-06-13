@@ -6,6 +6,7 @@
 */
 
 #include "Tile.hpp"
+#include "math.h"
 
 using namespace gui;
 
@@ -45,6 +46,15 @@ bool Tile::isOnTile(sf::Vector2i mouse)
         if (mouse.y >= _position.y && mouse.y <= _position.y + _size.y)
             return true;
     return false;
+}
+
+sf::Vector2f Tile::_toIsometric(sf::Vector2f vector, sf::Vector2f angle, int zoom)
+{
+    vector.x = cos((360 - angle.x / 2) * M_PI / 180) * (vector.x * zoom);
+    vector.x -= cos(angle.x / 2 * M_PI / 180) * vector.y;
+    vector.y = sin(angle.y / 2 * M_PI / 180) * vector.y;
+    vector.y += sin(angle.y / 2 * M_PI / 180) * vector.x;
+    return (vector);
 }
 
 void Tile::_setShape()

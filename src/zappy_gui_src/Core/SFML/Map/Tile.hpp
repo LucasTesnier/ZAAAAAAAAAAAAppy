@@ -55,6 +55,7 @@ namespace gui {
             bool isOnTile(sf::Vector2i mouse);
         private:
             void _setShape();
+            sf::Vector2f _toIsometric(sf::Vector2f vector, sf::Vector2f angle, int zoom);
             sf::ConvexShape _shape;
             sf::Vector2f _position;
             sf::Texture _texture;
