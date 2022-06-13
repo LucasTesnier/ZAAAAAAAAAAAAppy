@@ -20,6 +20,5 @@ char *c_interface_get_unexpected_response(void)
     retcode = get_retcodes();
     if (retcode.type != UNEXPECTED)
         return NULL;
-    if (retcode.number == 211)
-        return get_retcode_arg(retcode);
+    return get_retcode_arg(retcode);
 }
