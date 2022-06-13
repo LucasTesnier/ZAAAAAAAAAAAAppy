@@ -12,6 +12,7 @@ set (SRC
     ${SRC_ROOT}/scheduler.c
     ${SRC_ROOT}/argument_handling.c
     ${SRC_ROOT}/container_utils.c
+    ${SRC_ROOT}/map.c
     ${ENTITY_SRC}
 
     ${INC_ROOT}/entrypoint.h
@@ -22,6 +23,7 @@ set (SRC
     ${INC_ROOT}/scheduler/scheduler.h
     ${INC_ROOT}/argument_handling.h
     ${INC_ROOT}/container.h
+    ${INC_ROOT}/map.h
 )
 
 set (ENTITY_INTERFACE_SRC

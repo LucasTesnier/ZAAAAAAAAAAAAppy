@@ -11,6 +11,9 @@
     #define SERVER_H_
 
     #include "my_zappy_server.h"
+    #include "entity/entity.h"
+    #include "map.h"
+    #include "scheduler/scheduler.h"
 
     /// \brief Return value when operation success
     #define SUCCESS 0
@@ -53,7 +56,8 @@ typedef struct player_list_s {
     player_state_t disconnected;
     /// Type of the client
     client_type_t type;
-    /// ADD THE GAME DATA OF player HERE
+    /// Player data
+    entity_t *player_data;
 } player_list_t;
 
 typedef struct argument_s {
@@ -81,6 +85,12 @@ typedef struct server_data_s {
     size_t active_player_n;
     /// Arguments list
     argument_t *arguments;
+    /// Map of the game
+    map_t *map;
+    /// The internal scheduler
+    scheduler_t *scheduler;
+    /// All of the entities
+    entity_wrapper_t *entities;
 } server_data_t;
 
 /// \brief Init the server data structure

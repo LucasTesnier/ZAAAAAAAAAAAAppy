@@ -5,5 +5,7 @@ set (ENTITY_SRC
     ${ENTITY_SRC_ROOT}/player.c
     ${ENTITY_SRC_ROOT}/tile.c
     ${ENTITY_SRC_ROOT}/entity.c
+    ${ENTITY_SRC_ROOT}/entity_wrapper.c
+    ${ENTITY_SRC_ROOT}/entity_delete.c
     PARENT_SCOPE
 )

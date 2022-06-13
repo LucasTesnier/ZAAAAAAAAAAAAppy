@@ -40,6 +40,16 @@ typedef struct entity_s {
 /// Entity list head
 TAILQ_HEAD(entities_list_s, entity_s);
 
+/// Entity wrapper used at the top level
+typedef struct entity_wrapper_s {
+    /// The players list
+    struct entities_list_s *players;
+    /// The eggs list
+    struct entities_list_s *eggs;
+    /// The tiles list
+    struct entities_list_s *tiles;
+} entity_wrapper_t;
+
 /// \brief Create a new entity
 /// \param type the entity typ
 /// \param position the entity position
@@ -51,5 +61,42 @@ entity_t *create_entity(unsigned int type, position_t position);
 /// \param data the entity data
 /// \return true if it succeeded, false otherwise
 bool entity_set_data(entity_t *entity, void *data);
+
+/// \brief Delete and entity
+/// \param entity the entity to delete
+/// \note This function deletes the entity data
+void delete_entity(entity_t *entity);
+
+/// \brief Create a new entity wrapper
+/// \return a new entity wrapper or NULL if it failed
+entity_wrapper_t *create_entity_wrapper(void);
+
+/// \brief Delete an entity wrapper
+/// \param wrapper the entity wrapper to delete
+void delete_entity_wrapper(entity_wrapper_t *wrapper);
+
+/// \brief Create a new player and adds to the collection of players
+/// \param wrapper the entity wrapper to add the player to
+/// \param position the player position
+/// \param team_name the player team_name
+void entity_wrapper_add_player(entity_wrapper_t *wrapper, position_t pos,
+const char *team_name);
+
+/// \brief Create a new egg and adds to the collection of eggs
+/// \param wrapper the entity wrapper to add the egg to
+/// \param position the egg position
+/// \param team_name the egg team_name
+void entity_wrapper_add_egg(entity_wrapper_t *wrapper, position_t pos,
+const char *team_name);
+
+/// \brief Create a new tile and adds to the collection of tiles
+/// \param wrapper the entity wrapper to add the tile to
+/// \param position the tile position
+void entity_wrapper_add_tile(entity_wrapper_t *wrapper, position_t pos);
+
+/// \brief Remove an entity from the collection
+/// \param wrapper the entity wrapper to remove the entity from
+/// \param entity the entity to remove
+void entity_wrapper_remove_entity(entity_wrapper_t *wrapper, entity_t *entity);
 
 #endif /* ENTITY_H */
