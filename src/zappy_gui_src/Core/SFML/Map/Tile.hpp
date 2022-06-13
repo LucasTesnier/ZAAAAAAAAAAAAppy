@@ -27,7 +27,7 @@ namespace gui {
             /// \brief Copy constructor of the tile.
             /// \param tile The tile to copy.
             /// \return The new tile.
-            Tile &operator=(const Tile &tile);
+            Tile operator=(const Tile &tile);
 
             /// \brief Destructor of the tile.
             ~Tile();

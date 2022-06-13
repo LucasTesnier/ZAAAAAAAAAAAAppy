@@ -23,7 +23,7 @@ Tile::Tile(Tile &tile)
     _texturePath = tile._texturePath;
 }
 
-Tile &Tile::operator=(const Tile &tile)
+Tile Tile::operator=(const Tile &tile)
 {
     Tile newTile;
 
