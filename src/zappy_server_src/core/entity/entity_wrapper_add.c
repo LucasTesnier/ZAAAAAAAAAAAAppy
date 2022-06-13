@@ -5,6 +5,8 @@
 ** entity_wrapper_add
 */
 
+/// \file src/zappy_server/core/include/entity/entity_wrapper_add.c
+
 #include <stdlib.h>
 #include "entity/entity.h"
 #include "entity/eggs.h"

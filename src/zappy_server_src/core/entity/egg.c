@@ -5,6 +5,8 @@
 ** egg
 */
 
+/// \file src/zappy_server/core/include/entity/egg.h
+
 #include "entity/eggs.h"
 #include <uuid/uuid.h>
 
