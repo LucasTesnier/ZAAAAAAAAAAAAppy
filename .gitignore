@@ -71,3 +71,6 @@ build
 build
 graph
 vgcore*
+
+# Tests Files
+*_test
