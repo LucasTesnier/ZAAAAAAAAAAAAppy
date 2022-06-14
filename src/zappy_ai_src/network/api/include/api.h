@@ -24,4 +24,30 @@ bool c_interface_try_to_connect_to_server(char *host, long port);
 /// \return false When operation failed
 bool c_interface_try_to_disconnect_to_server(void);
 
+/// \brief Ask to join a team in the server
+/// \param team_name Name of the team to join
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_join(char *team_name);
+
+/// \brief Return the state of the precedend response of the server
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_get_response_sate(void);
+
+/// \brief Get the type of a response. Call after get_response_state
+/// \return true If the response is unexpected
+/// \return false If the response is expected
+bool c_interface_get_unexpected_response_state(void);
+
+/// \brief Return the state of the network connection
+/// \return true When everything is alright
+/// \return false When the network connexion hase been closed
+bool c_interface_get_network_state(void);
+
+/// \brief Get the response for the connect command
+/// \return true If connection is okay
+/// \return false If connection failed
+bool c_interface_get_connect_to_server_response(void);
+
 #endif /* !API_H_ */

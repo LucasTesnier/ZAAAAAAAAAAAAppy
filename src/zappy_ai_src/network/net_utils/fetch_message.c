@@ -26,7 +26,7 @@ char *fetch_message(client_net_server_t *server)
     }
     if (read_size == 0) {
         ZAPPY_LOG("Connection to the server lost\n");
-        return NULL;
+        return "close";
     }
     server->input_buffer[read_size] = '\0';
     msg = strndup(server->input_buffer, strlen(server->input_buffer));

@@ -6,15 +6,24 @@ set (TARGET ${PROJECT_NAME}_ai_api)
 set (SRC
     ${SRC_ROOT}/authentification.c
 
+    ${SRC_ROOT}/ask/join.c
+
+    ${SRC_ROOT}/get/state.c
+    ${SRC_ROOT}/get/retcode.c
+
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h
 )
 
-add_library(${TARGET} ${SRC})
+add_library(${TARGET} SHARED ${SRC})
 
 target_include_directories(${TARGET}
     PUBLIC ${INCLUDE_ROOT}
     PRIVATE ${SRC_ROOT}
+)
+
+set_target_properties(${TARGET} PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/zappy_ai_src
 )
 
 target_link_libraries(${TARGET}
