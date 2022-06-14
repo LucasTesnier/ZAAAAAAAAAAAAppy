@@ -11,7 +11,7 @@ void add(int a) { return a + 1;}
 """
 
 class DLLibWrapper:
-    def __init__(self, libraryPath : str = "./libToto.so") -> None:
+    def __init__(self, libraryPath : str = "./libzappy_ai_api.so") -> None:
         """ Constructor of the DLLibWrapper Class """
         self.library : str = libraryPath
         self.libInfo = None
