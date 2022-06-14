@@ -22,6 +22,19 @@ def needHelp(ac : int, av) ->  bool:
             return True
     return False
 
+def getIPFromHostname(hostname : str) -> str:
+    """ Find the IP corresponding to the Hostname, raise an RunTimeError if there isn't """
+    Ip = None
+    with open("/etc/hosts") as file:
+        hostsIP = file.readlines()
+    for host in hostsIP:
+        if host.find(hostname) != -1:
+            Ip = host.split(" ")[0]
+            break
+    if not Ip:
+        raise RuntimeError
+    return Ip
+
 def main() -> int:
     """ Main Function """
     if needHelp(len(sys.argv), sys.argv):
@@ -33,6 +46,11 @@ def main() -> int:
     argsParser.add_argument("-h", dest="machine", type=str, required=False, default="localhost")
     validArgs = argsParser.parse_args()
 
+    try:
+        ip = getIPFromHostname(validArgs.machine)
+    except RuntimeError:
+        print("There isn't a corresponding IP for the machine name", file=sys.stderr)
+        return 84
     return 0
 
 
