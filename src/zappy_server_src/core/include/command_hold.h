@@ -46,4 +46,12 @@ bool command_logout(char *arg, player_list_t *player, server_data_t *serv);
 /// \return false When operation failed
 bool command_login(char *arg, player_list_t *player, server_data_t *serv);
 
+/// \brief Command for join the game
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Serveur informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_join(char *arg, player_list_t *player, server_data_t *serv);
+
 #endif /* !COMMAND_H_ */

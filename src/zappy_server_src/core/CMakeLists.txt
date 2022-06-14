@@ -36,11 +36,13 @@ set (ENTITY_INTERFACE_SRC
     ${INC_ROOT}/entity/player.h
     ${INC_ROOT}/entity/tile.h
     ${INC_ROOT}/entity/eggs.h
+    ${INC_ROOT}/entity/entity_types.h
+    ${SRC_ROOT}/cmake_error.c
 )
 
 set (TARGET_ENTITY_INTERFACE ${PROJECT_NAME}_entity_interface)
 
-add_library(${TARGET_ENTITY_INTERFACE} INTERFACE ${ENTITY_INTERFACE_SRC})
+add_library(${TARGET_ENTITY_INTERFACE} ${ENTITY_INTERFACE_SRC})
 
 add_library(${TARGET} ${SRC})
 

@@ -48,6 +48,7 @@ static bool init_objects(server_data_t *server_data)
             get_tile(server_data->map, i, j), entities);
         }
     }
+    /// Init the teams
     return true;
 }
 
