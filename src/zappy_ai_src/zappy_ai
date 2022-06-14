@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from socket import gethostbyname
 import sys
 import argparse
 
@@ -24,16 +25,7 @@ def needHelp(ac : int, av) ->  bool:
 
 def getIPFromHostname(hostname : str) -> str:
     """ Find the IP corresponding to the Hostname, raise an RunTimeError if there isn't """
-    Ip = None
-    with open("/etc/hosts") as file:
-        hostsIP = file.readlines()
-    for host in hostsIP:
-        if host.find(hostname) != -1:
-            Ip = host.split(" ")[0]
-            break
-    if not Ip:
-        raise RuntimeError
-    return Ip
+    return gethostbyname(hostname)
 
 def main() -> int:
     """ Main Function """
