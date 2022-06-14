@@ -108,7 +108,16 @@ namespace gui {
             /// \param mouse The mouse to check.
             /// \return True if the mouse is on the tile, false otherwise.
             bool isOnTile(sf::Vector2i mouse);
+
+            /// \brief Check if the mouse is on the right of the two vectors.
+            /// \param point1 The first vector.
+            /// \param point2 The second vector.
+            /// \param mouse The mouse position.
+            /// \return 1 if on right, 0 otherwise.
             int isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse);
+
+            /// \brief Set the zoom of the map.
+            /// \param zoom The zoom value to be set.
             void setZoom(float zoom);
         private:
 
@@ -135,6 +144,8 @@ namespace gui {
 
             /// \brief Texture path of the tile.
             std::string _texturePath;
+
+            /// \brief The zoom.
             float _zoom;
     };
 } // gui namespace
