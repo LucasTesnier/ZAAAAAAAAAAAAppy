@@ -16,7 +16,7 @@ char *fetch_message(peer_t *peer)
         return NULL;
     if (!peer->pending_read)
         return NULL;
-    return strdup(peer->input_buffer[peer->pending_read - 1]);
+    return strdup(peer->input_buffer[0]);
 }
 
 void pop_message(peer_t *peer)
@@ -25,6 +25,10 @@ void pop_message(peer_t *peer)
         return;
     if (!peer->pending_read)
         return;
+    for (int i = 0; i < peer->pending_read - 1; i++) {
+        peer->input_buffer[i][0] = '\0';
+        strcat(peer->input_buffer[i], peer->input_buffer[i + 1]);
+    }
     peer->pending_read -= 1;
 }
 

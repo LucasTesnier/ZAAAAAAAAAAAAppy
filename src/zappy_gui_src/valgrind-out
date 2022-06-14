@@ -1,0 +1,577 @@
+==4874== Memcheck, a memory error detector
+==4874== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4874== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==4874== Command: ./a.out
+==4874== Parent PID: 3454
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x4015D7: pack_player(entity_s*) (pack.c:68)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4015E9: pack_player(entity_s*) (pack.c:68)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60b8 is 0 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4015E9: pack_player(entity_s*) (pack.c:68)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60ba is 2 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x4015F7: pack_player(entity_s*) (pack.c:69)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401609: pack_player(entity_s*) (pack.c:69)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60b8 is 0 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401609: pack_player(entity_s*) (pack.c:69)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60ba is 2 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401609: pack_player(entity_s*) (pack.c:69)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60bd is 5 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x40148D: pack_container(container_s*) (pack.c:48)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40149F: pack_container(container_s*) (pack.c:48)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40149F: pack_container(container_s*) (pack.c:48)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ad is 1 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x4014AD: pack_container(container_s*) (pack.c:49)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014BF: pack_container(container_s*) (pack.c:49)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014BF: pack_container(container_s*) (pack.c:49)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ad is 1 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014BF: pack_container(container_s*) (pack.c:49)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61af is 3 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x4014CD: pack_container(container_s*) (pack.c:50)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014DF: pack_container(container_s*) (pack.c:50)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014DF: pack_container(container_s*) (pack.c:50)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61af is 3 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014DF: pack_container(container_s*) (pack.c:50)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b1 is 5 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x4014ED: pack_container(container_s*) (pack.c:51)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014FF: pack_container(container_s*) (pack.c:51)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014FF: pack_container(container_s*) (pack.c:51)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b1 is 5 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4014FF: pack_container(container_s*) (pack.c:51)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b3 is 7 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x40150D: pack_container(container_s*) (pack.c:52)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40151F: pack_container(container_s*) (pack.c:52)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40151F: pack_container(container_s*) (pack.c:52)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b3 is 7 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40151F: pack_container(container_s*) (pack.c:52)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b5 is 9 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x40152D: pack_container(container_s*) (pack.c:53)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40153F: pack_container(container_s*) (pack.c:53)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40153F: pack_container(container_s*) (pack.c:53)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b5 is 9 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40153F: pack_container(container_s*) (pack.c:53)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b7 is 11 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x4013E9: pack_int(int) (pack.c:27)
+==4874==    by 0x40154D: pack_container(container_s*) (pack.c:54)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40155F: pack_container(container_s*) (pack.c:54)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40155F: pack_container(container_s*) (pack.c:54)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b7 is 11 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40155F: pack_container(container_s*) (pack.c:54)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b9 is 13 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401445: pack_str(char*) (pack.c:37)
+==4874==    by 0x401571: pack_container(container_s*) (pack.c:55)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401583: pack_container(container_s*) (pack.c:55)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401583: pack_container(container_s*) (pack.c:55)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61b9 is 13 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401583: pack_container(container_s*) (pack.c:55)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61bb is 15 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40162B: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60b8 is 0 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40162B: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60bd is 5 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846332: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40162B: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd61ac is 0 bytes after a block of size 12 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x40147C: pack_container(container_s*) (pack.c:47)
+==4874==    by 0x401619: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid write of size 1
+==4874==    at 0x484633E: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40162B: pack_player(entity_s*) (pack.c:70)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60d8 is 24 bytes after a block of size 16 in arena "client"
+==4874== 
+==4874== Conditional jump or move depends on uninitialised value(s)
+==4874==    at 0x484630D: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x401445: pack_str(char*) (pack.c:37)
+==4874==    by 0x40163B: pack_player(entity_s*) (pack.c:71)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+==4874== Invalid read of size 1
+==4874==    at 0x4846314: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40164D: pack_player(entity_s*) (pack.c:71)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874==  Address 0x4dd60b8 is 0 bytes after a block of size 8 alloc'd
+==4874==    at 0x484086F: malloc (vg_replace_malloc.c:381)
+==4874==    by 0x4C8014E: strdup (in /usr/lib64/libc-2.33.so)
+==4874==    by 0x4015C5: pack_player(entity_s*) (pack.c:67)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+==4874== 
+
+valgrind: m_mallocfree.c:303 (get_bszB_as_is): Assertion 'bszB_lo == bszB_hi' failed.
+valgrind: Heap block lo/hi size mismatch: lo = 80, hi = 0.
+This is probably caused by your program erroneously writing past the
+end of a heap block and corrupting heap metadata.  If you fix any
+invalid writes reported by Memcheck, this assertion failure will
+probably go away.  Please try that before reporting this as a bug.
+
+
+host stacktrace:
+==4874==    at 0x580427EA: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x58042917: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x58042ABB: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x5804C80F: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x5803AE3A: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x58039557: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x5803DEDD: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x58038808: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x1002DD88A5: ???
+==4874==    by 0x1002CA9F2F: ???
+==4874==    by 0x581FCD83: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==4874==    by 0x1002CA9F17: ???
+==4874==    by 0x1002CA9F2F: ???
+
+sched status:
+  running_tid=1
+
+Thread 1: status = VgTs_Runnable (lwpid 4874)
+==4874==    at 0x484632C: strcat (vg_replace_strmem.c:330)
+==4874==    by 0x40164D: pack_player(entity_s*) (pack.c:71)
+==4874==    by 0x40188F: pack(entity_s*) (pack.c:118)
+==4874==    by 0x4012D0: main (main.cpp:64)
+client stack range: [0x1FFEFFD000 0x1FFF000FFF] client SP: 0x1FFEFFF898
+valgrind stack range: [0x1002BAA000 0x1002CA9FFF] top usage: 8656 of 1048576
+
+
+Note: see also the FAQ in the source distribution.
+It contains workarounds to several common problems.
+In particular, if Valgrind aborted or crashed after
+identifying problems in your program, there's a good chance
+that fixing those problems will prevent Valgrind aborting or
+crashing, especially if it happened in m_mallocfree.c.
+
+If that doesn't help, please report this bug to: www.valgrind.org
+
+In the bug report, send all the above text, the valgrind
+version, and what OS and version you are using.  Thanks.
+
