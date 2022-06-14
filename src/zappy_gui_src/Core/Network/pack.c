@@ -5,7 +5,7 @@
 ** unpack
 */
 
-/// \file src/zappy_gui_src/pack.c
+/// \file src/zappy_gui_src/Core/Network/pack.c
 
 #include "entity.h"
 #include "entity_types.h"
