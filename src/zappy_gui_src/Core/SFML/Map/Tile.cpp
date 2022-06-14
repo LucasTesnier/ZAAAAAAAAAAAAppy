@@ -36,7 +36,8 @@ Tile Tile::operator=(const Tile &tile)
 void Tile::setTexture(const std::string &texturePath)
 {
     _texturePath = texturePath;
-    _texture.loadFromFile(texturePath);
+    if (!_texture.loadFromFile(texturePath))
+        return;
     setTexture(_texture);
 }
 
