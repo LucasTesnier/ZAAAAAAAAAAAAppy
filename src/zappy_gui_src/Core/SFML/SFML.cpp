@@ -14,6 +14,9 @@ SFML::SFML() : _run(true)
     _event = std::make_shared<Event>();
     _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Default);
     _window.get()->setFramerateLimit(60);
+    _map.setWindow(_window);
+    _map.setEvent(_event);
+    _map.setMapSize(sf::Vector2f(10, 10));
 }
 
 void SFML::display()
@@ -22,6 +25,7 @@ void SFML::display()
     if (!_window.get()->isOpen())
         _run = false;
     _window.get()->clear(sf::Color(127, 127, 127, 255));
+    _map.display();
     _window.get()->display();
 }
 

@@ -10,14 +10,43 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-class Map {
-    public:
+#include "Tile.hpp"
+#include <memory>
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include "Event.hpp"
 
-        /// \brief Constructor of the Map.
-        Map();
+#include <iostream>
 
-        /// \brief Destructor of the Map.
-        ~Map();
-};
+namespace gui {
+    class Map {
+        public:
+
+            /// \brief Constructor of the Map.
+            Map();
+
+            /// \brief Destructor of the Map.
+            ~Map();
+            inline void setWindow(std::shared_ptr<sf::RenderWindow> window) {
+                _window = window;
+            };
+            inline void setEvent(std::shared_ptr<Event> event) {
+                _event = event;
+            };
+            inline void setMapSize(sf::Vector2f mapSize) {
+                _mapSize = mapSize;
+                _updateTileVectorSize();
+            };
+            void display();
+        private:
+            void _updateTileVectorSize();
+            std::shared_ptr<sf::RenderWindow> _window;
+            std::shared_ptr<Event> _event;
+            std::vector<std::unique_ptr<Tile>> _tile;
+            std::size_t _tileSelected;
+            std::size_t _tileHover;
+            sf::Vector2f _mapSize;
+    };
+} // namespace gui
 
 #endif /* !MAP_HPP_ */
