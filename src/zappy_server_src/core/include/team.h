@@ -13,11 +13,17 @@
     #include <sys/queue.h>
     #include <stdbool.h>
 
+/// Represents a team in the server
 typedef struct team_s {
+    /// Team name
     char *name;
+    /// Max number of players in the team
     int max_members;
+    /// The current amount of member in the team
     int current_members;
+    /// The unique id of each team member
     uuid_t *members_uuid;
+    /// teams list
     TAILQ_ENTRY(team_s) teams;
 } team_t;
 
