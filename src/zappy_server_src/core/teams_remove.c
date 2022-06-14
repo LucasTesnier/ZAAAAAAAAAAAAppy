@@ -6,6 +6,7 @@
 */
 
 #include "team.h"
+#include <stdlib.h>
 
 bool remove_team(team_t *team, struct teams_list_s *teams)
 {
