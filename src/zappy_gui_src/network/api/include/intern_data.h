@@ -5,7 +5,7 @@
 ** intern_data
 */
 
-/// \file src/zappy_ai_src/network/api/include/intern_data.h
+/// \file src/zappy_gui_src/network/api/include/intern_data.h
 
 #ifndef INTERN_DATA_H_
     #define INTERN_DATA_H_
@@ -49,5 +49,10 @@ extern zappy_client_t *client_data;
 
 /// \brief Stop a connected client and destroy all associated ressources
 void stop_zappy_client(void);
+
+/// \brief Return the args after the retcode
+/// \param ret The identified retcode
+/// \return The parsed arguments remeber to free it (NULL if not)
+char *get_retcode_arg(retcodes_t ret);
 
 #endif /* !INTERN_DATA_H_ */

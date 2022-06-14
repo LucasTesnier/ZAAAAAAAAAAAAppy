@@ -5,7 +5,7 @@
 ** include_utils
 */
 
-/// \file src/zappy_ai_src/network/net_utils/include/client_utils.h
+/// \file src/zappy_gui_src/network/net_utils/include/client_utils.h
 
 #ifndef INCLUDE_UTILS_H
     #define INCLUDE_UTILS_H
@@ -101,7 +101,6 @@ void set_output_buffer(client_net_server_t *server, const char *msg);
 /// \brief Retrieve the last message recieved from the server
 /// \param server The mes_équipes server to retrieve the last message from
 /// \return A pointer to the last message recieved from the server
-/// \return close if the server is down
 char *fetch_message(client_net_server_t *server);
 
 /// \brief Update the mes_équipes client by sending and receiving messages

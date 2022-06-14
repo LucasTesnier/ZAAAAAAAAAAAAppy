@@ -5,7 +5,7 @@
 ** update_server
 */
 
-/// \file src/zappy_ai_src/network/net_utils/update_client.c
+/// \file src/zappy_gui_src/network/net_utils/update_client.c
 
 #include "client_utils.h"
 #include "internals.h"
@@ -13,6 +13,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+/// \brief Utility function to detect if the server fd has been closed
+/// \param server the remote server
+/// \return true if the server fd has been closed, false otherwise
 bool check_for_disconnection(client_net_server_t *server)
 {
     if (!(fcntl(server->sock_fd, F_GETFD) != -1 || errno != EBADF)) {

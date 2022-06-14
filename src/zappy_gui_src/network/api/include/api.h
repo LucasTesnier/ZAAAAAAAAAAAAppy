@@ -5,7 +5,7 @@
 ** api
 */
 
-/// \file src/zappy_ai_src/network/api/include/api.h
+/// \file src/zappy_gui_src/network/api/include/api.h
 
 #ifndef API_H_
     #define API_H_
@@ -24,11 +24,11 @@ bool c_interface_try_to_connect_to_server(char *host, long port);
 /// \return false When operation failed
 bool c_interface_try_to_disconnect_to_server(void);
 
-/// \brief Ask to join a team in the server
-/// \param team_name Name of the team to join
+/// \brief Ask the server to do a restart
+/// \param configuration New configuration for the restart
 /// \return true When operation succeed
 /// \return false When operation failed
-bool c_interface_ask_join(char *team_name);
+bool c_interface_ask_restart(char *configuration);
 
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
@@ -49,5 +49,14 @@ bool c_interface_get_network_state(void);
 /// \return true If connection is okay
 /// \return false If connection failed
 bool c_interface_get_connect_to_server_response(void);
+
+/// \brief Get the response of the restart command
+/// \return true If restart have succeed
+/// \return false If restart have failed
+bool c_interface_get_restart_response(void);
+
+/// \brief Get the response af an unexpected command
+/// \return The parsed string Donc forget to free it (NULL Otherwise)
+char *c_interface_get_unexpected_response(void);
 
 #endif /* !API_H_ */

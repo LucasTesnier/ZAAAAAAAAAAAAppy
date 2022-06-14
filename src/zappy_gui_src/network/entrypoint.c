@@ -21,9 +21,7 @@ void sigint_handler(int var __attribute__((unused)))
 int main(int ac, char **av)
 {
     int port = atoi(av[1]);
-    char *team_name = av[2];
 
-    (void) team_name;
     (void) ac;
     signal(SIGINT, sigint_handler);
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
@@ -31,7 +29,7 @@ int main(int ac, char **av)
     while (1) {
         if (c_interface_get_response_sate()) {
             if (c_interface_get_unexpected_response_state())
-                break;
+                c_interface_get_unexpected_response();
             if (!c_interface_get_connect_to_server_response())
                 break;
         }

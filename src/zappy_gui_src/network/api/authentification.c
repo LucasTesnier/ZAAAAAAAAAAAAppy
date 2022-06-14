@@ -5,7 +5,7 @@
 ** authentification
 */
 
-/// \file src/zappy_ai_src/network/api/authentification.c
+/// \file src/zappy_gui_src/network/api/authentification.c
 
 #include "intern_data.h"
 #include "client_utils.h"
@@ -45,7 +45,7 @@ bool c_interface_try_to_connect_to_server(char *host, long port)
         dprintf(2, "Error when initialize the server.\n");
         return false;
     }
-    set_output_buffer(client_data->net_srv, "/login AI\n\n");
+    set_output_buffer(client_data->net_srv, "/login GUI\n\n");
     return true;
 }
 
