@@ -11,8 +11,11 @@
 
 SFML::SFML() : _run(true)
 {
+    sf::ContextSettings settings;
+
+    settings.antialiasingLevel = 8;
     _event = std::make_shared<Event>();
-    _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Default);
+    _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Default, settings);
     _window.get()->setFramerateLimit(60);
     _map.setWindow(_window);
     _map.setEvent(_event);

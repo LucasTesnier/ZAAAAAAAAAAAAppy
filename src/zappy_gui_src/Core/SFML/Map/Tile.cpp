@@ -15,6 +15,7 @@ Tile::Tile()
     _size = {0, 0};
     _texturePath = "";
     _shape.setOutlineThickness(1);
+    _shape.setOutlineColor(sf::Color(150, 150, 150));
     _setShape();
     _zoom = 1;
 }
