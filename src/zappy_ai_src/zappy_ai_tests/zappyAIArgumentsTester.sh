@@ -9,7 +9,7 @@ Total=5
 
 #Variables#
 
-executable=./src/zappy_ai_src/zappy_ai_src
+executable=../zappy_ai
 
 #VALID ARGS#
 $executable -n teamName -p 123
