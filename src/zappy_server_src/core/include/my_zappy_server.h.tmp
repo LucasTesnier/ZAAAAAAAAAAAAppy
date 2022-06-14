@@ -1,0 +1,33 @@
+
+
+
+
+#ifndef MY_ZAPPY_SERVER_H
+    #define MY_ZAPPY_SERVER_H
+
+    #include "net_utils.h"
+    #include <stdlib.h>
+    #include <stdbool.h>
+
+
+typedef struct zappy_server_s {
+
+    
+    tcp_server_t *network_server;
+
+    
+    _Bool state;
+} zappy_server_t;
+
+
+
+
+
+zappy_server_t *create_new_server(long port, int size_queue);
+
+
+
+void destroy_zappy_server(zappy_server_t *server);
+
+#endif 
+

@@ -1,0 +1,113 @@
+
+
+
+
+#ifndef SERVER_H_
+    #define SERVER_H_
+
+    #include "my_zappy_server.h"
+
+    
+    #define SUCCESS 0
+
+    
+    #define FAILED 84
+
+
+extern volatile _Bool *server_state;
+
+
+
+
+typedef enum client_type_s {
+    
+    GUI,
+    
+    AI,
+    
+    UNKNOWN
+} client_type_t;
+
+
+typedef enum player_state_e {
+    
+    CONNECTED,
+    
+    TO_LOGOUT,
+    
+    LOGOUT
+} player_state_t;
+
+
+typedef struct player_list_s {
+    
+    peer_t *player_peer;
+    
+    _Bool is_auth;
+    
+    player_state_t disconnected;
+    
+    client_type_t type;
+    
+} player_list_t;
+
+typedef struct argument_s {
+    
+    long port;
+    
+    int width;
+    
+    int height;
+    
+    char **team_list;
+    
+    int client_nb;
+    
+    int freq;
+} argument_t;
+
+
+typedef struct server_data_s {
+    
+    zappy_server_t *server;
+    
+    player_list_t **active_players;
+    
+    size_t active_player_n;
+    
+    argument_t *arguments;
+} server_data_t;
+
+
+
+
+server_data_t *init_server_data(int ac, char **av);
+
+
+
+void destroy_server_data(server_data_t *server_data);
+
+
+
+
+
+_Bool server_add_player(server_data_t *server_data);
+
+
+
+
+void server_remove_player(server_data_t *server_data,
+player_list_t *player_info);
+
+
+
+
+void remove_disconnected_player(server_data_t *server_data,
+player_state_t comp);
+
+
+
+void server_loop(server_data_t *server_data);
+
+#endif 
+
