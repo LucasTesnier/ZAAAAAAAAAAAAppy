@@ -13,59 +13,66 @@
 #include "player.h"
 #include "tile.h"
 #include "eggs.h"
+#include "pack.h"
 #include <string.h>
-#include <sys/queue.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 char *pack_container(container_t *cont)
 {
-    char *tmp = (char*)malloc(sizeof(char) * (get_len_container(cont) + 21));
+    char *tmp;
 
-    strcpy(tmp, ";inventory{");
-    strcat(tmp, pack_int(cont->food));
-    strcat(tmp, pack_int(cont->linemate));
-    strcat(tmp, pack_int(cont->deraumere));
-    strcat(tmp, pack_int(cont->sibur));
-    strcat(tmp, pack_int(cont->mendiane));
-    strcat(tmp, pack_int(cont->phiras));
-    strcat(tmp, pack_int(cont->thystame));
-    strcat(tmp, pack_str("}"));
+    if ((tmp = (char*)malloc(sizeof(char) * (get_len_container(cont) + CONT_SIZE))) == NULL)
+        return NULL;
+    sprintf(tmp, "inventory{%d;%d;%d;%d;%d;%d;%d}",
+            cont->food,
+            cont->linemate,
+            cont->deraumere,
+            cont->sibur,
+            cont->mendiane,
+            cont->phiras,
+            cont->thystame);
     free(cont);
     return tmp;
 }
 
 char *pack_player(entity_t *entity)
 {
-    player_t *player = (player_t*)malloc(sizeof(player_t));
     char *tmp;
+    player_t *player;
 
+    if ((player = (player_t*)malloc(sizeof(player_t))) == NULL)
+        return NULL;
     player = (player_t*)entity->data;
-    tmp = (char*)malloc(sizeof(char) * (get_len_player(entity, player) + 35));
-    strcpy(tmp, "player{");
-    strcat(tmp, pack_int(entity->position.x));
-    strcat(tmp, pack_int(entity->position.y));
-    strcat(tmp, pack_container(player->inventory));
-    strcat(tmp, pack_str(player->team));
-    strcat(tmp, pack_int(player->level));
-    strcat(tmp, pack_int(player->orientation));
-    strcat(tmp, pack_str(strdup("}")));
+    if ((tmp = (char*)malloc(sizeof(char) *
+        (get_len_player(entity, player) + PLAYER_SIZE))) == NULL)
+        return NULL;
+    sprintf(tmp, "player{%d;%d;%s;%s;%d;%d}",
+            entity->position.x,
+            entity->position.y,
+            pack_container(player->inventory),
+            player->team,
+            player->level,
+            player->orientation);
     free(player);
     return tmp;
 }
 
 char *pack_tile(entity_t *entity)
 {
-    tile_t *tile = (tile_t*)malloc(sizeof(tile_t));
     char *tmp;
+    tile_t *tile;
 
+    if ((tile = (tile_t*)malloc(sizeof(tile_t))) == NULL)
+        return NULL;
     tile = (tile_t*)entity->data;
-    tmp = (char*)malloc(sizeof(char) * (get_len_tile(entity, tile) + 30));
-    strcpy(tmp, "tile{");
-    strcat(tmp, pack_int(entity->position.x));
-    strcat(tmp, pack_int(entity->position.y));
-    strcat(tmp, pack_container(tile->inventory));
-    strcat(tmp, pack_str(strdup("}")));
+    if ((tmp = (char*)malloc(sizeof(char) *
+        (get_len_tile(entity, tile) + TILE_SIZE))) == NULL)
+        return NULL;
+    sprintf(tmp, "tile{%d;%d;%s}",
+            entity->position.x,
+            entity->position.y,
+            pack_container(tile->inventory));
     free(tile);
     return tmp;
 }
@@ -73,39 +80,35 @@ char *pack_tile(entity_t *entity)
 char *pack_egg(entity_t *entity)
 {
     char *tmp;
-    char str[80];
-    egg_t *egg = (egg_t*)malloc(sizeof(egg_t));
+    egg_t *egg;
 
+    if ((egg = (egg_t*)malloc(sizeof(egg_t))) == NULL)
+        return NULL;
     egg = (egg_t*)entity->data;
-    tmp = malloc(sizeof(char) * (get_len_egg(entity, egg) + 10));
-    strcpy(tmp, strdup("egg{"));
-    strcat(tmp, pack_int(entity->position.x));
-    strcat(tmp, pack_int(entity->position.y));
-    strcat(tmp, pack_str((char *)egg->team_name));
-    strcat(tmp, pack_str(strdup("}")));
+    if ((tmp = malloc(sizeof(char) *
+        (get_len_egg(entity, egg) + EGG_SIZE))) == NULL)
+        return NULL;
+    sprintf(tmp, "tile{%d;%d;%s}",
+            entity->position.x,
+            entity->position.y,
+            (char *)egg->team_name);
     return tmp;
 }
 
+//TODO subject of the pack (entity_pack?)
 char *pack(entity_t *entity)
 {
-    char *packed = strdup("");
-    char *tmp;
+    char *packed;
 
     switch (entity->type) {
         case ENTITY_PLAYER_TYPE:
-            tmp = pack_player(entity);
-            strcat(packed, tmp);
-            free(tmp);
+            packed = pack_player(entity);
             break;
         case ENTITY_TILE_TYPE:
-            tmp = pack_tile(entity);
-            strcat(packed, tmp);
-            free(tmp);
+            packed = pack_tile(entity);
             break;
         case ENTITY_EGG_TYPE:
-            tmp = pack_egg(entity);
-            strcat(packed, tmp);
-            free(tmp);
+            packed = pack_egg(entity);
             break;
         default:
             break;

@@ -23,6 +23,7 @@ void sigint_handler(int var __attribute__((unused)))
 
 int server_run(int ac, char **av)
 {
+
     server_data_t *server_data = init_server_data(ac, av);
 
     if (server_data == NULL)

@@ -7,6 +7,7 @@
 
 #include "entity/eggs.h"
 #include <uuid/uuid.h>
+#include <stdlib.h>
 
 egg_t *create_new_egg(const char *team_name)
 {
@@ -21,6 +22,6 @@ egg_t *create_new_egg(const char *team_name)
 
 void delete_egg(egg_t *egg)
 {
-    free(egg->team_name);
+    free((char *)egg->team_name);
     free(egg);
 }

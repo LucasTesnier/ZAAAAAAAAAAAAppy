@@ -12,6 +12,19 @@
 #include "player.h"
 #include "tile.h"
 #include "eggs.h"
+#include "pack.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int get_int_len(int val)
+{
+    char str[80];
+
+    memset(str, 0, 80);
+    sprintf(str, "%d", val);
+    return strlen(str);
+}
 
 int get_len_container(container_t *cont)
 {
