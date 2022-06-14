@@ -5,7 +5,7 @@
 ** map
 */
 
-/// \file src/zappy_server/core/include/entity/map.c
+/// \file src/zappy_server_src/core/map.c
 
 #include "map.h"
 #include "entity/entity.h"

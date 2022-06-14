@@ -5,7 +5,7 @@
 ** entity_wrapper
 */
 
-/// \file src/zappy_server/core/include/entity/entity_wrapper.c
+/// \file src/zappy_server/core/entity/entity_wrapper.c
 
 #include "entity/entity.h"
 #include "entity/entity_types.h"

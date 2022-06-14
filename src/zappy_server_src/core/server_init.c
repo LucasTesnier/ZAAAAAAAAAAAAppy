@@ -5,7 +5,7 @@
 ** server_init
 */
 
-/// \file src/zappy_server/core/server_init.c
+/// \file src/zappy_server_src/core/server_init.c
 
 #include "server.h"
 #include "argument_handling.h"
@@ -17,6 +17,7 @@
 /// \param server_data the server data
 /// \param argc the number of arguments
 /// \param argv the arguments
+/// \return true if the server was correctly initialized, false otherwise
 static bool init_args(server_data_t *server_data, int ac, char **av)
 {
     if (!(server_data->arguments = argument_handling(ac, av)))

@@ -5,7 +5,7 @@
 ** egg
 */
 
-/// \file src/zappy_server/core/include/entity/egg.h
+/// \file src/zappy_server_src/core/entity/egg.c
 
 #include "entity/eggs.h"
 #include <uuid/uuid.h>

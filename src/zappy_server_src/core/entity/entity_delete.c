@@ -5,7 +5,7 @@
 ** entity_delete
 */
 
-/// \file src/zappy_server/core/include/entity/entity_delete.h
+/// \file src/zappy_server/core/entity/entity_delete.c
 
 #include "entity/entity.h"
 #include "entity/eggs.h"
