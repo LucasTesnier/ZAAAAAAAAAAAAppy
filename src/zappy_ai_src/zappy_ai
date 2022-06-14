@@ -40,7 +40,7 @@ def main() -> int:
 
     try:
         ip = getIPFromHostname(validArgs.machine)
-    except RuntimeError:
+    except:
         print("There isn't a corresponding IP for the machine name", file=sys.stderr)
         return 84
     return 0
