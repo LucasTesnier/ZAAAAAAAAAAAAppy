@@ -39,6 +39,7 @@ namespace gui {
             };
             void display();
         private:
+            void _updateMoveMap(sf::Vector2f &moveMap);
             void _updateTileVectorSize();
             std::shared_ptr<sf::RenderWindow> _window;
             std::shared_ptr<Event> _event;
@@ -46,6 +47,7 @@ namespace gui {
             std::size_t _tileSelected;
             std::size_t _tileHover;
             sf::Vector2f _mapSize;
+            float _zoom;
     };
 } // namespace gui
 

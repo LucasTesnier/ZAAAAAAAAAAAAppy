@@ -16,7 +16,7 @@ SFML::SFML() : _run(true)
     _window.get()->setFramerateLimit(60);
     _map.setWindow(_window);
     _map.setEvent(_event);
-    _map.setMapSize(sf::Vector2f(10, 10));
+    _map.setMapSize(sf::Vector2f(20, 10));
 }
 
 void SFML::display()

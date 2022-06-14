@@ -16,6 +16,7 @@ Tile::Tile()
     _texturePath = "";
     _shape.setOutlineThickness(1);
     _setShape();
+    _zoom = 1;
 }
 
 Tile::Tile(Tile &tile)
@@ -56,7 +57,7 @@ int Tile::isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse
 bool Tile::isOnTile(sf::Vector2i mouse)
 {
     int res = 0;
-    sf::Vector2f position = _toIsometric(sf::Vector2f(_position.x * _size.x, _position.y * _size.y), sf::Vector2f(45, 35), 1);
+    sf::Vector2f position = _toIsometric(sf::Vector2f(_position.x * _size.x, _position.y * _size.y), sf::Vector2f(45, 35));
 
     mouse.x -= position.x - _shape.getOrigin().x;
     mouse.y -= position.y - _shape.getOrigin().y;
@@ -69,7 +70,7 @@ bool Tile::isOnTile(sf::Vector2i mouse)
     return false;
 }
 
-sf::Vector2f Tile::_toIsometric(sf::Vector2f vector, sf::Vector2f angle, int zoom __attribute__((unused)))
+sf::Vector2f Tile::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)
 {
     sf::Vector2f point;
 
@@ -80,12 +81,22 @@ sf::Vector2f Tile::_toIsometric(sf::Vector2f vector, sf::Vector2f angle, int zoo
 
 void Tile::_setShape()
 {
-    _shape.setPosition(_toIsometric({_position.x * _size.x, _position.y * _size.y}, {45, 35}, 1));
+    _shape.setPosition(_toIsometric({_position.x * _size.x, _position.y * _size.y}, {45, 35}));
     _shape.setPointCount(4);
-    _shape.setPoint(0, _toIsometric({0, 0}, {45, 35}, 1));
-    _shape.setPoint(1, _toIsometric({0, _size.y}, {45, 35}, 1));
-    _shape.setPoint(2, _toIsometric({_size.x, _size.y}, {45, 35}, 1));
-    _shape.setPoint(3, _toIsometric({_size.x, 0}, {45, 35}, 1));
+    _shape.setPoint(0, _toIsometric({0, 0}, {45, 35}));
+    _shape.setPoint(1, _toIsometric({0, _size.y}, {45, 35}));
+    _shape.setPoint(2, _toIsometric({_size.x, _size.y}, {45, 35}));
+    _shape.setPoint(3, _toIsometric({_size.x, 0}, {45, 35}));
+}
+
+void Tile::setZoom(float zoom)
+{
+    if (zoom == _zoom)
+        return;
+    _zoom = zoom;
+    _size.x *= zoom;
+    _size.y *= zoom;
+    _setShape();
 }
 
 Tile::~Tile()
