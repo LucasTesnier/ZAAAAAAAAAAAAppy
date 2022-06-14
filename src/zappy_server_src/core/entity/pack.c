@@ -98,10 +98,14 @@ char *pack(entity_t *entity)
             free(tmp);
             break;
         case ENTITY_TILE_TYPE:
-            strcat(packed, pack_tile(entity));
+            tmp = pack_tile(entity);
+            strcat(packed, tmp);
+            free(tmp);
             break;
         case ENTITY_EGG_TYPE:
-            strcat(packed, pack_egg(entity));
+            tmp = pack_egg(entity);
+            strcat(packed, tmp);
+            free(tmp);
             break;
         default:
             break;
