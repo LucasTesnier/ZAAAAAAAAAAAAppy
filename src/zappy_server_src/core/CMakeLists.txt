@@ -17,6 +17,8 @@ set (SRC
     ${SRC_ROOT}/container_utils.c
     ${ENTITY_SRC}
     ${SRC_ROOT}/map.c
+    ${SRC_ROOT}/team.c
+    ${SRC_ROOT}/teams_remove.c
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h
@@ -27,6 +29,7 @@ set (SRC
     ${INC_ROOT}/argument_handling.h
     ${INC_ROOT}/container.h
     ${INC_ROOT}/map.h
+    ${INC_ROOT}/team.h
 )
 
 set (ENTITY_INTERFACE_SRC
