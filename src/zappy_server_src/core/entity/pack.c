@@ -5,7 +5,7 @@
 ** unpack
 */
 
-/// \file src/zappy_gui_src/Core/Network/pack.c
+/// \file src/zappy_server_src/core/entity/pack.c
 
 #include "entity.h"
 #include "entity_types.h"
@@ -16,37 +16,13 @@
 #include <string.h>
 #include <sys/queue.h>
 #include <stdio.h>
-
-char *pack_int(int val)
-{
-    char *tmp;
-    char *str;
-    // memset(str, 0, sizeof(char *));
-
-    sprintf(str, "%d", val);
-    tmp = calloc(sizeof(char), (strlen(str) + 2));
-    // tmp = (char*)malloc(sizeof(char) * (strlen(str) + 2));
-    strcat(tmp, str);
-    strcat(tmp, ";");
-    return tmp;
-}
-
-char *pack_str(char *val)
-{
-    char *tmp;
-
-    tmp = (char*)malloc(sizeof(char) * (strlen(val) + 2));
-    strcat(tmp, val);
-    strcat(tmp, ";");
-    return tmp;
-}
+#include <stdlib.h>
 
 char *pack_container(container_t *cont)
 {
-    char *tmp;
-    char str[80];
+    char *tmp = (char*)malloc(sizeof(char) * (get_len_container(cont) + 21));
 
-    tmp = strdup(";inventory{");
+    strcpy(tmp, ";inventory{");
     strcat(tmp, pack_int(cont->food));
     strcat(tmp, pack_int(cont->linemate));
     strcat(tmp, pack_int(cont->deraumere));
@@ -54,19 +30,19 @@ char *pack_container(container_t *cont)
     strcat(tmp, pack_int(cont->mendiane));
     strcat(tmp, pack_int(cont->phiras));
     strcat(tmp, pack_int(cont->thystame));
-    strcat(tmp, pack_str(strdup("}")));
+    strcat(tmp, pack_str("}"));
     free(cont);
     return tmp;
 }
 
 char *pack_player(entity_t *entity)
 {
-    char *tmp;
-    char str[80];
     player_t *player = (player_t*)malloc(sizeof(player_t));
+    char *tmp;
 
     player = (player_t*)entity->data;
-    tmp = strdup("player{");
+    tmp = (char*)malloc(sizeof(char) * (get_len_player(entity, player) + 35));
+    strcpy(tmp, "player{");
     strcat(tmp, pack_int(entity->position.x));
     strcat(tmp, pack_int(entity->position.y));
     strcat(tmp, pack_container(player->inventory));
@@ -80,12 +56,12 @@ char *pack_player(entity_t *entity)
 
 char *pack_tile(entity_t *entity)
 {
-    char *tmp;
-    char str[80];
     tile_t *tile = (tile_t*)malloc(sizeof(tile_t));
+    char *tmp;
 
     tile = (tile_t*)entity->data;
-    tmp = strdup("tile{");
+    tmp = (char*)malloc(sizeof(char) * (get_len_tile(entity, tile) + 30));
+    strcpy(tmp, "tile{");
     strcat(tmp, pack_int(entity->position.x));
     strcat(tmp, pack_int(entity->position.y));
     strcat(tmp, pack_container(tile->inventory));
@@ -101,13 +77,9 @@ char *pack_egg(entity_t *entity)
     egg_t *egg = (egg_t*)malloc(sizeof(egg_t));
 
     egg = (egg_t*)entity->data;
-    tmp = strdup("egg{");
-    char *posX = pack_int(entity->position.x);
-    tmp = malloc(sizeof(char) * (4 + strlen(posX));
-    strcat(tmp, "egg{");
-    strcat(tmp, posX);
-    free(posX);
-    // strcat(tmp, pack_int(entity->position.x));
+    tmp = malloc(sizeof(char) * (get_len_egg(entity, egg) + 10));
+    strcpy(tmp, strdup("egg{"));
+    strcat(tmp, pack_int(entity->position.x));
     strcat(tmp, pack_int(entity->position.y));
     strcat(tmp, pack_str((char *)egg->team_name));
     strcat(tmp, pack_str(strdup("}")));
@@ -119,21 +91,20 @@ char *pack(entity_t *entity)
     char *packed = strdup("");
     char *tmp;
 
-    switch (entity->type)
-    {
-    case ENTITY_PLAYER_TYPE:
-        tmp = pack_player(entity);
-        strcat(packed, tmp);
-        free(tmp);
-        break;
-    case ENTITY_TILE_TYPE:
-        strcat(packed, pack_tile(entity));
-        break;
-    case ENTITY_EGG_TYPE:
-        strcat(packed, pack_egg(entity));
-        break;
-    default:
-        break;
+    switch (entity->type) {
+        case ENTITY_PLAYER_TYPE:
+            tmp = pack_player(entity);
+            strcat(packed, tmp);
+            free(tmp);
+            break;
+        case ENTITY_TILE_TYPE:
+            strcat(packed, pack_tile(entity));
+            break;
+        case ENTITY_EGG_TYPE:
+            strcat(packed, pack_egg(entity));
+            break;
+        default:
+            break;
     }
     return packed;
 }

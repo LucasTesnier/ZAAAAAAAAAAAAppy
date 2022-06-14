@@ -5,5 +5,8 @@ set (ENTITY_SRC
     ${ENTITY_SRC_ROOT}/player.c
     ${ENTITY_SRC_ROOT}/tile.c
     ${ENTITY_SRC_ROOT}/entity.c
+    ${ENTITY_SRC_ROOT}/pack_get_len.c
+    ${ENTITY_SRC_ROOT}/pack_utils.c
+    ${ENTITY_SRC_ROOT}/pack.c
     PARENT_SCOPE
 )
