@@ -11,14 +11,17 @@ LEVEL_MAX = 8
 """
 FOOD_START = 120
 
-"""This is static """
-componentDensity = {
-    "linemate": 1,
-    "deraumere": 0,
-    "sibur": 0,
-    "mendiane": 0,
-    "phiras": 0,
-    "thystame": 0
+"""This static array provides information on the density of the components in the map
+    Values are given as a percentage
+"""
+COMPONENT_DENSITY = {
+    "food": 50,
+    "linemate": 30,
+    "deraumere": 15,
+    "sibur": 10,
+    "mendiane": 10,
+    "phiras": 8,
+    "thystame": 5
 }
 
 
@@ -26,7 +29,7 @@ componentDensity = {
     - Player represents the amount of player needed for elevation
     - From Linemate to thystame are the name of component and the amount needed for elevation per level
 """
-levelUpRequirements = [{},
+LEVEL_UP_REQUIREMENTS = [{},
                        {
                            "player": 1,  # LEVEL 2
                            "linemate": 1,
