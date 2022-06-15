@@ -29,72 +29,74 @@ COMPONENT_DENSITY = {
     - From Linemate to thystame are the name of component and the amount needed for elevation per level
 """
 LEVEL_UP_REQUIREMENTS = [{},
-                       {
-                           "player": 1,  # LEVEL 2
-                           "linemate": 1,
-                           "deraumere": 0,
-                           "sibur": 0,
-                           "mendiane": 0,
-                           "phiras": 0,
-                           "thystame": 0
-                       },
-                       {
-                           "player": 2,  ##LEVEL 3
-                           "linemate": 1,
-                           "deraumere": 1,
-                           "sibur": 1,
-                           "mendiane": 0,
-                           "phiras": 0,
-                           "thystame": 0
-                       },
-                       {
-                           "player": 2, #LEVEL 4
-                           "linemate": 2,
-                           "deraumere": 0,
-                           "sibur": 1,
-                           "mendiane": 0,
-                           "phiras": 2,
-                           "thystame": 0
-                       },
-                       {
-                           "player": 4, #LEVEL 5
-                           "linemate": 1,
-                           "deraumere": 1,
-                           "sibur": 2,
-                           "mendiane": 0,
-                           "phiras": 1,
-                           "thystame": 0
-                       },
-                       {
-                           "player": 4, #LEVEL 6
-                           "linemate": 1,
-                           "deraumere": 2,
-                           "sibur": 1,
-                           "mendiane": 3,
-                           "phiras": 0,
-                           "thystame": 0
-                       },
-                       {
-                           "player": 6, #LEVEL 7
-                           "linemate": 1,
-                           "deraumere": 2,
-                           "sibur": 3,
-                           "mendiane": 0,
-                           "phiras": 1,
-                           "thystame": 0
-                       },
-                       {
-                           "player": 6, #LEVEL 8
-                           "linemate": 2,
-                           "deraumere": 2,
-                           "sibur": 2,
-                           "mendiane": 2,
-                           "phiras": 2,
-                           "thystame": 1
-                       }
-                       ]
+                         {
+                             "player": 1,  # LEVEL 2
+                             "linemate": 1,
+                             "deraumere": 0,
+                             "sibur": 0,
+                             "mendiane": 0,
+                             "phiras": 0,
+                             "thystame": 0
+                         },
+                         {
+                             "player": 2,  ##LEVEL 3
+                             "linemate": 1,
+                             "deraumere": 1,
+                             "sibur": 1,
+                             "mendiane": 0,
+                             "phiras": 0,
+                             "thystame": 0
+                         },
+                         {
+                             "player": 2,  # LEVEL 4
+                             "linemate": 2,
+                             "deraumere": 0,
+                             "sibur": 1,
+                             "mendiane": 0,
+                             "phiras": 2,
+                             "thystame": 0
+                         },
+                         {
+                             "player": 4,  # LEVEL 5
+                             "linemate": 1,
+                             "deraumere": 1,
+                             "sibur": 2,
+                             "mendiane": 0,
+                             "phiras": 1,
+                             "thystame": 0
+                         },
+                         {
+                             "player": 4,  # LEVEL 6
+                             "linemate": 1,
+                             "deraumere": 2,
+                             "sibur": 1,
+                             "mendiane": 3,
+                             "phiras": 0,
+                             "thystame": 0
+                         },
+                         {
+                             "player": 6,  # LEVEL 7
+                             "linemate": 1,
+                             "deraumere": 2,
+                             "sibur": 3,
+                             "mendiane": 0,
+                             "phiras": 1,
+                             "thystame": 0
+                         },
+                         {
+                             "player": 6,  # LEVEL 8
+                             "linemate": 2,
+                             "deraumere": 2,
+                             "sibur": 2,
+                             "mendiane": 2,
+                             "phiras": 2,
+                             "thystame": 1
+                         }
+                         ]
 
 """-------------------------------------------Strategy Class---------------------------------------------------------"""
+
+
 class Strategy:
     def __init__(self, availableSlots: int, teamName: str):
         """ Default Constructor of the Core class"""
@@ -143,6 +145,7 @@ class Strategy:
         return self.__isRunning
 
     """ -------------------------------------------Public members functions------------------------------------------"""
+
     def start(self) -> int:
         """Starting the main loop of the AI
             This is infinity loop while :
@@ -191,6 +194,7 @@ class Strategy:
         return False
 
     """These functions are used by medium strategy"""
+
     def __getSpecificComponent(self):
         """This is used by the AI in case of needing a specific component and get it
             Here, the AI is making a risky bet because it doesn't do anything else than get the specific component
