@@ -14,6 +14,7 @@
     #include "entity/entity.h"
     #include "map.h"
     #include "scheduler/scheduler.h"
+    #include "team.h"
 
     /// \brief Return value when operation success
     #define SUCCESS 0
@@ -91,6 +92,8 @@ typedef struct server_data_s {
     scheduler_t *scheduler;
     /// All of the entities
     entity_wrapper_t *entities;
+    /// List of all the teams
+    struct teams_list_s teams;
 } server_data_t;
 
 /// \brief Init the server data structure
