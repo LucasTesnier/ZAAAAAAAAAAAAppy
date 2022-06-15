@@ -13,6 +13,7 @@
 #include "Event.hpp"
 #include "Map.hpp"
 #include "Interface.hpp"
+#include "Minimap/Minimap.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
 
@@ -52,6 +53,7 @@ class SFML {
 
         /// \brief SFML interface.
         Interface interface;
+        gui::Minimap _minimap;
 };
 
 #endif /* !SFML_HPP_ */

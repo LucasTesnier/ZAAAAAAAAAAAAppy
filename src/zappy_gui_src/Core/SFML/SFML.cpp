@@ -19,7 +19,9 @@ SFML::SFML() : _run(true)
     _window.get()->setFramerateLimit(60);
     _map.setWindow(_window);
     _map.setEvent(_event);
-    _map.setMapSize(sf::Vector2f(20, 10));
+    _map.setMapSize(sf::Vector2f(500, 200));
+    _minimap.setWindow(_window);
+    _minimap.setMapSize(sf::Vector2f(500, 200));
 }
 
 void SFML::display()
@@ -29,6 +31,7 @@ void SFML::display()
         _run = false;
     _window.get()->clear(sf::Color(127, 127, 127, 255));
     _map.display();
+    _minimap.display();
     _window.get()->display();
 }
 
