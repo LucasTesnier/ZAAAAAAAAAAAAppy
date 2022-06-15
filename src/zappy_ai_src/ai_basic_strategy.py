@@ -130,6 +130,12 @@ class Strategy:
         """
         self.__visionOfTheMap = Map("")
 
+        """This private member represents the index of the current target tile of the AI.
+            It can be useful to use relevant action from the AI in component research as example.
+            Set as 0 by default.
+        """
+        self.__targetTileIndex = 0
+
     def __del__(self):
         """Default Destructor of the Core class"""
         self.running = False
@@ -142,14 +148,36 @@ class Strategy:
     def __setIsRunning(self, isRunning: bool):
         self.__isRunning = isRunning
 
+    """
+        [ASKING], should i delete the old inventory and then re use the constructor the refill the inventory,
+        or should we turn the method fill inventory as public
+    """
+    def __setInventory(self, inventoryResponse: str):
+        self.__inventory = Inventory(inventoryResponse)
+
+    """
+        [ASKING], same as inventory
+    """
+    def __setVisionOfTheMap(self, lookResponse: str):
+        self.__visionOfTheMap = Map(lookResponse)
+
+    def __setTargetTile(self, index: int):
+        self.__targetTileIndex = index
+
     def __getAvailableSlots(self):
         return self.__availableSlots
 
-    def __getTeamName(self):
+    def __getTeamName(self) -> str:
         return self.__teamName
 
-    def __getIsRunning(self):
+    def __getIsRunning(self) -> bool:
         return self.__isRunning
+
+    def __getInventory(self) -> Inventory:
+        return self.__inventory
+
+    def __getTargetTileIndex(self) -> int:
+        return self.__targetTileIndex
 
     """ -------------------------------------------Public members functions------------------------------------------"""
 
