@@ -99,9 +99,13 @@ class Map:
         """ Count the occurence of the Item in the Tile """
         return tileStr.count(searchedItem)
 
-    def GetTile(self, x : int, y : int = 0) -> Tile:
+    def GetTile(self, x : int, y : int) -> Tile:
         """" Get one Tile of the Map """
         return self.__map[x + (y * y)]
+
+    def GetTile(self, x) -> Tile:
+        """" Get one Tile of the Map """
+        return self.__map[x]
 
     def GetMapSize(self) -> int:
         """" Get the size of the Map """
