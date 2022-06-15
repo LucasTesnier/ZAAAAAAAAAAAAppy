@@ -11,9 +11,19 @@ LEVEL_MAX = 8
 """
 FOOD_START = 120
 
+"""This is static """
+componentDensity = {
+    "linemate": 1,
+    "deraumere": 0,
+    "sibur": 0,
+    "mendiane": 0,
+    "phiras": 0,
+    "thystame": 0
+}
 
-"""This static array is used to know every requirements for elevations"""
-""" - Player represents de amount of player needed for elevation
+
+"""This static array is used to know every requirements for elevation
+    - Player represents the amount of player needed for elevation
     - From Linemate to thystame are the name of component and the amount needed for elevation per level
 """
 levelUpRequirements = [{},
