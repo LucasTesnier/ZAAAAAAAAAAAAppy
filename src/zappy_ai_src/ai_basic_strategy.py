@@ -215,7 +215,7 @@ class Strategy:
         """
         pass
 
-"""Note for reviewer, this is only debug using to start the main loop of the class"""
+"""Note for reviewer, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
   start = Strategy(4, "bonjour")
   start.start()
