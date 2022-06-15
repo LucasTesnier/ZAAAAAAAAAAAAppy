@@ -130,10 +130,10 @@ class Strategy:
     """--------------------------------Getter and Setter for Core Strategy class------------------------------------ """
 
     def __setAvailableSlots(self, availableSlots: int):
-        __availableSlots = availableSlots
+        self.__availableSlots = availableSlots
 
     def __setIsRunning(self, isRunning: bool):
-        __isRunning = isRunning
+        self.__isRunning = isRunning
 
     def __getAvailableSlots(self):
         return self.__availableSlots
@@ -155,7 +155,7 @@ class Strategy:
         self.__setIsRunning(True)
         while self.__getIsRunning():
             self.__playerStrategyManagement()
-            if not self.__isPlayerAlive:
+            if self.__isPlayerAlive:
                 self.__setIsRunning(False)
                 print("Player just died. Disconnected\n")
         return 0
