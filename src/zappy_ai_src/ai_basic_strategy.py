@@ -159,7 +159,7 @@ class Strategy:
     """ These functions are common in every strategies"""
 
     def __playerStrategyManagement(self):
-        """Main function of the Core
+        """Main function of the Strategy Class
             Used to determine which action is better to do depending on the current situation of the player
         """
     def __survive(self):
