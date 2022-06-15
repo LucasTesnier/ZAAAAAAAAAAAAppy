@@ -8,6 +8,7 @@ set (TARGET zappy_gui_interface)
 set (SRC
     ${INCLUDE_ROOT}/Interface.hpp
     ${SRC_ROOT}/Interface.cpp
+    ${MINIMAP_SRC}
 )
 
 add_library(${TARGET} ${SRC})
