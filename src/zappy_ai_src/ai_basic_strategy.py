@@ -171,6 +171,7 @@ class Strategy:
 
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
+        pass
 
     def __elevation(self):
         """This is used when the AI thinks it's the good timing to level up"""
@@ -215,7 +216,7 @@ class Strategy:
         """
         pass
 
-"""Note for reviewer, this is only debug used to start the main loop of the class"""
+"""Note for reviewers, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
   start = Strategy(4, "bonjour")
   start.start()
