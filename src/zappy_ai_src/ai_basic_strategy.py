@@ -157,7 +157,7 @@ class Strategy:
             self.__playerStrategyManagement()
             if self.__isPlayerAlive:
                 self.__setIsRunning(False)
-                print("Player just died. Disconnected\n")
+                print("Player has just died or is disconnected\n")
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
