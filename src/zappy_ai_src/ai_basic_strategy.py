@@ -39,7 +39,7 @@ LEVEL_UP_REQUIREMENTS = [{},
                              "thystame": 0
                          },
                          {
-                             "player": 2,  ##LEVEL 3
+                             "player": 2,  # LEVEL 3
                              "linemate": 1,
                              "deraumere": 1,
                              "sibur": 1,
