@@ -100,11 +100,18 @@ class Map:
         return tileStr.count(searchedItem)
 
     def GetTile(self, x : int, y : int) -> Tile:
-        """" Get one Tile of the Map """
+        """"
+        Get one Tile of the Map on a pyramidal POV
+        x is the number of the case on the line (start by 0)
+        y is the number of the mine
+        """
         return self.__map[x + (y * y)]
 
     def GetTile(self, x) -> Tile:
-        """" Get one Tile of the Map """
+        """"
+        Get one Tile of the Map
+        by accessing at his index in a classic way
+        """
         return self.__map[x]
 
     def GetMapSize(self) -> int:
