@@ -48,6 +48,7 @@ namespace gui {
             /// \param size The size of the tile.
             inline void setSize(const sf::Vector2f &size) {
                 _size = size;
+                _setShape();
             };
 
             /// \brief Get the size of the tile.
@@ -107,6 +108,17 @@ namespace gui {
             /// \param mouse The mouse to check.
             /// \return True if the mouse is on the tile, false otherwise.
             bool isOnTile(sf::Vector2i mouse);
+
+            /// \brief Check if the mouse is on the right of the two vectors.
+            /// \param point1 The first vector.
+            /// \param point2 The second vector.
+            /// \param mouse The mouse position.
+            /// \return 1 if on right, 0 otherwise.
+            int isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse);
+
+            /// \brief Set the zoom of the map.
+            /// \param zoom The zoom value to be set.
+            void setZoom(float zoom);
         private:
 
             /// \brief Set the points of the tile.
@@ -116,7 +128,7 @@ namespace gui {
             /// \param vector The point to move.
             /// \param angle The angle of the view.
             /// \param zoom The zoom of the view.
-            sf::Vector2f _toIsometric(sf::Vector2f vector, sf::Vector2f angle, int zoom);
+            sf::Vector2f _toIsometric(sf::Vector2f vector, sf::Vector2f angle);
 
             /// \brief Convex shape of the tile.
             sf::ConvexShape _shape;
@@ -132,6 +144,9 @@ namespace gui {
 
             /// \brief Texture path of the tile.
             std::string _texturePath;
+
+            /// \brief The zoom.
+            float _zoom;
     };
 } // gui namespace
 
