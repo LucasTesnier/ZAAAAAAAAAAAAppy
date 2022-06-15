@@ -71,6 +71,7 @@ build
 build
 graph
 vgcore*
+libTemporary
 
 # Tests Files
 *_test
