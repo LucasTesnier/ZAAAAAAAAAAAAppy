@@ -9,7 +9,7 @@ SRC     =   src/temporary_lib.c
 
 OBJ     =	$(SRC:.c=.o)
 
-NAME    =	libmy_temporary.so
+NAME    =	libzappy_ai_api.so
 
 LDFLAGS	= -shared -lm
 
