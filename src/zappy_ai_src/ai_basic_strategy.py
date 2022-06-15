@@ -214,3 +214,7 @@ class Strategy:
             Param : component : str, representing the specific needed by the AI
         """
         pass
+
+if (__name__ == "__main__"):
+  start = Strategy(4, "bonjour")
+  start.start()
