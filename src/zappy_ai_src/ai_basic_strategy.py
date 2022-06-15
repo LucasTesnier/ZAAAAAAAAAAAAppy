@@ -134,7 +134,7 @@ class Strategy:
         """Default Destructor of the Core class"""
         self.running = False
 
-    """--------------------------------Getter and Setter for Core Strategy class------------------------------------ """
+    """----------------------------------------Getter and Setter for Core Strategy class-----------------------------"""
 
     def __setAvailableSlots(self, availableSlots: int):
         self.__availableSlots = availableSlots
@@ -168,7 +168,11 @@ class Strategy:
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
-    """ These functions are common in every strategies"""
+
+    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+        These functions are common in every strategies
+        These functions are considered as actions
+    """
 
     def __playerStrategyManagement(self):
         """Main function of the Strategy Class
@@ -186,7 +190,7 @@ class Strategy:
 
     def __teamCall(self, nbPlayers: int):
         """This is used by the AI to call 'nbPlayers' of the team in order to elevation
-            Param : nbPlayers : int, the amount of player needed for the elevation
+            Param : nbPlayers: int, the amount of player needed for the elevation
         """
         pass
 
@@ -201,7 +205,10 @@ class Strategy:
         """
         return False
 
-    """These functions are used by medium strategy"""
+    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+        These functions are used by medium strategy
+        These functions are considered as actions
+    """
 
     def __getSpecificComponent(self):
         """This is used by the AI in case of needing a specific component and get it
@@ -219,9 +226,22 @@ class Strategy:
 
     def __requestComponentFromTeam(self, component: str):
         """This is used by the AI to request specific components from the team
-            Param : component : str, representing the specific needed by the AI
+            Param : component: str, representing the specific needed by the AI
         """
         pass
+
+    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+                These functions are used by every strategies
+                These functions are considered as utils
+    """
+
+    def __findClosestTileFromComponent(self, component: str) -> int:
+        """This is used by AI to find the closest tile depending on the component requested
+            param   : component: str, representing the required component
+            return  : int, representing the index of the closest tile including the component (ref: map Class)
+        """
+        pass
+
 
 """Note for reviewers, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
