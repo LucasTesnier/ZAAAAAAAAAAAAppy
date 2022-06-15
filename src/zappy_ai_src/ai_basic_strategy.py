@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from ai_function_wrapper import ServerWrapper
-from ai_handle_response import Inventory
+from ai_handle_response import Inventory, Map
 
 """---------------------------------------------Static variables-----------------------------------------------------"""
 
@@ -122,6 +122,13 @@ class Strategy:
             As an example if a player runs out of food, the survival action will take priority
         """
         self.__inventory = Inventory("food 120, linemate 0, deraumere 0, sibur 0, mendiane 0, phiras 0, thystame 0")
+
+        """This is an ephemeral representation of the player's view of the map.
+            Of course, the player's vision depends on his current level
+            Initialized with blank string by default.
+            This private member can be useful to develop and use relevant action from the AI
+        """
+        self.__visionOfTheMap = Map("")
 
     def __del__(self):
         """Default Destructor of the Core class"""
