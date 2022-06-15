@@ -164,19 +164,24 @@ class Strategy:
         """Main function of the Strategy Class
             Used to determine which action is better to do depending on the current situation of the player
         """
+        pass
+
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
 
     def __elevation(self):
         """This is used when the AI thinks it's the good timing to level up"""
+        pass
 
     def __teamCall(self, nbPlayers: int):
         """This is used by the AI to call 'nbPlayers' of the team in order to elevation
             Param : nbPlayers : int, the amount of player needed for the elevation
         """
+        pass
 
     def __fork(self):
         """This is used by the AI to authorize a new connection"""
+        pass
 
     def __isPlayerAlive(self) -> bool:
         """This function call the server to know if the player is alive or not
@@ -191,12 +196,17 @@ class Strategy:
             Here, the AI is making a risky bet because it doesn't do anything else than get the specific component
             Make sure to have enough food before calling this function
         """
+        pass
+
     def __denyComponents(self):
         """This is used by high level player in the game (7, 8)
             The AI consider a higher or lower value of the objects depending on their density in the map
             The higher the value, the more likely is that the AI will pick up the object
         """
+        pass
+
     def __requestComponentFromTeam(self, component: str):
         """This is used by the AI to request specific components from the team
             Param : component : str, representing the specific needed by the AI
         """
+        pass
