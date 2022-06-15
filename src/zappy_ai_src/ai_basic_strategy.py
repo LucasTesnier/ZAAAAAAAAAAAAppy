@@ -151,6 +151,7 @@ class Strategy:
     """
         [ASKING], should i delete the old inventory and then re use the constructor the refill the inventory,
         or should we turn the method fill inventory as public
+        In case of delete, how can i delete object Inventory ?
     """
     def __setInventory(self, inventoryResponse: str):
         self.__inventory = Inventory(inventoryResponse)
