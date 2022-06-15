@@ -188,7 +188,7 @@ class Strategy:
             Return : True if the player is alive
                      False otherwise
         """
-        return True
+        return False
 
     """These functions are used by medium strategy"""
     def __getSpecificComponent(self):
