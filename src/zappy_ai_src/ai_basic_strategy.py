@@ -24,7 +24,6 @@ COMPONENT_DENSITY = {
     "thystame": 5
 }
 
-
 """This static array is used to know every requirements for elevation
     - Player represents the amount of player needed for elevation
     - From Linemate to thystame are the name of component and the amount needed for elevation per level
