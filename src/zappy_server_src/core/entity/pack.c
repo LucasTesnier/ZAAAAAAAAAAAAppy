@@ -88,7 +88,7 @@ char *pack_egg(entity_t *entity)
     if ((tmp = malloc(sizeof(char) *
         (get_len_egg(entity, egg) + EGG_SIZE))) == NULL)
         return NULL;
-    sprintf(tmp, "tile{%d;%d;%s}",
+    sprintf(tmp, "egg{%d;%d;%s}",
             entity->position.x,
             entity->position.y,
             (char *)egg->team_name);
@@ -114,4 +114,31 @@ char *pack(entity_t *entity)
             break;
     }
     return packed;
+}
+
+int main(void)
+{
+    position_t pos= {.x = 42, .y = 4242};
+    entity_t *ent = create_entity(ENTITY_PLAYER_TYPE, pos);
+    player_t *p = create_player(strdup("guiguilebg"));
+    ent->data = p;
+    char *test = pack(ent);
+    printf("%s\n", test);
+
+
+    position_t pos1= {.x = 42, .y = 4242};
+    entity_t *ent2 = create_entity(ENTITY_TILE_TYPE, pos1);
+    tile_t *p2 = create_new_tile();
+    entity_set_data(ent2, p2);
+    char *test2 = pack(ent2);
+    printf("%s\n", test2);
+
+
+    position_t pos2= {.x = 42, .y = 4242};
+    entity_t *ent3 = create_entity(ENTITY_EGG_TYPE, pos2);
+    egg_t *p3 = create_new_egg(strdup("guiguilebgoeuf"));
+    ent3->data = p3;
+    char *test3 = pack(ent3);
+    printf("%s\n", test3);
+    return 0;
 }
