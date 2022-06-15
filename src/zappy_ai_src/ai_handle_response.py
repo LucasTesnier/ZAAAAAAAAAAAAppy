@@ -103,7 +103,7 @@ class Map:
         """"
         Get one Tile of the Map on a pyramidal POV
         x is the number of the case on the line (start by 0)
-        y is the number of the mine
+        y is the number of the line
         """
         return self.__map[x + (y * y)]
 
