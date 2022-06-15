@@ -10,6 +10,7 @@ class ServerWrapper:
 
         """ Private members functions pointer """
         self.__ConnectToServer = None
+        self.__GetRepConnectToServer = None
         self.__AskJoinTeam = None
         self.__GetRepJoinTeam = None
         self.__GetResponseState = None
@@ -57,6 +58,7 @@ class ServerWrapper:
         """
         try:
             self.__ConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_try_to_connect_to_server")
+            self.__GetRepConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_connect_to_server_response")
             self.__AskJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_join")
             self.__GetRepJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_join_response")
             self.__GetResponseState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_response_state")
@@ -98,6 +100,13 @@ class ServerWrapper:
         b_machineName = machineName.encode("UTF-8")
         c_port = ctypes.c_int(port)
         self.__ConnectToServer(b_machineName, c_port)
+
+    def GetRepConnectToServer(self) -> bool:
+        """ Wrapped Function : Get the response of ConnectToServer() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepConnectToServer.restype = ctypes.c_bool
+        c_value = self.__GetRepConnectToServer()
+        return c_value
 
     def AskJoinTeam(self, teamName : str) -> None:
         """ Wrapped Function : Try to join a Team """
