@@ -155,7 +155,7 @@ class Strategy:
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
 
-    def __eleveation(self):
+    def __elevation(self):
         """This is used when the AI thinks it's the good timing to level up"""
 
     def __teamCall(self, nbPlayers: int):
