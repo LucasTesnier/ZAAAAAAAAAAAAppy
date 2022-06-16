@@ -9,6 +9,7 @@
 
 #include "command_hold.h"
 #include "rcodes.h"
+#include "team.h"
 
 bool command_logout(char *arg, player_list_t *player, server_data_t *serv)
 {
@@ -45,4 +46,20 @@ bool command_login(char *arg, player_list_t *player, server_data_t *serv)
     (void) serv;
     pop_message(player->player_peer);
     return print_retcode(201, type, player->player_peer, true);
+}
+
+bool command_join(char *arg, player_list_t *player, server_data_t *serv)
+{
+    team_t *tmp = NULL;
+
+    if (!player->is_auth)
+        return print_retcode(401, NULL, player->player_peer, false);
+    if (!(tmp = get_team_by_name(arg, &serv->teams)))
+        return print_retcode(312, arg, player->player_peer, false);
+    if (tmp->current_members >= tmp->max_members)
+        return print_retcode(313, arg, player->player_peer, false);
+    tmp->current_members++;
+    /// Create a new user and put it in the team
+    /// return print_retcode(301, NULL, player->player_peer, false);
+    return print_retcode(211, arg, player->player_peer, true);
 }

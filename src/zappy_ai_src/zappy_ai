@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from socket import gethostbyname
 import sys
 import argparse
 
@@ -22,6 +23,10 @@ def needHelp(ac : int, av) ->  bool:
             return True
     return False
 
+def getIPFromHostname(hostname : str) -> str:
+    """ Find the IP corresponding to the Hostname, raise an RunTimeError if there isn't """
+    return gethostbyname(hostname)
+
 def main() -> int:
     """ Main Function """
     if needHelp(len(sys.argv), sys.argv):
@@ -30,9 +35,14 @@ def main() -> int:
     argsParser = argparse.ArgumentParser(add_help=False)
     argsParser.add_argument("-p", dest="port", type=int, required=True)
     argsParser.add_argument("-n", dest="name", type=str, required=True)
-    argsParser.add_argument("-h", dest="machine", type=str, required=False, default="127.0.0.1")
+    argsParser.add_argument("-h", dest="machine", type=str, required=False, default="localhost")
     validArgs = argsParser.parse_args()
 
+    try:
+        ip = getIPFromHostname(validArgs.machine)
+    except:
+        print("There isn't a corresponding IP for the machine name", file=sys.stderr)
+        return 84
     return 0
 
 

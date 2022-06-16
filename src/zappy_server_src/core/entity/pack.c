@@ -7,13 +7,13 @@
 
 /// \file src/zappy_server_src/core/entity/pack.c
 
-#include "entity.h"
-#include "entity_types.h"
+#include "entity/entity.h"
+#include "entity/entity_types.h"
 #include "container.h"
-#include "player.h"
-#include "tile.h"
-#include "eggs.h"
-#include "pack.h"
+#include "entity/player.h"
+#include "entity/tile.h"
+#include "entity/eggs.h"
+#include "entity/pack.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -98,7 +98,7 @@ char *pack_egg(entity_t *entity)
 //TODO subject of the pack (entity_pack?)
 char *pack(entity_t *entity)
 {
-    char *packed;
+    char *packed = NULL;
 
     switch (entity->type) {
         case ENTITY_PLAYER_TYPE:

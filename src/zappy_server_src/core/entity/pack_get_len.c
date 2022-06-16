@@ -7,12 +7,12 @@
 
 /// \file src/zappy_server_src/core/entity/pack_get_len.c
 
-#include "entity.h"
+#include "entity/entity.h"
 #include "container.h"
-#include "player.h"
-#include "tile.h"
-#include "eggs.h"
-#include "pack.h"
+#include "entity/player.h"
+#include "entity/tile.h"
+#include "entity/eggs.h"
+#include "entity/pack.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

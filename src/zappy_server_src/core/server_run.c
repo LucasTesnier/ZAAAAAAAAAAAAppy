@@ -24,10 +24,13 @@ void sigint_handler(int var __attribute__((unused)))
 int server_run(int ac, char **av)
 {
     server_data_t *server_data = init_server_data(ac, av);
+    team_t *tmp = NULL;
 
     if (server_data == NULL)
         return FAILED;
     signal(SIGINT, sigint_handler);
+    TAILQ_FOREACH(tmp, &server_data->teams, teams)
+        printf("Created team %s with %d max players\n", tmp->name, tmp->max_members);
     server_loop(server_data);
     destroy_server_data(server_data);
     return SUCCESS;
