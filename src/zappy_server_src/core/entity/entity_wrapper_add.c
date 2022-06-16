@@ -5,49 +5,23 @@
 ** entity_wrapper_add
 */
 
-/// \file src/zappy_server/core/include/entity/entity_wrapper_add.c
+/// \file src/zappy_server_src/core/entity/entity_wrapper_add.c
 
-#include <stdlib.h>
 #include "entity/entity.h"
-#include "entity/eggs.h"
 #include "entity/player.h"
-#include "entity/tile.h"
-#include "sys/queue.h"
+#include "entity/eggs.h"
+#include <sys/queue.h>
 
-void entity_wrapper_add_player(entity_wrapper_t *wrapper, position_t pos,
-const char *team_name)
+void entity_wrapper_add_player(entity_wrapper_t *wrapper, entity_t *player)
 {
-    entity_t *entity = create_entity(ENTITY_PLAYER_TYPE, pos);
-    player_t *player_data = create_player(team_name);
-
-    if (!wrapper || !entity || !player_data)
+    if (!wrapper || !player)
         return;
-    entity->position = pos;
-    entity->data = player_data;
-    TAILQ_INSERT_TAIL(&wrapper->players, entity, entities);
+    TAILQ_INSERT_TAIL(&wrapper->players, player, entities);
 }
 
-void entity_wrapper_add_egg(entity_wrapper_t *wrapper, position_t pos,
-const char *team_name)
+void entity_wrapper_add_egg(entity_wrapper_t *wrapper, entity_t *egg)
 {
-    entity_t *entity = create_entity(ENTITY_EGG_TYPE, pos);
-    egg_t *egg_data = create_new_egg(team_name);
-
-    if (!wrapper || !entity || !egg_data)
+    if (!wrapper || !egg)
         return;
-    entity->position = pos;
-    entity->data = egg_data;
-    TAILQ_INSERT_TAIL(&wrapper->eggs, entity, entities);
-}
-
-void entity_wrapper_add_tile(entity_wrapper_t *wrapper, position_t pos)
-{
-    entity_t *entity = create_entity(ENTITY_TILE_TYPE, pos);
-    tile_t *tile_data = create_new_tile();
-
-    if (!wrapper || !entity || !tile_data)
-        return;
-    entity->position = pos;
-    entity->data = tile_data;
-    TAILQ_INSERT_TAIL(&wrapper->tiles, entity, entities);
+    TAILQ_INSERT_TAIL(&wrapper->eggs, egg, entities);
 }

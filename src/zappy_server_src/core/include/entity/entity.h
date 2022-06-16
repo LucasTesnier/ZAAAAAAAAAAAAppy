@@ -79,20 +79,30 @@ void delete_entity_wrapper(entity_wrapper_t *wrapper);
 /// \param wrapper the entity wrapper to add the player to
 /// \param position the player position
 /// \param team_name the player team_name
-void entity_wrapper_add_player(entity_wrapper_t *wrapper, position_t pos,
+void entity_wrapper_create_player(entity_wrapper_t *wrapper, position_t pos,
 const char *team_name);
+
+/// \brief Add a previously created player entity to the collection of entity
+/// \param wrapper the entity wrapper to add the player to
+/// \param entity the player entity to add
+void entity_wrapper_add_player(entity_wrapper_t *wrapper, entity_t *player);
 
 /// \brief Create a new egg and adds to the collection of eggs
 /// \param wrapper the entity wrapper to add the egg to
 /// \param position the egg position
 /// \param team_name the egg team_name
-void entity_wrapper_add_egg(entity_wrapper_t *wrapper, position_t pos,
+void entity_wrapper_create_egg(entity_wrapper_t *wrapper, position_t pos,
 const char *team_name);
+
+/// \brief Add a previously created egg entity to the collection of entity
+/// \param wrapper the entity wrapper to add the egg to
+/// \param entity the egg entity to add
+void entity_wrapper_add_egg(entity_wrapper_t *wrapper, entity_t *egg);
 
 /// \brief Create a new tile and adds to the collection of tiles
 /// \param wrapper the entity wrapper to add the tile to
 /// \param position the tile position
-void entity_wrapper_add_tile(entity_wrapper_t *wrapper, position_t pos);
+void entity_wrapper_create_tile(entity_wrapper_t *wrapper, position_t pos);
 
 /// \brief Remove an entity from the collection
 /// \param wrapper the entity wrapper to remove the entity from
