@@ -29,9 +29,32 @@ static bool init_args(server_data_t *server_data, int ac, char **av)
     server_data->active_player_n = 0;
     return true;
 }
+
+/// \brief Init all thM e teams inside the server
+/// \param server_data the server data
+/// \return true if the teams were correctly initialized, false otherwise
+static bool team_init(server_data_t *server_data)
+{
+    team_t *tmp = NULL;
+
+    if (!server_data)
+        return false;
+    TAILQ_INIT(&server_data->teams);
+    for (int i = 0; server_data->arguments->team_list[i]; i++) {
+        tmp = create_team(server_data->arguments->team_list[i],
+        server_data->arguments->client_nb);
+        if (!tmp)
+            return false;
+        if (!add_team(tmp, &server_data->teams))
+            return false;
+    }
+    return true;
+}
+
 /// \brief Init the server scheduler, map and inial entities
 /// \param server_data the server data
-/// \todo set the players to a random position
+/// \return true if the server objects was correctly initialized
+/// false otherwise
 static bool init_objects(server_data_t *server_data)
 {
     server_data->map = create_new_map(server_data->arguments->width,
@@ -49,7 +72,8 @@ static bool init_objects(server_data_t *server_data)
             get_tile(server_data->map, i, j), entities);
         }
     }
-    /// Init the teams
+    if (!team_init(server_data))
+        return false;
     return true;
 }
 

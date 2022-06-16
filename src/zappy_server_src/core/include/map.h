@@ -5,6 +5,8 @@
 ** map
 */
 
+/// \file src/zappy_server_src/core/include/map.h
+
 #ifndef MAP_H
     #define MAP_H
 

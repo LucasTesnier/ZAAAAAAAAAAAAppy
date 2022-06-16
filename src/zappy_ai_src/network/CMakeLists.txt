@@ -1,7 +1,7 @@
 set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_ai_src/network)
 set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_ai_src/network)
 
-set (TARGET ${PROJECT_NAME}_ai)
+set (TARGET ${PROJECT_NAME}_ai_test)
 
 set (SRC
     ${SRC_ROOT}/entrypoint.c
@@ -15,7 +15,7 @@ target_include_directories(${TARGET}
 )
 
 target_link_libraries(${TARGET}
-    PUBLIC ${TARGET}_api
+    PUBLIC ${PROJECT_NAME}_ai_api
 )
 
 set_target_properties(${TARGET} PROPERTIES

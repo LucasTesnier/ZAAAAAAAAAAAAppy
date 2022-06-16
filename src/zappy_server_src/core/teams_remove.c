@@ -5,6 +5,8 @@
 ** teams_remove
 */
 
+/// \file src/zappy_server_src/core/teams_remove.c
+
 #include "team.h"
 #include <stdlib.h>
 

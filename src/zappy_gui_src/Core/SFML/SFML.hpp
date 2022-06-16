@@ -48,7 +48,7 @@ class SFML {
         std::shared_ptr<sf::RenderWindow> _window;
 
         /// \brief SFML map.
-        Map map;
+        gui::Map _map;
 
         /// \brief SFML interface.
         Interface interface;
