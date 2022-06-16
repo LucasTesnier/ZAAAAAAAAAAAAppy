@@ -12,17 +12,23 @@ using namespace gui;
 
 Minimap::Minimap()
 {
+    const std::size_t tileNbrPoint = 4;
+    const sf::Vector2f tilePointPosition[tileNbrPoint] = {{0, 0}, {50, 50}, {0, 100}, {-50, 50}};
+    const sf::Vector2f minimapPosition = {500, 500};
+    const sf::Vector2f minimapSize = {200, 200};
+
     _playerList.clear();
-    _minimap.setPosition(500, 500);
+    _minimap.setPosition(minimapPosition);
     _minimap.setSize(sf::Vector2f(100, 100));
     _map.setPosition(_minimap.getPosition());
     _map.setFillColor(sf::Color::Green);
     _map.setPointCount(4);
-    _map.setPoint(0, {0, 0});
-    _map.setPoint(1, {50, 50});
-    _map.setPoint(2, {0, 100});
-    _map.setPoint(3, {-50, 50});
-    _minimapSize = {200, 200};
+    _map.setPoint(0, tilePointPosition[0]);
+    _map.setPoint(1, tilePointPosition[1]);
+    _map.setPoint(2, tilePointPosition[2]);
+    _map.setPoint(3, tilePointPosition[3]);
+    _minimapSize = minimapSize;
+    isSwitch = false;
 }
 
 void Minimap::display()
@@ -37,13 +43,17 @@ void Minimap::removePlayer(const std::string &name __attribute__((unused)))
 
 }
 
-void Minimap::switchSize()
+void Minimap::switchSize(bool state)
 {
-    if (_minimapSize.x == 200 && _minimapSize.y == 200)
-        _minimapSize = sf::Vector2f(_window->getSize());
-    else
-        _minimapSize = {200, 200};
-    _updateConvexShape();
+    if (state && isSwitch == false) {
+        if (_minimapSize.x == 200 && _minimapSize.y == 200)
+            _minimapSize = sf::Vector2f(_window->getSize());
+        else
+            _minimapSize = {200, 200};
+        _updateConvexShape();
+        isSwitch = true;
+    } else if (state == false)
+        isSwitch = false;
 }
 
 sf::Vector2f Minimap::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)

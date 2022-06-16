@@ -5,8 +5,11 @@
 ** entity
 */
 
+/// \file src/zappy_server/core/include/entity/entity.c
+
 #include "entity/entity.h"
 #include <stdbool.h>
+#include <stdlib.h>
 
 entity_t *create_entity(unsigned int type, position_t position)
 {

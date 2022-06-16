@@ -12,16 +12,18 @@
 SFML::SFML() : _run(true)
 {
     sf::ContextSettings settings;
+    const std::size_t maxFps = 60;
+    const sf::Vector2f mapSize = {20, 10};
 
     settings.antialiasingLevel = 8;
     _event = std::make_shared<Event>();
     _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Default, settings);
-    _window.get()->setFramerateLimit(60);
+    _window.get()->setFramerateLimit(maxFps);
     _map.setWindow(_window);
     _map.setEvent(_event);
-    _map.setMapSize(sf::Vector2f(15, 10));
+    _map.setMapSize(mapSize);
     _minimap.setWindow(_window);
-    _minimap.setMapSize(sf::Vector2f(15, 10));
+    _minimap.setMapSize(mapSize);
 }
 
 void SFML::display()
@@ -44,7 +46,6 @@ void SFML::_getEvent()
             _window.get()->close();
         }
         if (event.type == sf::Event::KeyPressed) {
-            _minimap.switchSize();
             if (event.key.alt || event.key.code == sf::Keyboard::RAlt || event.key.code == sf::Keyboard::LAlt) {
                 _event.get()->altPressed();
                 continue;
@@ -84,4 +85,8 @@ void SFML::_getEvent()
             continue;
         }
     }
+    if (_event->isKeyPressed(sf::Keyboard::M))
+        _minimap.switchSize(true);
+    if (!_event->isKeyPressed(sf::Keyboard::M))
+        _minimap.switchSize(false);
 }

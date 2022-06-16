@@ -25,7 +25,7 @@ target_include_directories(${TARGET}
 )
 
 set_target_properties(${TARGET} PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/zappy_gui
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/zappy_gui_src
 )
 
 target_link_libraries(${TARGET}

@@ -49,10 +49,12 @@ bool remove_entity_from_tile(tile_t *tile, entity_t *entity)
     return true;
 }
 
-void delete_tile(tile_t *tile)
+void delete_tile(void *tile)
 {
-    if (tile == NULL)
+    tile_t *tile_data = (tile_t *)tile;
+
+    if (tile_data == NULL)
         return;
-    free(tile->inventory);
-    free(tile);
+    free(tile_data->inventory);
+    free(tile_data);
 }

@@ -14,6 +14,7 @@ add_compile_options(
 
 option(TESTING OFF)
 if (TESTING)
+    enable_testing()
     add_compile_options("--coverage" "-fprofile-arcs" "-ftest-coverage")
     add_link_options("--coverage" "-fprofile-arcs" "-ftest-coverage")
     add_subdirectory(tests)

@@ -28,7 +28,7 @@ namespace gui {
                 _mapSize = size;
                 _updateConvexShape();
             };
-            void switchSize();
+            void switchSize(bool state);
             inline void setWindow(std::shared_ptr<sf::RenderWindow> window) {
                 _window = window;
             };
@@ -42,6 +42,7 @@ namespace gui {
             sf::CircleShape _player;
             sf::Vector2f _mapSize;
             sf::Vector2f _minimapSize;
+            bool isSwitch;
     };
 }
 
