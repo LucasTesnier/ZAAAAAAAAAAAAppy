@@ -63,7 +63,7 @@ entity_t **player_entity, server_data_t *serv)
         return false;
     if (!(player_data = create_player(arg)))
         return false;
-    entity_set_data(player_entity, player_data);
+    entity_set_data(*player_entity, player_data);
     return true;
 }
 
