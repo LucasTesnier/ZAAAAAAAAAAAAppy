@@ -4,6 +4,7 @@ set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_server_src/core)
 set (TARGET ${PROJECT_NAME}_server_core)
 
 add_subdirectory(entity)
+add_subdirectory(commands)
 
 set (SRC
     ${SRC_ROOT}/server_run.c
@@ -11,14 +12,14 @@ set (SRC
     ${SRC_ROOT}/server_init.c
     ${SRC_ROOT}/my_zappy_server.c
     ${SRC_ROOT}/command_hold.c
-    ${SRC_ROOT}/auth_command.c
+    ${COMMANDS_SOURCES}
     ${SRC_ROOT}/scheduler.c
     ${SRC_ROOT}/argument_handling.c
     ${SRC_ROOT}/container_utils.c
-    ${ENTITY_SRC}
     ${SRC_ROOT}/map.c
     ${SRC_ROOT}/team.c
     ${SRC_ROOT}/teams_remove.c
+    ${ENTITY_SRC}
 
     ${INC_ROOT}/entrypoint.h
     ${INC_ROOT}/my_zappy_server.h
