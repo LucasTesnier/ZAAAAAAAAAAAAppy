@@ -57,6 +57,11 @@ bool c_interface_ask_look()
     return true;
 }
 
+bool c_interface_ask_inventory()
+{
+    return true;
+}
+
 bool c_interface_ask_broadcast(const char *message)
 {
     (void)(message);
