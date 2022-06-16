@@ -56,6 +56,15 @@ namespace gui {
             /// \param moveMap The vector use to move the map.
             void _updateMoveMap(sf::Vector2f &moveMap);
 
+            /// \brief Find if the tile should be displayed on the screen.
+            /// \param area The global bound of the tile.
+            /// \param windowSize The size of the window.
+            /// \param tmp A value use to keep a previous value.
+            /// \param mapSize The size of the map.
+            /// \param i The index in the tile vector.
+            /// \return true if it should be displayed, false otherwise.
+            bool _tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u windowSize, std::size_t &tmp, sf::Vector2f &mapSize, std::size_t &i)
+
             /// \brief Update the size of the vector.
             void _updateTileVectorSize();
 
