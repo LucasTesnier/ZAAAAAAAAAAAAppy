@@ -9,6 +9,8 @@
 
 #include "SFML.hpp"
 
+using namespace gui;
+
 SFML::SFML() : _run(true)
 {
     sf::ContextSettings settings;
@@ -22,8 +24,9 @@ SFML::SFML() : _run(true)
     _map.setWindow(_window);
     _map.setEvent(_event);
     _map.setMapSize(mapSize);
-    _minimap.setWindow(_window);
-    _minimap.setMapSize(mapSize);
+    _interface.setEvent(_event);
+    _interface.setWindow(_window);
+    _interface.setMapSize(mapSize);
 }
 
 void SFML::display()
@@ -33,7 +36,7 @@ void SFML::display()
         _run = false;
     _window.get()->clear(sf::Color(127, 127, 127, 255));
     _map.display();
-    _minimap.display();
+    _interface.display();
     _window.get()->display();
 }
 
@@ -85,8 +88,4 @@ void SFML::_getEvent()
             continue;
         }
     }
-    if (_event->isKeyPressed(sf::Keyboard::M))
-        _minimap.switchSize(true);
-    if (!_event->isKeyPressed(sf::Keyboard::M))
-        _minimap.switchSize(false);
 }
