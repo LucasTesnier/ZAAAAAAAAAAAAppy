@@ -26,6 +26,7 @@ static int usage(int ac, char **av)
 int main(int ac, char **av)
 {
     Core core;
+    Unpack u;
 
     if (usage(ac, av) < 0)
         return 0;

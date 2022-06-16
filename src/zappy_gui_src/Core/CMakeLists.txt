@@ -24,5 +24,5 @@ set_target_properties(${TARGET} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
-# add_subdirectory(Network)
+add_subdirectory(Network)
 add_subdirectory(SFML)
