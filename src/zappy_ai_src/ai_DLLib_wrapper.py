@@ -4,12 +4,6 @@ from _ctypes import dlopen
 from _ctypes import dlsym
 from _ctypes import dlclose
 
-"""
-The libToto
-void toto() { printf("TOTO\n"); }
-void add(int a) { return a + 1;}
-"""
-
 class DLLibWrapper:
     def __init__(self, libraryPath : str = "./libzappy_ai_api.so") -> None:
         """ Constructor of the DLLibWrapper Class """
