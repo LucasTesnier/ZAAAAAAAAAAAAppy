@@ -132,9 +132,21 @@ class Strategy:
 
         """This private member represents the index of the current target tile of the AI.
             It can be useful to use relevant action from the AI in component research as example.
-            Set as 0 by default.
+            Set as int: 0 by default.
         """
         self.__targetTileIndex = 0
+
+        """This private member represents the currently most needed component by the AI.
+            It can be useful to use relevant action from the AI in component research as example.
+            Set as str: 'food' by default
+        """
+        self.__targetComponent = "food"
+
+        """This private member represents the current level of the player
+            It impacts on his vision of the map and his requirements of elevation
+            Set as int: 1 by default and can reach level 8 maximum
+        """
+        self.__playerCurrentLevel = 1
 
     def __del__(self):
         """Default Destructor of the Core class"""
@@ -165,6 +177,12 @@ class Strategy:
     def __setTargetTile(self, index: int):
         self.__targetTileIndex = index
 
+    def __setTargetComponent(self, targetComponent: str):
+        self.__targetComponent = targetComponent
+
+    def __setPlayerCurrentLevel(self, playerCurrentLevel: int):
+        self.__playerCurrentLevel = playerCurrentLevel
+
     def __getAvailableSlots(self):
         return self.__availableSlots
 
@@ -179,6 +197,12 @@ class Strategy:
 
     def __getTargetTileIndex(self) -> int:
         return self.__targetTileIndex
+
+    def __getTargetComponent(self) -> str:
+        return self.__targetComponent
+
+    def __getPlayerCurrentLevel(self) -> int:
+        return self.__playerCurrentLevel
 
     """ -------------------------------------------Public members functions------------------------------------------"""
 
@@ -207,11 +231,12 @@ class Strategy:
         """Main function of the Strategy Class
             Used to determine which action is better to do depending on the current situation of the player
         """
-        pass
+        if self.__getInventory().GetFood() <= 120:
+            self.__survive()
 
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
-        pass
+        self.__setTargetComponent("food")
 
     def __elevation(self):
         """This is used when the AI thinks it's the good timing to level up"""
@@ -270,6 +295,25 @@ class Strategy:
             return  : int, representing the index of the closest tile including the component (ref: map Class)
         """
         pass
+
+    def __getRequiredComponent(self) -> str:
+        """This is used by the AI to know what is the required component missing for elevation
+            Ordered from rarest to least rare component
+        """
+        playerLevel = self.__getPlayerCurrentLevel()
+        if self.__getInventory().GetThystame() < LEVEL_UP_REQUIREMENTS[playerLevel].get("thystame"):
+            return "thystame"
+        if self.__getInventory().GetPhiras() < LEVEL_UP_REQUIREMENTS[playerLevel].get("phiras"):
+            return "phiras"
+        if self.__getInventory().GetMendiane() < LEVEL_UP_REQUIREMENTS[playerLevel].get("mendiane"):
+            return "mendiane"
+        if self.__getInventory().GetSibur() < LEVEL_UP_REQUIREMENTS[playerLevel].get("sibur"):
+            return "sibur"
+        if self.__getInventory().GetDeraumere() < LEVEL_UP_REQUIREMENTS[playerLevel].get("deraumere"):
+            return "deraumere"
+        if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
+            return "linemate"
+
 
 
 """Note for reviewers, this is only debug used to start the main loop of the class"""
