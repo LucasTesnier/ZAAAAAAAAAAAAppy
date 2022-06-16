@@ -5,6 +5,8 @@
 ** team
 */
 
+/// \file src/zappy_server_src/core/include/team.h
+
 #ifndef TEAM_H
     #define TEAM_H
 

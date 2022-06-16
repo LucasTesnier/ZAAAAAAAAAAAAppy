@@ -48,6 +48,7 @@ typedef struct player_s {
 } player_t;
 
 /// \brief Creates a new player and associate it with the given team name
+/// \param team_name the team name
 player_t *create_player(const char *team_name);
 
 /// \brief Level up the player
