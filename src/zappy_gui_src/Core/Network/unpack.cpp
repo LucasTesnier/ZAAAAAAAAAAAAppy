@@ -13,7 +13,7 @@
 #include "unpack.hpp"
 // #include "ZappyGuiException.hpp"
 
-std::vector <std::string> stov(const std::string &str, char separator, bool pushEmptyStrings = false)
+std::vector <std::string> stov(const std::string &str, char separator, bool pushEmptyStrings)
 {
         std::vector<std::string> vector;
         std::string temp;
@@ -82,6 +82,19 @@ void unpack_tile(std::vector<std::string> &unpacked)
     // } throw(UnpackException("Unpack tile" "Invalid packed string"));
 }
 
+void unpack_egg(std::vector<std::string> &unpacked)
+{
+    // try {
+        auto tile = stov(unpacked[1], ';');
+        std::cout << "x: " << tile[0] << std::endl;
+        std::cout << "y: " << tile[1] << std::endl;
+        tile[2].pop_back();
+        std::cout << "team name: " << tile[2] << std::endl;
+        // std::cout << unpacked[2] << tile[0] << tile[1] << std::endl;
+
+    // } throw(UnpackException("Unpack tile" "Invalid packed string"));
+}
+
 void unpack(std::string &packed)
 {
     auto unpacked = stov(packed, '{');
@@ -92,15 +105,17 @@ void unpack(std::string &packed)
         std::cout << "test " << unpacked[0] << std::endl;
         unpack_tile(unpacked);
     } else if (unpacked[0] == "egg") {
-
+        unpack_egg(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type"));
+        return;
+        // throw(UnpackException("Unpack" "Invalid packed type"));
 }
 
 int main(void)
 {
     std::string a("player{42;4242;inventory{10;0;0;0;0;0;0};guiguilebg;1;0}");
     std::string b("tile{423;432;inventory{10;0;0;0;0;0;0}}");
-    unpack(b);
+    std::string c("egg{42;4242;guiguilebgoeuf}");
+    unpack(c);
     return 0;
 }

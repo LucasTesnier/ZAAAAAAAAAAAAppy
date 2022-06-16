@@ -47,3 +47,7 @@ void unpack_player(std::vector<std::string> &unpacked);
 /// \brief unpack an tile
 /// \param unpacked the vector of strings to unpack strings
 void unpack_tile(std::vector<std::string> &unpacked);
+
+/// \brief unpack an tile
+/// \param unpacked the vector of strings to unpack strings
+void unpack_egg(std::vector<std::string> &unpacked);
