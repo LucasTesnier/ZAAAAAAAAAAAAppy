@@ -19,9 +19,9 @@ SFML::SFML() : _run(true)
     _window.get()->setFramerateLimit(60);
     _map.setWindow(_window);
     _map.setEvent(_event);
-    _map.setMapSize(sf::Vector2f(500, 200));
+    _map.setMapSize(sf::Vector2f(15, 10));
     _minimap.setWindow(_window);
-    _minimap.setMapSize(sf::Vector2f(500, 200));
+    _minimap.setMapSize(sf::Vector2f(15, 10));
 }
 
 void SFML::display()
@@ -44,6 +44,7 @@ void SFML::_getEvent()
             _window.get()->close();
         }
         if (event.type == sf::Event::KeyPressed) {
+            _minimap.switchSize();
             if (event.key.alt || event.key.code == sf::Keyboard::RAlt || event.key.code == sf::Keyboard::LAlt) {
                 _event.get()->altPressed();
                 continue;

@@ -41,6 +41,7 @@ namespace gui {
             sf::ConvexShape _map;
             sf::CircleShape _player;
             sf::Vector2f _mapSize;
+            sf::Vector2f _minimapSize;
     };
 }
 
