@@ -32,7 +32,7 @@ Test(wrapper_tests, entity_wrapper_create_map)
         cr_assert_eq(map->tiles[i]->type, ENTITY_TILE_TYPE);
         printf("{x: %d; y:", map->tiles[i]->position.x);
         printf("%d}\n", map->tiles[i]->position.y);
-        entity_wrapper_add_tile(wrapper, map->tiles[i]->position);
+        entity_wrapper_create_tile(wrapper, map->tiles[i]->position);
     }
     delete_entity_wrapper(wrapper);
 }
