@@ -314,8 +314,6 @@ class Strategy:
         if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
             return "linemate"
 
-
-
 """Note for reviewers, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
   start = Strategy(4, "bonjour")
