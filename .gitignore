@@ -60,7 +60,7 @@ zappy_ai
 # Clion config
 .idea/
 cmake-build-debug/
-
+IDEA
 
 # Python Cache
 __pycache__
