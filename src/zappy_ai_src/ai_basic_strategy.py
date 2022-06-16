@@ -148,6 +148,9 @@ class Strategy:
         """
         self.__playerCurrentLevel = 1
 
+        """This is mandatory call by its creator"""
+        self.__lib.getNecessaryFunctions()
+
     def __del__(self):
         """Default Destructor of the Core class"""
         self.running = False
@@ -220,8 +223,6 @@ class Strategy:
             self.__playerStrategyManagement()
             if self.__isPlayerAlive:
                 self.__setIsRunning(False)
-                self.__lib.getNecessaryFunctions()
-                print(self.__lib.GetRepLook())
                 print("Player has just died or is disconnected\n")
         return 0
 
