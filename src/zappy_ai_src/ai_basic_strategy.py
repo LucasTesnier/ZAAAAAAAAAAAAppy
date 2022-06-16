@@ -3,9 +3,25 @@
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map
 
+"""---------------------------------------------BRIEF----------------------------------------------------------------"""
+"""
+    The goal of the AI it's obviously to win the game.
+    To achieve it, AI making its own choices divided in 3 big groups of actions called strategy
+    We can see 3 different strategies :
+        - Survival strategy: Consisting of getting only food to survive making sure the team is always full of players
+            The goal of this strategy is to stay alive.
+        - Farming strategy : Consisting of getting the most of components in a period P of time.
+            The goal of this strategy is to farm and level up as fast as possible
+            We can see this strategy in early/mid game (Level 1-6).
+        - Aggressive strategy : Consisting of denying the others teams, bumping enemies, intercept enemies call...
+            The goal of this strategy is to avoid enemy teams to win the game
+            We can see this strategy in very late game (Level 7-8).
+"""
+
 """---------------------------------------------Static variables-----------------------------------------------------"""
 
 LEVEL_MAX = 8
+
 """Player is starting the game with 120 food which represents 1200 unit of time
     like you probably know 1 food == 10 units of time
 """
@@ -94,10 +110,10 @@ LEVEL_UP_REQUIREMENTS = [{},
                          }
                          ]
 
-"""-------------------------------------------Strategy Class---------------------------------------------------------"""
+"""-------------------------------------------AI Class---------------------------------------------------------"""
 
 
-class Strategy:
+class Ai:
     def __init__(self, availableSlots: int, teamName: str):
         """ Default Constructor of the Core class"""
 
@@ -155,7 +171,7 @@ class Strategy:
         """Default Destructor of the Core class"""
         self.running = False
 
-    """----------------------------------------Getter and Setter for Core Strategy class-----------------------------"""
+    """----------------------------------------Getter and Setter for AI class----------------------------------------"""
 
     def __setAvailableSlots(self, availableSlots: int):
         self.__availableSlots = availableSlots
@@ -234,17 +250,13 @@ class Strategy:
     """
 
     def __playerStrategyManagement(self):
-        """Main function of the Strategy Class
-            Used to determine which action is better to do depending on the current situation of the player
+        """Main function of the AI Class
+            Used to determine which strategy is better to use depending on the current situation of the player
         """
         if self.__getInventory().GetFood() <= 120:
             self.__survive()
         else:
             self.__setTargetComponent(self.__getRequiredComponent())
-
-    def __survive(self):
-        """This is used by the AI to find food and get food as fast as possible"""
-        self.__setTargetComponent("food")
 
     def __tryElevation(self) -> bool:
         """This is used when the AI thinks it's the good timing to level up
@@ -258,15 +270,29 @@ class Strategy:
             return False
         return True
 
-    def __teamCall(self, nbPlayers: int):
+    def __teamCall(self, action: str):
         """This is used by the AI to call 'nbPlayers' of the team in order to elevation
-            Param : nbPlayers: int, the amount of player needed for the elevation
+            To emit a message, the client must send the following command to the server:
+            'Broadcast message\n'
+                where message is following this format : 'teamName-amountOfPlayer-action'
         """
-        pass
+        levelOfPlayer = self.__getPlayerCurrentLevel()
+        if action == "elevation":
+            nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player')
+        else:
+            nbPlayer = 1
+        message = self.__getTeamName() + '-' + str(nbPlayer) + '-' + action + '\n'
+        self.__lib.AskBroadcastText("Broadcast " + message)
 
-    def __fork(self):
-        """This is used by the AI to authorize a new connection"""
-        pass
+    def __fork(self) -> bool:
+        """This is used by the AI to authorize a new connection
+            return :    True if the request successfully send to the server
+                        False Otherwise
+        """
+        if self.__getAvailableSlots() == 0:
+            return False
+        self.__lib.AskIncantation()
+        return True
 
     def __isPlayerAlive(self) -> bool:
         """This function call the server to know if the player is alive or not
@@ -276,11 +302,20 @@ class Strategy:
         return False
 
     """-------------------------------------------------DETAILS--------------------------------------------------------- 
-        These functions are used by medium strategy
+        These functions are used by survival strategy
+        These functions are considered as decisions
+    """
+
+    def __survive(self):
+        """This is used by the AI to find food and get food as fast as possible"""
+        self.__setTargetComponent("food")
+
+    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+        These functions are used by aggressive strategy
         These functions are considered as actions
     """
 
-    def __getSpecificComponent(self):
+    def __takeSpecificComponent(self):
         """This is used by the AI in case of needing a specific component and get it
             Here, the AI is making a risky bet because it doesn't do anything else than get the specific component
             Make sure to have enough food before calling this function
@@ -301,7 +336,7 @@ class Strategy:
         pass
 
     """-------------------------------------------------DETAILS--------------------------------------------------------- 
-                These functions are used by every strategies
+                These functions are used by farming strategy
                 These functions are considered as utils
     """
 
@@ -334,5 +369,5 @@ class Strategy:
 
 """Note for reviewers, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
-  start = Strategy(4, "bonjour")
+  start = Ai(4, "bonjour")
   start.start()
