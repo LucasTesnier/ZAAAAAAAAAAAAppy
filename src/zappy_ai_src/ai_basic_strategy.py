@@ -195,6 +195,9 @@ class Strategy:
     def __getInventory(self) -> Inventory:
         return self.__inventory
 
+    def __getVisionOfTheMap(self) -> Map:
+        return self.__visionOfTheMap
+
     def __getTargetTileIndex(self) -> int:
         return self.__targetTileIndex
 
@@ -233,14 +236,24 @@ class Strategy:
         """
         if self.__getInventory().GetFood() <= 120:
             self.__survive()
+        else:
+            self.__setTargetComponent(self.__getRequiredComponent())
 
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
         self.__setTargetComponent("food")
 
-    def __elevation(self):
-        """This is used when the AI thinks it's the good timing to level up"""
-        pass
+    def __tryElevation(self) -> bool:
+        """This is used when the AI thinks it's the good timing to level up
+            return :    True if success
+                        False otherwise
+        """
+        levelOfPlayer = self.__getPlayerCurrentLevel()
+        if not self.__getRequiredComponent() == "nothing":
+            return False
+        if not self.__getVisionOfTheMap().GetTile(0, 0).player == LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player"):
+            return False
+        return True
 
     def __teamCall(self, nbPlayers: int):
         """This is used by the AI to call 'nbPlayers' of the team in order to elevation
@@ -298,7 +311,8 @@ class Strategy:
 
     def __getRequiredComponent(self) -> str:
         """This is used by the AI to know what is the required component missing for elevation
-            Ordered from rarest to least rare component
+            Ordered from rarest to the least rare component
+            return : the required component or nothing if all requirements are met
         """
         playerLevel = self.__getPlayerCurrentLevel()
         if self.__getInventory().GetThystame() < LEVEL_UP_REQUIREMENTS[playerLevel].get("thystame"):
@@ -313,6 +327,7 @@ class Strategy:
             return "deraumere"
         if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
             return "linemate"
+        return "nothing"
 
 """Note for reviewers, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
