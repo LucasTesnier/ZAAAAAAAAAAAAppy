@@ -73,7 +73,7 @@ bool c_interface_ask_connectable()
     return true;
 }
 
-bool c_interface_ask_fort()
+bool c_interface_ask_fork()
 {
     return true;
 }
