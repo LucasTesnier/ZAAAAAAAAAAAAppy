@@ -54,6 +54,6 @@ bool is_entity_on_tile(tile_t *tile, entity_t *entity);
 /// \brief Destroy a tile
 /// \param tile The tile to destroy
 /// \note The entity list is not destroyed
-void delete_tile(tile_t *tile);
+void delete_tile(void *tile);
 
 #endif /* TILE_H */
