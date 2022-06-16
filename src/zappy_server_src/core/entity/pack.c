@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** ZAPPYMIRROR
 ** File description:
-** unpack
+** Unpack
 */
 
 /// \file src/zappy_server_src/core/entity/pack.c
