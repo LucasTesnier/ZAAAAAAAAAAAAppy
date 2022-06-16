@@ -63,7 +63,7 @@ namespace gui {
             /// \param mapSize The size of the map.
             /// \param i The index in the tile vector.
             /// \return true if it should be displayed, false otherwise.
-            bool _tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u windowSize, std::size_t &tmp, sf::Vector2f &mapSize, std::size_t &i)
+            bool _tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u windowSize, std::size_t &tmp, sf::Vector2f &mapSize, std::size_t &i);
 
             /// \brief Update the size of the vector.
             void _updateTileVectorSize();
