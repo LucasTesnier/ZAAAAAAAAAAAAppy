@@ -12,6 +12,7 @@ set (SRC
     ${SRC_ROOT}/ask/forward.c
     ${SRC_ROOT}/ask/turn.c
     ${SRC_ROOT}/ask/look.c
+    ${SRC_ROOT}/ask/broadcast.c
 
     ${SRC_ROOT}/get/state.c
     ${SRC_ROOT}/get/retcode.c
@@ -20,6 +21,7 @@ set (SRC
     ${SRC_ROOT}/get/forward.c
     ${SRC_ROOT}/get/turn.c
     ${SRC_ROOT}/get/look.c
+    ${SRC_ROOT}/get/broadcast.c
 
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h

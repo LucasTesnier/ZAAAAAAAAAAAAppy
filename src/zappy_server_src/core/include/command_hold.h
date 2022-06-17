@@ -135,7 +135,7 @@ static const command_data_t ai_command_list_end[] = {
     {"/forward", NULL, &command_forward_end},
     {"/turn", NULL, &command_turn_end},
     {"/look", NULL, &command_look_end},
-    {"/broadcast", NULL, &command_broadcast},
+    {"/broadcast", NULL, &command_broadcast_end},
     {NULL, NULL, NULL}
 };
 
