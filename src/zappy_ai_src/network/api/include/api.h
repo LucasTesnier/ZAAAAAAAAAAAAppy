@@ -66,6 +66,11 @@ bool c_interface_ask_broadcast(char *message);
 /// \return false When operation failed
 bool c_interface_ask_connectable(void);
 
+/// \brief Ask to fork
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_fork(void);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
@@ -122,5 +127,10 @@ bool c_interface_get_broadcast_response(void);
 /// \brief Get the response for the connectable command
 /// \return The connectnbr value
 int c_interface_get_connectable_response(void);
+
+/// \brief Get the response for the fork command
+/// \return true If connection is okay
+/// \return false If connection failed
+bool c_interface_get_fork_response(void);
 
 #endif /* !API_H_ */

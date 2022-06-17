@@ -78,6 +78,12 @@ int main(int ac, char **av)
     if (tmp == -1)
         return 84;
     printf("Connectable : %i\n", tmp);
+    if (!c_interface_ask_fork())
+        return 84;
+    
+    while (!c_interface_get_response_sate());
+    if (!c_interface_get_fork_response())
+        return 84;
     c_interface_try_to_disconnect_to_server();
     return 0;
 }
