@@ -39,6 +39,12 @@ namespace gui {
             /// \brief  The exception of the core.
             CoreException(std::string title = "Core Exception", std::string description = "Unknown error");
     };
+    /// \brief Class for core exception.
+    class UnpackException : public ZappyGuiException {
+        public:
+            /// \brief  The exception of the core.
+            UnpackException(std::string title = "Unpack Exception", std::string description = "Unknown error");
+    };
 } //namespace gui
 
 #endif /* !ZAPPYGUIEXCEPTION_HPP_ */

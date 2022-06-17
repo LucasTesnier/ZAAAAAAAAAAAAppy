@@ -13,16 +13,6 @@
     #include "server.h"
     #include <stdbool.h>
 
-/// \brief Command informations and data
-typedef struct command_data_s {
-    /// Name of the command
-    char *name;
-    /// Arg of the command (Possibly NULL)
-    char *arg;
-    /// Function pointer to the command
-    bool (*ptr)(char *, player_list_t *, server_data_t *);
-} command_data_t;
-
 /// \brief Hold the command process (Identification and execution)
 /// \param command Command in string format
 /// \param player_info Info about the player
@@ -53,5 +43,33 @@ bool command_login(char *arg, player_list_t *player, server_data_t *serv);
 /// \return true When operation succeed
 /// \return false When operation failed
 bool command_join(char *arg, player_list_t *player, server_data_t *serv);
+
+/// List of AI command end
+static const command_data_t ai_command_list_end[] = {
+    {"/inventory", NULL, NULL},
+    {NULL, NULL, NULL}
+};
+
+/// \brief Create a command data from a name
+/// \param cmd Name of the command
+/// \param arg Args of the command
+/// \return command_data_t* Newly created command
+static inline command_data_t *find_ai_command_end(char *cmd, char *arg)
+{
+    command_data_t *command = malloc(sizeof(command_data_t));
+    int pos = 0;
+
+    if (command == NULL)
+        return NULL;
+    for (; ai_command_list_end[pos].name; pos++)
+        if (!strcmp(ai_command_list_end[pos].name, cmd))
+            break;
+    if (!ai_command_list_end[pos].name)
+        return NULL;
+    command->name = ai_command_list_end[pos].name;
+    command->ptr = ai_command_list_end[pos].ptr;
+    command->arg = arg;
+    return command;
+}
 
 #endif /* !COMMAND_H_ */

@@ -10,11 +10,13 @@ class ServerWrapper:
 
         """ Private members functions pointer """
         self.__ConnectToServer = None
+        self.__GetRepConnectToServer = None
         self.__AskJoinTeam = None
         self.__GetRepJoinTeam = None
         self.__GetResponseState = None
         self.__GetUnexpectedResponseState = None
         self.__GetUnexpectedResponse = None
+        self.__GetNetworkState = None
 
         """ Ask an action for the AI to the server """
         self.__AskForward = None
@@ -57,6 +59,7 @@ class ServerWrapper:
         """
         try:
             self.__ConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_try_to_connect_to_server")
+            self.__GetRepConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_connect_to_server_response")
             self.__AskJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_join")
             self.__GetRepJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_join_response")
             self.__GetResponseState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_response_state")
@@ -86,6 +89,7 @@ class ServerWrapper:
             self.__GetRepTakeObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_take_response")
             self.__GetRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
             self.__GetRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
+            self.__GetNetworkState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_network_state")
         except:
             print("The provided lib doesn't contain all the required funtions.", file=stderr)
             return False
@@ -98,6 +102,13 @@ class ServerWrapper:
         b_machineName = machineName.encode("UTF-8")
         c_port = ctypes.c_int(port)
         self.__ConnectToServer(b_machineName, c_port)
+
+    def GetRepConnectToServer(self) -> bool:
+        """ Wrapped Function : Get the response of ConnectToServer() """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetRepConnectToServer.restype = ctypes.c_bool
+        c_value = self.__GetRepConnectToServer()
+        return c_value
 
     def AskJoinTeam(self, teamName : str) -> None:
         """ Wrapped Function : Try to join a Team """
@@ -278,4 +289,11 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__GetRepIncantation.restype = ctypes.c_int
         c_value = self.__GetRepIncantation()
+        return c_value
+
+    def GetNetworkState(self) -> bool:
+        """ Wrapped Function : Get the Network State, return true is everything ok, false otherwise """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetNetworkState.restype = ctypes.c_bool
+        c_value = self.__GetNetworkState()
         return c_value
