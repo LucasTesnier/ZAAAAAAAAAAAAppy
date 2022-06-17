@@ -62,14 +62,14 @@ static void process_command_inspection(server_data_t *server_data)
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
         player_info = get_player_list_by_peer(server_data, tmp);
         if (player_info->scheduled_action &&
-        scheduler_has_event(server_data->scheduler,
+        !scheduler_has_event(server_data->scheduler,
         ((player_t *)player_info->player_data)->uuid)) {
             player_info->scheduled_action->ptr
             (player_info->scheduled_action->arg, player_info, server_data);
             free(player_info->scheduled_action);
             player_info->scheduled_action = NULL;
         }
-        if (tmp->pending_read)
+        if (tmp->pending_read && !player_info->scheduled_action)
             compute_command(fetch_message(tmp), player_info, server_data);
     }
 }

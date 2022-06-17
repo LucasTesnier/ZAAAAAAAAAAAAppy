@@ -13,6 +13,20 @@
 
 bool command_inventory(char *arg, player_list_t *player, server_data_t *serv)
 {
+    if (!player->player_data)
+        return print_retcode(402, arg, player->player_peer, false);
+    if (!scheduler_schedule_event(serv->scheduler,
+    ((player_t *)player->player_data)->uuid, 1))
+        return false;
+    player->scheduled_action = find_ai_command_end("/inventory", NULL);
+    if (player->scheduled_action == NULL)
+        return false;
+    return true;
+}
+
+bool command_inventory_end(char *arg, player_list_t *player,
+server_data_t *serv)
+{
     player_t *player_data = NULL;
     container_t *inventory = NULL;
 
@@ -20,8 +34,10 @@ bool command_inventory(char *arg, player_list_t *player, server_data_t *serv)
     (void) serv;
     if (!player->player_data)
         return print_retcode(402, arg, player->player_peer, false);
-    pop_message(player->player_peer);
-    player_data = player->player_data;
+    player_data = (player_t *)player->player_data;
     inventory = player_data->inventory;
-
+    (void) player_data;
+    (void) inventory;
+    pop_message(player->player_peer);
+    return print_retcode(212, "[...]", player->player_peer, true);
 }
