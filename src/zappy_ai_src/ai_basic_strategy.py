@@ -28,6 +28,14 @@ LEVEL_MAX = 8
 """
 FOOD_START = 1260
 
+"""This static member represents a safety margin when call action, 
+    its warns of an imminent death of the player just after the execution of an action
+"""
+SAFETY_MARGIN = 300
+
+"""This is this indication for the AI to switch to survival strategy under or equal to 300 units of time"""
+FOOD_LIMIT = 300
+
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
 """
@@ -166,9 +174,9 @@ class Ai:
 
         """This private member represents the index of the current target tile of the AI.
             It can be useful to use relevant action from the AI in component research as example.
-            Set as int: 0 by default.
+            Set as int: -1 by default.
         """
-        self.__targetTileIndex = 0
+        self.__targetTileIndex = -1
 
         """This private member represents the currently most needed component by the AI.
             It can be useful to use relevant action from the AI in component research as example.
@@ -255,7 +263,7 @@ class Ai:
         self.__setIsRunning(True)
         while self.__getIsRunning():
             self.__playerStrategyManagement()
-            if self.__isPlayerAlive:
+            if not self.__isPlayerAlive:
                 self.__setIsRunning(False)
                 print("Player has just died or is disconnected\n")
         return 0
@@ -271,29 +279,46 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
-        if self.__getInventory().GetFood() <= 120:
+        if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
+        elif self.__getPlayerCurrentLevel() <= 6:
+            self.__farming()
         else:
-            self.__setTargetComponent(self.__getRequiredComponent())
+            self.__deny()
+
+    def __isThisActionRealisable(self, action: str):
+        """This is used by the AI to know if the action is realisable or not depending on its food"""
+        if not self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action):
+            return False
+        return True
 
     def __tryElevation(self) -> bool:
         """This is used when the AI thinks it's the good timing to level up
-            return :    True if success
+            return :    True if successfully asked the server
                         False otherwise
         """
         levelOfPlayer = self.__getPlayerCurrentLevel()
+        if not self.__getInventory().GetFood() >= TIME_LIMIT.get("incantation"):
+            return False
         if not self.__getRequiredComponent() == "nothing":
             return False
         if not self.__getVisionOfTheMap().GetTile(0, 0).player == LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player"):
             return False
+        if not self.__isThisActionRealisable("incantation"):
+            return False
+        self.__lib.AskIncantation()
         return True
 
-    def __teamCall(self, action: str):
+    def __teamCall(self, action: str) -> bool:
         """This is used by the AI to call 'nbPlayers' of the team in order to elevation
             To emit a message, the client must send the following command to the server:
             'Broadcast message\n'
                 where message is following this format : 'teamName-amountOfPlayer-action'
+            return :    True if the request successfully send to the server
+                        False Otherwise
         """
+        if not self.__isThisActionRealisable("broadcast"):
+            return False
         levelOfPlayer = self.__getPlayerCurrentLevel()
         if action == "elevation":
             nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player')
@@ -301,12 +326,15 @@ class Ai:
             nbPlayer = 1
         message = self.__getTeamName() + '-' + str(nbPlayer) + '-' + action + '\n'
         self.__lib.AskBroadcastText("Broadcast " + message)
+        return True
 
     def __fork(self) -> bool:
         """This is used by the AI to authorize a new connection
             return :    True if the request successfully send to the server
                         False Otherwise
         """
+        if not self.__isThisActionRealisable("fork"):
+            return False
         if self.__getAvailableSlots() == 0:
             return False
         self.__lib.AskIncantation()
@@ -317,7 +345,7 @@ class Ai:
             Return : True if the player is alive
                      False otherwise
         """
-        return False
+        return True
 
     """-------------------------------------------------DETAILS--------------------------------------------------------- 
         These functions are used by survival strategy
@@ -332,6 +360,12 @@ class Ai:
         These functions are used by aggressive strategy
         These functions are considered as actions
     """
+
+    def __deny(self):
+        """This is the main function of aggressive strategy, it manages all actions to deny other teams
+            and then avoid their win
+        """
+        pass
 
     def __takeSpecificComponent(self):
         """This is used by the AI in case of needing a specific component and get it
@@ -357,6 +391,11 @@ class Ai:
                 These functions are used by farming strategy
                 These functions are considered as utils
     """
+
+    def __farming(self):
+        """This is the main function of farming strategy, it manages all actions to get components as fast as possible
+        """
+        pass
 
     def __findClosestTileFromComponent(self, component: str) -> int:
         """This is used by AI to find the closest tile depending on the component requested
@@ -387,5 +426,5 @@ class Ai:
 
 """Note for reviewers, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
-  start = Ai(4, "bonjour")
-  start.start()
+    start = Ai(4, "bonjour")
+    start.start()
