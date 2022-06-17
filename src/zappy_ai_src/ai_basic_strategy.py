@@ -3,14 +3,15 @@
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map
 
-"""---------------------------------------------BRIEF----------------------------------------------------------------"""
+"""---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
     The goal of the AI it's obviously to win the game.
     To achieve it, AI making its own choices divided in 3 big groups of actions called strategy
     We can see 3 different strategies :
-        - Survival strategy: Consisting of getting only food to survive making sure the team is always full of players
+        - Survival strategy: Consisting of getting only food to survive.
             The goal of this strategy is to stay alive.
-        - Farming strategy : Consisting of getting the most of components in a period P of time.
+        - Farming strategy : Consisting of getting the most of components in a period P of time,
+            making sure the team is always full of players
             The goal of this strategy is to farm and level up as fast as possible
             We can see this strategy in early/mid game (Level 1-6).
         - Aggressive strategy : Consisting of denying the others teams, bumping enemies, intercept enemies call...
@@ -25,9 +26,9 @@ LEVEL_MAX = 8
 """Player is starting the game with 120 food which represents 1200 unit of time
     like you probably know 1 food == 10 units of time
 """
-FOOD_START = 120
+FOOD_START = 1260
 
-"""This static array provides information on the density of the components in the map
+"""This static array provides information of the density of the components in the map
     Values are given as a percentage
 """
 COMPONENT_DENSITY = {
@@ -38,6 +39,24 @@ COMPONENT_DENSITY = {
     "mendiane": 10,
     "phiras": 8,
     "thystame": 5
+}
+
+"""This static array provides information of the scheduling for each command
+    Keys represents the command and values represents time/f to execute the command
+        where f is the time units
+"""
+TIME_LIMIT = {
+    "forward": 7,
+    "right": 7,
+    "left": 7,
+    "look": 7,
+    "inventory": 1,
+    "broadcast": 7,
+    "fork": 42,
+    "eject": 7,
+    "take": 7,
+    "set": 7,
+    "incantation": 300
 }
 
 """This static array is used to know every requirements for elevation
@@ -111,7 +130,6 @@ LEVEL_UP_REQUIREMENTS = [{},
                          ]
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
-
 
 class Ai:
     def __init__(self, availableSlots: int, teamName: str):
