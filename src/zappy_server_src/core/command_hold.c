@@ -13,19 +13,19 @@
 
 /// List of all the ai command start
 static const command_data_t ai_command_list[] = {
-    {"/logout", NULL, &command_logout},
-    {"/forward", NULL, &command_forward},
-    {"/turn", "Args Left Right", &command_turn},
-    {"/look", NULL, &command_look},
-    {"/inventory", NULL, &command_inventory},
-    {"/broadcast", "Args message", &command_broadcast},
-    {"/connectnbr", NULL, &command_connectnbr},
-    {"/fork", NULL, &command_fork},
-    {"/eject", NULL, &command_eject},
-    {"/take", "Args type", &command_take},
-    {"/place", "Args type", &command_place},
-    {"/incantation", NULL, &command_incantation},
-    {"/join", "Args Team", &command_join},
+    {"/logout", NULL, &command_logout}, /// DONE
+    {"/forward", NULL, &command_forward}, /// DONE
+    {"/turn", "Args Left Right", &command_turn}, // TO DO LUCAS
+    {"/look", NULL, &command_look}, // TO DO CONSTANT
+    {"/inventory", NULL, &command_inventory}, /// DONE
+    {"/broadcast", "Args message", &command_broadcast}, // TO DO CONSTANT
+    {"/connectnbr", NULL, &command_connectnbr}, // TO DO LUCAS
+    {"/fork", NULL, &command_fork}, // TO DO CONSTANT
+    {"/eject", NULL, &command_eject}, // TO DO LUCAS
+    {"/take", "Args type", &command_take}, // TO DO LUCAS
+    {"/place", "Args type", &command_place}, // TO DO LUCAS
+    {"/incantation", NULL, &command_incantation}, // TO DO CONSTANT
+    {"/join", "Args Team", &command_join}, /// DONE
     {NULL, NULL, NULL}
 };
 
