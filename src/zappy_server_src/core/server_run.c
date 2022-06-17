@@ -31,7 +31,8 @@ int server_run(int ac, char **av)
         return FAILED;
     signal(SIGINT, sigint_handler);
     TAILQ_FOREACH(tmp, &server_data->teams, teams)
-        printf("Created team %s with %d max players\n", tmp->name, tmp->max_members);
+        printf("Created team %s with %d max players\n", tmp->name,
+        tmp->max_members);
     server_loop(server_data);
     destroy_server_data(server_data);
     return SUCCESS;
