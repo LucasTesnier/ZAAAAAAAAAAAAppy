@@ -41,6 +41,9 @@ void SFML::_getEvent()
             _window.get()->close();
         }
         if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Escape) {
+                _window.get()->close();
+            }
             if (event.key.alt || event.key.code == sf::Keyboard::RAlt || event.key.code == sf::Keyboard::LAlt) {
                 _event.get()->altPressed();
                 continue;
