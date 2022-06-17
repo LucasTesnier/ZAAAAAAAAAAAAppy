@@ -14,7 +14,7 @@
 /// List of all the ai command start
 static const command_data_t ai_command_list[] = {
     {"/logout", NULL, &command_logout},
-    {"/move", NULL, NULL},
+    {"/forward", NULL, &command_forward},
     {"/turn", "Args Left Right", NULL},
     {"/look", NULL, NULL},
     {"/inventory", NULL, &command_inventory},
