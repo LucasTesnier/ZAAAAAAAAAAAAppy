@@ -35,8 +35,10 @@ int main(int ac, char **av)
     if (!c_interface_ask_join("AAAAA"))
         return 84;
     while (!c_interface_get_response_sate());
-    if (!c_interface_get_join_response())
+    temp = c_interface_get_join_response();
+    if (!temp)
         return 84;
+    printf("Start info : %s\n", temp);
     if (!c_interface_ask_inventory())
         return 84;
     while (!c_interface_get_response_sate());

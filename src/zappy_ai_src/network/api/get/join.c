@@ -11,11 +11,17 @@
 #include "client_utils.h"
 #include "api.h"
 
-bool c_interface_get_join_response(void)
+char *c_interface_get_join_response(void)
 {
+    char *res = NULL;
+
     if (client_data == NULL || !client_data->current_response)
-        return false;
-    if (strncmp(client_data->current_response, "211", 3))
-        return retcode_exit(false);
-    return retcode_exit(true);
+        return NULL;
+    if (strncmp(client_data->current_response, "211", 3)) {
+        retcode_exit(false);
+        return NULL;
+    }
+    res = retcode_get_arg();
+    retcode_exit(true);
+    return res;
 }

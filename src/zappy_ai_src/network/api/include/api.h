@@ -97,9 +97,8 @@ bool c_interface_get_network_state(void);
 bool c_interface_get_connect_to_server_response(void);
 
 /// \brief Get the response for the join command
-/// \return true If connection is okay
-/// \return false If connection failed
-bool c_interface_get_join_response(void);
+/// \return The game parameters
+char *c_interface_get_join_response(void);
 
 /// \brief Get the response for the inventory command
 /// \return The inventory content, NULL otherwise
