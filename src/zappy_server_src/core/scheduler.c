@@ -67,3 +67,14 @@ void scheduler_update(scheduler_t *self)
         now = time(NULL);
     }
 }
+
+struct timeval scheduler_get_time(scheduler_t *self)
+{
+    struct timeval time = {
+        0,
+        1
+    };
+
+    (void) self;
+    return time;
+}

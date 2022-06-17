@@ -25,7 +25,7 @@ static const command_data_t ai_command_list[] = {
     {"/take", "Args type", NULL},
     {"/place", "Args type", NULL},
     {"/incantation", NULL, NULL},
-    {"/join", "Args Team", NULL},
+    {"/join", "Args Team", &command_join},
     {NULL, NULL, NULL}
 };
 
@@ -169,7 +169,6 @@ server_data_t *server_data)
         return;
     }
     if (!command_data->ptr(command_data->arg, player_info, server_data)) {
-        print_retcode(502, command, player_info->player_peer, false);
         pop_message(player_info->player_peer);
     }
     free(command);
