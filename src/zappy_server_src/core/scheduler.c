@@ -58,7 +58,8 @@ void scheduler_update(scheduler_t *self)
 
     if (!self)
         return;
-    TAILQ_FOREACH(tmp, &self->events, events) {
+    tmp = TAILQ_FIRST(&self->events);
+    while (tmp != NULL) {
         tmp->ticks -= floor((now - self->clock) * self->freq);
         if (tmp->ticks <= 0) {
             TAILQ_REMOVE(&self->events, tmp, events);
@@ -66,4 +67,22 @@ void scheduler_update(scheduler_t *self)
         }
         now = time(NULL);
     }
+}
+
+struct timeval scheduler_get_smallest_timeout(scheduler_t *self)
+{
+    scheduler_event_t *tmp = NULL;
+    time_t smallest = 10000000000;
+    time_t tmp_time = 0;
+
+    if (!self)
+        return (struct timeval){0};
+    TAILQ_FOREACH(tmp, &self->events, events) {
+        tmp_time = tmp->ticks * (1 / self->freq);
+        if (tmp_time < smallest)
+            smallest = tmp_time;
+    }
+    if (smallest == 10000000000)
+        return (struct timeval){0};
+    return (struct timeval){.tv_sec = smallest, .tv_usec = 0};
 }

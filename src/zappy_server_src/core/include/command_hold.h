@@ -44,9 +44,26 @@ bool command_login(char *arg, player_list_t *player, server_data_t *serv);
 /// \return false When operation failed
 bool command_join(char *arg, player_list_t *player, server_data_t *serv);
 
+/// \brief Start the inventory process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_inventory(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the inventory process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_inventory_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
-    {"/inventory", NULL, NULL},
+    {"/inventory", NULL, &command_inventory_end},
     {NULL, NULL, NULL}
 };
 
