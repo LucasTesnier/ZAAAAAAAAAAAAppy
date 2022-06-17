@@ -62,14 +62,14 @@ static void process_command_inspection(server_data_t *server_data)
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
         player_info = get_player_list_by_peer(server_data, tmp);
         if (player_info->scheduled_action &&
-        scheduler_has_event(server_data->scheduler,
+        !scheduler_has_event(server_data->scheduler,
         ((player_t *)player_info->player_data)->uuid)) {
             player_info->scheduled_action->ptr
             (player_info->scheduled_action->arg, player_info, server_data);
             free(player_info->scheduled_action);
             player_info->scheduled_action = NULL;
         }
-        if (tmp->pending_read)
+        if (tmp->pending_read && !player_info->scheduled_action)
             compute_command(fetch_message(tmp), player_info, server_data);
     }
 }
@@ -81,7 +81,8 @@ void server_loop(server_data_t *server_data)
     server_fill_fd_sets(network_server);
     server_state = &server_data->server->state;
     while (server_data->server->state) {
-        if (server_wait(network_server) == -1)
+        if (server_wait(network_server,
+        scheduler_get_time(server_data->scheduler)) == -1)
             break;
         if (server_manage_fd_update(network_server))
             server_add_player(server_data);

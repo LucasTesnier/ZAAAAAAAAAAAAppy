@@ -84,3 +84,13 @@ time_t scheduler_get_smallest_timeout(scheduler_t *self)
     }
     return smallest;
 }
+struct timeval scheduler_get_time(scheduler_t *self)
+{
+    struct timeval time = {
+        0,
+        1
+    };
+
+    (void) self;
+    return time;
+}

@@ -84,5 +84,6 @@ bool command_join(char *arg, player_list_t *player, server_data_t *serv)
         return print_retcode(500, arg, player->player_peer, false);
     player->player_data = player_entity;
     entity_wrapper_add_player(serv->entities, player_entity);
+    pop_message(player->player_peer);
     return print_retcode(211, arg, player->player_peer, true);
 }
