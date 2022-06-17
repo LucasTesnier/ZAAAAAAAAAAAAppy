@@ -20,7 +20,7 @@ static const command_data_t ai_command_list[] = {
     {"/inventory", NULL, &command_inventory},
     {"/broadcast", "Args message", &command_broadcast},
     {"/connectnbr", NULL, &command_connectnbr},
-    {"/fork", NULL, NULL},
+    {"/fork", NULL, &command_fork},
     {"/eject", NULL, NULL},
     {"/take", "Args type", NULL},
     {"/place", "Args type", NULL},

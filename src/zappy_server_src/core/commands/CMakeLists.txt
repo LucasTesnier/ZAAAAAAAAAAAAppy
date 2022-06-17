@@ -8,6 +8,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/look_command.c
     ${SRC_ROOT}/broadcast_command.c
     ${SRC_ROOT}/connectnbr_command.c
+    ${SRC_ROOT}/fork_command.c
 
     PARENT_SCOPE
 )
