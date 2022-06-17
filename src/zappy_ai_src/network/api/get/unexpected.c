@@ -20,7 +20,7 @@ char *c_interface_get_unexpected_response(void)
     retcode = get_retcodes();
     if (retcode.type != UNEXPECTED)
         return NULL;
-    if (retcode.code == 601)
+    if (retcode.number == 601)
         return "dead";
-    return retcode_get_arg());
+    return retcode_get_arg();
 }
