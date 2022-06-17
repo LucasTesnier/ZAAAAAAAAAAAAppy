@@ -76,7 +76,7 @@ Tile Unpack::UnpackTile(std::vector<std::string> &unpacked)
         tile = stov(unpacked[2], '}');
         t._inventory = UnpackInventory(tile[0]);
     } catch(...) {
-=        throw(UnpackException("Unpack tile" "Invalid packed string"));
+        throw(UnpackException("Unpack tile" "Invalid packed string"));
     }
     return t;
 }
