@@ -39,10 +39,13 @@ Tile Tile::operator=(const Tile &tile)
 
 void Tile::setTexture(const std::string &texturePath)
 {
-    if (!_texture.loadFromFile(texturePath))
+    _texture = std::make_shared<sf::Texture>();
+
+    if (!_texture->loadFromFile(texturePath)) {
         return;
+    }
     _texturePath = texturePath;
-    setTexture(_texture);
+    _shape.setTexture(_texture.get());
 }
 
 int Tile::isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse)
