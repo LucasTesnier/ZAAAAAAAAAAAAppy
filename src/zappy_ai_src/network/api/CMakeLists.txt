@@ -15,6 +15,7 @@ set (SRC
     ${SRC_ROOT}/ask/broadcast.c
     ${SRC_ROOT}/ask/connectnbr.c
     ${SRC_ROOT}/ask/fork.c
+    ${SRC_ROOT}/ask/eject.c
 
     ${SRC_ROOT}/get/state.c
     ${SRC_ROOT}/get/retcode.c
@@ -26,6 +27,7 @@ set (SRC
     ${SRC_ROOT}/get/broadcast.c
     ${SRC_ROOT}/get/connectnbr.c
     ${SRC_ROOT}/get/fork.c
+    ${SRC_ROOT}/get/eject.c
 
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h

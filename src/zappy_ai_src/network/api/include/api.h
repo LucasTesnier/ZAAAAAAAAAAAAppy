@@ -71,6 +71,11 @@ bool c_interface_ask_connectable(void);
 /// \return false When operation failed
 bool c_interface_ask_fork(void);
 
+/// \brief Ask to eject
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_eject(void);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
@@ -132,5 +137,10 @@ int c_interface_get_connectable_response(void);
 /// \return true If connection is okay
 /// \return false If connection failed
 bool c_interface_get_fork_response(void);
+
+/// \brief Get the response for the eject command
+/// \return true If connection is okay
+/// \return false If connection failed
+bool c_interface_get_eject_response(void);
 
 #endif /* !API_H_ */
