@@ -58,7 +58,8 @@ void scheduler_update(scheduler_t *self)
 
     if (!self)
         return;
-    TAILQ_FOREACH(tmp, &self->events, events) {
+    tmp = TAILQ_FIRST(&self->events);
+    while (tmp != NULL) {
         tmp->ticks -= floor((now - self->clock) * self->freq);
         if (tmp->ticks <= 0) {
             TAILQ_REMOVE(&self->events, tmp, events);
