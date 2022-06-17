@@ -21,7 +21,7 @@ static const command_data_t ai_command_list[] = {
     {"/broadcast", "Args message", &command_broadcast},
     {"/connectnbr", NULL, &command_connectnbr},
     {"/fork", NULL, &command_fork},
-    {"/eject", NULL, NULL},
+    {"/eject", NULL, &command_eject},
     {"/take", "Args type", NULL},
     {"/place", "Args type", NULL},
     {"/incantation", NULL, NULL},

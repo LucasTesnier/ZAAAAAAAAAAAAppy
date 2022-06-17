@@ -9,6 +9,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/broadcast_command.c
     ${SRC_ROOT}/connectnbr_command.c
     ${SRC_ROOT}/fork_command.c
+    ${SRC_ROOT}/eject_command.c
 
     PARENT_SCOPE
 )

@@ -154,6 +154,23 @@ bool command_fork(char *arg, player_list_t *player, server_data_t *serv);
 bool command_fork_end(char *arg, player_list_t *player,
 server_data_t *serv);
 
+/// \brief Start the eject process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_eject(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the eject process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_eject_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
@@ -162,6 +179,7 @@ static const command_data_t ai_command_list_end[] = {
     {"/look", NULL, &command_look_end},
     {"/broadcast", NULL, &command_broadcast_end},
     {"/fork", NULL, &command_fork_end},
+    {"/eject", NULL, &command_eject_end},
     {NULL, NULL, NULL}
 };
 
