@@ -59,6 +59,8 @@ typedef struct player_list_s {
     client_type_t type;
     /// Player data
     entity_t *player_data;
+    /// Scheduled action
+    struct command_data_s *scheduled_action;
 } player_list_t;
 
 typedef struct argument_s {
@@ -95,6 +97,16 @@ typedef struct server_data_s {
     /// List of all the teams
     struct teams_list_s teams;
 } server_data_t;
+
+/// \brief Command informations and data
+typedef struct command_data_s {
+    /// Name of the command
+    char *name;
+    /// Arg of the command (Possibly NULL)
+    char *arg;
+    /// Function pointer to the command
+    bool (*ptr)(char *, player_list_t *, server_data_t *);
+} command_data_t;
 
 /// \brief Init the server data structure
 /// \param port Port to setup the serveur
