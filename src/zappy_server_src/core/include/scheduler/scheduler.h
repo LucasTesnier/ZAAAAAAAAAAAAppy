@@ -57,11 +57,8 @@ void scheduler_update(scheduler_t *self);
 bool scheduler_has_event(scheduler_t *self, uuid_t uuid);
 
 /// \brief Return the amout of time before the event closest to finish is over
-time_t scheduler_get_smallest_timeout(scheduler_t *self);
-
-/// \brief Get the smallest time
-/// \param Self instance of the scheduler
-/// \return timeval return the timer
-struct timeval scheduler_get_time(scheduler_t *self);
+/// \note If the returned time is 0, either there is no event scheduled or self
+/// is null
+struct timeval scheduler_get_smallest_timeout(scheduler_t *self);
 
 #endif /* SCHEDULER_H */
