@@ -15,7 +15,7 @@ SFML::SFML() : _run(true)
 {
     sf::ContextSettings settings;
     const std::size_t maxFps = 60;
-    const sf::Vector2f mapSize = {20, 10};
+    const sf::Vector2f mapSize = {10, 10};
 
     settings.antialiasingLevel = 8;
     _event = std::make_shared<Event>();
@@ -49,6 +49,9 @@ void SFML::_getEvent()
             _window.get()->close();
         }
         if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Escape) {
+                _window.get()->close();
+            }
             if (event.key.alt || event.key.code == sf::Keyboard::RAlt || event.key.code == sf::Keyboard::LAlt) {
                 _event.get()->altPressed();
                 continue;

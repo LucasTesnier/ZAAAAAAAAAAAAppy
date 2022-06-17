@@ -11,6 +11,8 @@
 #define TILE_HPP_
 
 #include <SFML/Graphics.hpp>
+#include <memory>
+#include <iostream>
 
 namespace gui {
     /// \brief Class for the tile that will be display on the map.
@@ -70,6 +72,12 @@ namespace gui {
                 return _position;
             };
 
+            /// \brief Get the global position of the shape when it is in isometric view.
+            /// \return The global bound of the shape.
+            inline const sf::FloatRect getIsoPosition() {
+                return _shape.getGlobalBounds();
+            };
+
             /// \brief Set the origin of the tile.
             /// \param origin The origin of the tile.
             inline void setOrigin(const sf::Vector2f &origin) {
@@ -83,10 +91,22 @@ namespace gui {
             };
 
             /// \brief Set the texture of the tile.
+            /// \param texture The texture of the tile as shared pointer.
+            inline void setTexture(std::shared_ptr<sf::Texture> texture) {
+                _texture = texture;
+                _shape.setTexture(_texture.get());
+            };
+
+            /// \brief Set the texture of the tile.
             /// \param texture The texture of the tile.
             inline void setTexture(const sf::Texture &texture) {
-                _shape.setTexture(&texture);
+                _texture = std::make_shared<sf::Texture>(texture);
+                _shape.setTexture(_texture.get());
             };
+
+            /// \brief Set the texture of the tile.
+            /// \param texturePath The path of the texture to be load.
+            void setTexture(const std::string &texturePath);
 
             /// \brief Set the color of the tile.
             /// \param color The color of the tile.
@@ -100,9 +120,17 @@ namespace gui {
                 return _shape.getFillColor();
             };
 
-            /// \brief Set the texture of the tile.
-            /// \param texturePath The path of the texture to be load.
-            void setTexture(const std::string &texturePath);
+            /// \brief Get the path of the texture of the tile.
+            /// \return The path of the texture.
+            const std::string &getTexturePath() const {
+                return _texturePath;
+            };
+
+            /// \brief Get the shared pointer of the texture.
+            /// \return The shared pointer.
+            std::shared_ptr<sf::Texture> getTexture() const {
+                return _texture;
+            };
 
             /// \brief Check if the mouse is on the tile.
             /// \param mouse The mouse to check.
@@ -137,7 +165,7 @@ namespace gui {
             sf::Vector2f _position;
 
             /// \brief Texture of the tile.
-            sf::Texture _texture;
+            std::shared_ptr<sf::Texture> _texture;
 
             /// \brief Size of the tile.
             sf::Vector2f _size;

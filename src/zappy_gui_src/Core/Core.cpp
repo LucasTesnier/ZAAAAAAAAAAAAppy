@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <netdb.h>
 
+#include <time.h>
+
 using namespace gui;
 
 /// \brief The default value for the machine if it's not specify.
@@ -20,8 +22,18 @@ static const char *DEFAULT_MACHINE = "localhost";
 
 void Core::run()
 {
-    while (_sfml.isRunning())
+    int fps = 0;
+    sf::Clock clock;
+
+    while (_sfml.isRunning()) {
         _sfml.display();
+        if (clock.getElapsedTime().asSeconds() >= 1) {
+            clock.restart();
+            std::cout << "FPS: " << fps << std::endl;
+            fps = 0;
+        }
+        fps++;
+    }
 }
 
 void Core::_resolveMachineHostname()

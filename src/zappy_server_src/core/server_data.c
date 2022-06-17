@@ -21,6 +21,7 @@ bool server_add_player(server_data_t *server_data)
     new_player->disconnected = CONNECTED;
     new_player->type = UNKNOWN;
     new_player->player_data = NULL;
+    new_player->scheduled_action = NULL;
     new_player->player_peer =
     fetch_last_added_peer(server_data->server->network_server);
     server_data->active_players = realloc(server_data->active_players,
@@ -46,6 +47,8 @@ player_list_t *player_info)
         free(player_info->player_peer);
         player_info->player_peer = NULL;
     }
+    if (player_info->scheduled_action != NULL)
+        free(player_info->scheduled_action);
     player_info->disconnected = LOGOUT;
 }
 

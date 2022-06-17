@@ -16,6 +16,7 @@ class ServerWrapper:
         self.__GetResponseState = None
         self.__GetUnexpectedResponseState = None
         self.__GetUnexpectedResponse = None
+        self.__GetNetworkState = None
 
         """ Ask an action for the AI to the server """
         self.__AskForward = None
@@ -88,6 +89,7 @@ class ServerWrapper:
             self.__GetRepTakeObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_take_response")
             self.__GetRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
             self.__GetRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
+            self.__GetNetworkState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_network_state")
         except:
             print("The provided lib doesn't contain all the required funtions.", file=stderr)
             return False
@@ -287,4 +289,11 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__GetRepIncantation.restype = ctypes.c_int
         c_value = self.__GetRepIncantation()
+        return c_value
+
+    def GetNetworkState(self) -> bool:
+        """ Wrapped Function : Get the Network State, return true is everything ok, false otherwise """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__GetNetworkState.restype = ctypes.c_bool
+        c_value = self.__GetNetworkState()
         return c_value
