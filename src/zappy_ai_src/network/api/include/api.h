@@ -173,4 +173,8 @@ bool c_interface_get_place_response(void);
 /// \return The connectnbr value
 int c_interface_get_incantation_response(void);
 
+/// \brief Get the content of an unexpected response
+/// \return The unexpected response content, NULL otherwise
+char *c_interface_get_unexpected_response(void);
+
 #endif /* !API_H_ */
