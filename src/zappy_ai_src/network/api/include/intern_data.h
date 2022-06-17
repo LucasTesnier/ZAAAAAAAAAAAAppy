@@ -44,6 +44,11 @@ typedef struct retcodes_s {
 /// \return The matching retcode
 retcodes_t get_retcodes(void);
 
+/// \brief End the command traitment process
+/// \param state value to return
+/// \return the state param
+bool retcode_exit(bool state);
+
 /// \brief Send a request to the server
 /// \param command to send
 /// \param arg to send

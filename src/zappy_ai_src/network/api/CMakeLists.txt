@@ -12,6 +12,7 @@ set (SRC
 
     ${SRC_ROOT}/get/state.c
     ${SRC_ROOT}/get/retcode.c
+    ${SRC_ROOT}/get/join.c
 
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h

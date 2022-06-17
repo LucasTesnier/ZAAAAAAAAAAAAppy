@@ -14,7 +14,8 @@
 
 bool send_request(char *command, char *arg)
 {
-    char *message = malloc(sizeof(char) * (((!arg) ? 0 : strlen(arg)) + 7));
+    char *message = malloc(sizeof(char) * (((!arg) ? 0 : strlen(arg))
+    + 8 + strlen(command)));
 
     if (!message)
         return false;

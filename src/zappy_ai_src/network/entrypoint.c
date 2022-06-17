@@ -28,15 +28,15 @@ int main(int ac, char **av)
     signal(SIGINT, sigint_handler);
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
         return 84;
-    while (1) {
-        if (c_interface_get_response_sate()) {
-            if (c_interface_get_unexpected_response_state())
-                break;
-            if (!c_interface_get_connect_to_server_response())
-                break;
-        }
-        if (!c_interface_get_network_state())
-            break;
-    };
+    while (!c_interface_get_response_sate());
+    if (!c_interface_get_connect_to_server_response())
+        return 84;
+    if (!c_interface_ask_join("AAAAA"))
+        return 84;
+    while (!c_interface_get_response_sate());
+    if (!c_interface_get_join_response())
+        return 84;
+    printf("YAY\n");
+    while (1);
     return 0;
 }

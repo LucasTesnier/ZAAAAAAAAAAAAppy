@@ -10,7 +10,6 @@
 #include "intern_data.h"
 #include "client_utils.h"
 #include "api.h"
-#include <stdlib.h>
 
 bool c_interface_ask_inventory(void)
 {

@@ -20,6 +20,7 @@ static const retcodes_t retcodes[] = {
     {201, 1, EXPECTED},
     {202, 1, EXPECTED},
     {211, 1, EXPECTED},
+    {212, 1, EXPECTED},
     {301, 0, EXPECTED},
     {312, 1, EXPECTED},
     {313, 1, EXPECTED},
@@ -29,6 +30,15 @@ static const retcodes_t retcodes[] = {
     {502, 1, EXPECTED},
     {-1, -1, EXPECTED}
 };
+
+bool retcode_exit(bool state)
+{
+    if (!client_data || !client_data->current_response)
+        return state;
+    free(client_data->current_response);
+    client_data->current_response = NULL;
+    return state;
+}
 
 retcodes_t get_retcodes(void)
 {

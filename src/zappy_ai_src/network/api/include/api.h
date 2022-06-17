@@ -55,4 +55,9 @@ bool c_interface_get_network_state(void);
 /// \return false If connection failed
 bool c_interface_get_connect_to_server_response(void);
 
+/// \brief Get the response for the join command
+/// \return true If connection is okay
+/// \return false If connection failed
+bool c_interface_get_join_response(void);
+
 #endif /* !API_H_ */
