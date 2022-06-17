@@ -100,6 +100,13 @@ int main(int ac, char **av)
     while (!c_interface_get_response_sate());
     if (!c_interface_get_place_response())
         return 84;
+    if (!c_interface_ask_incantation())
+        return 84;
+    while (!c_interface_get_response_sate());
+    tmp = c_interface_get_incantation_response();
+    if (tmp == 0)
+        return 84;
+    printf("Level up to : %i\n", tmp);
     c_interface_try_to_disconnect_to_server();
     return 0;
 }

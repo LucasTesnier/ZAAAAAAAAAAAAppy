@@ -18,6 +18,7 @@ set (SRC
     ${SRC_ROOT}/ask/eject.c
     ${SRC_ROOT}/ask/take.c
     ${SRC_ROOT}/ask/place.c
+    ${SRC_ROOT}/ask/incantation.c
 
     ${SRC_ROOT}/get/state.c
     ${SRC_ROOT}/get/retcode.c
@@ -32,6 +33,7 @@ set (SRC
     ${SRC_ROOT}/get/eject.c
     ${SRC_ROOT}/get/take.c
     ${SRC_ROOT}/get/place.c
+    ${SRC_ROOT}/get/incantation.c
 
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h

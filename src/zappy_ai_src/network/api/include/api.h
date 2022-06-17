@@ -88,6 +88,11 @@ bool c_interface_ask_take(char *object);
 /// \return false When operation failed
 bool c_interface_ask_place(char *object);
 
+/// \brief Ask to start an incantation
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_incantation(void);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
@@ -163,5 +168,9 @@ bool c_interface_get_take_response(void);
 /// \return true If connection is okay
 /// \return false If connection failed
 bool c_interface_get_place_response(void);
+
+/// \brief Get the response for the incantation command
+/// \return The connectnbr value
+int c_interface_get_incantation_response(void);
 
 #endif /* !API_H_ */
