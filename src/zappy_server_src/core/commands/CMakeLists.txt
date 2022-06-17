@@ -13,6 +13,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/eject_command.c
     ${SRC_ROOT}/take_command.c
     ${SRC_ROOT}/place_command.c
+    ${SRC_ROOT}/incantation_command.c
 
     PARENT_SCOPE
 )

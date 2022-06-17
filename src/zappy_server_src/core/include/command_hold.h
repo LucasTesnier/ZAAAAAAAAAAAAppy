@@ -205,6 +205,24 @@ bool command_place(char *arg, player_list_t *player, server_data_t *serv);
 bool command_place_end(char *arg, player_list_t *player,
 server_data_t *serv);
 
+/// \brief Start the incantation process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_incantation(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief End the incantation process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_incantation_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
@@ -216,6 +234,7 @@ static const command_data_t ai_command_list_end[] = {
     {"/eject", NULL, &command_eject_end},
     {"/take", NULL, &command_take_end},
     {"/place", NULL, &command_place_end},
+    {"/incantation", NULL, &command_incantation_end},
     {NULL, NULL, NULL}
 };
 
