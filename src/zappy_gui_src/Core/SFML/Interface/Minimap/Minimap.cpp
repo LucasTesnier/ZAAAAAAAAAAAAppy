@@ -5,6 +5,8 @@
 ** Minimap
 */
 
+/// \file src/zappy_gui_src/Core/SFML/Interface/Minimap/Minimap.cpp
+
 #include "Minimap.hpp"
 #include <math.h>
 
