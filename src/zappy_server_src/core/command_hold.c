@@ -19,7 +19,7 @@ static const command_data_t ai_command_list[] = {
     {"/look", NULL, &command_look}, // TO DO CONSTANT
     {"/inventory", NULL, &command_inventory}, /// DONE
     {"/broadcast", "Args message", &command_broadcast}, // TO DO CONSTANT
-    {"/connectnbr", NULL, &command_connectnbr}, // TO DO LUCAS
+    {"/connectnbr", NULL, &command_connectnbr}, // DONE
     {"/fork", NULL, &command_fork}, // TO DO CONSTANT
     {"/eject", NULL, &command_eject}, // TO DO LUCAS
     {"/take", "Args type", &command_take}, // TO DO LUCAS
