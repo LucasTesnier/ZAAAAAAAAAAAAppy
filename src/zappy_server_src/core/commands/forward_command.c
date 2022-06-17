@@ -11,6 +11,39 @@
 #include "rcodes.h"
 #include "team.h"
 #include "entity/player.h"
+#include "entity/tile.h"
+
+static void move_x(entity_t *player, map_t *map)
+{
+    position_t *pos = &player->position;
+    player_t *player_data = (player_t *)player->data;
+    tile_t *tile = NULL;
+
+    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    if (player_data->orientation == NORTH)
+        pos->x = (pos->x - 1) % map->height;
+    else
+        pos->x = (pos->x + 1) % map->height;
+    remove_entity_from_tile(tile, player);
+    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    add_entity_to_tile(tile, player);
+}
+
+static void move_y(entity_t *player, map_t *map)
+{
+    position_t *pos = &player->position;
+    player_t *player_data = (player_t *)player->data;
+    tile_t *tile = NULL;
+
+    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    if (player_data->orientation == EAST)
+        pos->x = (pos->y + 1) % map->height;
+    else
+        pos->x = (pos->y - 1) % map->height;
+    remove_entity_from_tile(tile, player);
+    tile = (tile_t*)get_tile(map, pos->x, pos->y);
+    add_entity_to_tile(tile, player);
+}
 
 bool command_forward(char *arg, player_list_t *player, server_data_t *serv)
 {
@@ -28,10 +61,18 @@ bool command_forward(char *arg, player_list_t *player, server_data_t *serv)
 bool command_forward_end(char *arg, player_list_t *player,
 server_data_t *serv)
 {
+    entity_t *player_entity = NULL;
+    player_t *player_data = NULL;
+
     (void) arg;
-    (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
+    player_entity = (entity_t *)player->player_data;
+    player_data = (player_t *)player_entity->data;
+    if (player_data->orientation == NORTH || player_data->orientation == SOUTH)
+        move_x(player_entity, serv->map);
+    else
+        move_y(player_entity, serv->map);
     pop_message(player->player_peer);
     return print_retcode(213, NULL, player->player_peer, true);
 }
