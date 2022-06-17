@@ -113,8 +113,8 @@ server_data_t *serv)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
-    tile = (tile_t *)((entity_t *)get_tile(serv->map,
-    player_entity->position.x, player_entity->position.y))->data;
+    tile = (tile_t *)get_tile(serv->map,
+    player_entity->position.x, player_entity->position.y)->data;
     if (!take_action(player_data, tile, arg)) {
         pop_message(player->player_peer);
         return print_retcode(314, NULL, player->player_peer, false);

@@ -22,7 +22,7 @@ static const command_data_t ai_command_list[] = {
     {"/connectnbr", NULL, &command_connectnbr}, // DONE
     {"/fork", NULL, &command_fork}, // TO DO CONSTANT
     {"/eject", NULL, &command_eject}, // TO DO LUCAS
-    {"/take", "Args type", &command_take}, // TO DO LUCAS
+    {"/take", "Args type", &command_take}, // DONE
     {"/place", "Args type", &command_place}, // TO DO LUCAS
     {"/incantation", NULL, &command_incantation}, // TO DO CONSTANT
     {"/join", "Args Team", &command_join}, /// DONE
