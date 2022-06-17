@@ -23,6 +23,7 @@ static const retcodes_t retcodes[] = {
     {212, 1, EXPECTED},
     {213, 0, EXPECTED},
     {214, 0, EXPECTED},
+    {215, 1, EXPECTED},
     {301, 0, EXPECTED},
     {312, 1, EXPECTED},
     {313, 1, EXPECTED},
