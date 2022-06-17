@@ -43,7 +43,7 @@ char *pack_inventory(container_t *inv)
         (get_len_container(inv) + 88))) == NULL)
         return NULL;
     sprintf(tmp, "[food %d, linemate %d, deraumere %d, sibur %d, mendiane %d, \
-        phiras %d, thystame %d]",
+phiras %d, thystame %d]",
             inv->food,
             inv->linemate,
             inv->deraumere,
@@ -51,7 +51,6 @@ char *pack_inventory(container_t *inv)
             inv->mendiane,
             inv->phiras,
             inv->thystame);
-    free(inv);
     return tmp;
 }
 
