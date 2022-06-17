@@ -10,6 +10,7 @@
 #include "server.h"
 #include "fd_set_manage.h"
 #include "command_hold.h"
+#include "entity/player.h"
 #include <signal.h>
 
 volatile bool *server_state = NULL;
@@ -30,7 +31,8 @@ int server_run(int ac, char **av)
         return FAILED;
     signal(SIGINT, sigint_handler);
     TAILQ_FOREACH(tmp, &server_data->teams, teams)
-        printf("Created team %s with %d max players\n", tmp->name, tmp->max_members);
+        printf("Created team %s with %d max players\n", tmp->name,
+        tmp->max_members);
     server_loop(server_data);
     destroy_server_data(server_data);
     return SUCCESS;
@@ -55,12 +57,20 @@ static void process_command_inspection(server_data_t *server_data)
 {
     tcp_server_t *srv = server_data->server->network_server;
     peer_t *tmp = NULL;
+    player_list_t *player_info = NULL;
 
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
-        if (tmp->pending_read) {
-            compute_command(fetch_message(tmp),
-            get_player_list_by_peer(server_data, tmp), server_data);
+        player_info = get_player_list_by_peer(server_data, tmp);
+        if (player_info->scheduled_action &&
+        scheduler_has_event(server_data->scheduler,
+        ((player_t *)player_info->player_data)->uuid)) {
+            player_info->scheduled_action->ptr
+            (player_info->scheduled_action->arg, player_info, server_data);
+            free(player_info->scheduled_action);
+            player_info->scheduled_action = NULL;
         }
+        if (tmp->pending_read)
+            compute_command(fetch_message(tmp), player_info, server_data);
     }
 }
 
@@ -75,6 +85,7 @@ void server_loop(server_data_t *server_data)
             break;
         if (server_manage_fd_update(network_server))
             server_add_player(server_data);
+        scheduler_update(server_data->scheduler);
         process_command_inspection(server_data);
         remove_disconnected_player(server_data, TO_LOGOUT);
         server_fill_fd_sets(network_server);

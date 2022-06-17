@@ -11,7 +11,7 @@
 #include "command_hold.h"
 #include "rcodes.h"
 
-/// List of all the ai command
+/// List of all the ai command start
 static const command_data_t ai_command_list[] = {
     {"/logout", NULL, &command_logout},
     {"/move", NULL, NULL},
