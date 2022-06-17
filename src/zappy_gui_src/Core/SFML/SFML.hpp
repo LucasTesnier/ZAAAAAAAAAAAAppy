@@ -16,42 +16,44 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-/// \brief Class for the SFML. This class is used to display the GUI.
-class SFML {
-    public:
+namespace gui {
+    /// \brief Class for the SFML. This class is used to display the GUI.
+    class SFML {
+        public:
 
-        /// \brief Constructor of the SFML.
-        SFML();
+            /// \brief Constructor of the SFML.
+            SFML();
 
-        /// \brief Destructor of the SFML.
-        ~SFML() = default;
+            /// \brief Destructor of the SFML.
+            ~SFML() = default;
 
-        /// \brief Return if the SFML is running.
-        /// \return True if the SFML is running, false otherwise.
-        inline bool isRunning() const {
-            return _run;
-        };
+            /// \brief Return if the SFML is running.
+            /// \return True if the SFML is running, false otherwise.
+            inline bool isRunning() const {
+                return _run;
+            };
 
-        /// \brief Display the SFML.
-        void display();
+            /// \brief Display the SFML.
+            void display();
 
-    private:
+        private:
 
-        void _getEvent();
-        /// \brief The status of the SFML.
-        bool _run;
+            void _getEvent();
+            /// \brief The status of the SFML.
+            bool _run;
 
-        /// \brief SFML event manager.
-        std::shared_ptr<Event> _event;
+            /// \brief SFML event manager.
+            std::shared_ptr<Event> _event;
 
-        /// \brief SFML window.
-        std::shared_ptr<sf::RenderWindow> _window;
+            /// \brief SFML window.
+            std::shared_ptr<sf::RenderWindow> _window;
 
-        /// \brief SFML map.
-        gui::Map _map;
+            /// \brief SFML map.
+            Map _map;
 
-        /// \brief SFML interface.
-        Interface interface;
-};
+            /// \brief SFML interface.
+            Interface _interface;
+    };
+} // namespace gui
 
 #endif /* !SFML_HPP_ */
