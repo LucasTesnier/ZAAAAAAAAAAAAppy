@@ -71,6 +71,13 @@ int main(int ac, char **av)
     while (!c_interface_get_response_sate());
     if (!c_interface_get_broadcast_response())
         return 84;
+    if (!c_interface_ask_connectable())
+        return 84;
+    while (!c_interface_get_response_sate());
+    int tmp = c_interface_get_connectable_response();
+    if (tmp == -1)
+        return 84;
+    printf("Connectable : %i\n", tmp);
     c_interface_try_to_disconnect_to_server();
     return 0;
 }
