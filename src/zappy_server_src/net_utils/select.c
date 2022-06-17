@@ -15,7 +15,7 @@ int server_wait(tcp_server_t *srv, struct timeval time)
         &srv->read_fds,
         &srv->write_fds,
         &srv->err_fds,
-        &time) == -1) {
+        ((time.tv_sec == 0) ? NULL : &time)) == -1) {
         ZAPPY_LOG("select");
         return (-1);
     }

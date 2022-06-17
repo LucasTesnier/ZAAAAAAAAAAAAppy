@@ -72,7 +72,7 @@ void scheduler_update(scheduler_t *self)
 struct timeval scheduler_get_smallest_timeout(scheduler_t *self)
 {
     scheduler_event_t *tmp = NULL;
-    time_t smallest = 0;
+    time_t smallest = 10000000000;
     time_t tmp_time = 0;
 
     if (!self)
@@ -82,5 +82,7 @@ struct timeval scheduler_get_smallest_timeout(scheduler_t *self)
         if (tmp_time < smallest)
             smallest = tmp_time;
     }
+    if (smallest == 10000000000)
+        return (struct timeval){0};
     return (struct timeval){.tv_sec = smallest, .tv_usec = 0};
 }
