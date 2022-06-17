@@ -10,6 +10,7 @@
 #include "scheduler/scheduler.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 scheduler_t *create_scheduler(double freq)
 {
@@ -79,13 +80,13 @@ struct timeval scheduler_get_smallest_timeout(scheduler_t *self)
     time_t tmp_time = 0;
 
     if (!self)
-        return (struct timeval){0};
+        return (struct timeval){.tv_sec = -1, .tv_usec = 0};
     TAILQ_FOREACH(tmp, &self->events, events) {
         tmp_time = tmp->ticks * (1 / self->freq);
         if (tmp_time < smallest)
             smallest = tmp_time;
     }
     if (smallest == 10000000000)
-        return (struct timeval){0};
+        return (struct timeval){.tv_sec = -1, .tv_usec = 0};
     return (struct timeval){.tv_sec = smallest, .tv_usec = 0};
 }

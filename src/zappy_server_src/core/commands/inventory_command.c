@@ -5,6 +5,8 @@
 ** inventory_command
 */
 
+/// \file src/zappy_server_src/core/commands/inventory_command.c
+
 #include "command_hold.h"
 #include "rcodes.h"
 #include "team.h"

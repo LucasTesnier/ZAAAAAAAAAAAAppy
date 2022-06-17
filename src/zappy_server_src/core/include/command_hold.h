@@ -112,12 +112,129 @@ bool command_look(char *arg, player_list_t *player, server_data_t *serv);
 bool command_look_end(char *arg, player_list_t *player,
 server_data_t *serv);
 
+/// \brief Start the broadcast process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_broadcast(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the broadcast process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_broadcast_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief End the connectnbr process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_connectnbr(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief Start the fork process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_fork(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the fork process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_fork_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief Start the eject process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_eject(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the eject process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_eject_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief Start the take process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_take(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the take process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_take_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief Start the place process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_place(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the place process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_place_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief Start the incantation process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_incantation(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief End the incantation process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_incantation_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
     {"/forward", NULL, &command_forward_end},
     {"/turn", NULL, &command_turn_end},
     {"/look", NULL, &command_look_end},
+    {"/broadcast", NULL, &command_broadcast_end},
+    {"/fork", NULL, &command_fork_end},
+    {"/eject", NULL, &command_eject_end},
+    {"/take", NULL, &command_take_end},
+    {"/place", NULL, &command_place_end},
+    {"/incantation", NULL, &command_incantation_end},
     {NULL, NULL, NULL}
 };
 

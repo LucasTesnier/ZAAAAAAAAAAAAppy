@@ -2,26 +2,29 @@
 ** EPITECH PROJECT, 2022
 ** Project
 ** File description:
-** join
+** connectnbr
 */
 
-/// \file src/zappy_ai_src/network/api/get/join.c
+/// \file src/zappy_ai_src/network/api/get/connectnbr.c
 
 #include "intern_data.h"
 #include "client_utils.h"
 #include "api.h"
+#include <stdlib.h>
 
-char *c_interface_get_join_response(void)
+int c_interface_get_connectable_response(void)
 {
     char *res = NULL;
 
     if (client_data == NULL || !client_data->current_response)
-        return NULL;
-    if (strncmp(client_data->current_response, "211", 3)) {
+        return -1;
+    if (strncmp(client_data->current_response, "217", 3)) {
         retcode_exit(false);
-        return NULL;
+        return -1;
     }
     res = retcode_get_arg();
     retcode_exit(true);
-    return res;
+    if (res == NULL)
+        return -1;
+    return atoi(res);
 }
