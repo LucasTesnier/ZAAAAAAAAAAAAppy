@@ -7,6 +7,8 @@ set (SRC
     ${SRC_ROOT}/authentification.c
 
     ${SRC_ROOT}/ask/join.c
+    ${SRC_ROOT}/ask/inventory.c
+    ${SRC_ROOT}/ask/send_request.c
 
     ${SRC_ROOT}/get/state.c
     ${SRC_ROOT}/get/retcode.c
