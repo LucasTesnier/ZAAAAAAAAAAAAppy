@@ -61,7 +61,8 @@ Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
         p._level = std::stoi(p_end[1]);
         p._orientation = mapOrientation.find(p_end[2])->second;
     } catch(...) {
-        throw(UnpackException("Unpack player" "Invalid packed string"));
+        return p;
+        // throw (UnpackException("Unpack player" "Invalid packed string"));
     }
     return p;
 }
@@ -76,7 +77,8 @@ Tile Unpack::UnpackTile(std::vector<std::string> &unpacked)
         tile = stov(unpacked[2], '}');
         t._inventory = UnpackInventory(tile[0]);
     } catch(...) {
-        throw(UnpackException("Unpack tile" "Invalid packed string"));
+        return t;
+        // throw(UnpackException("Unpack tile" "Invalid packed string"));
     }
     return t;
 }
@@ -90,7 +92,8 @@ Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
         egg[2].pop_back();
         e._team_name = egg[2];
     } catch(...) {
-        throw(UnpackException("Unpack egg" "Invalid packed string"));
+        return e;
+        // throw(UnpackException("Unpack egg" "Invalid packed string"));
     }
     return e;
 }
@@ -101,7 +104,8 @@ void Unpack::UnpackEntity(Player &p, std::string &packed)
     if (unpacked[0] == "player") {
         p = UnpackPlayer(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type player"));
+        return;
+        // throw(UnpackException("Unpack" "Invalid packed type player"));
 }
 
 void Unpack::UnpackEntity(Tile &t, std::string &packed)
@@ -110,7 +114,8 @@ void Unpack::UnpackEntity(Tile &t, std::string &packed)
     if (unpacked[0] == "tile") {
         t = UnpackTile(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type tile"));
+        return;
+        // throw(UnpackException("Unpack" "Invalid packed type tile"));
 }
 
 void Unpack::UnpackEntity(Egg &e, std::string &packed)
@@ -119,16 +124,20 @@ void Unpack::UnpackEntity(Egg &e, std::string &packed)
     if (unpacked[0] == "egg") {
         e = UnpackEgg(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type egg"));
+        return;
+        // throw(UnpackException("Unpack" "Invalid packed type egg"));
 }
 
 int main(void)
 {
-    std::string a("player{42;4242;inventory{10;0;0;0;0;0;0};guiguilebg;1;0}");
+    std::string a("player{42;4242;inventory{10;9;8;7;6;5;4};guiguilebg;1;0}");
     std::string b("tile{423;432;inventory{10;0;0;0;0;0;0}}");
     std::string c("egg{42;4242;guiguilebgoeuf}");
     Unpack u;
     Player p;
     u.UnpackEntity(p, a);
+    auto v = p.getInventory();
+    for (auto &i : v)
+        std::cout << i << ' ';
     return 0;
 }
