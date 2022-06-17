@@ -78,10 +78,46 @@ bool command_forward(char *arg, player_list_t *player, server_data_t *serv);
 bool command_forward_end(char *arg, player_list_t *player,
 server_data_t *serv);
 
+/// \brief Start the turn process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_turn(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the turn process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_turn_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
+/// \brief Start the look process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_look(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the look process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_look_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
     {"/forward", NULL, &command_forward_end},
+    {"/turn", NULL, &command_turn_end},
+    {"/look", NULL, &command_look_end},
     {NULL, NULL, NULL}
 };
 
@@ -103,8 +139,17 @@ static inline command_data_t *find_ai_command_end(char *cmd, char *arg)
         return NULL;
     command->name = ai_command_list_end[pos].name;
     command->ptr = ai_command_list_end[pos].ptr;
-    command->arg = arg;
+    command->arg = (!arg) ? NULL : strdup(arg);
     return command;
+}
+
+/// \brief Delete a command_data object
+/// \param command The command data object to delete
+static inline void delete_command_data(command_data_t *command)
+{
+    if (command->arg)
+        free(command->arg);
+    free(command);
 }
 
 #endif /* !COMMAND_H_ */

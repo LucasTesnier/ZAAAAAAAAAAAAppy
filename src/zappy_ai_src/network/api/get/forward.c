@@ -17,5 +17,5 @@ bool c_interface_get_forward_response(void)
         return false;
     if (strncmp(client_data->current_response, "213", 3))
         return retcode_exit(false);
-    return true;
+    return retcode_exit(true);
 }

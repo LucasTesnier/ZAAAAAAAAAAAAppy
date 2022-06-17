@@ -10,12 +10,16 @@ set (SRC
     ${SRC_ROOT}/ask/inventory.c
     ${SRC_ROOT}/ask/send_request.c
     ${SRC_ROOT}/ask/forward.c
+    ${SRC_ROOT}/ask/turn.c
+    ${SRC_ROOT}/ask/look.c
 
     ${SRC_ROOT}/get/state.c
     ${SRC_ROOT}/get/retcode.c
     ${SRC_ROOT}/get/join.c
     ${SRC_ROOT}/get/inventory.c
     ${SRC_ROOT}/get/forward.c
+    ${SRC_ROOT}/get/turn.c
+    ${SRC_ROOT}/get/look.c
 
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h

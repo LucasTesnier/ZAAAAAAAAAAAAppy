@@ -4,5 +4,8 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/auth_command.c
     ${SRC_ROOT}/inventory_command.c
     ${SRC_ROOT}/forward_command.c
+    ${SRC_ROOT}/turn_command.c
+    ${SRC_ROOT}/look_command.c
+
     PARENT_SCOPE
 )
