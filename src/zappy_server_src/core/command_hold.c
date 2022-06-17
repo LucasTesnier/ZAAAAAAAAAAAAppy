@@ -15,7 +15,7 @@
 static const command_data_t ai_command_list[] = {
     {"/logout", NULL, &command_logout}, /// DONE
     {"/forward", NULL, &command_forward}, /// DONE
-    {"/turn", "Args Left Right", &command_turn}, // TO DO LUCAS
+    {"/turn", "Args Left Right", &command_turn}, // DONE
     {"/look", NULL, &command_look}, // TO DO CONSTANT
     {"/inventory", NULL, &command_inventory}, /// DONE
     {"/broadcast", "Args message", &command_broadcast}, // TO DO CONSTANT
