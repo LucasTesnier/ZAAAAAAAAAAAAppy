@@ -23,7 +23,7 @@ static const command_data_t ai_command_list[] = {
     {"/fork", NULL, &command_fork},
     {"/eject", NULL, &command_eject},
     {"/take", "Args type", &command_take},
-    {"/place", "Args type", NULL},
+    {"/place", "Args type", &command_place},
     {"/incantation", NULL, NULL},
     {"/join", "Args Team", &command_join},
     {NULL, NULL, NULL}

@@ -12,6 +12,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/fork_command.c
     ${SRC_ROOT}/eject_command.c
     ${SRC_ROOT}/take_command.c
+    ${SRC_ROOT}/place_command.c
 
     PARENT_SCOPE
 )
