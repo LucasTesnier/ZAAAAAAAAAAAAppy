@@ -35,6 +35,11 @@ bool c_interface_ask_join(char *team_name);
 /// \return false When operation failed
 bool c_interface_ask_inventory(void);
 
+/// \brief Ask to move forward
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_forward(void);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
@@ -61,8 +66,12 @@ bool c_interface_get_connect_to_server_response(void);
 bool c_interface_get_join_response(void);
 
 /// \brief Get the response for the inventory command
+/// \return The inventory content, NULL otherwise
+char *c_interface_get_inventory_response(void);
+
+/// \brief Get the response for the forward command
 /// \return true If connection is okay
 /// \return false If connection failed
-char *c_interface_get_inventory_response(void);
+bool c_interface_get_forward_response(void);
 
 #endif /* !API_H_ */

@@ -44,6 +44,13 @@ int main(int ac, char **av)
     if (!temp)
         return 84;
     printf("Inventory : %s\n", temp);
+    if (!c_interface_ask_forward())
+        return 84;
+    printf("AAAAA\n");
+    while (!c_interface_get_response_sate());
+    printf("OOOO\n");
+    if (!c_interface_get_forward_response())
+        return 84;
     c_interface_try_to_disconnect_to_server();
     return 0;
 }
