@@ -75,7 +75,7 @@ typedef struct argument_s {
     /// Max client number authorized
     int client_nb;
     /// Frequence of time
-    int freq;
+    float freq;
 } argument_t;
 
 /// \brief Major data for the server

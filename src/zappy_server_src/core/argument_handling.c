@@ -35,7 +35,7 @@ bool *is_team)
         if (opt == 'c')
             args->client_nb = atoi(optarg);
         if (opt == 'f')
-            args->freq = atoi(optarg);
+            args->freq = atof(optarg);
         if (opt == 'n')
             *is_team = true;
         if (opt == ':')

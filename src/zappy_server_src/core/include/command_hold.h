@@ -121,8 +121,17 @@ static inline command_data_t *find_ai_command_end(char *cmd, char *arg)
         return NULL;
     command->name = ai_command_list_end[pos].name;
     command->ptr = ai_command_list_end[pos].ptr;
-    command->arg = arg;
+    command->arg = (!arg) ? NULL : strdup(arg);
     return command;
+}
+
+/// \brief Delete a command_data object
+/// \param command The command data object to delete
+static inline void delete_command_data(command_data_t *command)
+{
+    if (command->arg)
+        free(command->arg);
+    free(command);
 }
 
 #endif /* !COMMAND_H_ */

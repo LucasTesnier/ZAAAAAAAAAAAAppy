@@ -26,7 +26,6 @@ bool command_turn(char *arg, player_list_t *player, server_data_t *serv)
 bool command_turn_end(char *arg, player_list_t *player,
 server_data_t *serv)
 {
-    (void) arg;
     (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);

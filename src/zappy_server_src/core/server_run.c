@@ -66,7 +66,7 @@ static void process_command_inspection(server_data_t *server_data)
         ((player_t *)player_info->player_data)->uuid)) {
             player_info->scheduled_action->ptr
             (player_info->scheduled_action->arg, player_info, server_data);
-            free(player_info->scheduled_action);
+            delete_command_data(player_info->scheduled_action);
             player_info->scheduled_action = NULL;
         }
         if (tmp->pending_read && !player_info->scheduled_action)
