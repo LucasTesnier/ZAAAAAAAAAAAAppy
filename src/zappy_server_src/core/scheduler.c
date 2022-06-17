@@ -54,18 +54,21 @@ bool scheduler_schedule_event(scheduler_t *self, uuid_t uuid, int ticks)
 void scheduler_update(scheduler_t *self)
 {
     scheduler_event_t *tmp = NULL;
+    scheduler_event_t *tmp2 = NULL;
     time_t now = time(NULL);
 
     if (!self)
         return;
     tmp = TAILQ_FIRST(&self->events);
     while (tmp != NULL) {
+        tmp2 = TAILQ_NEXT(tmp, events);
         tmp->ticks -= floor((now - self->clock) * self->freq);
         if (tmp->ticks <= 0) {
             TAILQ_REMOVE(&self->events, tmp, events);
             free(tmp);
         }
         now = time(NULL);
+        tmp = tmp2;
     }
 }
 

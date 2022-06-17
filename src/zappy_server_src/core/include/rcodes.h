@@ -44,6 +44,9 @@ static const retcodes_t retcodes[] = {
     {.repr = "212 Inventory content : %s\n",
     .code = 212,
     .params = NULL},
+    {.repr = "213 Move Forward ok.\n",
+    .code = 213,
+    .params = NULL},
     {.repr = "301 Internal error.\n",
     .code = 301,
     .params = NULL},
@@ -53,6 +56,7 @@ static const retcodes_t retcodes[] = {
     {.repr = "313 No rooms left inside the team : %s\n",
     .code = 313,
     .params = NULL},
+    /// ADD HERE RETCODE FOR ERROR
     {.repr = "401 Please login.\n",
     .code = 401,
     .params = NULL},

@@ -61,9 +61,27 @@ bool command_inventory(char *arg, player_list_t *player, server_data_t *serv);
 bool command_inventory_end(char *arg, player_list_t *player,
 server_data_t *serv);
 
+/// \brief Start the forward process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_forward(char *arg, player_list_t *player, server_data_t *serv);
+
+/// \brief End the forward process
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_forward_end(char *arg, player_list_t *player,
+server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
+    {"/forward", NULL, &command_forward_end},
     {NULL, NULL, NULL}
 };
 

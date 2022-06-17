@@ -84,7 +84,7 @@ void server_loop(server_data_t *server_data)
         if (server_wait(network_server,
         scheduler_get_smallest_timeout(server_data->scheduler)) == -1)
             break;
-        printf("Boucle\n");
+        dprintf(2, "Loop\n");
         if (server_manage_fd_update(network_server))
             server_add_player(server_data);
         scheduler_update(server_data->scheduler);
