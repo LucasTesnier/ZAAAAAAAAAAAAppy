@@ -50,6 +50,11 @@ bool c_interface_ask_right(void);
 /// \return false When operation failed
 bool c_interface_ask_left(void);
 
+/// \brief Ask to move look
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_look(void);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
@@ -93,5 +98,9 @@ bool c_interface_get_right_response(void);
 /// \return true If connection is okay
 /// \return false If connection failed
 bool c_interface_get_left_response(void);
+
+/// \brief Get the response for the look command
+/// \return The look content, NULL otherwise
+char *c_interface_get_look_response(void);
 
 #endif /* !API_H_ */

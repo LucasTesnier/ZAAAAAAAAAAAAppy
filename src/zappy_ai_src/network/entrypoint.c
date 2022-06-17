@@ -59,6 +59,13 @@ int main(int ac, char **av)
     while (!c_interface_get_response_sate());
     if (!c_interface_get_left_response())
         return 84;
+    if (!c_interface_ask_look())
+        return 84;
+    while (!c_interface_get_response_sate());
+    temp = c_interface_get_look_response();
+    if (temp == NULL)
+        return 84;
+    printf("Look : %s\n", temp);
     c_interface_try_to_disconnect_to_server();
     return 0;
 }
