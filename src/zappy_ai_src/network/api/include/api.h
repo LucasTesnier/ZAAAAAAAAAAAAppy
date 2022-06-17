@@ -60,4 +60,9 @@ bool c_interface_get_connect_to_server_response(void);
 /// \return false If connection failed
 bool c_interface_get_join_response(void);
 
+/// \brief Get the response for the inventory command
+/// \return true If connection is okay
+/// \return false If connection failed
+char *c_interface_get_inventory_response(void);
+
 #endif /* !API_H_ */

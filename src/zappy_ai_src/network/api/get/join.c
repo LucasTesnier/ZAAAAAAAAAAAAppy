@@ -5,7 +5,7 @@
 ** join
 */
 
-/// \file src/zappy_ai_src/network/api/ask/join.c
+/// \file src/zappy_ai_src/network/api/get/join.c
 
 #include "intern_data.h"
 #include "client_utils.h"

@@ -49,6 +49,10 @@ retcodes_t get_retcodes(void);
 /// \return the state param
 bool retcode_exit(bool state);
 
+/// \brief Get param inside a retcode
+/// \return The founded param otherwise, NULL
+char *retcode_get_arg(void);
+
 /// \brief Send a request to the server
 /// \param command to send
 /// \param arg to send

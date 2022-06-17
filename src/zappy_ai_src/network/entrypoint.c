@@ -22,6 +22,7 @@ int main(int ac, char **av)
 {
     int port = atoi(av[1]);
     char *team_name = av[2];
+    char *temp = NULL;
 
     (void) team_name;
     (void) ac;
@@ -36,7 +37,13 @@ int main(int ac, char **av)
     while (!c_interface_get_response_sate());
     if (!c_interface_get_join_response())
         return 84;
-    printf("YAY\n");
-    while (1);
+    if (!c_interface_ask_inventory())
+        return 84;
+    while (!c_interface_get_response_sate());
+    temp = c_interface_get_inventory_response();
+    if (!temp)
+        return 84;
+    printf("Inventory : %s\n", temp);
+    c_interface_try_to_disconnect_to_server();
     return 0;
 }

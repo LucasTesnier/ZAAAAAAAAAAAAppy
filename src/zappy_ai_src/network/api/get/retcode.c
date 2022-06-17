@@ -31,6 +31,25 @@ static const retcodes_t retcodes[] = {
     {-1, -1, EXPECTED}
 };
 
+char *retcode_get_arg(void)
+{
+    size_t pos = 0;
+    char *res = NULL;
+
+    if (client_data == NULL || !client_data->current_response)
+        return NULL;
+    for (; pos < strlen(client_data->current_response) - 1; pos++)
+        if (client_data->current_response[pos] == ':')
+            break;
+    if (client_data->current_response[pos + 1] == '\0')
+        return NULL;
+    res = strdup(client_data->current_response + pos + 2);
+    if (res == NULL)
+        return NULL;
+    res[strlen(res) - 1] = '\0';
+    return res;
+}
+
 bool retcode_exit(bool state)
 {
     if (!client_data || !client_data->current_response)
