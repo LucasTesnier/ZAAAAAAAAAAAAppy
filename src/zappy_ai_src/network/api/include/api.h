@@ -82,6 +82,12 @@ bool c_interface_ask_eject(void);
 /// \return false When operation failed
 bool c_interface_ask_take(char *object);
 
+/// \brief Ask to place
+/// \param object The object to place
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_place(char *object);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
@@ -152,5 +158,10 @@ bool c_interface_get_eject_response(void);
 /// \return true If connection is okay
 /// \return false If connection failed
 bool c_interface_get_take_response(void);
+
+/// \brief Get the response for the place command
+/// \return true If connection is okay
+/// \return false If connection failed
+bool c_interface_get_place_response(void);
 
 #endif /* !API_H_ */
