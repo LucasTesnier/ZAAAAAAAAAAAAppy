@@ -55,4 +55,9 @@ void scheduler_update(scheduler_t *self);
 /// \brief return true or false if the event has been scheduled
 bool scheduler_has_event(scheduler_t *self, uuid_t uuid);
 
+/// \brief Get the smallest time
+/// \param Self instance of the scheduler
+/// \return timeval return the timer
+struct timeval scheduler_get_time(scheduler_t *self);
+
 #endif /* SCHEDULER_H */

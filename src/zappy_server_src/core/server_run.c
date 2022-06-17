@@ -81,7 +81,8 @@ void server_loop(server_data_t *server_data)
     server_fill_fd_sets(network_server);
     server_state = &server_data->server->state;
     while (server_data->server->state) {
-        if (server_wait(network_server) == -1)
+        if (server_wait(network_server,
+        scheduler_get_time(server_data->scheduler)) == -1)
             break;
         if (server_manage_fd_update(network_server))
             server_add_player(server_data);
