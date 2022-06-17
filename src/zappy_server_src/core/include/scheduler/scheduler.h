@@ -52,7 +52,11 @@ bool scheduler_schedule_event(scheduler_t *self, uuid_t uuid, int ticks);
 void scheduler_update(scheduler_t *self);
 
 /// \brief Check if a given uuid has a pending event
-/// \brief return true or false if the event has been scheduled
+/// \param uuid The uuid to check
+/// \return return true or false if the event has been scheduled
 bool scheduler_has_event(scheduler_t *self, uuid_t uuid);
+
+/// \brief Return the amout of time before the event closest to finish is over
+time_t scheduler_get_smallest_timeout(scheduler_t *self);
 
 #endif /* SCHEDULER_H */
