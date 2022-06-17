@@ -27,6 +27,7 @@ bool command_inventory(char *arg, player_list_t *player, server_data_t *serv)
 bool command_inventory_end(char *arg, player_list_t *player,
 server_data_t *serv)
 {
+    entity_t *player_entity = NULL;
     player_t *player_data = NULL;
     container_t *inventory = NULL;
 
@@ -34,10 +35,10 @@ server_data_t *serv)
     (void) serv;
     if (!player->player_data)
         return print_retcode(402, arg, player->player_peer, false);
-    player_data = (player_t *)player->player_data;
+    player_entity = (entity_t *)player->player_data;
+    player_data = (player_t *)player_entity->data;
     inventory = player_data->inventory;
-    (void) player_data;
-    (void) inventory;
     pop_message(player->player_peer);
-    return print_retcode(212, "[...]", player->player_peer, true);
+    return print_retcode(212, pack_inventory(inventory),
+        player->player_peer, true);
 }

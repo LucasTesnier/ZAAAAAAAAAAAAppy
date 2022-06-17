@@ -10,18 +10,48 @@
 #include "container.h"
 #include <stdio.h>
 
-void debug_display_container(container_t *container)
+/// \brief Utility function to get the length of an int
+static int get_int_len(int val)
 {
-    if (!container)
-        return;
-    printf("===== CONTAINER =====\n");
-    printf("\tlinemate: %d\n", container->linemate);
-    printf("\tderaumere: %d\n", container->deraumere);
-    printf("\tsibur: %d\n", container->sibur);
-    printf("\tmendiane: %d\n", container->mendiane);
-    printf("\tphiras: %d\n", container->phiras);
-    printf("\tthystame: %d\n", container->thystame);
-    printf("=====================\n");
+    char str[80];
+
+    memset(str, 0, 80);
+    sprintf(str, "%d", val);
+    return strlen(str);
+}
+
+/// \brief get the length of the str reprensentaion of a container
+static int get_len_container(container_t *cont)
+{
+    int len = 0;
+
+    len += get_int_len(cont->food);
+    len += get_int_len(cont->linemate);
+    len += get_int_len(cont->deraumere);
+    len += get_int_len(cont->sibur);
+    len += get_int_len(cont->mendiane);
+    len += get_int_len(cont->phiras);
+    len += get_int_len(cont->thystame);
+    return len;
+}
+
+char *pack_inventory(container_t *inv)
+{
+    char *tmp;
+
+    if ((tmp = (char*)malloc(sizeof(char) *
+        (get_len_container(inv) + 88))) == NULL)
+        return NULL;
+    sprintf(tmp, "[food %d, linemate %d, deraumere %d, sibur %d, mendiane %d, \
+phiras %d, thystame %d]",
+            inv->food,
+            inv->linemate,
+            inv->deraumere,
+            inv->sibur,
+            inv->mendiane,
+            inv->phiras,
+            inv->thystame);
+    return tmp;
 }
 
 void delete_container(container_t *container)
