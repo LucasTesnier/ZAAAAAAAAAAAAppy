@@ -5,7 +5,7 @@
 ** auth_command
 */
 
-/// \file src/zappy_server_src/core/auth_command.c
+/// \file src/zappy_server_src/core/commands/auth_command.c
 
 #include "command_hold.h"
 #include "rcodes.h"

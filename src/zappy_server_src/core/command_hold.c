@@ -18,7 +18,7 @@ static const command_data_t ai_command_list[] = {
     {"/turn", "Args Left Right", &command_turn},
     {"/look", NULL, &command_look},
     {"/inventory", NULL, &command_inventory},
-    {"/broadcast", "Args message", NULL},
+    {"/broadcast", "Args message", &command_broadcast},
     {"/connectnbr", NULL, NULL},
     {"/fork", NULL, NULL},
     {"/eject", NULL, NULL},

@@ -6,6 +6,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/forward_command.c
     ${SRC_ROOT}/turn_command.c
     ${SRC_ROOT}/look_command.c
+    ${SRC_ROOT}/broadcast_command.c
 
     PARENT_SCOPE
 )
