@@ -76,6 +76,12 @@ bool c_interface_ask_fork(void);
 /// \return false When operation failed
 bool c_interface_ask_eject(void);
 
+/// \brief Ask to take
+/// \param object The object to take
+/// \return true When operation succeed
+/// \return false When operation failed
+bool c_interface_ask_take(char *object);
+
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
@@ -141,5 +147,10 @@ bool c_interface_get_fork_response(void);
 /// \return true If connection is okay
 /// \return false If connection failed
 bool c_interface_get_eject_response(void);
+
+/// \brief Get the response for the take command
+/// \return true If connection is okay
+/// \return false If connection failed
+bool c_interface_get_take_response(void);
 
 #endif /* !API_H_ */
