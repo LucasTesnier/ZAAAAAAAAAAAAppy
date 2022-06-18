@@ -1,7 +1,7 @@
 set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/Network)
 set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/Network)
 
-set (TARGET zappy_gui)
+set (TARGET zappy_gui_network)
 
 set (SRC
     ${SRC_ROOT}/Unpack.cpp
@@ -15,11 +15,9 @@ target_include_directories(${TARGET}_unpack
     PRIVATE ${SRC_ROOT}
 )
 
-# target_link_libraries(${TARGET}_unpack
-#     PUBLIC ${TARGET}_map
-#     PUBLIC ${TARGET}_interface
-# )
+add_subdirectory(api)
+add_subdirectory(net_utils)
 
-# add_subdirectory(Map)
-# add_subdirectory(Interface)
-# add_subdirectory(WrapperSFML)
+target_link_libraries(${TARGET}_unpack
+    PUBLIC zappy_gui_exception
+)

@@ -12,6 +12,7 @@
 
     #include "server.h"
     #include <stdbool.h>
+    #include "entity/player.h"
 
 /// \brief Hold the command process (Identification and execution)
 /// \param command Command in string format
@@ -222,6 +223,13 @@ server_data_t *serv);
 /// \return false When operation failed
 bool command_incantation_end(char *arg, player_list_t *player,
 server_data_t *serv);
+
+/// \brief Send a eject signal to a player
+/// \param direction The eject direction
+/// \param serv Server informations
+/// \param tmp The data of the player
+void send_unexpected_eject(enum player_orientation_e direction,
+server_data_t *serv, player_t *tmp);
 
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {

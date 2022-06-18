@@ -34,6 +34,7 @@ set (SRC
     ${SRC_ROOT}/get/take.c
     ${SRC_ROOT}/get/place.c
     ${SRC_ROOT}/get/incantation.c
+    ${SRC_ROOT}/get/unexpected.c
 
     ${INCLUDE_ROOT}/api.h
     ${INCLUDE_ROOT}/intern_data.h

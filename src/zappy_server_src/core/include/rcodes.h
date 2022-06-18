@@ -102,6 +102,15 @@ static const retcodes_t retcodes[] = {
     {.repr = "502 Invalid format : %s\n",
     .code = 502,
     .params = NULL},
+    {.repr = "601 Player dead.\n",
+    .code = 601,
+    .params = NULL},
+    {.repr = "602 Eject : %s\n",
+    .code = 602,
+    .params = NULL},
+    {.repr = "603 Message : %s\n",
+    .code = 603,
+    .params = NULL},
     {0, 0, 0}
 };
 

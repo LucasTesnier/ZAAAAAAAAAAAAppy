@@ -13,6 +13,9 @@
 #include "entity/player.h"
 #include "entity/tile.h"
 
+/// \brief Move an entity to a given direction
+/// \param player Entity informations
+/// \param map Map informations
 static void move_x(entity_t *player, map_t *map)
 {
     position_t *pos = &player->position;
@@ -29,6 +32,9 @@ static void move_x(entity_t *player, map_t *map)
     add_entity_to_tile(tile, player);
 }
 
+/// \brief Move an entity to a given direction
+/// \param player Entity informations
+/// \param map Map informations
 static void move_y(entity_t *player, map_t *map)
 {
     position_t *pos = &player->position;

@@ -40,6 +40,9 @@ static const retcodes_t retcodes[] = {
     {402, 1, EXPECTED},
     {501, 1, EXPECTED},
     {502, 1, EXPECTED},
+    {601, 0, UNEXPECTED},
+    {602, 1, UNEXPECTED},
+    {603, 1, UNEXPECTED},
     {-1, -1, EXPECTED}
 };
 
