@@ -13,6 +13,7 @@
 #include "Event.hpp"
 #include "Map.hpp"
 #include "Interface.hpp"
+#include "Minimap/Minimap.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
 
