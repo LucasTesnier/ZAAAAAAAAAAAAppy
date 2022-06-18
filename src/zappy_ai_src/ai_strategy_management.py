@@ -262,6 +262,7 @@ class Ai:
         """
         self.__setIsRunning(True)
         while self.__getIsRunning():
+            self.__initAI()
             self.__playerStrategyManagement()
             if not self.__isPlayerAlive:
                 self.__setIsRunning(False)
@@ -269,6 +270,11 @@ class Ai:
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
+
+    """This is used at start of the AI loop to initialize inventory and vision to have a base"""
+    def __initAI(self):
+        self.__lib.AskInventory()
+        self.__setInventory()
 
     """-------------------------------------------------DETAILS--------------------------------------------------------- 
         These functions are common in every strategies
