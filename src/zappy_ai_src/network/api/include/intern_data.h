@@ -44,6 +44,21 @@ typedef struct retcodes_s {
 /// \return The matching retcode
 retcodes_t get_retcodes(void);
 
+/// \brief End the command traitment process
+/// \param state value to return
+/// \return the state param
+bool retcode_exit(bool state);
+
+/// \brief Get param inside a retcode
+/// \return The founded param otherwise, NULL
+char *retcode_get_arg(void);
+
+/// \brief Send a request to the server
+/// \param command to send
+/// \param arg to send
+/// \return The state of the request
+bool send_request(char *command, char *arg);
+
 /// \brief Pointer to the network data of the client
 extern zappy_client_t *client_data;
 

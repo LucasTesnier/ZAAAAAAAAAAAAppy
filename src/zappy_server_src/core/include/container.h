@@ -41,4 +41,8 @@ void debug_display_container(container_t *container);
 /// \brief Destroy a container
 void delete_container(container_t *container);
 
+/// \brief Get the string representation of a container
+/// \return a string representation of the container or NULL if it failed
+char *pack_inventory(container_t *inv);
+
 #endif /* CONTAINER_H */

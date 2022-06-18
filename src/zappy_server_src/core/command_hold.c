@@ -11,21 +11,21 @@
 #include "command_hold.h"
 #include "rcodes.h"
 
-/// List of all the ai command
+/// List of all the ai command start
 static const command_data_t ai_command_list[] = {
-    {"/logout", NULL, &command_logout},
-    {"/move", NULL, NULL},
-    {"/turn", "Args Left Right", NULL},
-    {"/look", NULL, NULL},
-    {"/inventory", NULL, NULL},
-    {"/broadcast", "Args message", NULL},
-    {"/connectnbr", NULL, NULL},
-    {"/fork", NULL, NULL},
-    {"/eject", NULL, NULL},
-    {"/take", "Args type", NULL},
-    {"/place", "Args type", NULL},
-    {"/incantation", NULL, NULL},
-    {"/join", "Args Team", NULL},
+    {"/logout", NULL, &command_logout}, /// DONE
+    {"/forward", NULL, &command_forward}, /// DONE
+    {"/turn", "Args Left Right", &command_turn}, // DONE
+    {"/look", NULL, &command_look}, // TO DO CONSTANT
+    {"/inventory", NULL, &command_inventory}, /// DONE
+    {"/broadcast", "Args message", &command_broadcast}, // TO DO CONSTANT
+    {"/connectnbr", NULL, &command_connectnbr}, // DONE
+    {"/fork", NULL, &command_fork}, // TO DO CONSTANT
+    {"/eject", NULL, &command_eject}, // DONE
+    {"/take", "Args type", &command_take}, // DONE
+    {"/place", "Args type", &command_place}, // DONE
+    {"/incantation", NULL, &command_incantation}, // TO DO CONSTANT
+    {"/join", "Args Team", &command_join}, /// DONE
     {NULL, NULL, NULL}
 };
 
@@ -169,7 +169,6 @@ server_data_t *server_data)
         return;
     }
     if (!command_data->ptr(command_data->arg, player_info, server_data)) {
-        print_retcode(502, command, player_info->player_peer, false);
         pop_message(player_info->player_peer);
     }
     free(command);

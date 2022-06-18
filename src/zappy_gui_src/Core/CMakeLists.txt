@@ -18,11 +18,12 @@ target_include_directories(${TARGET}_core
 target_link_libraries(${TARGET}_core
     PUBLIC zappy_gui_sfml
     PUBLIC zappy_gui_exception
+    PUBLIC zappy_gui_api
 )
 
 set_target_properties(${TARGET} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
-add_subdirectory(Network)
 add_subdirectory(SFML)
+add_subdirectory(Network)

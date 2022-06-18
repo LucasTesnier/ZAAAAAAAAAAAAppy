@@ -15,6 +15,9 @@ target_include_directories(${TARGET}_unpack
     PRIVATE ${SRC_ROOT}
 )
 
+add_subdirectory(api)
+add_subdirectory(net_utils)
+
 target_link_libraries(${TARGET}_unpack
     PUBLIC zappy_gui_exception
 )
