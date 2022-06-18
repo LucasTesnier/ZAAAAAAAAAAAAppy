@@ -14,14 +14,19 @@ using namespace gui;
 SFML::SFML() : _run(true)
 {
     sf::ContextSettings settings;
+    const std::size_t maxFps = 60;
+    const sf::Vector2f mapSize = {10, 10};
 
     settings.antialiasingLevel = 8;
     _event = std::make_shared<Event>();
     _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Default, settings);
-    _window.get()->setFramerateLimit(60);
+    _window.get()->setFramerateLimit(maxFps);
     _map.setWindow(_window);
     _map.setEvent(_event);
-    _map.setMapSize(sf::Vector2f(1000, 500));
+    _map.setMapSize(mapSize);
+    _interface.setEvent(_event);
+    _interface.setWindow(_window);
+    _interface.setMapSize(mapSize);
 }
 
 void SFML::display()
@@ -31,7 +36,7 @@ void SFML::display()
         _run = false;
     _window.get()->clear(sf::Color(127, 127, 127, 255));
     _map.display();
-    _interface.display();
+    _interface.updateAndDisplay();
     _window.get()->display();
 }
 
