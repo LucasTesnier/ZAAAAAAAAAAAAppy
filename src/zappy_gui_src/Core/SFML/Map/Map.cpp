@@ -87,6 +87,8 @@ void Map::display()
         area = _tile[i]->getIsoPosition();
         if (!_tileMustBeDisplayed(area, _window->getSize(), tmp, _mapSize, i))
             continue;
+        if (i % (int)_mapSize.x == 0)
+            tmp = i + 1;
         if (tmp == 0)
             tmp = i;
         if (_tile[i]->isOnTile(mouse)) {
