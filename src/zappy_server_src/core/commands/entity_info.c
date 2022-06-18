@@ -13,10 +13,7 @@
 #include "entity/entity.h"
 #include "entity/pack.h"
 
-/// \brief Cross all the map tile and concat it
-/// \param entities The entities list
-/// \return char* The concatened map
-static char *pack_all_entities(entity_wrapper_t *entities)
+char *pack_all_entities(entity_wrapper_t *entities)
 {
     char *res = malloc(sizeof(char) * 1);
     char *temp = NULL;

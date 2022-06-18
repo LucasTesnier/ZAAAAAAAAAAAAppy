@@ -135,10 +135,6 @@ static const retcodes_t retcodes[] = {
     {.repr = "708 Map info : %s\n",
     .code = 708,
     .params = NULL},
-    {.repr = "709 Game info : %s\n",
-    /// TO CALL WHEN ENTITY AND MAP CHANGE IN SAME ACTION
-    .code = 709,
-    .params = NULL},
     {.repr = "710 Restart the game : %s\n",
     .code = 710,
     .params = NULL},
