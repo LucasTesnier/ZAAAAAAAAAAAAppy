@@ -13,7 +13,6 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <iostream>
-#include "Unpack.hpp"
 
 namespace gui {
     /// \brief Class for the tile that will be display on the map.
