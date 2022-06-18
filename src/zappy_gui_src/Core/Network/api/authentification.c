@@ -27,8 +27,11 @@ static bool zappy_client_create(const char *host, long port)
     if (!client_data)
         return false;
     client_data->net_srv = create_net_server(host, port);
-    if (!client_data->net_srv)
+    if (!client_data->net_srv) {
+        free(client_data);
+        client_data = NULL;
         return false;
+    }
     client_data->stop = stop_zappy_client;
     client_data->net_srv->connected = true;
     client_data->current_response = NULL;

@@ -19,7 +19,7 @@ typedef struct egg_s {
     uuid_t id;
 
     /// The egg team
-    const char *team_name;
+    char *team_name;
 } egg_t;
 
 /// \brief Creates a new egg with the given team name
@@ -28,6 +28,6 @@ egg_t *create_new_egg(const char *team_name);
 
 /// \brief Delete an egg
 /// \param egg the egg to delete
-void delete_egg(egg_t *egg);
+void delete_egg(void *egg);
 
 #endif /* EGGS_H */
