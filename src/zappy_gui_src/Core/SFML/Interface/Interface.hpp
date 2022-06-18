@@ -25,7 +25,7 @@ namespace gui {
             ~Interface() = default;
 
             /// \brief Update and display interface.
-            void updateAnddDisplay();
+            void updateAndDisplay();
 
             /// \brief Set the shared pointer for the event.
             /// \param event The event to be set.

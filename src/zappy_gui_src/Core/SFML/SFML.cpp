@@ -36,7 +36,7 @@ void SFML::display()
         _run = false;
     _window.get()->clear(sf::Color(127, 127, 127, 255));
     _map.display();
-    _interface.display();
+    _interface.updateAndDisplay();
     _window.get()->display();
 }
 
