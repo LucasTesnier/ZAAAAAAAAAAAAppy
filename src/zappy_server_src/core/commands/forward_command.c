@@ -79,6 +79,7 @@ server_data_t *serv)
         move_x(player_entity, serv->map);
     else
         move_y(player_entity, serv->map);
+    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(213, NULL, player->player_peer, true);
 }

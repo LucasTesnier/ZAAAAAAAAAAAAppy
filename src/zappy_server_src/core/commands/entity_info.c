@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** Project
 ** File description:
-** map_info
+** entity_info
 */
 
 /// \file src/zappy_server_src/core/commands/map_info.c
@@ -10,30 +10,34 @@
 #include "command_hold.h"
 #include "rcodes.h"
 #include "team.h"
-#include "entity/player.h"
+#include "entity/entity.h"
 #include "entity/pack.h"
 
-char *pack_all_tile(map_t *map)
+char *pack_all_entities(entity_wrapper_t *entities)
 {
     char *res = malloc(sizeof(char) * 1);
     char *temp = NULL;
+    entity_t *entity = NULL;
 
     if (res == NULL)
         return NULL;
     res[0] = '\0';
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            temp = pack_tile(map->tiles[i * map->width + j]);
-            res = realloc(res, sizeof(char) *
-            (strlen(res) + strlen(temp) + 1));
-            strcat(res, temp);
-            free(temp);
-        }
+    TAILQ_FOREACH(entity, &entities->players, entities) {
+        temp = pack(entity);
+        res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 1));
+        strcat(res, temp);
+        free(temp);
+    }
+    TAILQ_FOREACH(entity, &entities->eggs, entities) {
+        temp = pack(entity);
+        res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 1));
+        strcat(res, temp);
+        free(temp);
     }
     return res;
 }
 
-bool send_map_info(server_data_t *serv)
+bool send_entities_list_info(server_data_t *serv)
 {
     peer_t *peer = NULL;
     char *temp = NULL;
@@ -47,8 +51,8 @@ bool send_map_info(server_data_t *serv)
         dprintf(2, "No GUI client found.\n");
         return false;
     }
-    temp = pack_all_tile(serv->map);
-    print_retcode(708, temp, peer, true);
+    temp = pack_all_entities(serv->entities);
+    print_retcode(707, temp, peer, true);
     free(temp);
     return true;
 }

@@ -263,6 +263,28 @@ bool send_team_lose(server_data_t *serv, char *team_name);
 /// \return false When operation failed
 bool send_map_info(server_data_t *serv);
 
+/// \brief Tell to the gui all the entities informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_entities_list_info(server_data_t *serv);
+
+/// \brief Cross all the map tile and concat it
+/// \param map The map data
+/// \return char* The concatened map
+char *pack_all_tile(map_t *map);
+
+/// \brief Cross all the map tile and concat it
+/// \param entities The entities list
+/// \return char* The concatened map
+char *pack_all_entities(entity_wrapper_t *entities);
+
+/// \brief Tell to the gui all the game informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_start_info(server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},

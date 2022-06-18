@@ -20,7 +20,7 @@
 
 char *pack_container(container_t *cont)
 {
-    char *tmp;
+    char *tmp = NULL;
 
     if ((tmp = (char*)malloc(sizeof(char) * (get_len_container(cont) + CONT_SIZE))) == NULL)
         return NULL;
@@ -37,28 +37,31 @@ char *pack_container(container_t *cont)
 
 char *pack_player(entity_t *entity)
 {
-    char *tmp;
-    player_t *player;
+    char *tmp = NULL;
+    player_t *player = NULL;
+    char *container = NULL;
 
     player = (player_t*)entity->data;
     if ((tmp = (char*)malloc(sizeof(char) *
         (get_len_player(entity, player) + PLAYER_SIZE))) == NULL)
         return NULL;
+    container = pack_container(player->inventory);
     sprintf(tmp, "player{%d;%d;%s;%s;%d;%d}",
             entity->position.x,
             entity->position.y,
-            pack_container(player->inventory),
+            container,
             player->team,
             player->level,
             player->orientation);
+    free(container);
     return tmp;
 }
 
 char *pack_tile(entity_t *entity)
 {
-    char *tmp;
-    char *container;
-    tile_t *tile;
+    char *tmp = NULL;
+    char *container = NULL;
+    tile_t *tile = NULL;
 
     tile = (tile_t*)entity->data;
     if ((tmp = (char*)malloc(sizeof(char) *
@@ -75,8 +78,8 @@ char *pack_tile(entity_t *entity)
 
 char *pack_egg(entity_t *entity)
 {
-    char *tmp;
-    egg_t *egg;
+    char *tmp = NULL;
+    egg_t *egg = NULL;
 
     egg = (egg_t*)entity->data;
     if ((tmp = malloc(sizeof(char) *
