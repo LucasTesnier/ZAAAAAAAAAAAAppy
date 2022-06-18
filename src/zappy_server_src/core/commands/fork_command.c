@@ -31,6 +31,7 @@ server_data_t *serv)
     (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
+    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(218, NULL, player->player_peer, true);
 }

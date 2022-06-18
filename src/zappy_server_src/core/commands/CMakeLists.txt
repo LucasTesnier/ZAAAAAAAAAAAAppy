@@ -17,6 +17,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/unexpected_send.c
     ${SRC_ROOT}/game_status.c
     ${SRC_ROOT}/map_info.c
+    ${SRC_ROOT}/entity_info.c
 
     PARENT_SCOPE
 )

@@ -84,6 +84,7 @@ server_data_t *serv)
         turn_left(player_data);
     else
         turn_right(player_data);
+    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(214, arg, player->player_peer, true);
 }

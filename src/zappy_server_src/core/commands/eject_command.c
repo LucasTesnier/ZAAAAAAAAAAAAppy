@@ -108,6 +108,7 @@ server_data_t *serv)
     tile = (tile_t *)get_tile(serv->map,
     player_entity->position.x, player_entity->position.y)->data;
     eject_action(serv, player_data, tile);
+    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(219, NULL, player->player_peer, true);
 }

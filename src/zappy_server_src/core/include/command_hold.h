@@ -263,6 +263,12 @@ bool send_team_lose(server_data_t *serv, char *team_name);
 /// \return false When operation failed
 bool send_map_info(server_data_t *serv);
 
+/// \brief Tell to the gui all the entities informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_entities_list_info(server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
