@@ -41,7 +41,7 @@ server_data_t *serv)
     player_data = (player_t *)player_entity->data;
     inventory = player_data->inventory;
     pop_message(player->player_peer);
-    send_team_win(serv, "AAAAAA");
+    send_team_lose(serv, "AAAAAA");
     return print_retcode(212, pack_inventory(inventory),
         player->player_peer, true);
 }
