@@ -26,5 +26,22 @@ bool send_game_paused(server_data_t *serv)
         dprintf(2, "No GUI client found.\n");
         return false;
     }
-    return print_retcode(702, "game{paused}", peer, true);
+    return print_retcode(702, "status{game:paused}", peer, true);
+}
+
+bool send_game_started(server_data_t *serv)
+{
+    peer_t *peer = NULL;
+
+    for (size_t i = 0; i < serv->active_player_n; i++) {
+        if (serv->active_players[i]->type == GUI) {
+            peer = serv->active_players[i]->player_peer;
+            break;
+        }
+    }
+    if (peer == NULL) {
+        dprintf(2, "No GUI client found.\n");
+        return false;
+    }
+    return print_retcode(702, "status{game:start}", peer, true);
 }
