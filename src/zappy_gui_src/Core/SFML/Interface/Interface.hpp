@@ -38,8 +38,8 @@ namespace gui {
             /// \param window The window to be set.
             inline void setWindow(std::shared_ptr<sf::RenderWindow> window) {
                 _window = window;
-                _minimap.setWindow(_window);
                 _inventory.setWindow(_window);
+                _minimap.setWindow(_window);
             };
 
             /// \brief Set the map size.

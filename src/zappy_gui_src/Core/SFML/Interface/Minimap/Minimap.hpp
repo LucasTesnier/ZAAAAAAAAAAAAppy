@@ -60,6 +60,7 @@ namespace gui {
 
             inline void setBottomMenuPosition(const sf::Vector2f &position) {
                 _bottomMenuPosition = position;
+                _updateConvexShape();
             };
         private:
             /// \brief Update the size and position of the minimap.
