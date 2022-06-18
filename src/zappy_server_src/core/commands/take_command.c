@@ -119,6 +119,7 @@ server_data_t *serv)
         pop_message(player->player_peer);
         return print_retcode(314, NULL, player->player_peer, false);
     }
+    send_map_info(serv);
     pop_message(player->player_peer);
     return print_retcode(220, arg, player->player_peer, true);
 }

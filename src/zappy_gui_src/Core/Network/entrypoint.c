@@ -26,14 +26,14 @@ int main(int ac, char **av)
     signal(SIGINT, sigint_handler);
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
         return 84;
-    while (!c_interface_get_response_sate());
-    if (!c_interface_get_connect_to_server_response())
-        return 84;
-    while (!c_interface_get_response_sate());
-    if (!c_interface_get_unexpected_response_state())
-        return 84;
-    char *temp = c_interface_get_unexpected_response();
-    printf("Unexpected : %s\n", temp);
+    while (1) {
+        while (!c_interface_get_response_sate());
+        if (!c_interface_get_unexpected_response_state())
+            return 84;
+        char *temp = c_interface_get_unexpected_response();
+        printf("Unexpected : %s\n", temp);
+        free(temp);
+    }
     c_interface_try_to_disconnect_to_server();
     return 0;
 }
