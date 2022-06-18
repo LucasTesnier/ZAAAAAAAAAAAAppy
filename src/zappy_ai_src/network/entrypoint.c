@@ -93,13 +93,11 @@ int main(int ac, char **av)
     if (!c_interface_ask_take("thystame"))
         return 84;
     while (!c_interface_get_response_sate());
-    if (!c_interface_get_take_response())
-        return 84;
+    c_interface_get_take_response();
     if (!c_interface_ask_place("thystame"))
         return 84;
     while (!c_interface_get_response_sate());
-    if (!c_interface_get_place_response())
-        return 84;
+    c_interface_get_place_response();
     if (!c_interface_ask_incantation())
         return 84;
     while (!c_interface_get_response_sate());
