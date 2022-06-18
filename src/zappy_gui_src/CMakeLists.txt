@@ -14,10 +14,10 @@ target_include_directories(${TARGET}
     PRIVATE ${SRC_DIR}
 )
 
+
 target_link_libraries(${TARGET}
     PUBLIC ${TARGET}_core
 )
 
 add_subdirectory(Core)
-add_subdirectory(network)
 add_subdirectory(Exception)
