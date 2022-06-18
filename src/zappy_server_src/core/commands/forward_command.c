@@ -56,7 +56,7 @@ bool command_forward(char *arg, player_list_t *player, server_data_t *serv)
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     if (!scheduler_schedule_event(serv->scheduler,
-    ((player_t *)player->player_data)->uuid, 7))
+    ((player_t *)player->player_data->data)->uuid, 7))
         return false;
     player->scheduled_action = find_ai_command_end("/forward", NULL);
     if (player->scheduled_action == NULL)

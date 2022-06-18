@@ -29,6 +29,7 @@ int main(int ac, char **av)
     while (!c_interface_get_response_sate());
     if (!c_interface_get_connect_to_server_response())
         return 84;
+    while(1);
     c_interface_try_to_disconnect_to_server();
     return 0;
 }
