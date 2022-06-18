@@ -14,7 +14,7 @@
 namespace gui {
     class ServerCommunication {
         public:
-            ServerCommunication() = default;
+            ServerCommunication();
             ServerCommunication(std::shared_ptr<sf::RenderWindow> window);
             ~ServerCommunication() = default;
             inline void setWindow(std::shared_ptr<sf::RenderWindow> window) {

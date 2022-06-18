@@ -9,6 +9,11 @@
 
 using namespace gui;
 
+ServerCommunication::ServerCommunication()
+{
+    _isOpen = true;
+}
+
 ServerCommunication::ServerCommunication(std::shared_ptr<sf::RenderWindow> window)
 {
     _window = window;
@@ -39,8 +44,9 @@ void ServerCommunication::update(bool forceUpdate)
 {
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
 
-    if (_clock.getElapsedTime().asSeconds() < 0.2)
+    if (_clock.getElapsedTime().asSeconds() < 0.2) {
         return;
+    }
     if (forceUpdate) {
         _isOpen = (_isOpen) ? false : true;
         _updateBody();
