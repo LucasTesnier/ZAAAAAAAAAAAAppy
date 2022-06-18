@@ -82,6 +82,7 @@ server_data_t *init_server_data(int ac, char **av)
     server_data_t *server_data = malloc(sizeof(server_data_t) * 1);
     int size_queue = 0;
 
+    srand(time(NULL));
     if (server_data == NULL)
         return NULL;
     if (!init_args(server_data, ac, av))

@@ -12,6 +12,7 @@
 #include "entity/tile.h"
 #include "entity/entity_types.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 entity_t* get_tile(map_t *map, int x, int y)
 {

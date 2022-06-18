@@ -12,6 +12,9 @@
 #include <getopt.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <string>
+#include <netdb.h>
+#include <arpa/inet.h>
 
 using namespace gui;
 
@@ -20,16 +23,26 @@ static const char *DEFAULT_MACHINE = "localhost";
 
 void Core::run()
 {
-    while (_sfml.isRunning())
+    int fps = 0;
+    sf::Clock clock;
+
+    while (_sfml.isRunning()) {
         _sfml.display();
+        if (clock.getElapsedTime().asSeconds() >= 1) {
+            clock.restart();
+            std::cout << "FPS: " << fps << std::endl;
+            fps = 0;
+        }
+        fps++;
+    }
 }
 
 void Core::_resolveMachineHostname()
 {
-    hostent *host = gethostbyname2(_machine.c_str(), AF_INET);
-
-    if (host)
-        _machine = std::string(host->h_addr_list[0]);
+    hostent* hostname = gethostbyname(_machine.c_str());
+    if(hostname)
+        _machine = std::string(inet_ntoa(**(in_addr**)hostname->h_addr_list));
+    // _machine = "127.0.0.1";
 }
 
 void Core::_getArgs(int ac, char **av)
@@ -52,8 +65,10 @@ void Core::_getArgs(int ac, char **av)
                 throw (CoreException("Core setup", "Invalid argument"));
         }
     }
-    if (_machine.empty())
-        _machine = DEFAULT_MACHINE;
+    if (_machine.empty()) {
+        _machine = std::string(DEFAULT_MACHINE);
+        std::cout << "machine empty: " << _machine << std::endl;
+    }
     if (_port.empty())
         throw (CoreException("Core setup", "Empty port. Please select port with the flag \"-p PORT\"."));
     _resolveMachineHostname();
@@ -61,5 +76,19 @@ void Core::_getArgs(int ac, char **av)
 
 void Core::setup(int ac, char **av)
 {
+    char *str;
+
     _getArgs(ac, av);
+    str = (char *)_machine.c_str();
+    std::cout << "str: " << str << std::endl;
+    if (!c_interface_try_to_connect_to_server(str, std::atoi(_port.c_str())))
+        throw (CoreException("Core setup", "Unable to connect to the server"));
+}
+
+Core::~Core()
+{
+    if (c_interface_get_network_state()) {
+        std::cout << "try to disconnect" << std::endl;
+        c_interface_try_to_disconnect_to_server();
+    }
 }

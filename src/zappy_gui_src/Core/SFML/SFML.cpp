@@ -9,6 +9,8 @@
 
 #include "SFML.hpp"
 
+using namespace gui;
+
 SFML::SFML() : _run(true)
 {
     sf::ContextSettings settings;
@@ -19,7 +21,7 @@ SFML::SFML() : _run(true)
     _window.get()->setFramerateLimit(60);
     _map.setWindow(_window);
     _map.setEvent(_event);
-    _map.setMapSize(sf::Vector2f(20, 10));
+    _map.setMapSize(sf::Vector2f(1000, 500));
 }
 
 void SFML::display()
@@ -29,6 +31,7 @@ void SFML::display()
         _run = false;
     _window.get()->clear(sf::Color(127, 127, 127, 255));
     _map.display();
+    _interface.display();
     _window.get()->display();
 }
 
