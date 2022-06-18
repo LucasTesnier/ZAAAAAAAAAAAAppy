@@ -11,8 +11,17 @@
 
 using namespace gui;
 
-void Interface::display()
+Interface::Interface()
 {
-    /// This function will call class which should display something, like minimap class.
+    _minimap.setWindow(_window);
 }
 
+void Interface::updateAndDisplay()
+{
+    _minimap.display();
+    if (_event->isKeyPressed(sf::Keyboard::M))
+        _minimap.switchSize(true);
+    if (!_event->isKeyPressed(sf::Keyboard::M))
+        _minimap.switchSize(false);
+    /// This function will call class which should display something, like minimap class.
+}
