@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <iostream>
+#include "Unpack.hpp"
 
 namespace gui {
     /// \brief Class for the tile that will be display on the map.
@@ -108,6 +109,10 @@ namespace gui {
             /// \param texturePath The path of the texture to be load.
             void setTexture(const std::string &texturePath);
 
+            // \brief Set the textures of the inventory.
+            /// \param texturePath The path of the texture to be load.
+            // void setTexturesInventory(const std::string &texturePath);
+
             /// \brief Set the color of the tile.
             /// \param color The color of the tile.
             inline void setColor(const sf::Color &color) {
@@ -147,6 +152,9 @@ namespace gui {
             /// \brief Set the zoom of the map.
             /// \param zoom The zoom value to be set.
             void setZoom(float zoom);
+
+            /// \brief get the tile inventory
+            const std::vector<int> &getInventory() const;
         private:
 
             /// \brief Set the points of the tile.
@@ -175,6 +183,12 @@ namespace gui {
 
             /// \brief The zoom.
             float _zoom;
+
+            /// \brief Texture of the food
+            // std::shared_ptr<sf::Texture> _textureFood;
+
+            /// \brief inventory of the tile
+            std::vector<int> _inventory;
     };
 } // gui namespace
 

@@ -77,6 +77,20 @@ void Map::display()
     sf::Vector2f moveMap = {0, 0};
     sf::FloatRect area;
     std::size_t tmp = 0;
+    sf::Text text;
+    sf::Font font;
+
+    if (!font.loadFromFile("./assets/font.ttf")) {
+        //THROW AN ERROR
+        std::cerr << "ERROR: cannot found font" << std::endl;
+    }
+    _tile.at(_tileSelected)->getInventory().at(0);
+    text.setFont(font);
+    text.setString("Food: " + _tile.at(_tileSelected)->getInventory().at(0));
+    text.setCharacterSize(80);
+    text.setFillColor(sf::Color::White);
+    // text.setPosition();
+    _window->draw(text);
 
     _updateMoveMap(moveMap);
     for (auto &it : _tile) {
