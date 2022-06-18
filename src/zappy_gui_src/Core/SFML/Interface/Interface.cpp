@@ -16,7 +16,7 @@ Interface::Interface()
     _minimap.setWindow(_window);
 }
 
-void Interface::display()
+void Interface::updateAndDisplay()
 {
     _minimap.display();
     if (_event->isKeyPressed(sf::Keyboard::M))
