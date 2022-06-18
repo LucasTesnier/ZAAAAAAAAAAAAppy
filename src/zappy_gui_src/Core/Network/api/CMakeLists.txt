@@ -24,10 +24,6 @@ target_include_directories(${TARGET}
     PRIVATE ${SRC_ROOT}
 )
 
-# set_target_properties(${TARGET} PROPERTIES
-#     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/zappy_gui_src
-# )
-
 target_link_libraries(${TARGET}
     PUBLIC ${PROJECT_NAME}_gui_net_utils
 )

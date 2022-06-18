@@ -14,7 +14,6 @@ target_include_directories(${TARGET}
     PRIVATE ${SRC_DIR}
 )
 
-
 target_link_libraries(${TARGET}
     PUBLIC ${TARGET}_core
 )
