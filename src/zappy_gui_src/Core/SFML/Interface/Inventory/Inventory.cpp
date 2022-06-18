@@ -36,7 +36,27 @@ void Inventory::display()
     _window->draw(_button);
 }
 
+void Inventory::update()
+{
+    sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
+    sf::Vector2u windowSize = _window->getSize();
+
+    if (mouse.x >= _button.getPosition().x && mouse.x <= _button.getPosition().x + _button.getSize().x) {
+        if (mouse.y >= _button.getPosition().y && mouse.y <= _button.getPosition().y + _button.getSize().y) {
+            _isOpen = (_isOpen) ? false : true;
+            if (_isOpen) {
+                _body.setSize(sf::Vector2f(windowSize.x, windowSize.y / 5));
+                _body.setPosition(sf::Vector2f(0, windowSize.y / 5 * 4));
+                _button.setPosition(sf::Vector2f(_body.getPosition().x + 10, _body.getPosition().y + 10));
+            } else {
+                _body.setSize(sf::Vector2f(windowSize.x, 30));
+                _body.setPosition(sf::Vector2f(0, windowSize.y - 30));
+                _button.setPosition(sf::Vector2f(_body.getPosition().x + 10, _body.getPosition().y + 10));
+            }
+        }
+    }
+}
+
 Inventory::~Inventory()
 {
 }
-

@@ -26,10 +26,11 @@ namespace gui {
             inline const sf::Vector2f &getPosition() const {
                 return _body.getPosition();
             };
+            void update();
         private:
             std::shared_ptr<sf::RenderWindow> _window;
             sf::RectangleShape _body;
-            bool isOpen;
+            bool _isOpen;
             sf::RectangleShape _button;
     };
 }

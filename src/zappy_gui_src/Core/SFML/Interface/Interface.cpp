@@ -24,5 +24,8 @@ void Interface::display()
         _minimap.switchSize(true);
     if (!_event->isKeyPressed(sf::Keyboard::M))
         _minimap.switchSize(false);
+    if (_event->isButtonPressed()) {
+        _inventory.update();
+    }
     /// This function will call class which should display something, like minimap class.
 }
