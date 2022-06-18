@@ -9,18 +9,13 @@
 
 #include "net_utils.h"
 
-int server_wait(tcp_server_t *srv)
+int server_wait(tcp_server_t *srv, struct timeval time)
 {
-    struct timeval time = {
-        0,
-        1
-    };
-
     if (select(FD_SETSIZE,
         &srv->read_fds,
         &srv->write_fds,
         &srv->err_fds,
-        &time) == -1) {
+        ((time.tv_sec == -1) ? NULL : &time)) == -1) {
         ZAPPY_LOG("select");
         return (-1);
     }

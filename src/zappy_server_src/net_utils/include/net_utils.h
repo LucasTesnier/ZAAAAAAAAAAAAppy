@@ -141,8 +141,9 @@ void server_fill_fd_sets(tcp_server_t *srv);
 /// \brief Wait for a client update
 /// \note This function is a wrapper around select()
 /// \param src The tcp server containing the peers and the w/r/err fd sets
+/// \param time Select timing 
 /// \return 0 if no error, -1 if an error occured
-int server_wait(tcp_server_t *srv);
+int server_wait(tcp_server_t *srv, struct timeval time);
 
 /// \brief Handle a client update
 /// \param srv The tcp server containing the peers and the w/r/err fd sets

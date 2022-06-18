@@ -27,7 +27,7 @@ typedef struct scheduler_event_s {
 } scheduler_event_t;
 
 /// Scheduler events list definition
-TAILQ_ENTRY(scheduler_event_s) scheduler_event_head;
+TAILQ_HEAD(scheduler_event_list, scheduler_event_s);
 
 typedef struct scheduler_s {
     /// \brief The clock of the scheduler
@@ -37,7 +37,7 @@ typedef struct scheduler_s {
     double freq;
 
     /// \brief The list of events
-    TAILQ_HEAD(scheduler_event_head, scheduler_event_s) events;
+    struct scheduler_event_list events;
 } scheduler_t;
 
 /// \brief Create a new scheduler with a given frequency
@@ -52,7 +52,13 @@ bool scheduler_schedule_event(scheduler_t *self, uuid_t uuid, int ticks);
 void scheduler_update(scheduler_t *self);
 
 /// \brief Check if a given uuid has a pending event
-/// \brief return true or false if the event has been scheduled
+/// \param uuid The uuid to check
+/// \return return true or false if the event has been scheduled
 bool scheduler_has_event(scheduler_t *self, uuid_t uuid);
+
+/// \brief Return the amout of time before the event closest to finish is over
+/// \note If the returned time is 0, either there is no event scheduled or self
+/// is null
+struct timeval scheduler_get_smallest_timeout(scheduler_t *self);
 
 #endif /* SCHEDULER_H */

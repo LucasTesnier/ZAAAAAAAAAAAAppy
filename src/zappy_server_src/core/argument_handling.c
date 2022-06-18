@@ -35,7 +35,7 @@ bool *is_team)
         if (opt == 'c')
             args->client_nb = atoi(optarg);
         if (opt == 'f')
-            args->freq = atoi(optarg);
+            args->freq = atof(optarg);
         if (opt == 'n')
             *is_team = true;
         if (opt == ':')
@@ -94,8 +94,8 @@ static bool process_integrity(argument_t *args)
         return false;
     }
     if (args->freq == 0) {
-        dprintf(2, "Please give a valid timefrequence.\n");
-        return false;
+        args->freq = 100;
+        dprintf(2, "Default frequence set to 100.\n");
     }
     return true;
 }

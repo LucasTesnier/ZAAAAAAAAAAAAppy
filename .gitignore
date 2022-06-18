@@ -36,6 +36,7 @@
 *.x86_64
 *.hex
 zappy_gui
+zappy_gui_test
 
 # Debug files
 *.dSYM/
@@ -56,6 +57,8 @@ graph
 vgcore*
 zappy_server
 zappy_ai
+zappy_gui
+zappy_gui_test
 
 # Clion config
 .idea/

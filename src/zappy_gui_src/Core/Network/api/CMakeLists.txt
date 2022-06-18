@@ -1,7 +1,7 @@
-set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/network/api/include)
-set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/network/api)
+set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/Network/api/include)
+set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/Network/api)
 
-set (TARGET ${PROJECT_NAME}_gui_api)
+set (TARGET zappy_gui_api)
 
 set (SRC
     ${SRC_ROOT}/authentification.c
@@ -17,15 +17,11 @@ set (SRC
     ${INCLUDE_ROOT}/intern_data.h
 )
 
-add_library(${TARGET} SHARED ${SRC})
+add_library(${TARGET} ${SRC})
 
 target_include_directories(${TARGET}
     PUBLIC ${INCLUDE_ROOT}
     PRIVATE ${SRC_ROOT}
-)
-
-set_target_properties(${TARGET} PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/zappy_gui
 )
 
 target_link_libraries(${TARGET}

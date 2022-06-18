@@ -19,5 +19,4 @@ target_link_libraries(${TARGET}
 )
 
 add_subdirectory(Core)
-add_subdirectory(network)
 add_subdirectory(Exception)
