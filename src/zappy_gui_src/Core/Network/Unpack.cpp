@@ -108,8 +108,8 @@ void Unpack::Unpack(std::string &packed)
         UnpackTile(unpacked);
     } else if (unpacked[0] == "egg") {
         UnpackEgg(unpacked);
-    } else
-        return;
+    }
+    return;
         // throw(UnpackException("Unpack" "Invalid packed type"));
 }
 

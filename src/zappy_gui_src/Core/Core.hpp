@@ -12,6 +12,9 @@
 
 #include <string>
 #include "SFML.hpp"
+extern "C" {
+    #include "api.h"
+}
 
 namespace gui {
     /// \brief The core of the zappy_gui. It's the most important part of the project.
@@ -22,7 +25,7 @@ namespace gui {
             Core() = default;
 
             /// \brief Destructor of the Core.
-            ~Core() = default;
+            ~Core();
 
             /// \brief Run the core. It's the main loop of the program.
             void run();
