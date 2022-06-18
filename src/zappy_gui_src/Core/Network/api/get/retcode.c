@@ -22,6 +22,15 @@ static const retcodes_t retcodes[] = {
     {402, 1, EXPECTED},
     {501, 1, EXPECTED},
     {502, 1, EXPECTED},
+    {701, 1, UNEXPECTED},
+    {702, 1, UNEXPECTED},
+    {703, 1, UNEXPECTED},
+    {704, 1, UNEXPECTED},
+    {705, 1, UNEXPECTED},
+    {706, 1, UNEXPECTED},
+    {707, 1, UNEXPECTED},
+    {708, 1, UNEXPECTED},
+    {709, 1, UNEXPECTED},
     {-1, -1, EXPECTED}
 };
 

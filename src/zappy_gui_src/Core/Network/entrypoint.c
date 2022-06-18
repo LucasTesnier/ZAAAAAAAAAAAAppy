@@ -29,7 +29,11 @@ int main(int ac, char **av)
     while (!c_interface_get_response_sate());
     if (!c_interface_get_connect_to_server_response())
         return 84;
-    while(1);
+    while (!c_interface_get_response_sate());
+    if (!c_interface_get_unexpected_response_state())
+        return 84;
+    char *temp = c_interface_get_unexpected_response();
+    printf("Unexpected : %s\n", temp);
     c_interface_try_to_disconnect_to_server();
     return 0;
 }
