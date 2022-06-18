@@ -231,6 +231,38 @@ server_data_t *serv);
 void send_unexpected_eject(enum player_orientation_e direction,
 server_data_t *serv, player_t *tmp);
 
+/// \brief Tell to the gui that the game is paused
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_game_paused(server_data_t *serv);
+
+/// \brief Tell to the gui that the game is started
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_game_started(server_data_t *serv);
+
+/// \brief Tell to the gui that a team has win
+/// \param serv Server informations
+/// \param team_name The name of the team
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_team_win(server_data_t *serv, char *team_name);
+
+/// \brief Tell to the gui that a team has lose
+/// \param serv Server informations
+/// \param team_name The name of the team
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_team_lose(server_data_t *serv, char *team_name);
+
+/// \brief Tell to the gui all the map informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_map_info(server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},

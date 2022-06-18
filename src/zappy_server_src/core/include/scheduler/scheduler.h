@@ -22,6 +22,9 @@ typedef struct scheduler_event_s {
     /// \brief The amount of time to wait before the event is over
     int ticks;
 
+    /// \brief The clock of the event
+    time_t clock;
+
     /// \brief The collection of events
     TAILQ_ENTRY(scheduler_event_s) events;
 } scheduler_event_t;
@@ -30,8 +33,6 @@ typedef struct scheduler_event_s {
 TAILQ_HEAD(scheduler_event_list, scheduler_event_s);
 
 typedef struct scheduler_s {
-    /// \brief The clock of the scheduler
-    time_t clock;
 
     /// \brief The multiplicative inverse of a second
     double freq;

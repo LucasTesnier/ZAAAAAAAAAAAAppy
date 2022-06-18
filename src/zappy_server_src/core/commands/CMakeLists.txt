@@ -15,6 +15,8 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/place_command.c
     ${SRC_ROOT}/incantation_command.c
     ${SRC_ROOT}/unexpected_send.c
+    ${SRC_ROOT}/game_status.c
+    ${SRC_ROOT}/map_info.c
 
     PARENT_SCOPE
 )

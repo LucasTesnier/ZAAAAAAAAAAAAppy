@@ -14,11 +14,14 @@
 char *c_interface_get_unexpected_response(void)
 {
     retcodes_t retcode;
+    char *temp = NULL;
 
     if (client_data == NULL || !client_data->current_response)
         return NULL;
     retcode = get_retcodes();
     if (retcode.type != UNEXPECTED)
         return NULL;
-    return get_retcode_arg(retcode);
+    temp = retcode_get_arg();
+    retcode_exit(true);
+    return temp;
 }
