@@ -243,6 +243,13 @@ bool send_game_paused(server_data_t *serv);
 /// \return false When operation failed
 bool send_game_started(server_data_t *serv);
 
+/// \brief Tell to the gui that the game is started
+/// \param serv Server informations
+/// \param team_name The name of the team
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_team_win(server_data_t *serv, char *team_name);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},

@@ -43,5 +43,29 @@ bool send_game_started(server_data_t *serv)
         dprintf(2, "No GUI client found.\n");
         return false;
     }
-    return print_retcode(702, "status{game:start}", peer, true);
+    return print_retcode(703, "status{game:start}", peer, true);
+}
+
+bool send_team_win(server_data_t *serv, char *team_name)
+{
+    peer_t *peer = NULL;
+    char *temp = malloc(sizeof(char) * (14 + strlen(team_name)));
+
+    if (temp == NULL)
+        return false;
+    for (size_t i = 0; i < serv->active_player_n; i++)
+        if (serv->active_players[i]->type == GUI) {
+            peer = serv->active_players[i]->player_peer;
+            break;
+        }
+    if (peer == NULL) {
+        free(temp);
+        dprintf(2, "No GUI client found.\n");
+        return false;
+    }
+    temp[0] = '\0';
+    sprintf(temp, "status{win:%s}", team_name);
+    print_retcode(705, temp, peer, true);
+    free(temp);
+    return true;
 }
