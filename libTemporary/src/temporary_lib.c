@@ -35,6 +35,21 @@ bool c_interface_try_to_connect_to_server(const char *ip, const int port)
     return true;
 }
 
+bool c_interface_try_to_disconnect_to_server(void)
+{
+    return true;
+}
+
+bool c_interface_get_network_state(void)
+{
+    return true;
+}
+
+bool c_interface_get_connect_to_server_response(void)
+{
+    return true;
+}
+
 //------------------------------------------------Python send a demand to C interface----------------------------------------------//
 
 bool c_interface_ask_forward()
@@ -100,9 +115,9 @@ bool c_interface_ask_incantation()
     return true;
 }
 
-bool c_interface_ask_join(const char *teamName)
+bool c_interface_ask_join(char *team_name)
 {
-    (void)(teamName);
+    (void)(team_name);
     return true;
 }
 
