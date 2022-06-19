@@ -15,7 +15,7 @@ Interface::Interface()
 {
 }
 
-void Interface::display()
+void Interface::updateAndDisplay()
 {
     _minimap.setBottomMenuPosition(_inventory.getPosition());
     _inventory.setAreaServer(_server.getPosition(), _server.getSize());

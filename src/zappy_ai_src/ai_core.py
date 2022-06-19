@@ -48,4 +48,8 @@ class ClientCore:
     def run(self) -> None:
         """ Main Loop of the ClientCore """
         """ BEWARE : You must call connectToServer() first or it will lead to undefined behavior """
+        """ Code to Uncomment when the IA is ready :
+        newIA : Ai = Ai(self.__placesLeft, self.__teamName)
+        newIA.start()
+        """
         pass

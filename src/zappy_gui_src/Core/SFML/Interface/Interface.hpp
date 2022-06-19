@@ -26,8 +26,8 @@ namespace gui {
             /// \brief Destructor of the Interface.
             ~Interface() = default;
 
-            /// \brief Display interface.
-            void display();
+            /// \brief Update and display interface.
+            void updateAndDisplay();
 
             /// \brief Set the shared pointer for the event.
             /// \param event The event to be set.

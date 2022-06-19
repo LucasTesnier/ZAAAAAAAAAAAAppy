@@ -27,8 +27,11 @@ static bool zappy_client_create(const char *host, long port)
     if (!client_data)
         return false;
     client_data->net_srv = create_net_server(host, port);
-    if (!client_data->net_srv)
+    if (!client_data->net_srv) {
+        free(client_data);
+        client_data = NULL;
         return false;
+    }
     client_data->stop = stop_zappy_client;
     client_data->net_srv->connected = true;
     client_data->current_response = NULL;
@@ -46,17 +49,6 @@ bool c_interface_try_to_connect_to_server(char *host, long port)
         return false;
     }
     set_output_buffer(client_data->net_srv, "/login GUI\n\n");
-    return true;
-}
-
-bool c_interface_get_connect_to_server_response(void)
-{
-    if (client_data == NULL || !client_data->current_response)
-        return false;
-    if (strncmp(client_data->current_response, "201", 3))
-        return false;
-    free(client_data->current_response);
-    client_data->current_response = NULL;
     return true;
 }
 

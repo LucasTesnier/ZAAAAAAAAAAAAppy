@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** Project
 ** File description:
-** entrpypoint
+** entrypoint
 */
 
 /// THIS FILE IS GOING TO BE DELETED. USE IT ONLY FOR DEVELOPMENT
@@ -27,14 +27,13 @@ int main(int ac, char **av)
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
         return 84;
     while (1) {
-        if (c_interface_get_response_sate()) {
-            if (c_interface_get_unexpected_response_state())
-                c_interface_get_unexpected_response();
-            if (!c_interface_get_connect_to_server_response())
-                break;
-        }
-        if (!c_interface_get_network_state())
-            break;
-    };
+        while (!c_interface_get_response_sate());
+        if (!c_interface_get_unexpected_response_state())
+            return 84;
+        char *temp = c_interface_get_unexpected_response();
+        printf("Unexpected : %s\n", temp);
+        free(temp);
+    }
+    c_interface_try_to_disconnect_to_server();
     return 0;
 }

@@ -71,6 +71,6 @@ void destroy_server_data(server_data_t *server_data)
     free(server_data->active_players);
     destroy_zappy_server(server_data->server);
     argument_destroy(server_data->arguments);
-    /// DELETE ALL ENTITIES
+    //delete_entity_wrapper(server_data->entities);
     free(server_data);
 }
