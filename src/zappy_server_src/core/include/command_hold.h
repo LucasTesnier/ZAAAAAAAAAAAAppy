@@ -296,6 +296,11 @@ bool send_start_info(server_data_t *serv);
 ///
 void scheduler_update_life(scheduler_t *self, server_data_t *serv);
 
+/// \brief Generate new ressources every 20 ticks
+/// \param self The scheduler
+/// \param serv The server informations
+void scheduler_update_ressource(scheduler_t *self, server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},

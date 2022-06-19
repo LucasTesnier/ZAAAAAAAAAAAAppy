@@ -87,6 +87,7 @@ void server_loop(server_data_t *server_data)
         dprintf(2, "Loop\n");
         if (server_manage_fd_update(network_server))
             server_add_player(server_data);
+        scheduler_update_ressource(server_data->scheduler, server_data);
         scheduler_update_life(server_data->scheduler, server_data);
         scheduler_update(server_data->scheduler);
         process_command_inspection(server_data);

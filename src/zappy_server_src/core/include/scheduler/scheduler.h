@@ -40,6 +40,9 @@ typedef struct scheduler_s {
     /// \brief The clock of the scheduler
     time_t clock;
 
+    /// \brief The clock for the ressources
+    time_t ressource;
+
     /// \brief The list of events
     struct scheduler_event_list events;
 } scheduler_t;
