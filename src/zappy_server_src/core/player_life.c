@@ -41,7 +41,7 @@ void scheduler_update_life(scheduler_t *self, server_data_t *serv)
         ((player_t *)entity->data)->inventory->food -= tick;
         if (((player_t *)entity->data)->inventory->food <= 0) {
             // ((player_t *)entity->data)->inventory->food = 100000;
-            // remove_a_player(serv, entity);
+            remove_a_player(serv, entity);
         }
         entity = entity2;
     }
