@@ -37,7 +37,8 @@ bool command_login(char *arg, player_list_t *player, server_data_t *serv)
 
     if (!strncmp(arg, "GUI", 3)) {
         player->type = GUI;
-        type = "GUI";
+        pop_message(player->player_peer);
+        return send_start_info(serv);
     }
     if (!strncmp(arg, "AI", 2)) {
         player->type = AI;

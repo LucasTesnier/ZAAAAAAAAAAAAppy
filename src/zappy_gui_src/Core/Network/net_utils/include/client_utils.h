@@ -21,7 +21,7 @@
     #include <string.h>
 
     /// Defines the maximum size of a message
-    #define MAX_MSG 55555
+    #define MAX_MSG 10000000
 
 /// \brief Represents a distant server to connect to
 typedef struct server_s {

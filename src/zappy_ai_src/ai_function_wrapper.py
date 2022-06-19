@@ -6,7 +6,6 @@ class ServerWrapper:
     def __init__(self, libName : str):
         """ Constructor of the ServerWrapper class """
         self.DLLibWrapper : DLLibWrapper = DLLibWrapper(libName)
-        self.DLLibWrapper.openLibrary()
 
         """ Private members functions pointer """
         self.__ConnectToServer = None
@@ -46,18 +45,15 @@ class ServerWrapper:
         self.__GetRepPlaceObject = None
         self.__GetRepIncantation = None
 
-
-    def __del__(self):
-        """ Destructor of the ServerWrapper class """
-        self.DLLibWrapper.closeLibray()
-
-
     def getNecessaryFunctions(self) -> bool:
         """
+        Open the libray
         Get all the functions from the library to have a working AI
+        Close the library
         Return True if all the functions exist, false otherwise
         """
         try:
+            self.DLLibWrapper.openLibrary()
             self.__ConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_try_to_connect_to_server")
             self.__GetRepConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_connect_to_server_response")
             self.__AskJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_join")
@@ -90,6 +86,7 @@ class ServerWrapper:
             self.__GetRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
             self.__GetRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
             self.__GetNetworkState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_network_state")
+            self.DLLibWrapper.closeLibray()
         except:
             print("The provided lib doesn't contain all the required funtions.", file=stderr)
             return False
