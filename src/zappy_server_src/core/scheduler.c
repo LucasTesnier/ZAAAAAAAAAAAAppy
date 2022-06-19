@@ -19,7 +19,6 @@ scheduler_t *create_scheduler(double freq)
     if (scheduler == NULL)
         return (NULL);
     scheduler->freq = freq;
-    scheduler->clock = time(NULL);
     TAILQ_INIT(&scheduler->events);
     return scheduler;
 }
@@ -48,6 +47,7 @@ bool scheduler_schedule_event(scheduler_t *self, uuid_t uuid, int ticks)
         return false;
     uuid_copy(new_event->id, uuid);
     new_event->ticks = ticks;
+    new_event->clock = time(NULL);
     TAILQ_INSERT_TAIL(&self->events, new_event, events);
     return true;
 }
@@ -63,7 +63,10 @@ void scheduler_update(scheduler_t *self)
     tmp = TAILQ_FIRST(&self->events);
     while (tmp != NULL) {
         tmp2 = TAILQ_NEXT(tmp, events);
-        tmp->ticks -= floor((now - self->clock) * self->freq);
+        if (floor((now - tmp->clock) * self->freq) > 0) {
+            tmp->ticks -= floor((now - tmp->clock) * self->freq);
+            tmp->clock = now;
+        }
         if (tmp->ticks <= 0) {
             TAILQ_REMOVE(&self->events, tmp, events);
             free(tmp);

@@ -52,17 +52,6 @@ bool c_interface_try_to_connect_to_server(char *host, long port)
     return true;
 }
 
-bool c_interface_get_connect_to_server_response(void)
-{
-    if (client_data == NULL || !client_data->current_response)
-        return false;
-    if (strncmp(client_data->current_response, "201", 3))
-        return false;
-    free(client_data->current_response);
-    client_data->current_response = NULL;
-    return true;
-}
-
 bool c_interface_try_to_disconnect_to_server(void)
 {
     if (client_data == NULL) {

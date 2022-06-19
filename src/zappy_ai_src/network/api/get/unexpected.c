@@ -14,13 +14,18 @@
 char *c_interface_get_unexpected_response(void)
 {
     retcodes_t retcode;
+    char *temp = NULL;
 
     if (client_data == NULL || !client_data->current_response)
         return NULL;
     retcode = get_retcodes();
     if (retcode.type != UNEXPECTED)
         return NULL;
-    if (retcode.number == 601)
+    if (retcode.number == 601) {
+        retcode_exit(true);
         return "dead";
-    return retcode_get_arg();
+    }
+    temp = retcode_get_arg();
+    retcode_exit(true);
+    return temp;
 }
