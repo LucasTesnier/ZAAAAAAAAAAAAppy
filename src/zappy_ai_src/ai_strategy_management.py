@@ -28,7 +28,7 @@ LEVEL_MAX = 8
 """
 FOOD_START = 1260
 
-"""This static member represents a safety margin when call action, 
+"""This static member represents a safety margin when call action,
     its warns of an imminent death of the player just after the execution of an action
 """
 SAFETY_MARGIN = 300
@@ -199,8 +199,8 @@ class Ai:
 
     """----------------------------------------Getter and Setter for AI class----------------------------------------"""
 
-    def __setAvailableSlots(self, availableSlots: int):
-        self.__availableSlots = availableSlots
+    def __decrAvailableSlots(self):
+        self.__availableSlots -= 1
 
     def __setIsRunning(self, isRunning: bool):
         self.__isRunning = isRunning
@@ -225,8 +225,8 @@ class Ai:
     def __setTargetComponent(self, targetComponent: str):
         self.__targetComponent = targetComponent
 
-    def __setPlayerCurrentLevel(self, playerCurrentLevel: int):
-        self.__playerCurrentLevel = playerCurrentLevel
+    def __incrPlayerCurrentLevel(self):
+        self.__playerCurrentLevel += 1
 
     def __getAvailableSlots(self):
         return self.__availableSlots
@@ -264,19 +264,37 @@ class Ai:
         while self.__getIsRunning():
             self.__initAI()
             self.__playerStrategyManagement()
-            if not self.__isPlayerAlive:
-                self.__setIsRunning(False)
-                print("Player has just died or is disconnected\n")
+            if self.__lib.GetUnexpectedResponseState():
+                self.__unexpectedResponseManagement()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
 
     """This is used at start of the AI loop to initialize inventory and vision to have a base"""
     def __initAI(self):
+        self.__lib.getNecessaryFunctions()
         self.__lib.AskInventory()
-        self.__setInventory()
+        while 1:
+            if self.__lib.GetResponseState():
+                break
+        self.__setInventory(self.__lib.GetRepInventory())
+        self.__lib.AskLook()
+        while 1:
+            if self.__lib.GetResponseState():
+                break
+        self.__setVisionOfTheMap(self.__lib.GetRepLook())
 
-    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+    """This is used by AI to manage every unexpected response send by the server like :
+        - Death of the player
+        - Eject from another player (not implemented at the moment)
+        - Broadcast, sending message from another player (not implemented at the moment)
+    """
+    def __unexpectedResponseManagement(self):
+        response = self.__lib.GetUnexpectedResponse()
+        if response == "dead":
+            self.__setIsRunning(False)
+
+    """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
         These functions are considered as actions
     """
@@ -287,10 +305,10 @@ class Ai:
         """
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
-        elif self.__getPlayerCurrentLevel() <= 6:
-            self.__farming()
-        else:
+        elif self.__getPlayerCurrentLevel() >= 7:
             self.__deny()
+        else:
+            self.__farming()
 
     def __isThisActionRealisable(self, action: str):
         """This is used by the AI to know if the action is realisable or not depending on its food"""
@@ -313,13 +331,19 @@ class Ai:
         if not self.__isThisActionRealisable("incantation"):
             return False
         self.__lib.AskIncantation()
+        while 1:
+            if self.__lib.GetResponseState():
+                break
+        if not self.__lib.GetRepIncantation():
+            return False
+        self.__incrPlayerCurrentLevel()
         return True
 
     def __teamCall(self, action: str) -> bool:
         """This is used by the AI to call 'nbPlayers' of the team in order to elevation
             To emit a message, the client must send the following command to the server:
             'Broadcast message\n'
-                where message is following this format : 'teamName-amountOfPlayer-action'
+                where message is following this format : 'teamName;amountOfPlayer;action'
             return :    True if the request successfully send to the server
                         False Otherwise
         """
@@ -330,7 +354,7 @@ class Ai:
             nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player')
         else:
             nbPlayer = 1
-        message = self.__getTeamName() + '-' + str(nbPlayer) + '-' + action + '\n'
+        message = self.__getTeamName() + ';' + str(nbPlayer) + ';' + action + '\n'
         self.__lib.AskBroadcastText("Broadcast " + message)
         return True
 
@@ -343,17 +367,16 @@ class Ai:
             return False
         if self.__getAvailableSlots() == 0:
             return False
-        self.__lib.AskIncantation()
+        self.__lib.AskFork()
+        while 1:
+            if self.__lib.GetResponseState():
+                break
+        if not self.__lib.GetRepFork():
+            return False
+        self.__decrAvailableSlots()
         return True
 
-    def __isPlayerAlive(self) -> bool:
-        """This function call the server to know if the player is alive or not
-            Return : True if the player is alive
-                     False otherwise
-        """
-        return True
-
-    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+    """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
         These functions are considered as decisions
     """
@@ -362,7 +385,7 @@ class Ai:
         """This is used by the AI to find food and get food as fast as possible"""
         self.__setTargetComponent("food")
 
-    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+    """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by aggressive strategy
         These functions are considered as actions
     """
@@ -393,7 +416,7 @@ class Ai:
         """
         pass
 
-    """-------------------------------------------------DETAILS--------------------------------------------------------- 
+    """-------------------------------------------------DETAILS---------------------------------------------------------
                 These functions are used by farming strategy
                 These functions are considered as utils
     """
