@@ -22,13 +22,13 @@ static void move_x(entity_t *player, map_t *map)
     player_t *player_data = (player_t *)player->data;
     tile_t *tile = NULL;
 
-    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
+    remove_entity_from_tile(tile, player);
     if (player_data->orientation == NORTH)
         pos->x = (pos->x - 1) % map->height;
     else
         pos->x = (pos->x + 1) % map->height;
-    remove_entity_from_tile(tile, player);
-    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     add_entity_to_tile(tile, player);
 }
 
@@ -41,13 +41,13 @@ static void move_y(entity_t *player, map_t *map)
     player_t *player_data = (player_t *)player->data;
     tile_t *tile = NULL;
 
-    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
+    remove_entity_from_tile(tile, player);
     if (player_data->orientation == EAST)
         pos->x = (pos->y + 1) % map->height;
     else
         pos->x = (pos->y - 1) % map->height;
-    remove_entity_from_tile(tile, player);
-    tile = (tile_t*)get_tile(map, pos->x, pos->y);
+    tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     add_entity_to_tile(tile, player);
 }
 
