@@ -34,3 +34,15 @@ server_data_t *serv, player_t *tmp)
         }
     }
 }
+
+void send_unexpected_dead(server_data_t *serv, player_t *tmp)
+{
+    for (size_t i = 0; i < serv->active_player_n; i++) {
+        if (serv->active_players[i]->type == AI && !uuid_compare(((player_t *)
+        serv->active_players[i]->player_data->data)->uuid, tmp->uuid)) {
+            print_retcode(601, NULL, serv->active_players[i]->player_peer,
+            true);
+            return;
+        }
+    }
+}

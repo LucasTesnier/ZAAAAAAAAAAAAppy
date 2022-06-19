@@ -37,6 +37,9 @@ typedef struct scheduler_s {
     /// \brief The multiplicative inverse of a second
     double freq;
 
+    /// \brief The clock of the scheduler
+    time_t clock;
+
     /// \brief The list of events
     struct scheduler_event_list events;
 } scheduler_t;

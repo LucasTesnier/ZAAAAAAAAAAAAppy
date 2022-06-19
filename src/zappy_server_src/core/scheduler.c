@@ -19,6 +19,7 @@ scheduler_t *create_scheduler(double freq)
     if (scheduler == NULL)
         return (NULL);
     scheduler->freq = freq;
+    scheduler->clock = time(NULL);
     TAILQ_INIT(&scheduler->events);
     return scheduler;
 }

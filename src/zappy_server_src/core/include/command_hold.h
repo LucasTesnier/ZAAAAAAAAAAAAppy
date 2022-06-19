@@ -231,6 +231,11 @@ server_data_t *serv);
 void send_unexpected_eject(enum player_orientation_e direction,
 server_data_t *serv, player_t *tmp);
 
+/// \brief Send a died signal to a player
+/// \param serv Server informations
+/// \param tmp The data of the player
+void send_unexpected_dead(server_data_t *serv, player_t *tmp);
+
 /// \brief Tell to the gui that the game is paused
 /// \param serv Server informations
 /// \return true When operation succeed
@@ -284,6 +289,12 @@ char *pack_all_entities(entity_wrapper_t *entities);
 /// \return true When operation succeed
 /// \return false When operation failed
 bool send_start_info(server_data_t *serv);
+
+/// \brief Cross all the player and remove life
+/// \param self The scheduler
+/// \param serv The server information
+///
+void scheduler_update_life(scheduler_t *self, server_data_t *serv);
 
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
