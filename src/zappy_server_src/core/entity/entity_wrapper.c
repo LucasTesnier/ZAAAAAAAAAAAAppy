@@ -25,26 +25,25 @@ entity_wrapper_t *create_entity_wrapper(void)
     return wrapper;
 }
 
+static void delete_entities_list(struct entities_list_s* entity_list)
+{
+    entity_t *entity = NULL;
+    entity_t *tmp = NULL;
+
+    entity = TAILQ_FIRST(entity_list);
+    while (entity != NULL) {
+        tmp = TAILQ_NEXT(entity , entities);
+        delete_entity(entity);
+        entity = tmp;
+    }
+}
+
 void delete_entity_wrapper(entity_wrapper_t *wrapper)
 {
-    entity_t *entity;
-
     if (!wrapper)
         return;
-    while (!TAILQ_EMPTY(&wrapper->players)) {
-        entity = TAILQ_FIRST(&wrapper->players);
-        TAILQ_REMOVE(&wrapper->players, entity, entities);
-        delete_entity(entity);
-    }
-    while (!TAILQ_EMPTY(&wrapper->eggs)) {
-        entity = TAILQ_FIRST(&wrapper->eggs);
-        TAILQ_REMOVE(&wrapper->eggs, entity, entities);
-        delete_entity(entity);
-    }
-    while (!TAILQ_EMPTY(&wrapper->tiles)) {
-        entity = TAILQ_FIRST(&wrapper->tiles);
-        TAILQ_REMOVE(&wrapper->tiles, entity, entities);
-        delete_entity(entity);
-    }
+    delete_entities_list(&wrapper->players);
+    delete_entities_list(&wrapper->eggs);
+    delete_entities_list(&wrapper->tiles);
     free(wrapper);
 }

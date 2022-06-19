@@ -23,7 +23,7 @@
     #include <errno.h>
 
     /// Defines the maximum size of a message
-    #define MAX_MSG 55555
+    #define MAX_MSG 10000000
 
 /// \brief Represents a client connection
 typedef struct peer_s {
