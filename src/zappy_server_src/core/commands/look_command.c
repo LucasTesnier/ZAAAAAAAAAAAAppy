@@ -26,22 +26,36 @@ bool command_look(char *arg, player_list_t *player, server_data_t *serv)
     return true;
 }
 
+/// \brief Get all the ressources in a tile and format it
+/// \param tile The concerned tile
+/// \param cases The tile ressources
+/// \param res The result
 static void get_a_tile_content_player(tile_t *tile,
 container_t *cases, char *res)
 {
     int player_number = 0;
+    int egg_number = 0;
     entity_t *tmp;
 
     for (unsigned int i = 0; i < cases->phiras; i++)
         strcat(res, "phiras ");
     for (unsigned int i = 0; i < cases->thystame; i++)
         strcat(res, "thystame ");
-    TAILQ_FOREACH(tmp, &tile->entities, entities)
-        player_number++;
+    TAILQ_FOREACH(tmp, &tile->entities, entities) {
+        if (tmp->type == ENTITY_PLAYER_TYPE)
+            player_number++;
+        if (tmp->type == ENTITY_EGG_TYPE)
+            egg_number++;
+    }
     for (int i = 0; i < player_number - 1; i++)
         strcat(res, "player ");
+    for (int i = 0; i < egg_number; i++)
+        strcat(res, "egg ");
 }
 
+/// \brief Get all the ressources in a tile and format it
+/// \param tile The concerned tile
+/// \return The result
 static char *get_a_tile_content(tile_t *tile)
 {
     container_t *cases = tile->inventory;
@@ -65,6 +79,11 @@ static char *get_a_tile_content(tile_t *tile)
     return res;
 }
 
+/// \brief Hold the look process
+/// \param serv The serv informations
+/// \param level The player level
+/// \param position The player position
+/// \return char* The formated look result
 static char *look_action(server_data_t *serv, unsigned int level,
 position_t position)
 {
