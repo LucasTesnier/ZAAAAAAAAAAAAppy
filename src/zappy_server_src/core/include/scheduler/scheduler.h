@@ -68,4 +68,8 @@ bool scheduler_has_event(scheduler_t *self, uuid_t uuid);
 /// is null
 struct timeval scheduler_get_smallest_timeout(scheduler_t *self);
 
+/// \brief Remove an event from the scheduler
+/// \param uuid The uuid event to remove
+void scheduler_remove_event(scheduler_t *self, uuid_t uuid);
+
 #endif /* SCHEDULER_H */
