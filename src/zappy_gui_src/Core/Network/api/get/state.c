@@ -20,7 +20,7 @@ bool c_interface_get_unexpected_response_state(void)
     return false;
 }
 
-bool c_interface_get_response_sate(void)
+bool c_interface_get_response_state(void)
 {
     char *resp = NULL;
 
