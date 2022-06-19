@@ -12,6 +12,7 @@
 #include "entity/player.h"
 #include "command_hold.h"
 #include "rcodes.h"
+#include <sys/queue.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
@@ -33,7 +34,7 @@ static void remove_a_player(server_data_t *serv, entity_t *entity)
         scheduler_remove_event(serv->scheduler,
         ((player_t *)entity->data)->uuid);
     }
-    entity_wrapper_remove_entity(serv->entities, entity);
+    TAILQ_REMOVE(&serv->entities->players, entity, entities);
 }
 
 void scheduler_update_life(scheduler_t *self, server_data_t *serv)
