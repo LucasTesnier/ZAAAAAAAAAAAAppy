@@ -27,7 +27,7 @@ int main(int ac, char **av)
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
         return 84;
     while (1) {
-        while (!c_interface_get_response_sate());
+        while (!c_interface_get_response_state());
         if (!c_interface_get_unexpected_response_state())
             return 84;
         char *temp = c_interface_get_unexpected_response();
