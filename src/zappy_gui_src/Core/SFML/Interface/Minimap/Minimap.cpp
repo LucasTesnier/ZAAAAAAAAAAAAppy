@@ -49,7 +49,7 @@ void Minimap::switchSize(bool state)
 {
     if (state && isSwitch == false) {
         if (_minimapSize.x == 200 && _minimapSize.y == 200)
-            _minimapSize = sf::Vector2f(_window->getSize());
+            _minimapSize = sf::Vector2f(_window->getSize().x, _window->getSize().y - _window->getSize().y / 5);
         else
             _minimapSize = {200, 200};
         _updateConvexShape();
@@ -77,7 +77,7 @@ void Minimap::_updateConvexShape()
     _map.setPoint(1, _toIsometric(sf::Vector2f(0, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));
     _map.setPoint(2, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));
     _map.setPoint(3, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 0), sf::Vector2f(45, 45)));
-    _minimap.setPosition(sf::Vector2f(_window->getSize().x - _minimapSize.x, _window->getSize().y - _minimapSize.y));
+    _minimap.setPosition(sf::Vector2f(_window->getSize().x - _minimapSize.x, _bottomMenuPosition.y - _minimapSize.y));
     _minimap.setSize(_minimapSize);
     _minimap.setFillColor(sf::Color(100, 100, 100));
     area = _map.getGlobalBounds();

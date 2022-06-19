@@ -71,6 +71,10 @@ void destroy_server_data(server_data_t *server_data)
     free(server_data->active_players);
     destroy_zappy_server(server_data->server);
     argument_destroy(server_data->arguments);
-    //delete_entity_wrapper(server_data->entities);
+    delete_entity_wrapper(server_data->entities);
+    free(server_data->map->tiles);
+    free(server_data->map);
+    delete_teams(&server_data->teams);
+    scheduler_delete(server_data->scheduler);
     free(server_data);
 }
