@@ -55,8 +55,13 @@ namespace gui {
             /// \param window The window to be set.
             inline void setWindow(std::shared_ptr<sf::RenderWindow> window) {
                 _window = window;
+                _bottomMenuPosition = sf::Vector2f(_window->getSize());
             };
 
+            inline void setBottomMenuPosition(const sf::Vector2f &position) {
+                _bottomMenuPosition = position;
+                _updateConvexShape();
+            };
         private:
             /// \brief Update the size and position of the minimap.
             void _updateConvexShape();
@@ -90,6 +95,8 @@ namespace gui {
 
             /// \brief The state of the switch function.
             bool isSwitch;
+
+            sf::Vector2f _bottomMenuPosition;
     };
 } // namepsace gui
 

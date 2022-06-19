@@ -30,11 +30,18 @@ bool remove_team(team_t *team, struct teams_list_s *teams)
 
 void delete_teams(struct teams_list_s *teams)
 {
+    team_t *team = NULL;
     team_t *tmp = NULL;
 
     if (!teams)
         return;
-    TAILQ_FOREACH(tmp, teams, teams)
-        remove_team(tmp, teams);
+    team = TAILQ_FIRST(teams);
+    while (team != NULL) {
+        tmp = TAILQ_NEXT(team, teams);
+        free(team->name);
+        free(team->members_uuid);
+        free(team);
+        team = tmp;
+    }
     TAILQ_INIT(teams);
 }

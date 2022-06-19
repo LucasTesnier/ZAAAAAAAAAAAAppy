@@ -11,6 +11,7 @@
 #define INTERFACE_HPP_
 
 #include "Minimap.hpp"
+#include "Inventory.hpp"
 #include "Event.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -37,6 +38,7 @@ namespace gui {
             /// \param window The window to be set.
             inline void setWindow(std::shared_ptr<sf::RenderWindow> window) {
                 _window = window;
+                _inventory.setWindow(_window);
                 _minimap.setWindow(_window);
             };
 
@@ -55,6 +57,8 @@ namespace gui {
 
             /// \brief An instance of the minimap
             Minimap _minimap;
+
+            Inventory _inventory;
 
             /// \brief The map size.
             sf::Vector2f _mapSize;

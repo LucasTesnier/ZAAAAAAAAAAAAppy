@@ -22,6 +22,15 @@ static const retcodes_t retcodes[] = {
     {402, 1, EXPECTED},
     {501, 1, EXPECTED},
     {502, 1, EXPECTED},
+    {701, 1, UNEXPECTED},
+    {702, 1, UNEXPECTED},
+    {703, 1, UNEXPECTED},
+    {704, 1, UNEXPECTED},
+    {705, 1, UNEXPECTED},
+    {706, 1, UNEXPECTED},
+    {707, 1, UNEXPECTED},
+    {708, 1, UNEXPECTED},
+    {709, 1, UNEXPECTED},
     {-1, -1, EXPECTED}
 };
 
@@ -44,16 +53,30 @@ retcodes_t get_retcodes(void)
     return invalid_retcode;
 }
 
-char *get_retcode_arg(retcodes_t ret)
+char *retcode_get_arg(void)
 {
-    size_t size = 0;
+    size_t pos = 0;
+    char *res = NULL;
 
     if (client_data == NULL || !client_data->current_response)
         return NULL;
-    if (ret.arg_n == 0)
-        return NULL;
-    for (; size < strlen(client_data->current_response); size++)
-        if (client_data->current_response[size] == ':')
+    for (; pos < strlen(client_data->current_response) - 1; pos++)
+        if (client_data->current_response[pos] == ':')
             break;
-    return strdup(client_data->current_response + size + 1);
+    if (client_data->current_response[pos + 1] == '\0')
+        return NULL;
+    res = strdup(client_data->current_response + pos + 2);
+    if (res == NULL)
+        return NULL;
+    res[strlen(res) - 1] = '\0';
+    return res;
+}
+
+bool retcode_exit(bool state)
+{
+    if (!client_data || !client_data->current_response)
+        return state;
+    free(client_data->current_response);
+    client_data->current_response = NULL;
+    return state;
 }
