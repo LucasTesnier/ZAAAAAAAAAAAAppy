@@ -76,6 +76,7 @@ graph
 vgcore*
 libTemporary
 CMakeFiles
+cmake_install.cmake
 
 # Tests Files
 *_test
