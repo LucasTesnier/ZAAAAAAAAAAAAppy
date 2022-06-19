@@ -38,7 +38,7 @@ container_t *cases, char *res)
         strcat(res, "thystame ");
     TAILQ_FOREACH(tmp, &tile->entities, entities)
         player_number++;
-    for (int i = 0; i < player_number; i++)
+    for (int i = 0; i < player_number - 1; i++)
         strcat(res, "player ");
 }
 
