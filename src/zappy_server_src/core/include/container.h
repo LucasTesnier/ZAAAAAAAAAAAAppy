@@ -31,6 +31,15 @@ typedef struct container_s {
     unsigned int thystame;
 } container_t;
 
+/// Generate data
+typedef struct generate_s {
+    /// Name of the ressource
+    char *name;
+
+    /// Density of the ressource
+    float density;
+} generate_t;
+
 /// \brief Create a new container and initialize it with 0
 /// \return a new container or NULL if it failed
 container_t *new_container(void);
