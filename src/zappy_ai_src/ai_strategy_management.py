@@ -258,13 +258,17 @@ class Ai:
             self.__playerStrategyManagement()
             if self.__lib.GetUnexpectedResponseState():
                 self.__unexpectedResponseManagement()
+        self.__lib.DLLibWrapper.closeLibray()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
 
     """This is used at start of the AI loop to initialize inventory and vision to have a base"""
     def __initAI(self):
-        self.__lib.getNecessaryFunctions()
+        if self.__lib.getNecessaryFunctions():
+            print("[AI] libzappy_ai_api charged, SUCCESS!")
+        else:
+            print("[AI] cannot charge libzappy_ai_api, ERROR!")
         self.__lib.AskLook()
         while 1:
             if self.__lib.GetResponseState():
@@ -286,12 +290,6 @@ class Ai:
         These functions are considered as actions
     """
 
-    def __actionsProceed(self):
-        """This is used to trigger actions depending on previous configuration of the strategy
-            Like getting the most required component at a time T
-        """
-        pass
-
     def __playerStrategyManagement(self):
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
@@ -302,7 +300,13 @@ class Ai:
             self.__deny()
         else:
             self.__farming()
-        self.__actionsproceed()
+        self.__actionsProceed()
+
+    def __actionsProceed(self):
+        """This is used to trigger actions depending on previous configuration of the strategy
+            Like getting the most required component at a time T
+        """
+        print("I need : " + self.__getRequiredComponent())
 
     def __isThisActionRealisable(self, action: str):
         """This is used by the AI to know if the action is realisable or not depending on its food"""
