@@ -12,6 +12,7 @@
 #include "team.h"
 #include "entity/entity.h"
 #include "entity/player.h"
+#include "entity/tile.h"
 #include <stdlib.h>
 
 /// \brief Create the response for the join function
@@ -50,6 +51,8 @@ entity_t **player_entity, server_data_t *serv)
     if (!(player_data = create_player(arg)))
         return false;
     entity_set_data(*player_entity, player_data);
+    add_entity_to_tile((tile_t*)get_tile(serv->map, (*player_entity)->position.x,
+    (*player_entity)->position.y)->data, *player_entity);
     return true;
 }
 

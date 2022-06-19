@@ -36,6 +36,7 @@ bool add_entity_to_tile(tile_t *tile, entity_t *entity)
     if (entity->type == ENTITY_TILE_TYPE || is_entity_on_tile(tile, entity))
         return false;
     TAILQ_INSERT_TAIL(&tile->entities, entity, entities);
+    entity_t *tmp = NULL;
     return true;
 }
 
@@ -46,6 +47,8 @@ bool remove_entity_from_tile(tile_t *tile, entity_t *entity)
     if (entity->type == ENTITY_TILE_TYPE || !is_entity_on_tile(tile, entity))
         return false;
     TAILQ_REMOVE(&tile->entities, entity, entities);
+    if (TAILQ_EMPTY(&tile->entities))
+        TAILQ_INIT(&tile->entities);
     return true;
 }
 
