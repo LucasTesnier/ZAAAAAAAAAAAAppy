@@ -11,10 +11,10 @@ class Inventory:
         self.__mendiane : int = 0
         self.__phiras : int = 0
         self.__thystame : int = 0
-        if not self.__fillInventory(inventoryResponse):
+        if not self.fillInventory(inventoryResponse):
             print("The given string cannot be used to create an inventory", file=stderr)
 
-    def __fillInventory(self, inventoryStr : str) -> bool:
+    def fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
         """ Parse the string given in parameter and fill the Inventory object """
         inventorySplit = inventoryStr.split(", ")
@@ -75,9 +75,9 @@ class Map:
     def __init__(self, lookResponse : str):
         """ Constructor of the Tile Class """
         self.__map = [] ## Map of Tile ##
-        self.__fillMap(lookResponse)
+        self.fillMap(lookResponse)
 
-    def __fillMap(self, lookStr : str) -> None:
+    def fillMap(self, lookStr : str) -> None:
         """ PRIVATE METHOD """
         """ Parse the string given in parameter and fill the Map object """
         mapTab = []

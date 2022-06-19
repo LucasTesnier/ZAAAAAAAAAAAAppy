@@ -205,19 +205,11 @@ class Ai:
     def __setIsRunning(self, isRunning: bool):
         self.__isRunning = isRunning
 
-    """
-        [ASKING], should i delete the old inventory and then re use the constructor the refill the inventory,
-        or should we turn the method fill inventory as public
-        In case of delete, how can i delete object Inventory ?
-    """
     def __setInventory(self, inventoryResponse: str):
-        self.__inventory = Inventory(inventoryResponse)
+        self.__inventory.fillInventory(inventoryResponse)
 
-    """
-        [ASKING], same as inventory
-    """
     def __setVisionOfTheMap(self, lookResponse: str):
-        self.__visionOfTheMap = Map(lookResponse)
+        self.__visionOfTheMap.fillMap(lookResponse)
 
     def __setTargetTile(self, index: int):
         self.__targetTileIndex = index
@@ -261,8 +253,8 @@ class Ai:
                 - client is connected
         """
         self.__setIsRunning(True)
+        self.__initAI()
         while self.__getIsRunning():
-            self.__initAI()
             self.__playerStrategyManagement()
             if self.__lib.GetUnexpectedResponseState():
                 self.__unexpectedResponseManagement()
@@ -273,11 +265,6 @@ class Ai:
     """This is used at start of the AI loop to initialize inventory and vision to have a base"""
     def __initAI(self):
         self.__lib.getNecessaryFunctions()
-        self.__lib.AskInventory()
-        while 1:
-            if self.__lib.GetResponseState():
-                break
-        self.__setInventory(self.__lib.GetRepInventory())
         self.__lib.AskLook()
         while 1:
             if self.__lib.GetResponseState():
@@ -299,6 +286,12 @@ class Ai:
         These functions are considered as actions
     """
 
+    def __actionsProceed(self):
+        """This is used to trigger actions depending on previous configuration of the strategy
+            Like getting the most required component at a time T
+        """
+        pass
+
     def __playerStrategyManagement(self):
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
@@ -309,6 +302,7 @@ class Ai:
             self.__deny()
         else:
             self.__farming()
+        self.__actionsproceed()
 
     def __isThisActionRealisable(self, action: str):
         """This is used by the AI to know if the action is realisable or not depending on its food"""
@@ -424,7 +418,7 @@ class Ai:
     def __farming(self):
         """This is the main function of farming strategy, it manages all actions to get components as fast as possible
         """
-        pass
+        self.__setTargetComponent(self.__getRequiredComponent())
 
     def __findClosestTileFromComponent(self, component: str) -> int:
         """This is used by AI to find the closest tile depending on the component requested
@@ -455,5 +449,5 @@ class Ai:
 
 """Note for reviewers, this is only debug used to start the main loop of the class"""
 if (__name__ == "__main__"):
-    start = Ai(4, "bonjour")
-    start.start()
+    AI = Ai(4, "bonjour")
+    AI.start()
