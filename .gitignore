@@ -75,8 +75,12 @@ build
 graph
 vgcore*
 libTemporary
+
+# CMake garbage
 CMakeFiles
 cmake_install.cmake
+Makefile
+CMakeCache.txt
 
 # Tests Files
 *_test
