@@ -301,6 +301,12 @@ void scheduler_update_life(scheduler_t *self, server_data_t *serv);
 /// \param serv The server informations
 void scheduler_update_ressource(scheduler_t *self, server_data_t *serv);
 
+/// \brief Return the matched player_list of a player_t
+/// \param serv The server informations
+/// \param tmp The player object
+/// \return player_list_t* The founded player_list
+player_list_t *find_player_list_by_uuid(server_data_t *serv, player_t *tmp);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},

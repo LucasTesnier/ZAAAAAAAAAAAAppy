@@ -29,6 +29,7 @@ static void move_x(entity_t *player, map_t *map)
     else
         pos->x = (pos->x + 1) % map->height;
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
+    (void) tile;
     add_entity_to_tile(tile, player);
 }
 
@@ -48,6 +49,7 @@ static void move_y(entity_t *player, map_t *map)
     else
         pos->x = (pos->y - 1) % map->height;
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
+    (void) tile;
     add_entity_to_tile(tile, player);
 }
 
