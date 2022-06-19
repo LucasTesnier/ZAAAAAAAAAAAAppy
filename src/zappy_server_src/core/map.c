@@ -14,6 +14,69 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/// \brief List of all the ressource and her density for gen
+static const generate_t gen_list[] = {
+    {"food", 0.5},
+    {"linemate", 0.3},
+    {"deraumere", 0.15},
+    {"sibur", 0.1},
+    {"mendiane", 0.1},
+    {"phiras", 0.08},
+    {"thystame", 0.05},
+    {NULL, -1}
+};
+
+/// \brief Compute the quantity of a ressource by her density
+/// \param map The map informations
+/// \param density The density of the ressource
+/// \return int The quantity of the ressource
+static int compute_ressource_number(map_t *map, float density)
+{
+    float res = 0;
+
+    res = (float)map->width * (float)map->height;
+    res *= density;
+    if (res < 0)
+        res = 1;
+    return (int)res;
+}
+
+/// \brief Add a ressource inside a random tile
+/// \param map The map informations
+/// \param type The type of the ressources
+static void add_ressource_randomly(map_t *map, char *type)
+{
+    entity_t *tile = get_tile(map, rand() % map->height, rand() % map->width);
+    container_t *cases = NULL;
+
+    if (tile == NULL)
+        return;
+    cases = ((tile_t *)tile->data)->inventory;
+    if (!strcmp(type, "food"))
+        cases->food += 1;
+    if (!strcmp(type, "linemate"))
+        cases->linemate += 1;
+    if (!strcmp(type, "deraumere"))
+        cases->deraumere += 1;
+    if (!strcmp(type, "sibur"))
+        cases->sibur += 1;
+    if (!strcmp(type, "mendiane"))
+        cases->mendiane += 1;
+    if (!strcmp(type, "phiras"))
+        cases->phiras += 1;
+    if (!strcmp(type, "thystame"))
+        cases->thystame += 1;
+}
+
+void generate_new_ressource(map_t *map)
+{
+    for (int i = 0; gen_list[i].name; i++) {
+        for (int j = 0; j <
+        compute_ressource_number(map, gen_list[i].density); j++)
+            add_ressource_randomly(map, gen_list[i].name);
+    }
+}
+
 entity_t* get_tile(map_t *map, int x, int y)
 {
     if (!map)
@@ -41,5 +104,6 @@ map_t *create_new_map(int width, int height)
             map->tiles[i * width + j]->data = create_new_tile();
         }
     }
+    generate_new_ressource(map);
     return map;
 }
