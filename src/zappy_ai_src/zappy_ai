@@ -46,7 +46,7 @@ def main() -> int:
         return 84
 
     newClient : ClientCore = ClientCore(validArgs.name, ip, validArgs.port)
-
+    newClient.run()
     return 0
 
 

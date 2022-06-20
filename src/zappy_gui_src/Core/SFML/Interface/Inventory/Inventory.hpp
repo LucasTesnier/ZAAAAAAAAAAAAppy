@@ -27,6 +27,15 @@ namespace gui {
                 return _body.getPosition();
             };
             void update(bool forceUpdate = false);
+            inline void setAreaServer(const sf::Vector2f &position, const sf::Vector2f &size) {
+                sf::FloatRect temp;
+                temp.left = position.x;
+                temp.top = position.y;
+                temp.width = size.x;
+                temp.height = size.y;
+                _areaServer = temp;
+                _updateBody();
+            };
         private:
             void _updateBody();
             std::shared_ptr<sf::RenderWindow> _window;
@@ -34,6 +43,7 @@ namespace gui {
             bool _isOpen;
             sf::RectangleShape _button;
             sf::Clock _clock;
+            sf::FloatRect _areaServer;
     };
 }
 

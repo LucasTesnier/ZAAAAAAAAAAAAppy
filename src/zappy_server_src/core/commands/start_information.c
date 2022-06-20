@@ -26,7 +26,7 @@ static char *pack_team_name(char **list)
     for (int i = 0; list[i]; i++) {
         strcat(res, list[i]);
         if (list[i + 1])
-            strcat(res, ",");
+            strcat(res, ";");
     }
     return res;
 }
@@ -45,7 +45,7 @@ static char *pack_all_arg(argument_t *args)
     for (; args->team_list[team_number]; team_number++);
     team_name = pack_team_name(args->team_list);
     res[0] = '\0';
-    sprintf(res, "start{%i,%i;%i;{%s};%i}", args->width, args->height,
+    sprintf(res, "start{%i;%i;%i;{%s};%i}", args->width, args->height,
     team_number, team_name, args->client_nb);
     free(team_name);
     return res;
