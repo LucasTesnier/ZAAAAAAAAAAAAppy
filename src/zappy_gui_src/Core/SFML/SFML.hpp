@@ -22,8 +22,8 @@ namespace gui {
     class SFML {
         public:
 
-            /// \brief Constructor of the SFML.
-            SFML();
+            /// \brief Construct a new SFML object
+            SFML(const sf::Vector2f mapSize);
 
             /// \brief Destructor of the SFML.
             ~SFML() = default;
@@ -36,6 +36,10 @@ namespace gui {
 
             /// \brief Display the SFML.
             void display();
+
+            /// \brief Change the size of the map
+            /// \param mapSize The map size
+            void _changeMapSize(const sf::Vector2f mapSize);
 
         private:
 

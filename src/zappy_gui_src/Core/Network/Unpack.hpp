@@ -23,7 +23,7 @@ enum player_orientation_e {
 };
 
 /// \brief map linking a string to an orientaion
-std::map<std::string, player_orientation_e> mapOrientation{
+static std::map<std::string, player_orientation_e> mapOrientation{
     {"0", NORTH},
     {"1", SOUTH},
     {"2", EAST},
@@ -117,6 +117,17 @@ class Egg {
     }
 };
 
+struct Start {
+    /// \brief The width of the map
+    int size_x;
+    /// \brief The height of the map
+    int size_y;
+    /// \brief The number of team
+    int team_number;
+    /// ADD TEAM LIST
+    /// \brief Max number of player in team
+    int max_player;
+};
 
 class Unpack {
    public:
@@ -147,6 +158,10 @@ class Unpack {
     /// \param unpacked the vector of strings to Unpack strings
     Egg UnpackEgg(std::vector<std::string> &unpacked);
 
+    /// \brief Unpack a start data
+    /// \param unpacked the vector of strings to Unpack strings
+    Start UnpackStart(std::vector<std::string> &unpacked);
+
     /// \brief Unpack an entity
     /// \param unpacked the string to unpack
     void UnpackEntity(Player &p, std::string &packed);
@@ -158,6 +173,10 @@ class Unpack {
     /// \brief Unpack an entity
     /// \param unpacked the string to unpack
     void UnpackEntity(Egg &e, std::string &packed);
+
+    /// \brief Unpack an entity
+    /// \param unpacked the string to unpack
+    void UnpackEntity(Start &e, std::string &packed);
 
    private:
 };
