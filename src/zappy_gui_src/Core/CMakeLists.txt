@@ -19,6 +19,7 @@ target_link_libraries(${TARGET}_core
     PUBLIC zappy_gui_sfml
     PUBLIC zappy_gui_exception
     PUBLIC zappy_gui_api
+    PUBLIC zappy_gui_network_unpack
 )
 
 set_target_properties(${TARGET} PROPERTIES

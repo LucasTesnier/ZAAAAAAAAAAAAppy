@@ -63,7 +63,7 @@ zappy_gui_test
 # Clion config
 .idea/
 cmake-build-debug/
-
+IDEA
 
 # Python Cache
 __pycache__
@@ -74,6 +74,14 @@ build
 build
 graph
 vgcore*
+libTemporary
+src/zappy_ai_src/ai_tile_switch.py
+
+# CMake garbage
+CMakeFiles
+cmake_install.cmake
+Makefile
+CMakeCache.txt
 
 # Tests Files
 *_test

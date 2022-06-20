@@ -109,6 +109,10 @@ namespace gui {
             /// \param texturePath The path of the texture to be load.
             void setTexture(const std::string &texturePath);
 
+            // \brief Set the textures of the inventory.
+            /// \param texturePath The path of the texture to be load.
+            // void setTexturesInventory(const std::string &texturePath);
+
             /// \brief Set the color of the tile.
             /// \param color The color of the tile.
             inline void setColor(const sf::Color &color) {
