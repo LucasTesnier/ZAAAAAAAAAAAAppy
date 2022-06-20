@@ -10,6 +10,8 @@
 #include <vector>
 #include "Entity.hpp"
 
+/// \file src/zappy_gui_src/Core/Network/Unpack.hpp
+
 namespace gui::unpack {
 struct Start {
     /// \brief The width of the map

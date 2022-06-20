@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+/// \file src/zappy_gui_src/Core/Entity/Entity.hpp
+
 namespace gui::entity {
 enum player_orientation_e {
     /// North orientation

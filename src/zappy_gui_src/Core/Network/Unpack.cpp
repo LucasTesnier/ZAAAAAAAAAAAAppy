@@ -13,6 +13,8 @@
 #include "Unpack.hpp"
 #include "ZappyGuiException.hpp"
 
+/// \file src/zappy_gui_src/Core/Network/Unpack.cpp
+
 using namespace gui::unpack;
 
 std::vector <std::string> Unpack::stov(const std::string &str, char separator, bool pushEmptyStrings)
