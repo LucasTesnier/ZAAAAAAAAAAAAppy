@@ -11,11 +11,10 @@
 
 using namespace gui;
 
-SFML::SFML() : _run(true)
+SFML::SFML(const sf::Vector2f mapSize) : _run(true)
 {
     sf::ContextSettings settings;
     const std::size_t maxFps = 60;
-    const sf::Vector2f mapSize = {10, 10};
 
     settings.antialiasingLevel = 8;
     _event = std::make_shared<Event>();
@@ -26,6 +25,12 @@ SFML::SFML() : _run(true)
     _map.setMapSize(mapSize);
     _interface.setEvent(_event);
     _interface.setWindow(_window);
+    _interface.setMapSize(mapSize);
+}
+
+void SFML::_changeMapSize(const sf::Vector2f mapSize)
+{
+    _map.setMapSize(mapSize);
     _interface.setMapSize(mapSize);
 }
 

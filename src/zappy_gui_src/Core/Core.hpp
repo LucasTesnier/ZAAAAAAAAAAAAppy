@@ -12,6 +12,7 @@
 
 #include <string>
 #include "SFML.hpp"
+#include "Unpack.hpp"
 extern "C" {
     #include "api.h"
 }
@@ -22,7 +23,7 @@ namespace gui {
         public:
 
             /// \brief Constructor of the Core.
-            Core() = default;
+            Core();
 
             /// \brief Destructor of the Core.
             ~Core();
@@ -49,7 +50,13 @@ namespace gui {
             std::string _machine;
 
             /// \brief An instance of the sfml graphical part.
-            SFML _sfml;
+            std::unique_ptr<SFML> _sfml;
+
+            /// \brief Instance of the unpack object
+            gui::unpack::Unpack _unpackObject;
+
+            /// \brief The starting data
+            gui::unpack::Start _startData;
     };
 } // namespace gui
 

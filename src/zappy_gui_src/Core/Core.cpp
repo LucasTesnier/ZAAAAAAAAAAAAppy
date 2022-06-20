@@ -26,8 +26,8 @@ void Core::run()
     int fps = 0;
     sf::Clock clock;
 
-    while (_sfml.isRunning()) {
-        _sfml.display();
+    while (_sfml->isRunning()) {
+        _sfml->display();
         if (clock.getElapsedTime().asSeconds() >= 1) {
             clock.restart();
             fps = 0;
@@ -88,6 +88,19 @@ void Core::setup(int ac, char **av)
     if (!c_interface_try_to_connect_to_server(str, std::atoi(_port.c_str()))) {
         throw (CoreException("Core setup", "Unable to connect to the server"));
     }
+    while(!c_interface_get_response_state());
+    if (!c_interface_get_unexpected_response_state())
+        throw (CoreException("Core setup", "Invalid receive data"));
+    std::string temp = std::string(c_interface_get_unexpected_response());
+    _unpackObject.UnpackEntity(_startData, temp);
+    std::cerr << "Parsed data : X -> " <<  _startData.size_x << " Y -> " << _startData.size_y << " Team Number -> " << _startData.team_number << " Max player -> " << _startData.max_player << std::endl;
+    const sf::Vector2f mapSize = {(float)_startData.size_x, (float)_startData.size_y};
+    _sfml = std::make_unique<gui::SFML>(mapSize);
+}
+
+Core::Core()
+{
+    _unpackObject = gui::unpack::Unpack();
 }
 
 Core::~Core()

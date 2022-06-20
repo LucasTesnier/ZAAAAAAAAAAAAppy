@@ -23,7 +23,7 @@ enum player_orientation_e {
 };
 
 /// \brief map linking a string to an orientaion
-std::map<std::string, player_orientation_e> mapOrientation{
+static std::map<std::string, player_orientation_e> mapOrientation{
     {"0", NORTH},
     {"1", SOUTH},
     {"2", EAST},

@@ -61,7 +61,7 @@ Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
         p._level = std::stoi(p_end[1]);
         p._orientation = mapOrientation.find(p_end[2])->second;
     } catch(...) {
-        throw (UnpackException("Unpack player" "Invalid packed string"));
+        throw (std::invalid_argument("Player invalid parsing"));
     }
     return p;
 }
@@ -76,7 +76,7 @@ Tile Unpack::UnpackTile(std::vector<std::string> &unpacked)
         tile = stov(unpacked[2], '}');
         t._inventory = UnpackInventory(tile[0]);
     } catch(...) {
-        throw(UnpackException("Unpack tile" "Invalid packed string"));
+        throw (std::invalid_argument("Player invalid parsing"));
     }
     return t;
 }
@@ -90,7 +90,7 @@ Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
         egg[2].pop_back();
         e._team_name = egg[2];
     } catch(...) {
-        throw(UnpackException("Unpack egg" "Invalid packed string"));
+        throw (std::invalid_argument("Player invalid parsing"));
     }
     return e;
 }
@@ -110,7 +110,7 @@ Start Unpack::UnpackStart(std::vector<std::string> &unpacked)
         start.max_player = std::stoi(temp[0]);
         /// UNPACK THE TILE
     } catch(...) {
-        throw(UnpackException("Unpack start" "Invalid packed string"));
+        throw (std::invalid_argument("Player invalid parsing"));
     }
     return start;
 }
@@ -121,7 +121,7 @@ void Unpack::UnpackEntity(Player &p, std::string &packed)
     if (unpacked[0] == "player") {
         p = UnpackPlayer(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type player"));
+    throw (std::invalid_argument("Player invalid parsing"));
 }
 
 void Unpack::UnpackEntity(Tile &t, std::string &packed)
@@ -130,7 +130,7 @@ void Unpack::UnpackEntity(Tile &t, std::string &packed)
     if (unpacked[0] == "tile") {
         t = UnpackTile(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type tile"));
+    throw (std::invalid_argument("Player invalid parsing"));
 }
 
 void Unpack::UnpackEntity(Egg &e, std::string &packed)
@@ -139,7 +139,7 @@ void Unpack::UnpackEntity(Egg &e, std::string &packed)
     if (unpacked[0] == "egg") {
         e = UnpackEgg(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type egg"));
+    throw (std::invalid_argument("Player invalid parsing"));
 }
 
 void Unpack::UnpackEntity(Start &e, std::string &packed)
@@ -148,5 +148,5 @@ void Unpack::UnpackEntity(Start &e, std::string &packed)
     if (unpacked[0] == "start") {
         e = UnpackStart(unpacked);
     } else
-        throw(UnpackException("Unpack" "Invalid packed type start"));
+    throw (std::invalid_argument("Player invalid parsing"));
 }
