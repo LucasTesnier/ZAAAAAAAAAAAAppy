@@ -17,21 +17,11 @@ Map::Map()
     _tileHover = -1;
     _mapSize = {10, 10};
     _zoom = 1;
-    gui::entity::Player p;
-    p._position = std::make_pair(300, 200);
-    p._orientation = gui::entity::NORTH;
-    gui::entity::Player p2;
-    p._position = std::make_pair(500, 200);
-    p._orientation = gui::entity::SOUTH;
-    _addPlayer(p);
-    _addPlayer(p2);
 }
 
 void Map::_addPlayer(gui::entity::Player &p)
 {
-    sf::CircleShape shapePlayer(20);
-    _players.emplace_back(p);
-    _playersShape.emplace_back(shapePlayer);
+    (void)p;
 }
 
 void Map::_updateTileVectorSize()
@@ -128,6 +118,7 @@ void Map::display()
 
 void Map::displayPlayers(sf::Vector2f &moveMap)
 {
+    (void)moveMap;
     // sf::Vector2f pos;
     // int i = 0;
 

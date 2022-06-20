@@ -59,6 +59,20 @@ namespace gui {
             /// \param moveMap The vector use to move the map.
             void _updateMoveMap(sf::Vector2f &moveMap);
 
+            /// \brief Transform a vector position to an index.
+            /// \param pos The position to be transform.
+            /// \return The corresponding index of the pos.
+            inline std::size_t itop(sf::Vector2f pos) {
+                return pos.y * _mapSize.x + pos.x;
+            };
+
+            /// \brief Transfom an index to a position.
+            /// \param index The index to be transfom.
+            /// \return The corresponding pos of the index.
+            inline sf::Vector2f ptoi(std::size_t index) {
+                return sf::Vector2f(index % int(_mapSize.y), index / _mapSize.y);
+            };
+
             /// \brief Find if the tile should be displayed on the screen.
             /// \param area The global bound of the tile.
             /// \param windowSize The size of the window.
