@@ -17,10 +17,35 @@
 #include <math.h>
 #include <stdio.h>
 
+static bool remove_player_from_team(player_t *player, server_data_t *serv)
+{
+    team_t *team = get_team_by_name(player->team, &serv->teams);
+    team_t *tmp = NULL;
+    team_t *win = NULL;
+    int end = 0;
+
+    if (!team)
+        return false;
+    remove_user_from_team(team, player->uuid);
+    if (team->current_members <= 0 && team->max_members <= 0)
+        send_team_lose(serv, player->team);
+    else
+        return true;
+    TAILQ_FOREACH(tmp, &serv->teams, teams)
+        if (tmp->current_members > 0 || tmp->max_members > 0) {
+            win = tmp;
+            end++;
+        }
+    if (end == 1)
+        send_team_win(serv, win->name);
+    return false;
+}
+
 static void remove_a_player(server_data_t *serv, entity_t *entity)
 {
     player_list_t *user = find_player_list_by_uuid(serv,
     (player_t *)entity->data);
+    bool temp = false;
 
     send_unexpected_dead(serv, (player_t *)entity->data);
     user->disconnected = TO_LOGOUT;
@@ -34,7 +59,10 @@ static void remove_a_player(server_data_t *serv, entity_t *entity)
         scheduler_remove_event(serv->scheduler,
         ((player_t *)entity->data)->uuid);
     }
+    temp = remove_player_from_team((player_t *)entity->data, serv);
     TAILQ_REMOVE(&serv->entities->players, entity, entities);
+    if (temp)
+        send_entities_list_info(serv);
 }
 
 void scheduler_update_life(scheduler_t *self, server_data_t *serv)
