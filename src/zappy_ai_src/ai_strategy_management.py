@@ -261,7 +261,6 @@ class Ai:
             self.__playerStrategyManagement()
             if self.__lib.GetUnexpectedResponseState():
                 self.__unexpectedResponseManagement()
-        self.__lib.DLLibWrapper.closeLibray()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
@@ -310,9 +309,9 @@ class Ai:
             Like getting the most required component at a time T
         """
         component = self.__getTargetComponent()
-        for i in range(self.__getPlayerMaxRange()):
-            if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i + 2)):
-                self.__setTargetTile(i + 2)
+        for i in range(0, self.__getPlayerMaxRange() + 1):
+            if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
+                self.__setTargetTile(i)
                 break
         if self.__getTargetTileIndex() == 2:
             self.__lib.AskTakeObject(component)
