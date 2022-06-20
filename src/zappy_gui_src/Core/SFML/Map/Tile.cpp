@@ -7,6 +7,7 @@
 
 #include "Tile.hpp"
 #include "math.h"
+#include "ZappyGuiException.hpp"
 
 using namespace gui;
 
@@ -40,10 +41,8 @@ Tile Tile::operator=(const Tile &tile)
 void Tile::setTexture(const std::string &texturePath)
 {
     _texture = std::make_shared<sf::Texture>();
-
-    if (!_texture->loadFromFile(texturePath)) {
-        return;
-    }
+    if (!_texture->loadFromFile(texturePath))
+        throw (TileException("Tile exception", "Texture cannot be load"));
     _texturePath = texturePath;
     _shape.setTexture(_texture.get());
 }

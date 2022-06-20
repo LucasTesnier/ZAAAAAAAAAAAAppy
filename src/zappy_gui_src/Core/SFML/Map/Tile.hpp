@@ -74,7 +74,7 @@ namespace gui {
 
             /// \brief Get the global position of the shape when it is in isometric view.
             /// \return The global bound of the shape.
-            inline const sf::FloatRect getIsoPosition() {
+            inline const sf::FloatRect getGlobalBound() {
                 return _shape.getGlobalBounds();
             };
 
@@ -106,7 +106,14 @@ namespace gui {
 
             /// \brief Set the texture of the tile.
             /// \param texturePath The path of the texture to be load.
+            /// \throw TileException if the texture cannot be load.
             void setTexture(const std::string &texturePath);
+
+            /// \brief Get the shared pointer of the texture.
+            /// \return The shared pointer.
+            std::shared_ptr<sf::Texture> getTexture() const {
+                return _texture;
+            };
 
             /// \brief Set the color of the tile.
             /// \param color The color of the tile.
@@ -124,12 +131,6 @@ namespace gui {
             /// \return The path of the texture.
             const std::string &getTexturePath() const {
                 return _texturePath;
-            };
-
-            /// \brief Get the shared pointer of the texture.
-            /// \return The shared pointer.
-            std::shared_ptr<sf::Texture> getTexture() const {
-                return _texture;
             };
 
             /// \brief Check if the mouse is on the tile.
