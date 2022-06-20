@@ -32,7 +32,7 @@ FOOD_START = 1260
 SAFETY_MARGIN = 300
 
 """This is this indication for the AI to switch to survival strategy under or equal to 300 units of time"""
-FOOD_LIMIT = 300
+FOOD_LIMIT = 800
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
@@ -150,7 +150,7 @@ class Ai:
         self.__teamName = teamName
 
         """This is the wrapper of the library used to communicate with the server"""
-        self.__lib = ServerWrapper("./libzappy_ai_api.so")
+        self.__lib = ServerWrapper("./src/zappy_ai_src/libzappy_ai_api.so")
 
         """This boolean is used to know the current state of the AI
             True if the AI is looping and making some actions
@@ -244,7 +244,7 @@ class Ai:
             where x is the level of the player
     """
     def __getPlayerMaxRange(self) -> int:
-        playerLevel = self.__playerCurrentLevel + 1
+        playerLevel = self.__playerCurrentLevel
         return (playerLevel * playerLevel)
 
     """ -------------------------------------------Public members functions------------------------------------------"""
@@ -259,8 +259,6 @@ class Ai:
         self.__initAI()
         while self.__getIsRunning():
             self.__playerStrategyManagement()
-            if self.__lib.GetUnexpectedResponseState():
-                self.__unexpectedResponseManagement()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
@@ -296,6 +294,10 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
+        self.__lib.AskInventory()
+        if not self.__waitForAction():
+            return
+        self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() >= 7:
@@ -304,30 +306,43 @@ class Ai:
             self.__farming()
         self.__actionsProceed()
 
+    def __waitForAction(self) -> bool:
+        """
+        Wait for a launched action and handle the possible unexpected responses
+        Return true if the Client is running
+        Otherwise return False
+        """
+        while 1:
+            if self.__lib.GetResponseState():
+                if self.__lib.GetUnexpectedResponseState():
+                    self.__unexpectedResponseManagement()
+                    if not self.__getIsRunning():
+                        return False
+                else:
+                    return True
+
+
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
         component = self.__getTargetComponent()
-        for i in range(0, self.__getPlayerMaxRange() + 1):
+        for i in range(0, self.__getPlayerMaxRange()):
             if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
                 self.__setTargetTile(i)
                 break
-        if self.__getTargetTileIndex() == 2:
+        if self.__getTargetTileIndex():
             self.__lib.AskTakeObject(component)
-            while 1:
-                if self.__lib.GetResponseState():
-                    break
+            if not self.__waitForAction():
+                return
             self.__lib.GetRepTakeObject()
         self.__lib.AskForward()
-        while 1:
-            if self.__lib.GetResponseState():
-                break
+        if not self.__waitForAction():
+            return
         self.__lib.GetRepForward()
         self.__lib.AskLook()
-        while 1:
-            if self.__lib.GetResponseState():
-                break
+        if not self.__waitForAction():
+                return
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile, x=None) -> bool:
@@ -491,4 +506,4 @@ class Ai:
             return "deraumere"
         if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
             return "linemate"
-        return "nothing"
+        return "thystame"
