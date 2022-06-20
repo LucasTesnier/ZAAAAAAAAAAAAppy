@@ -26,6 +26,8 @@ bool is_entity_on_tile(tile_t *tile, entity_t *entity)
 {
     entity_t *tmp = NULL;
 
+    if (!tile || !entity)
+        return false;
     TAILQ_FOREACH(tmp, &tile->entities, entities)
         if (entity == tmp)
             return true;

@@ -12,6 +12,7 @@
 #include "team.h"
 #include "entity/player.h"
 #include "entity/tile.h"
+#include "map.h"
 
 /// \brief Move an entity to a given direction
 /// \param player Entity informations
@@ -25,9 +26,9 @@ static void move_x(entity_t *player, map_t *map)
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     remove_entity_from_tile(tile, player);
     if (player_data->orientation == NORTH)
-        pos->x = (pos->x - 1) < 0 ? map->height : (pos->x - 1) % map->height;
+        pos->x = (pos->x - 1) < 0 ? (map->width - 1) : (pos->x - 1) % (map->width - 1);
     else
-        pos->x = (pos->x + 1) % map->height;
+        pos->x = (pos->x + 1) % (map->width - 1);
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     add_entity_to_tile(tile, player);
 }
@@ -44,9 +45,9 @@ static void move_y(entity_t *player, map_t *map)
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     remove_entity_from_tile(tile, player);
     if (player_data->orientation == EAST)
-        pos->y = (pos->y + 1) % map->height;
+        pos->y = (pos->y + 1) % (map->height - 1);
     else
-        pos->y = (pos->y - 1) < 0 ? map->height : (pos->y - 1) % map->height;
+        pos->y = (pos->y - 1) < 0 ? (map->height - 1) : (pos->y - 1) % (map->height - 1);
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y);
     add_entity_to_tile(tile, player);
