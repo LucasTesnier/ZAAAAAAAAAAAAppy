@@ -128,6 +128,9 @@ namespace gui {
             /// \brief Update the size of the vector.
             void _updateTileVectorSize();
 
+            /// \brief Display players that are in the tile, if there is at least one player.
+            void _displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation);
+
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
 
