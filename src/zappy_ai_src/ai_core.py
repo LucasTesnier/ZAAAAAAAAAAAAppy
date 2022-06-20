@@ -11,8 +11,6 @@ class ClientCore:
         self.serverInterface : ServerWrapper = ServerWrapper("./src/zappy_ai_src/libzappy_ai_api.so")
         self.__mapY : int
         self.__mapX : int
-
-        """ This private member is used to know if at the begin of the AI you need to have more players """
         self.__placesLeft : int
 
     def connectToServer(self) -> bool:
