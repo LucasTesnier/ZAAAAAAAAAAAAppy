@@ -29,7 +29,6 @@ static void move_x(entity_t *player, map_t *map)
     else
         pos->x = (pos->x + 1) % map->height;
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
-    (void) tile;
     add_entity_to_tile(tile, player);
 }
 
@@ -81,6 +80,7 @@ server_data_t *serv)
         move_x(player_entity, serv->map);
     else
         move_y(player_entity, serv->map);
+    TAILQ_INSERT_HEAD(&serv->entities->players, player_entity, entities);
     send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(213, NULL, player->player_peer, true);
