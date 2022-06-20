@@ -31,6 +31,12 @@ namespace gui {
                 _areaServer = {position.x, position.y, size.x, size.y};
                 _updateBody();
             };
+            inline void setBackgroundColor(const sf::Color &color) {
+                _body.setFillColor(color);
+            };
+            inline void setButtonColor(const sf::Color &color) {
+                _button.setFillColor(color);
+            };
         private:
             void _updateBody();
             std::shared_ptr<sf::RenderWindow> _window;
