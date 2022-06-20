@@ -15,7 +15,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Event.hpp"
-
+#include "Entity.hpp"
 #include <iostream>
 
 namespace gui {
@@ -50,6 +50,9 @@ namespace gui {
 
             /// \brief Display the map on the window. Update all information of the map if necessary.
             void display();
+
+            /// \brief Display all the players on the window
+            void displayPlayers(sf::Vector2f &moveMap);
         private:
 
             /// \brief Update the position of the map depending on events.
@@ -67,6 +70,10 @@ namespace gui {
 
             /// \brief Update the size of the vector.
             void _updateTileVectorSize();
+
+            /// \brief add a new player
+            /// \param p the unpacked player too add
+            void _addPlayer(gui::entity::Player &p);
 
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;

@@ -20,8 +20,8 @@ add_subdirectory(net_utils)
 
 target_link_libraries(${TARGET}_unpack
     PUBLIC zappy_gui_exception
+    PUBLIC zappy_gui_entity
 )
-
 
 set (TARGET_TEST ${PROJECT_NAME}_gui_test)
 

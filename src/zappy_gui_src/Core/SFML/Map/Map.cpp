@@ -17,6 +17,21 @@ Map::Map()
     _tileHover = -1;
     _mapSize = {10, 10};
     _zoom = 1;
+    gui::entity::Player p;
+    p._position = std::make_pair(300, 200);
+    p._orientation = gui::entity::NORTH;
+    gui::entity::Player p2;
+    p._position = std::make_pair(500, 200);
+    p._orientation = gui::entity::SOUTH;
+    _addPlayer(p);
+    _addPlayer(p2);
+}
+
+void Map::_addPlayer(gui::entity::Player &p)
+{
+    sf::CircleShape shapePlayer(20);
+    _players.emplace_back(p);
+    _playersShape.emplace_back(shapePlayer);
 }
 
 void Map::_updateTileVectorSize()
@@ -108,6 +123,25 @@ void Map::display()
         _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
         _window->draw(_tile[_tileHover]->getShape());
     }
+    displayPlayers(moveMap);
+}
+
+void Map::displayPlayers(sf::Vector2f &moveMap)
+{
+    // sf::Vector2f pos;
+    // int i = 0;
+
+    // for (auto &player : _players) {
+    //     std::cout << i << std::endl;
+    //     pos.x = player.getPosition().first;
+    //     pos.y = player.getPosition().second;
+    //     _playersShape.at(i).setPosition(pos + moveMap);
+    //     // shape.setOrigin(pos + moveMap);
+    //     // std::cout << "player zbi\n";
+    //     _playersShape.at(i).setFillColor(sf::Color(100, 250, 50));
+    //     _playersShape.at(i).setRotation(player.getOrientation() * 90);
+    //     _window->draw();
+    // }
 }
 
 Map::~Map()
