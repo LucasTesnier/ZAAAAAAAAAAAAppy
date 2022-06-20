@@ -106,9 +106,9 @@ class Map:
         self.fillMap(lookResponse)
 
     def fillMap(self, lookStr : str) -> None:
-        """ PRIVATE METHOD """
         """ Parse the string given in parameter and fill the Map object """
         mapTab = []
+        self.__map.clear()
         mapTab = lookStr.split(", ")
         for x in range(0, len(mapTab)):
             player = self.__countItem(mapTab[x], "player")
