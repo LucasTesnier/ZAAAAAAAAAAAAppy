@@ -78,13 +78,11 @@ void ServerCommunication::initializeShapes()
 
     _body.setSize(sf::Vector2f(window.x / 10, window.y));
     _body.setPosition(sf::Vector2f(0, 0));
-    _body.setFillColor(sf::Color(150, 170, 183));
     _button.setPointCount(3);
     _button.setPoint(0, {10, 0});
     _button.setPoint(1, {0, 5});
     _button.setPoint(2, {10, 10});
     _button.setPosition(_body.getPosition().x + _body.getSize().x - _button.getGlobalBounds().width - 10, _body.getPosition().y + 10);
-    _button.setFillColor(sf::Color(43, 89, 72));
     if (!_font.loadFromFile(FONT_PATH))
         throw (ServerCommunicationException("Server communication", "Could not load font"));
     _text.setPosition(_body.getPosition().x + 10, _body.getPosition().y + 10);

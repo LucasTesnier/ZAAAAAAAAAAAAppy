@@ -17,6 +17,12 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
+/// \brief The color for backgrounds menus.
+#define BACKGROUND_COLOR sf::Color(150, 170, 183)
+
+/// \brief The color for buttons.
+#define BUTTON_COLOR sf::Color(43, 89, 72)
+
 namespace gui {
     class Interface {
         public:
@@ -57,11 +63,13 @@ namespace gui {
             /// \brief The event to be used and update by the SFML part.
             std::shared_ptr<Event> _event;
 
-            /// \brief An instance of the minimap
+            /// \brief An instance of the minimap.
             Minimap _minimap;
 
+            /// \brief An instance of the inventory.
             Inventory _inventory;
 
+            /// \brief An instance of the server communication.
             ServerCommunication _server;
 
             /// \brief The map size.

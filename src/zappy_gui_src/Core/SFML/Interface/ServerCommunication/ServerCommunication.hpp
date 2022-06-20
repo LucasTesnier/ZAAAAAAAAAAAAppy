@@ -13,6 +13,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
+/// \brief The path of the font to be used.
 #define FONT_PATH "assets/arial.ttf"
 
 namespace gui {
@@ -59,6 +60,17 @@ namespace gui {
             /// \param forceUpdate If true, it update the status even the mouse is not on the button.
             void update(bool forceUpdate = false);
 
+            /// \brief The setBackgroundColor function set the background color of the server communication menu.
+            /// \param color The color to be set.
+            inline void setBackgroundColor(const sf::Color &color) {
+                _body.setFillColor(color);
+            };
+
+            /// \brief The setButtonColor function set the button color of the server communication menu.
+            /// \param color The color to be set.
+            inline void setButtonColor(const sf::Color &color) {
+                _button.setFillColor(color);
+            };
         private:
             /// \brief The _updateBody function is a private function to update the global shape depending of it's status.
             void _updateBody();
@@ -81,6 +93,7 @@ namespace gui {
             /// \brief It's the text to display on the server communication menu.
             sf::Text _text;
 
+            /// \brief It's the font used for the text.
             sf::Font _font;
     };
 } // namespace gui

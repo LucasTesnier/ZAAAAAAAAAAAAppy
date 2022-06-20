@@ -13,6 +13,8 @@ using namespace gui;
 
 Interface::Interface()
 {
+    _server.setBackgroundColor(BACKGROUND_COLOR);
+    _server.setButtonColor(BUTTON_COLOR);
 }
 
 void Interface::updateAndDisplay()
