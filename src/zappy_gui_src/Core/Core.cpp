@@ -26,7 +26,7 @@ static const char *DEFAULT_MACHINE = "localhost";
 std::vector<std::string> Core::_stringToVector(std::string text, std::string delim)
 {
     std::vector<std::string> vec;
-    size_t pos = 0
+    size_t pos = 0;
     size_t prevPos = 0;
 
     while (1) {
@@ -118,7 +118,7 @@ void Core::setup(int ac, char **av)
     _unpackObject->UnpackEntity(*_startData, temp);
     mapSize = {(float)_startData->size_x, (float)_startData->size_y};
     _sfml = std::make_unique<gui::SFML>(mapSize);
-    tilesSplitted = split(temp, std::string("tile"));
+    tilesSplitted = _stringToVector(temp, std::string("tile"));
     tilesSplitted.erase(tilesSplitted.begin());
     for (auto &tile : tilesSplitted) {
         tile.insert(0, "tile");
