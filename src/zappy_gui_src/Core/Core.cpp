@@ -104,7 +104,7 @@ void Core::_waitForServerAnswer()
 void Core::setup(int ac, char **av)
 {
     std::string temp;
-    sf::Vector2f mapSize;
+    sf::Vector2f mapSize ={5, 5};
 
     _getArgs(ac, av);
     // _connectToServer();
@@ -115,7 +115,7 @@ void Core::setup(int ac, char **av)
     // _unpackObject->UnpackEntity(*_startData, temp);
     // mapSize = {(float)_startData->size_x, (float)_startData->size_y};
     // _sfml = std::make_unique<gui::SFML>(mapSize);
-    const sf::Vector2f mapSize = {5, 5};
+    // const sf::Vector2f mapSize = {5, 5};
     _sfml = std::make_unique<gui::SFML>(mapSize);
 
 
@@ -126,7 +126,7 @@ void Core::setup(int ac, char **av)
     gui::entity::Tile t;
     gui::entity::Player p;
     gui::entity::Egg e;
-    std::string temp = std::string("start{5;5;2;{AAAAA;BBBB};4}tile{0;0;inventory{0;1;0;0;0;0;0}}player{42;4242;inventory{10;0;0;0;0;0;0};guiguilebg;1;0}tile{1;0;inventory{1;1;0;0;0;1;0}}tile{2;0;inventory{0;0;1;0;0;0;0}}tile{3;0;inventory{0;0;0;0;0;0;0}}tile{4;0;inventory{1;0;0;0;0;0;0}}tile{0;1;inventory{0;0;0;1;1;0;0}}tile{1;1;inventory{1;0;0;0;0;0;0}}tile{2;1;inventory{0;0;0;0;0;0;0}}tile{3;1;inventory{1;1;0;0;0;0;1}}tile{4;1;inventory{0;0;0;0;0;0;0}}tile{0;2;inventory{0;0;0;0;0;0;0}}tile{1;2;inventory{0;1;0;1;0;0;0}}tile{2;2;inventory{0;0;0;0;0;0;0}}tile{3;2;inventory{0;0;1;0;0;0;0}}tile{4;2;inventory{0;0;0;0;0;0;0}}tile{0;3;inventory{2;1;0;0;0;0;0}}tile{1;3;inventory{0;0;0;0;0;0;0}}tile{2;3;inventory{1;0;0;0;1;0;0}}tile{3;3;inventory{0;1;1;0;0;0;0}}tile{4;3;inventory{1;0;0;0;0;0;0}}tile{0;4;inventory{0;0;0;0;0;0;0}}tile{1;4;inventory{1;0;0;0;0;1;0}}tile{2;4;inventory{1;1;0;0;0;0;0}}tile{3;4;inventory{0;0;0;0;0;0;0}}tile{4;4;inventory{2;0;0;0;0;0;0}}");
+    temp = std::string("start{5;5;2;{AAAAA;BBBB};4}tile{0;0;inventory{0;1;0;0;0;0;0}}player{42;4242;inventory{10;0;0;0;0;0;0};guiguilebg;1;0}tile{1;0;inventory{1;1;0;0;0;1;0}}tile{2;0;inventory{0;0;1;0;0;0;0}}tile{3;0;inventory{0;0;0;0;0;0;0}}tile{4;0;inventory{1;0;0;0;0;0;0}}tile{0;1;inventory{0;0;0;1;1;0;0}}tile{1;1;inventory{1;0;0;0;0;0;0}}tile{2;1;inventory{0;0;0;0;0;0;0}}tile{3;1;inventory{1;1;0;0;0;0;1}}tile{4;1;inventory{0;0;0;0;0;0;0}}tile{0;2;inventory{0;0;0;0;0;0;0}}tile{1;2;inventory{0;1;0;1;0;0;0}}tile{2;2;inventory{0;0;0;0;0;0;0}}tile{3;2;inventory{0;0;1;0;0;0;0}}tile{4;2;inventory{0;0;0;0;0;0;0}}tile{0;3;inventory{2;1;0;0;0;0;0}}tile{1;3;inventory{0;0;0;0;0;0;0}}tile{2;3;inventory{1;0;0;0;1;0;0}}tile{3;3;inventory{0;1;1;0;0;0;0}}tile{4;3;inventory{1;0;0;0;0;0;0}}tile{0;4;inventory{0;0;0;0;0;0;0}}tile{1;4;inventory{1;0;0;0;0;1;0}}tile{2;4;inventory{1;1;0;0;0;0;0}}tile{3;4;inventory{0;0;0;0;0;0;0}}tile{4;4;inventory{2;0;0;0;0;0;0}}");
     tilesSplitted = split(temp, std::string("tile"));
     playersSplitted = split(temp, std::string("player"));
     eggsSplitted = split(temp, std::string("egg"));
@@ -139,20 +139,20 @@ void Core::setup(int ac, char **av)
     for (auto &tile : tilesSplitted) {
         tile.insert(0, "tile");
         // std::cout << tile << std::endl;
-        _unpackObject.UnpackEntity(t, tile);
+        _unpackObject->UnpackEntity(t, tile);
         _sfml->addTilesInfo(t);
     }
     for (auto &player : playersSplitted) {
         player.insert(0, "player");
         std::cout << player << std::endl;
-        _unpackObject.UnpackEntity(p, player);
+        _unpackObject->UnpackEntity(p, player);
         std::cout << p.getTeamName() << std::endl;
         _sfml->addPlayer(p);
     }
     for (auto &egg : eggsSplitted) {
         egg.insert(0, "egg");
         std::cout << egg << std::endl;
-        _unpackObject.UnpackEntity(e, egg);
+        _unpackObject->UnpackEntity(e, egg);
         _sfml->addEgg(e);
     }
 }

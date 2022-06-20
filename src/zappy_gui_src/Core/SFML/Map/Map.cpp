@@ -35,9 +35,10 @@ void Map::_updateTileVectorSize()
     _pushEntityInTile();
 }
 
-void Map::_updateMoveMap(sf::Vector2f &moveMap)
+void Map::_updateMoveMap()
 {
     int value = 10;
+    sf::Vector2f moveMap = {0, 0};
 
     if (_event->isKeyPressed(sf::Keyboard::Z))
         moveMap.y = value;
@@ -47,6 +48,10 @@ void Map::_updateMoveMap(sf::Vector2f &moveMap)
         moveMap.y = -value;
     if (_event->isKeyPressed(sf::Keyboard::D))
         moveMap.x = -value;
+    for (auto &it : _tile) {
+        if (moveMap.x || moveMap.y)
+            it->setOrigin(it->getOrigin() + moveMap);
+    }
 }
 
 bool Map::_tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u windowSize, std::size_t &tmp, sf::Vector2f &mapSize, std::size_t &i)
@@ -75,18 +80,13 @@ bool Map::_tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u win
 void Map::display()
 {
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());
-    sf::Vector2f moveMap = {0, 0};
     sf::FloatRect area;
     std::size_t tmp = 0;
     sf::CircleShape _playerRepresentation;
 
     _playerRepresentation.setFillColor(sf::Color::Green);
     _playerRepresentation.setRadius(10);
-    _updateMoveMap(moveMap);
-    for (auto &it : _tile) {
-        if (moveMap.x || moveMap.y)
-            it->setOrigin(it->getOrigin() + moveMap);
-    }
+    _updateMoveMap();
     for (std::size_t i = 0; i < _tile.size(); i++) {
         area = _tile[i]->getGlobalBound();
         if (!_tileMustBeDisplayed(area, _window->getSize(), tmp, _mapSize, i))
