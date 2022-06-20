@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <iostream>
+#include "Entity.hpp"
 
 namespace gui {
     /// \brief Class for the tile that will be display on the map.
@@ -149,8 +150,41 @@ namespace gui {
             /// \param zoom The zoom value to be set.
             void setZoom(float zoom);
 
-            /// \brief get the tile inventory
-            const std::vector<int> &getInventory() const;
+            /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Player> &getPlayers() const {
+                return _players;
+            };
+
+            /// \brief add a player object to the vector
+            /// \param player the player object to add
+            inline void addPlayer(gui::entity::Player &player) {
+                _players.emplace_back(player);
+            }
+
+            /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const gui::entity::Tile &getTileInfo() const {
+                return _tileInfo;
+            };
+
+            /// \brief set the tile object with the one given
+            /// \param tileInfo the tile object to set
+            inline void setTileInfo(gui::entity::Tile &tileInfo) {
+                _tileInfo = tileInfo;
+            }
+
+            /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Egg> &getEggs() const {
+                return _eggs;
+            };
+
+            /// \brief add a egg object to the vector
+            /// \param egg the egg object to add
+            inline void addEgg(gui::entity::Egg &egg) {
+                _eggs.emplace_back(egg);
+            }
         private:
 
             /// \brief Set the points of the tile.
@@ -180,11 +214,14 @@ namespace gui {
             /// \brief The zoom.
             float _zoom;
 
-            /// \brief Texture of the food
-            // std::shared_ptr<sf::Texture> _textureFood;
+            /// \brief object Tile
+            gui::entity::Tile _tileInfo;
 
-            /// \brief inventory of the tile
-            std::vector<int> _inventory;
+            /// \brief vector of players to be displayed on the tile
+            std::vector<gui::entity::Player> _players;
+
+            /// \brief vector of eggs to be displayed on the tile
+            std::vector<gui::entity::Egg> _eggs;
     };
 } // gui namespace
 

@@ -13,6 +13,8 @@
 #include "Unpack.hpp"
 #include "ZappyGuiException.hpp"
 
+/// \file src/zappy_gui_src/Core/Network/Unpack.cpp
+
 using namespace gui::unpack;
 
 std::vector <std::string> Unpack::stov(const std::string &str, char separator, bool pushEmptyStrings)
@@ -47,9 +49,9 @@ std::vector<int> Unpack::UnpackInventory(std::string &inv)
     return int_ventory;
 }
 
-Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
+gui::entity::Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
 {
-    Player p;
+    gui::entity::Player p;
     try {
         auto player = stov(unpacked[1], ';');
         p._position = std::make_pair(std::stoi(player[0]), std::stoi(player[1]));
@@ -59,16 +61,16 @@ Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
         auto p_end = stov(player[1], ';');
         p._team_name = p_end[0];
         p._level = std::stoi(p_end[1]);
-        p._orientation = mapOrientation.find(p_end[2])->second;
+        p._orientation = gui::entity::mapOrientation.find(p_end[2])->second;
     } catch(...) {
         throw (std::invalid_argument("Player invalid parsing"));
     }
     return p;
 }
 
-Tile Unpack::UnpackTile(std::vector<std::string> &unpacked)
+gui::entity::Tile Unpack::UnpackTile(std::vector<std::string> &unpacked)
 {
-    Tile t;
+    gui::entity::Tile t;
     try {
         auto tile = stov(unpacked[1], ';');
         t._position = std::make_pair(std::stoi(tile[0]), std::stoi(tile[1]));
@@ -81,9 +83,9 @@ Tile Unpack::UnpackTile(std::vector<std::string> &unpacked)
     return t;
 }
 
-Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
+gui::entity::Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
 {
-    Egg e;
+    gui::entity::Egg e;
     try {
         auto egg = stov(unpacked[1], ';');
         e._position = std::make_pair(std::stoi(egg[0]), std::stoi(egg[1]));
@@ -115,7 +117,7 @@ Start Unpack::UnpackStart(std::vector<std::string> &unpacked)
     return start;
 }
 
-void Unpack::UnpackEntity(Player &p, std::string &packed)
+void Unpack::UnpackEntity(gui::entity::Player &p, std::string &packed)
 {
     auto unpacked = stov(packed, '{');
     if (unpacked[0] == "player") {
@@ -124,7 +126,7 @@ void Unpack::UnpackEntity(Player &p, std::string &packed)
     throw (std::invalid_argument("Player invalid parsing"));
 }
 
-void Unpack::UnpackEntity(Tile &t, std::string &packed)
+void Unpack::UnpackEntity(gui::entity::Tile &t, std::string &packed)
 {
     auto unpacked = stov(packed, '{');
     if (unpacked[0] == "tile") {
@@ -133,7 +135,7 @@ void Unpack::UnpackEntity(Tile &t, std::string &packed)
         throw (std::invalid_argument("Player invalid parsing"));
 }
 
-void Unpack::UnpackEntity(Egg &e, std::string &packed)
+void Unpack::UnpackEntity(gui::entity::Egg &e, std::string &packed)
 {
     auto unpacked = stov(packed, '{');
     if (unpacked[0] == "egg") {

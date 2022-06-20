@@ -8,7 +8,9 @@
 /// \file src/zappy_gui_src/Core/Core.cpp
 
 #include "ZappyGuiException.hpp"
+#include "Entity.hpp"
 #include "Core.hpp"
+#include <string.h>
 #include <getopt.h>
 #include <unistd.h>
 #include <netdb.h>

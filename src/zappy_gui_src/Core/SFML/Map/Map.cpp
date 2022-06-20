@@ -23,11 +23,6 @@ void Map::_updateTileVectorSize()
 {
     while (_mapSize.x * _mapSize.y < _tile.size())
         _tile.pop_back();
-    if (_mapSize.x * _mapSize.y > _tile.size()) {
-        for (auto &it : _tile) {
-            it->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
-        }
-    }
     while (_mapSize.x * _mapSize.y > _tile.size()) {
         _tile.push_back(std::make_unique<Tile>());
         _tile.back()->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
@@ -37,12 +32,12 @@ void Map::_updateTileVectorSize()
         else
             _tile.back()->setTexture(_tile[0]->getTexture());
     }
+    _pushEntityInTile();
 }
 
-void Map::_updateMoveMap()
+void Map::_updateMoveMap(sf::Vector2f &moveMap)
 {
     int value = 10;
-    sf::Vector2f moveMap = {0, 0};
 
     if (_event->isKeyPressed(sf::Keyboard::Z))
         moveMap.y = value;
@@ -52,10 +47,6 @@ void Map::_updateMoveMap()
         moveMap.y = -value;
     if (_event->isKeyPressed(sf::Keyboard::D))
         moveMap.x = -value;
-    for (auto &it : _tile) {
-        if (moveMap.x || moveMap.y)
-            it->setOrigin(it->getOrigin() + moveMap);
-    }
 }
 
 bool Map::_tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u windowSize, std::size_t &tmp, sf::Vector2f &mapSize, std::size_t &i)
@@ -81,51 +72,21 @@ bool Map::_tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u win
     return true;
 }
 
-void Map::_findSelectedAndHoverTiles(std::size_t &i, const sf::Vector2i &mouse)
-{
-    if (_tile[i]->isOnTile(mouse)) {
-        _tileHover = i;
-        if (_event->isButtonPressed()) {
-            _tileSelected = i;
-        }
-    }
-}
-
-void Map::_displaySelectedAndHoverTiles()
-{
-    if (_tileSelected < _mapSize.x * _mapSize.y) {
-        _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
-        _window->draw(_tile[_tileSelected]->getShape());
-        _tile[_tileSelected]->setColor(sf::Color(255, 255, 255));
-    }
-    if (_tileHover < _mapSize.x * _mapSize.y) {
-        _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
-        _window->draw(_tile[_tileHover]->getShape());
-        _tile[_tileHover]->setColor(sf::Color(255, 255, 255));
-    }
-}
-
 void Map::display()
 {
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());
+    sf::Vector2f moveMap = {0, 0};
     sf::FloatRect area;
     std::size_t tmp = 0;
-    sf::Text text;
-    sf::Font font;
+    sf::CircleShape _playerRepresentation;
 
-    if (!font.loadFromFile("./assets/font.ttf")) {
-        //THROW AN ERROR
-        std::cerr << "ERROR: cannot found font" << std::endl;
+    _playerRepresentation.setFillColor(sf::Color::Green);
+    _playerRepresentation.setRadius(10);
+    _updateMoveMap(moveMap);
+    for (auto &it : _tile) {
+        if (moveMap.x || moveMap.y)
+            it->setOrigin(it->getOrigin() + moveMap);
     }
-    _tile.at(_tileSelected)->getInventory().at(0);
-    text.setFont(font);
-    text.setString("Food: " + _tile.at(_tileSelected)->getInventory().at(0));
-    text.setCharacterSize(80);
-    text.setFillColor(sf::Color::White);
-    // text.setPosition();
-    _window->draw(text);
-
-    _updateMoveMap();
     for (std::size_t i = 0; i < _tile.size(); i++) {
         area = _tile[i]->getGlobalBound();
         if (!_tileMustBeDisplayed(area, _window->getSize(), tmp, _mapSize, i))
@@ -134,10 +95,34 @@ void Map::display()
             tmp = i + 1;
         if (tmp == 0)
             tmp = i;
-        _findSelectedAndHoverTiles(i, mouse);
+        if (_tile[i]->isOnTile(mouse)) {
+            _tileHover = i;
+            if (_event->isButtonPressed()) {
+                _tileSelected = i;
+            }
+        }
+        _tile[i]->setColor(sf::Color(255, 255, 255));
         _window->draw(_tile[i]->getShape());
+        if (_tile[i]->getPlayers().size()) {
+            _playerRepresentation.setPosition({_tile[i]->getGlobalBound().left + _tile[i]->getGlobalBound().width, _tile[i]->getGlobalBound().top});
+            _window->draw(_playerRepresentation);
+        }
     }
-    _displaySelectedAndHoverTiles();
+    if (_tileSelected < _mapSize.x * _mapSize.y) {
+        _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
+        _window->draw(_tile[_tileSelected]->getShape());
+    }
+    if (_tileHover < _mapSize.x * _mapSize.y) {
+        _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
+        _window->draw(_tile[_tileHover]->getShape());
+    }
+}
+
+void Map::_pushEntityInTile()
+{
+    for (auto &it : _players) {
+        _tile[itop(sf::Vector2f(it.getPosition().first, it.getPosition().second))]->addPlayer(it);
+    }
 }
 
 Map::~Map()
