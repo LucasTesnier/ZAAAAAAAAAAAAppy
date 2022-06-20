@@ -58,6 +58,34 @@ class Inventory:
         """ Getter for the thystame """
         return self.__thystame
 
+    def DecreaseFood(self, nbFood: int):
+        """ Decrease the food in the Object by nbFood """
+        self.__food = self.__food - nbFood
+
+    def DecreaseLinemate(self, nbLinemate : int) -> int:
+        """ Decrease the linemate in the Object by nbLinemate """
+        self.__linemate = self.__linemate - nbLinemate
+
+    def DecreaseDeraumere(self, nbDeraumere : int) -> int:
+        """ Decrease the Deraumere in the Object by nbDeraumere """
+        self.__deraumere = self.__deraumere - nbDeraumere
+
+    def DecreaseSibur(self, nbSibur : int) -> int:
+        """ Decrease the Sibur in the Object by nbSibur """
+        self.__sibur = self.__sibur - nbSibur
+
+    def DecreaseMendiane(self, nbMendiane : int) -> int:
+        """ Decrease the Mendiane in the Object by nbMendiane """
+        self.__mendiane = self.__mendiane - nbMendiane
+
+    def DecreasePhiras(self, nbPhiras : int) -> int:
+        """ Decrease the Phiras in the Object by nbPhiras """
+        self.__phiras = self.__phiras - nbPhiras
+
+    def DecreaseThystame(self, nbThystame : int) -> int:
+        """ Decrease the Thystame in the Object by nbThystame """
+        self.__thystame = self.__thystame - nbThystame
+
 @dataclass
 class Tile:
     """ Dataclass for the Map Class """
