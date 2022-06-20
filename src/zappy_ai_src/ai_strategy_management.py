@@ -161,7 +161,7 @@ class Ai:
         """This is a temporary inventory used in strategies to plan actions of player in different way
             As an example if a player runs out of food, the survival action will take priority
         """
-        self.__inventory = Inventory("food 120, linemate 0, deraumere 0, sibur 0, mendiane 0, phiras 0, thystame 0")
+        self.__inventory = Inventory("food 1260, linemate 0, deraumere 0, sibur 0, mendiane 0, phiras 0, thystame 0")
 
         """This is an ephemeral representation of the player's view of the map.
             Of course, the player's vision depends on his current level
