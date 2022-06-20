@@ -75,6 +75,7 @@ build
 graph
 vgcore*
 libTemporary
+src/zappy_ai_src/ai_tile_switch.py
 
 # CMake garbage
 CMakeFiles
