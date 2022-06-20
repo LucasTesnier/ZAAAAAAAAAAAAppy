@@ -11,10 +11,10 @@ class Inventory:
         self.__mendiane : int = 0
         self.__phiras : int = 0
         self.__thystame : int = 0
-        if not self.__fillInventory(inventoryResponse):
+        if not self.fillInventory(inventoryResponse):
             print("The given string cannot be used to create an inventory", file=stderr)
 
-    def __fillInventory(self, inventoryStr : str) -> bool:
+    def fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
         """ Parse the string given in parameter and fill the Inventory object """
         inventorySplit = inventoryStr.split(", ")
@@ -58,6 +58,34 @@ class Inventory:
         """ Getter for the thystame """
         return self.__thystame
 
+    def DecreaseFood(self, nbFood: int):
+        """ Decrease the food in the Object by nbFood """
+        self.__food = self.__food - nbFood
+
+    def DecreaseLinemate(self, nbLinemate : int) -> int:
+        """ Decrease the linemate in the Object by nbLinemate """
+        self.__linemate = self.__linemate - nbLinemate
+
+    def DecreaseDeraumere(self, nbDeraumere : int) -> int:
+        """ Decrease the Deraumere in the Object by nbDeraumere """
+        self.__deraumere = self.__deraumere - nbDeraumere
+
+    def DecreaseSibur(self, nbSibur : int) -> int:
+        """ Decrease the Sibur in the Object by nbSibur """
+        self.__sibur = self.__sibur - nbSibur
+
+    def DecreaseMendiane(self, nbMendiane : int) -> int:
+        """ Decrease the Mendiane in the Object by nbMendiane """
+        self.__mendiane = self.__mendiane - nbMendiane
+
+    def DecreasePhiras(self, nbPhiras : int) -> int:
+        """ Decrease the Phiras in the Object by nbPhiras """
+        self.__phiras = self.__phiras - nbPhiras
+
+    def DecreaseThystame(self, nbThystame : int) -> int:
+        """ Decrease the Thystame in the Object by nbThystame """
+        self.__thystame = self.__thystame - nbThystame
+
 @dataclass
 class Tile:
     """ Dataclass for the Map Class """
@@ -75,12 +103,12 @@ class Map:
     def __init__(self, lookResponse : str):
         """ Constructor of the Tile Class """
         self.__map = [] ## Map of Tile ##
-        self.__fillMap(lookResponse)
+        self.fillMap(lookResponse)
 
-    def __fillMap(self, lookStr : str) -> None:
-        """ PRIVATE METHOD """
+    def fillMap(self, lookStr : str) -> None:
         """ Parse the string given in parameter and fill the Map object """
         mapTab = []
+        self.__map.clear()
         mapTab = lookStr.split(", ")
         for x in range(0, len(mapTab)):
             player = self.__countItem(mapTab[x], "player")
@@ -98,14 +126,6 @@ class Map:
         """ PRIVATE METHOD """
         """ Count the occurence of the Item in the Tile """
         return tileStr.count(searchedItem)
-
-    def GetTile(self, x : int, y : int) -> Tile:
-        """"
-        Get one Tile of the Map on a pyramidal POV
-        x is the number of the case on the line (start by 0)
-        y is the number of the line
-        """
-        return self.__map[x + (y * y)]
 
     def GetTile(self, x) -> Tile:
         """"
