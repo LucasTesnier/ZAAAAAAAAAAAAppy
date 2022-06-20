@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from ai_function_wrapper import ServerWrapper
-from ai_handle_response import Inventory, Map
+from ai_handle_response import Inventory, Map, Tile
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -244,6 +244,10 @@ class Ai:
     def __getPlayerCurrentLevel(self) -> int:
         return self.__playerCurrentLevel
 
+    def __getPlayerMaxRange(self) -> int:
+        playerLevel = self.__playerCurrentLevel
+        return (playerLevel * playerLevel)
+
     """ -------------------------------------------Public members functions------------------------------------------"""
 
     def start(self) -> int:
@@ -306,7 +310,46 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        print("I need : " + self.__getRequiredComponent())
+        component = self.__getTargetComponent()
+        for i in range(self.__getPlayerMaxRange()):
+            if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i + 2)):
+                self.__setTargetTile(i + 2)
+            if not i:
+                self.__lib.AskTakeObject(component)
+                while 1:
+                    if self.__lib.GetResponseState():
+                        break
+                self.__lib.GetRepTakeObject()
+            self.__lib.AskForward()
+            while 1:
+                if self.__lib.GetResponseState():
+                    break
+            self.__lib.GetRepForward()
+            self.__lib.AskLook()
+            while 1:
+                if self.__lib.GetResponseState():
+                    break
+            self.__setVisionOfTheMap(self.__lib.GetRepLook())
+
+    def __isThereComponentOnThisTile(self, component: str, tile: Tile, x=None) -> bool:
+        """This is used by AI to know if the specific component is present on the specific tile
+            Param   :     component:  str,    representing the specific component needed by the AI
+            Param   :     tile:       Tile,   representing the specific tile where AI search component
+            return  :     True if component is present
+                          False otherwise
+        """
+        result = {
+            'food': lambda x: tile.food,
+            'sibur': lambda x: tile.sibur,
+            'phiras': lambda x: tile.phiras,
+            'linemate': lambda x: tile.linemate,
+            'deraumere': lambda x: tile.deraumere,
+            'mendiane': lambda x: tile.mendiane,
+            'thystame': lambda x: tile.thystame
+        }[component](x)
+        if (result):
+            return True
+        return False
 
     def __isThisActionRealisable(self, action: str):
         """This is used by the AI to know if the action is realisable or not depending on its food"""
@@ -410,7 +453,7 @@ class Ai:
 
     def __requestComponentFromTeam(self, component: str):
         """This is used by the AI to request specific components from the team
-            Param : component: str, representing the specific needed by the AI
+            Param : component: str, representing the specific component needed by the AI
         """
         pass
 
