@@ -36,6 +36,13 @@ namespace gui {
             void setup(int ac, char **av);
         private:
 
+            /// \brief Start the connection with the server.
+            /// \throw CoreException if the connection can't be established.
+            void _connectToServer();
+
+            /// \brief Wait while the server don't send a response.
+            void _waitForServerAnswer();
+
             /// \brief Resolve the hostname to ip address to connect the client to the server.
             void _resolveMachineHostname();
 
@@ -47,17 +54,17 @@ namespace gui {
             /// \brief The port of the server.
             std::string _port;
 
-            /// \brief The ip of the server.
+            /// \brief The ip of the server. It store temporarly the name of the machine, that is replaced by the IP address.
             std::string _machine;
 
             /// \brief An instance of the sfml graphical part.
             std::unique_ptr<SFML> _sfml;
 
             /// \brief Instance of the unpack object
-            gui::unpack::Unpack _unpackObject;
+            std::unique_ptr<unpack::Unpack> _unpackObject;
 
             /// \brief The starting data
-            gui::unpack::Start _startData;
+            std::unique_ptr<unpack::Start> _startData;
     };
 } // namespace gui
 

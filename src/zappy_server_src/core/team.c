@@ -47,6 +47,7 @@ bool add_user_to_team(team_t* team, uuid_t user_uuid)
     for (int i = 0; i< team->current_members; i++)
         if (uuid_compare(team->members_uuid[i], user_uuid) == 0)
             return false;
+    team->current_members++;
     uuid_copy(team->members_uuid[team->current_members], user_uuid);
     return true;
 }
@@ -71,6 +72,7 @@ bool remove_user_from_team(team_t* team, uuid_t user_uuid)
         if (uuid_compare(team->members_uuid[i], user_uuid) == 0) {
             uuid_clear(team->members_uuid[i]);
             team->current_members--;
+            team->max_members--;
             return true;
         }
     }

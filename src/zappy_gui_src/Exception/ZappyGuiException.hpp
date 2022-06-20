@@ -53,6 +53,13 @@ namespace gui {
             /// \brief  The exception of the server communication.
             ServerCommunicationException(std::string title = "Server Communication Exception", std::string description = "Unknown error");
     };
+
+    /// \brief Class for the Tile exception.
+    class TileException : public ZappyGuiException {
+        public:
+            /// \brief  The exception of the server communication.
+            TileException(std::string title = "Server Communication Exception", std::string description = "Unknown error");
+    };
 } //namespace gui
 
 #endif /* !ZAPPYGUIEXCEPTION_HPP_ */

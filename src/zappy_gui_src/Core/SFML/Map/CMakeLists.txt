@@ -20,4 +20,5 @@ target_include_directories(${TARGET}
 target_link_libraries(${TARGET}
     PUBLIC wrapper_sfml
     PUBLIC zappy_gui_entity
+    PUBLIC zappy_gui_exception
 )

@@ -41,16 +41,8 @@ std::vector<std::string> split(std::string text, std::string delim)
 
 void Core::run()
 {
-    int fps = 0;
-    sf::Clock clock;
-
     while (_sfml->isRunning()) {
         _sfml->display();
-        if (clock.getElapsedTime().asSeconds() >= 1) {
-            clock.restart();
-            fps = 0;
-        }
-        fps++;
         if (!c_interface_get_response_state())
             continue;
         if (!c_interface_get_unexpected_response_state())
@@ -62,9 +54,9 @@ void Core::run()
 void Core::_resolveMachineHostname()
 {
     hostent* hostname = gethostbyname(_machine.c_str());
-    if(hostname)
+
+    if (hostname)
         _machine = std::string(inet_ntoa(**(in_addr**)hostname->h_addr_list));
-    // _machine = "127.0.0.1";
 }
 
 void Core::_getArgs(int ac, char **av)
@@ -89,44 +81,56 @@ void Core::_getArgs(int ac, char **av)
     }
     if (_machine.empty()) {
         _machine = std::string(DEFAULT_MACHINE);
-        std::cout << "machine empty: " << _machine << std::endl;
     }
     if (_port.empty())
         throw (CoreException("Core setup", "Empty port. Please select port with the flag \"-p PORT\"."));
     _resolveMachineHostname();
 }
 
+void Core::_connectToServer()
+{
+    char *str = NULL;
+
+    str = (char *)_machine.c_str();
+    if (!c_interface_try_to_connect_to_server(str, std::atoi(_port.c_str())))
+        throw (CoreException("Core setup", "Unable to connect to the server"));
+}
+
+void Core::_waitForServerAnswer()
+{
+    while(!c_interface_get_response_state());
+}
+
 void Core::setup(int ac, char **av)
 {
-    char *str;
+    std::string temp;
+    sf::Vector2f mapSize;
     std::vector<std::string> tilesSplitted;
     gui::entity::Tile t;
 
     _getArgs(ac, av);
-    str = (char *)_machine.c_str();
-    std::cout << "str: " << str << std::endl;
-    if (!c_interface_try_to_connect_to_server(str, std::atoi(_port.c_str())))
-        throw (CoreException("Core setup", "Unable to connect to the server"));
-    while(!c_interface_get_response_state());
+    _connectToServer();
+    _waitForServerAnswer();
     if (!c_interface_get_unexpected_response_state())
         throw (CoreException("Core setup", "Invalid receive data"));
-    std::string temp = std::string(c_interface_get_unexpected_response());
-    _unpackObject.UnpackEntity(_startData, temp);
-    const sf::Vector2f mapSize = {(float)_startData.size_x, (float)_startData.size_y};
+    temp = std::string(c_interface_get_unexpected_response());
+    _unpackObject->UnpackEntity(*_startData, temp);
+    mapSize = {(float)_startData->size_x, (float)_startData->size_y};
     _sfml = std::make_unique<gui::SFML>(mapSize);
     tilesSplitted = split(temp, std::string("tile"));
     tilesSplitted.erase(tilesSplitted.begin());
     for (auto &tile : tilesSplitted) {
         tile.insert(0, "tile");
         std::cout << tile << std::endl;
-        _unpackObject.UnpackEntity(t ,tile);
+        _unpackObject->UnpackEntity(t ,tile);
         _sfml->addTilesInfo(t);
     }
 }
 
 Core::Core()
 {
-    _unpackObject = gui::unpack::Unpack();
+    _unpackObject = std::make_unique<unpack::Unpack>();
+    _startData = std::make_unique<unpack::Start>();
 }
 
 Core::~Core()
