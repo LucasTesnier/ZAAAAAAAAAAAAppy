@@ -82,7 +82,6 @@ void Core::_getArgs(int ac, char **av)
 void Core::setup(int ac, char **av)
 {
     char *str;
-    gui::entity::Tile tile;
 
     _getArgs(ac, av);
     str = (char *)_machine.c_str();
