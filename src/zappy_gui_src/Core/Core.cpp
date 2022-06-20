@@ -23,17 +23,18 @@ using namespace gui;
 /// \brief The default value for the machine if it's not specify.
 static const char *DEFAULT_MACHINE = "localhost";
 
-std::vector<std::string> split(std::string text, std::string delim)
+std::vector<std::string> Core::_stringToVector(std::string text, std::string delim)
 {
     std::vector<std::string> vec;
-    size_t pos = 0, prevPos = 0;
+    size_t pos = 0
+    size_t prevPos = 0;
+
     while (1) {
         pos = text.find(delim, prevPos);
         if (pos == std::string::npos) {
             vec.push_back(text.substr(prevPos));
             return vec;
         }
-
         vec.push_back(text.substr(prevPos, pos - prevPos));
         prevPos = pos + delim.length();
     }

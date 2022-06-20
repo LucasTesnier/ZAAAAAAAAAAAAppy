@@ -51,6 +51,12 @@ namespace gui {
             /// \param av The parameters.
             void _getArgs(int ac, char **av);
 
+            /// \brief Convert a string to a vector.
+            /// \param text The string in which find the vector.
+            /// \param delim The delimiter.
+            /// \return The vector found in the string.
+            std::vector<std::string> _stringToVector(std::string text, std::string delim);
+
             /// \brief The port of the server.
             std::string _port;
 
