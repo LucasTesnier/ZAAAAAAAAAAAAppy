@@ -130,7 +130,7 @@ void Unpack::UnpackEntity(Tile &t, std::string &packed)
     if (unpacked[0] == "tile") {
         t = UnpackTile(unpacked);
     } else
-    throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Player invalid parsing"));
 }
 
 void Unpack::UnpackEntity(Egg &e, std::string &packed)
@@ -139,7 +139,7 @@ void Unpack::UnpackEntity(Egg &e, std::string &packed)
     if (unpacked[0] == "egg") {
         e = UnpackEgg(unpacked);
     } else
-    throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Player invalid parsing"));
 }
 
 void Unpack::UnpackEntity(Start &e, std::string &packed)
@@ -148,5 +148,5 @@ void Unpack::UnpackEntity(Start &e, std::string &packed)
     if (unpacked[0] == "start") {
         e = UnpackStart(unpacked);
     } else
-    throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Player invalid parsing"));
 }

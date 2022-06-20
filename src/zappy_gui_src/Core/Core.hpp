@@ -13,6 +13,7 @@
 #include <string>
 #include "SFML.hpp"
 #include "Unpack.hpp"
+
 extern "C" {
     #include "api.h"
 }
