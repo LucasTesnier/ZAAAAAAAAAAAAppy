@@ -23,6 +23,11 @@ void Map::_updateTileVectorSize()
 {
     while (_mapSize.x * _mapSize.y < _tile.size())
         _tile.pop_back();
+    if (_mapSize.x * _mapSize.y > _tile.size()) {
+        for (auto &it : _tile) {
+            it->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
+        }
+    }
     while (_mapSize.x * _mapSize.y > _tile.size()) {
         _tile.push_back(std::make_unique<Tile>());
         _tile.back()->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
@@ -77,6 +82,30 @@ bool Map::_tileMustBeDisplayed(const sf::FloatRect &area, const sf::Vector2u win
     return true;
 }
 
+void Map::_findSelectedAndHoverTiles(std::size_t &i, const sf::Vector2i &mouse)
+{
+    if (_tile[i]->isOnTile(mouse)) {
+        _tileHover = i;
+        if (_event->isButtonPressed()) {
+            _tileSelected = i;
+        }
+    }
+}
+
+void Map::_displaySelectedAndHoverTiles()
+{
+    if (_tileSelected < _mapSize.x * _mapSize.y) {
+        _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
+        _window->draw(_tile[_tileSelected]->getShape());
+        _tile[_tileSelected]->setColor(sf::Color(255, 255, 255));
+    }
+    if (_tileHover < _mapSize.x * _mapSize.y) {
+        _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
+        _window->draw(_tile[_tileHover]->getShape());
+        _tile[_tileHover]->setColor(sf::Color(255, 255, 255));
+    }
+}
+
 void Map::display()
 {
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());
@@ -95,27 +124,14 @@ void Map::display()
             tmp = i + 1;
         if (tmp == 0)
             tmp = i;
-        if (_tile[i]->isOnTile(mouse)) {
-            _tileHover = i;
-            if (_event->isButtonPressed()) {
-                _tileSelected = i;
-            }
-        }
-        _tile[i]->setColor(sf::Color(255, 255, 255));
+        _findSelectedAndHoverTiles(i, mouse);
         _window->draw(_tile[i]->getShape());
         if (_tile[i]->getPlayers().size()) {
             _playerRepresentation.setPosition({_tile[i]->getGlobalBound().left + _tile[i]->getGlobalBound().width, _tile[i]->getGlobalBound().top});
             _window->draw(_playerRepresentation);
         }
     }
-    if (_tileSelected < _mapSize.x * _mapSize.y) {
-        _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
-        _window->draw(_tile[_tileSelected]->getShape());
-    }
-    if (_tileHover < _mapSize.x * _mapSize.y) {
-        _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
-        _window->draw(_tile[_tileHover]->getShape());
-    }
+    _displaySelectedAndHoverTiles();
 }
 
 void Map::_pushEntityInTile()
