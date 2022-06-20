@@ -96,7 +96,7 @@ bool c_interface_ask_incantation(void);
 /// \brief Return the state of the precedend response of the server
 /// \return true When operation succeed
 /// \return false When operation failed
-bool c_interface_get_response_sate(void);
+bool c_interface_get_response_state(void);
 
 /// \brief Get the type of a response. Call after get_response_state
 /// \return true If the response is unexpected

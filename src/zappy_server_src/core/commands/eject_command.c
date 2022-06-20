@@ -40,7 +40,7 @@ enum player_orientation_e dir)
     if (dir == NORTH)
         pos->x = (pos->x - 1) % map->height;
     else
-        pos->x = (pos->x + 1) % map->height;
+        pos->x = (pos->x - 1) < 0 ? map->height : (pos->x - 1) % map->height;
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
     add_entity_to_tile(tile, player);
@@ -60,7 +60,7 @@ enum player_orientation_e dir)
     if (dir == EAST)
         pos->x = (pos->y + 1) % map->height;
     else
-        pos->x = (pos->y - 1) % map->height;
+        pos->x = (pos->y - 1) < 0 ? map->height : (pos->y - 1) % map->height;
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y);
     add_entity_to_tile(tile, player);
