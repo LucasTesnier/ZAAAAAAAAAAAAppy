@@ -259,8 +259,6 @@ class Ai:
         self.__initAI()
         while self.__getIsRunning():
             self.__playerStrategyManagement()
-            if self.__lib.GetUnexpectedResponseState():
-                self.__unexpectedResponseManagement()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
@@ -309,30 +307,43 @@ class Ai:
             self.__farming()
         self.__actionsProceed()
 
+    def __waitForAction(self) -> bool:
+        """
+        Wait for a launched action and handle the possible unexpected responses
+        Return true if the Client is running
+        Otherwise return False
+        """
+        while 1:
+            if self.__lib.GetResponseState():
+                if self.__lib.GetUnexpectedResponseState():
+                    self.__unexpectedResponseManagement()
+                    if not self.__getIsRunning():
+                        return False
+                else:
+                    return True
+
+
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
         component = self.__getTargetComponent()
-        for i in range(0, self.__getPlayerMaxRange()): 
+        for i in range(0, self.__getPlayerMaxRange()):
             if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
                 self.__setTargetTile(i)
                 break
-        if self.__getTargetTileIndex() == 0:
+        if self.__getTargetTileIndex():
             self.__lib.AskTakeObject(component)
-            while 1:
-                if self.__lib.GetResponseState():
-                    break
+            if not self.__waitForAction():
+                return
             self.__lib.GetRepTakeObject()
         self.__lib.AskForward()
-        while 1:
-            if self.__lib.GetResponseState():
-                break
+        if not self.__waitForAction():
+            return
         self.__lib.GetRepForward()
         self.__lib.AskLook()
-        while 1:
-            if self.__lib.GetResponseState():
-                break
+        if not self.__waitForAction():
+                return
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile, x=None) -> bool:
