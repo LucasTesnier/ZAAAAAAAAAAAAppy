@@ -295,9 +295,8 @@ class Ai:
             Used to determine which strategy is better to use depending on the current situation of the player
         """
         self.__lib.AskInventory()
-        while 1:
-            if self.__lib.GetResponseState():
-                break
+        if not self.__waitForAction():
+            return
         self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
