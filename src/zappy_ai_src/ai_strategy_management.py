@@ -1,5 +1,6 @@
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
+from sys import stderr
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -281,6 +282,7 @@ class Ai:
         - Broadcast, sending message from another player (not implemented at the moment)
     """
     def __unexpectedResponseManagement(self):
+        self.__checkNetwork()
         response = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
@@ -294,10 +296,12 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
+        self.__checkNetwork()
         self.__lib.AskInventory()
         if not self.__waitForAction():
             return
         self.__inventory.fillInventory(self.__lib.GetRepInventory())
+
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() >= 7:
@@ -306,14 +310,27 @@ class Ai:
             self.__farming()
         self.__actionsProceed()
 
+    def __checkNetwork(self) -> None:
+        """
+        Check the network state by calling the right function in the loaded lib
+        Return true if the network is ok
+        False otherwise
+        """
+        if not self.__lib.GetNetworkState():
+            print("The connection to the server has been lost", file=stderr)
+            exit(84)
+
     def __waitForAction(self) -> bool:
         """
         Wait for a launched action and handle the possible unexpected responses
         Return true if the Client is running
         Otherwise return False
         """
+
         while 1:
+            self.__checkNetwork()
             if self.__lib.GetResponseState():
+                self.__checkNetwork()
                 if self.__lib.GetUnexpectedResponseState():
                     self.__unexpectedResponseManagement()
                     if not self.__getIsRunning():
@@ -332,16 +349,22 @@ class Ai:
             if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
                 self.__setTargetTile(i)
                 break
+
         idx : int = self.__getTargetTileIndex()
         if idx >= 0 and idx <= self.__getPlayerMaxRange():
+            self.__checkNetwork()
             self.__lib.AskTakeObject(component)
             if not self.__waitForAction():
                 return
             self.__lib.GetRepTakeObject()
+
+        self.__checkNetwork()
         self.__lib.AskForward()
         if not self.__waitForAction():
             return
         self.__lib.GetRepForward()
+
+        self.__checkNetwork()
         self.__lib.AskLook()
         if not self.__waitForAction():
                 return
