@@ -26,10 +26,7 @@ void Core::run()
 {
     int fps = 0;
     sf::Clock clock;
-    gui::entity::Player p;
-    p._position = std::make_pair(2, 2);
 
-    _sfml->addPlayer(p);
     while (_sfml->isRunning()) {
         _sfml->display();
         if (clock.getElapsedTime().asSeconds() >= 1) {
