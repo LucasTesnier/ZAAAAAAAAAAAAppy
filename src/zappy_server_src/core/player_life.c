@@ -17,6 +17,11 @@
 #include <math.h>
 #include <stdio.h>
 
+/// \brief Remove a plyer from his team
+/// \param player The player informations
+/// \param serv The server informations
+/// \return true When operation succeed
+/// \return false When operation failed
 static bool remove_player_from_team(player_t *player, server_data_t *serv)
 {
     team_t *team = get_team_by_name(player->team, &serv->teams);
@@ -41,6 +46,9 @@ static bool remove_player_from_team(player_t *player, server_data_t *serv)
     return false;
 }
 
+/// \brief Remove a player from the game
+/// \param serv The server informations
+/// \param entity The entity to delete
 static void remove_a_player(server_data_t *serv, entity_t *entity)
 {
     player_list_t *user = find_player_list_by_uuid(serv,
@@ -65,6 +73,9 @@ static void remove_a_player(server_data_t *serv, entity_t *entity)
         send_entities_list_info(serv);
 }
 
+/// \brief Update the life of all the players
+/// \param self The scheduler object
+/// \param serv The server informations
 void scheduler_update_life(scheduler_t *self, server_data_t *serv)
 {
     time_t now = time(NULL);
