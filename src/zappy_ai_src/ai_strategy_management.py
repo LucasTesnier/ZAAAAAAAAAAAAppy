@@ -188,9 +188,6 @@ class Ai:
         """
         self.__playerCurrentLevel = 1
 
-        """This is mandatory call by its creator"""
-        self.__lib.getNecessaryFunctions()
-
     def __del__(self):
         """Default Destructor of the Core class"""
         self.running = False
