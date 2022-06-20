@@ -10,6 +10,7 @@
 #include "ZappyGuiException.hpp"
 #include "Entity.hpp"
 #include "Core.hpp"
+#include <string.h>
 #include <getopt.h>
 #include <unistd.h>
 #include <netdb.h>
@@ -21,6 +22,22 @@ using namespace gui;
 
 /// \brief The default value for the machine if it's not specify.
 static const char *DEFAULT_MACHINE = "localhost";
+
+std::vector<std::string> split(std::string text, std::string delim)
+{
+    std::vector<std::string> vec;
+    size_t pos = 0, prevPos = 0;
+    while (1) {
+        pos = text.find(delim, prevPos);
+        if (pos == std::string::npos) {
+            vec.push_back(text.substr(prevPos));
+            return vec;
+        }
+
+        vec.push_back(text.substr(prevPos, pos - prevPos));
+        prevPos = pos + delim.length();
+    }
+}
 
 void Core::run()
 {
@@ -82,6 +99,8 @@ void Core::_getArgs(int ac, char **av)
 void Core::setup(int ac, char **av)
 {
     char *str;
+    std::vector<std::string> tilesSplitted;
+    gui::entity::Tile t;
 
     _getArgs(ac, av);
     str = (char *)_machine.c_str();
@@ -95,6 +114,14 @@ void Core::setup(int ac, char **av)
     _unpackObject.UnpackEntity(_startData, temp);
     const sf::Vector2f mapSize = {(float)_startData.size_x, (float)_startData.size_y};
     _sfml = std::make_unique<gui::SFML>(mapSize);
+    tilesSplitted = split(temp, std::string("tile"));
+    tilesSplitted.erase(tilesSplitted.begin());
+    for (auto &tile : tilesSplitted) {
+        tile.insert(0, "tile");
+        std::cout << tile << std::endl;
+        _unpackObject.UnpackEntity(t ,tile);
+        _sfml->addTilesInfo(t);
+    }
 }
 
 Core::Core()
