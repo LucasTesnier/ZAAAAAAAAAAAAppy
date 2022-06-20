@@ -48,16 +48,6 @@ void Tile::setTexture(const std::string &texturePath)
     _shape.setTexture(_texture.get());
 }
 
-// void Tile::setTexturesInventory(const std::string &texturePath)
-// {
-//     _textureFood = std::make_shared<sf::Texture>();
-
-//     if (!_textureFood->loadFromFile(texturePath)) {
-//         return;
-//     }
-//     _shape.setTexture(_texture.get());
-// }
-
 int Tile::isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse)
 {
     sf::Vector2f vector1 = {point2.x - point1.x, point2.y - point1.y};

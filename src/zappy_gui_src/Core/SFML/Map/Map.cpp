@@ -19,11 +19,6 @@ Map::Map()
     _zoom = 1;
 }
 
-void Map::_addPlayer(gui::entity::Player &p)
-{
-    (void)p;
-}
-
 void Map::_updateTileVectorSize()
 {
     while (_mapSize.x * _mapSize.y < _tile.size())
@@ -82,7 +77,10 @@ void Map::display()
     sf::Vector2f moveMap = {0, 0};
     sf::FloatRect area;
     std::size_t tmp = 0;
+    sf::CircleShape _playerRepresentation;
 
+    _playerRepresentation.setFillColor(sf::Color::Green);
+    _playerRepresentation.setRadius(10);
     _updateMoveMap(moveMap);
     for (auto &it : _tile) {
         if (moveMap.x || moveMap.y)
@@ -104,6 +102,10 @@ void Map::display()
         }
         _tile[i]->setColor(sf::Color(255, 255, 255));
         _window->draw(_tile[i]->getShape());
+        if (_tile[i]->getPlayers().size()) {
+            _playerRepresentation.setPosition({_tile[i]->getIsoPosition().left + _tile[i]->getIsoPosition().width / 2, _tile[i]->getIsoPosition().top + _tile[i]->getIsoPosition().height / 2});
+            _window->draw(_playerRepresentation);
+        }
     }
     if (_tileSelected < _mapSize.x * _mapSize.y) {
         _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
@@ -113,29 +115,8 @@ void Map::display()
         _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
         _window->draw(_tile[_tileHover]->getShape());
     }
-    displayPlayers(moveMap);
-}
-
-void Map::displayPlayers(sf::Vector2f &moveMap)
-{
-    (void)moveMap;
-    // sf::Vector2f pos;
-    // int i = 0;
-
-    // for (auto &player : _players) {
-    //     std::cout << i << std::endl;
-    //     pos.x = player.getPosition().first;
-    //     pos.y = player.getPosition().second;
-    //     _playersShape.at(i).setPosition(pos + moveMap);
-    //     // shape.setOrigin(pos + moveMap);
-    //     // std::cout << "player zbi\n";
-    //     _playersShape.at(i).setFillColor(sf::Color(100, 250, 50));
-    //     _playersShape.at(i).setRotation(player.getOrientation() * 90);
-    //     _window->draw();
-    // }
 }
 
 Map::~Map()
 {
-
 }

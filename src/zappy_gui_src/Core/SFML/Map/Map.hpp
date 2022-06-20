@@ -51,8 +51,43 @@ namespace gui {
             /// \brief Display the map on the window. Update all information of the map if necessary.
             void display();
 
-            /// \brief Display all the players on the window
-            void displayPlayers(sf::Vector2f &moveMap);
+             /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Player> &getPlayers() const {
+                return _players;
+            };
+
+            /// \brief add a player object to the vector
+            /// \param player the player object to add
+            inline void addPlayer(gui::entity::Player &player) {
+                _players.emplace_back(player);
+                _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+            }
+
+            /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Tile> &getTilesInfo() const {
+                return _tilesInfo;
+            };
+
+            /// \brief add a tile object to the vector
+            /// \param tileInfo the tile object to set
+            inline void addTilesInfo(gui::entity::Tile &tileInfo) {
+                _tilesInfo.emplace_back(tileInfo);
+            }
+
+            /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Egg> &getEggs() const {
+                return _eggs;
+            };
+
+            /// \brief add a player object to the vector
+            /// \param tileInfo the player object to add
+            inline void addEgg(gui::entity::Egg &egg) {
+                _eggs.emplace_back(egg);
+            }
+
         private:
 
             /// \brief Update the position of the map depending on events.
@@ -73,6 +108,7 @@ namespace gui {
                 return sf::Vector2f(index % int(_mapSize.y), index / _mapSize.y);
             };
 
+            void _pushEntityInTile();
             /// \brief Find if the tile should be displayed on the screen.
             /// \param area The global bound of the tile.
             /// \param windowSize The size of the window.
@@ -84,10 +120,6 @@ namespace gui {
 
             /// \brief Update the size of the vector.
             void _updateTileVectorSize();
-
-            /// \brief add a new player
-            /// \param p the unpacked player too add
-            void _addPlayer(gui::entity::Player &p);
 
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
@@ -109,6 +141,15 @@ namespace gui {
 
             /// \brief Zoom to be applied.
             float _zoom;
+
+            /// \brief vector of tiles info
+            std::vector<gui::entity::Tile> _tilesInfo;
+
+            /// \brief vector of players to be displayed on the tile
+            std::vector<gui::entity::Player> _players;
+
+            /// \brief vector of eggs to be displayed on the tile
+            std::vector<gui::entity::Egg> _eggs;
     };
 } // namespace gui
 

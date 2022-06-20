@@ -155,37 +155,37 @@ namespace gui {
 
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
-            const std::vector<gui::entity::Player> &getPlayers() const {
+            inline const std::vector<gui::entity::Player> &getPlayers() const {
                 return _players;
             };
 
             /// \brief add a player object to the vector
-            /// \param tileInfo the player object to add
-            void addPlayer(gui::entity::Player &player) {
+            /// \param player the player object to add
+            inline void addPlayer(gui::entity::Player &player) {
                 _players.emplace_back(player);
             }
 
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
-            const gui::entity::Tile &getTileInfo() const {
+            inline const gui::entity::Tile &getTileInfo() const {
                 return _tileInfo;
             };
 
             /// \brief set the tile object with the one given
             /// \param tileInfo the tile object to set
-            void setTileInfo(gui::entity::Tile &tileInfo) {
+            inline void setTileInfo(gui::entity::Tile &tileInfo) {
                 _tileInfo = tileInfo;
             }
 
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
-            const std::vector<gui::entity::Egg> &getEggs() const {
+            inline const std::vector<gui::entity::Egg> &getEggs() const {
                 return _eggs;
             };
 
-            /// \brief add a player object to the vector
-            /// \param tileInfo the player object to add
-            void addEgg(gui::entity::Egg &egg) {
+            /// \brief add a egg object to the vector
+            /// \param egg the egg object to add
+            inline void addEgg(gui::entity::Egg &egg) {
                 _eggs.emplace_back(egg);
             }
         private:

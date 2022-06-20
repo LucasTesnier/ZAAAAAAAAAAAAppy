@@ -8,6 +8,7 @@
 /// \file src/zappy_gui_src/Core/Core.cpp
 
 #include "ZappyGuiException.hpp"
+#include "Entity.hpp"
 #include "Core.hpp"
 #include <getopt.h>
 #include <unistd.h>
@@ -25,7 +26,10 @@ void Core::run()
 {
     int fps = 0;
     sf::Clock clock;
+    gui::entity::Player p;
+    p._position = std::make_pair(2, 2);
 
+    _sfml->addPlayer(p);
     while (_sfml->isRunning()) {
         _sfml->display();
         if (clock.getElapsedTime().asSeconds() >= 1) {
@@ -81,6 +85,7 @@ void Core::_getArgs(int ac, char **av)
 void Core::setup(int ac, char **av)
 {
     char *str;
+    gui::entity::Tile tile;
 
     _getArgs(ac, av);
     str = (char *)_machine.c_str();
