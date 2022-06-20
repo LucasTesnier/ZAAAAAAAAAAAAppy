@@ -313,22 +313,23 @@ class Ai:
         for i in range(self.__getPlayerMaxRange()):
             if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i + 2)):
                 self.__setTargetTile(i + 2)
-            if not i:
-                self.__lib.AskTakeObject(component)
-                while 1:
-                    if self.__lib.GetResponseState():
-                        break
-                self.__lib.GetRepTakeObject()
-            self.__lib.AskForward()
+                break
+        if self.__getTargetTileIndex() == 2:
+            self.__lib.AskTakeObject(component)
             while 1:
                 if self.__lib.GetResponseState():
                     break
-            self.__lib.GetRepForward()
-            self.__lib.AskLook()
-            while 1:
-                if self.__lib.GetResponseState():
-                    break
-            self.__setVisionOfTheMap(self.__lib.GetRepLook())
+            self.__lib.GetRepTakeObject()
+        self.__lib.AskForward()
+        while 1:
+            if self.__lib.GetResponseState():
+                break
+        self.__lib.GetRepForward()
+        self.__lib.AskLook()
+        while 1:
+            if self.__lib.GetResponseState():
+                break
+        self.__setVisionOfTheMap(self.__lib.GetRepLook())
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile, x=None) -> bool:
         """This is used by AI to know if the specific component is present on the specific tile
