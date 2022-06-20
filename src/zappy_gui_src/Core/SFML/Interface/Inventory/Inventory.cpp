@@ -42,11 +42,11 @@ void Inventory::_updateBody()
 
     if (_isOpen) {
         _body.setSize(sf::Vector2f(windowSize.x, windowSize.y / 5));
-        _body.setPosition(sf::Vector2f(0, windowSize.y / 5 * 4));
+        _body.setPosition(sf::Vector2f(_areaServer.left + _areaServer.width, windowSize.y / 5 * 4));
         _button.setPosition(sf::Vector2f(_body.getPosition().x + 10, _body.getPosition().y + 10));
     } else {
         _body.setSize(sf::Vector2f(windowSize.x, 30));
-        _body.setPosition(sf::Vector2f(0, windowSize.y - 30));
+        _body.setPosition(sf::Vector2f(_areaServer.left + _areaServer.width, windowSize.y - 30));
         _button.setPosition(sf::Vector2f(_body.getPosition().x + 10, _body.getPosition().y + 10));
     }
 }
