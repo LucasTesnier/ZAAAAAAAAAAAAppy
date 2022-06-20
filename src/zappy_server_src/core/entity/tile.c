@@ -45,7 +45,9 @@ bool remove_entity_from_tile(tile_t *tile, entity_t *entity)
         return false;
     if (entity->type == ENTITY_TILE_TYPE || !is_entity_on_tile(tile, entity))
         return false;
-    TAILQ_REMOVE(&tile->entities, entity, entities);
+    //TAILQ_REMOVE(&tile->entities, entity, entities);
+    if (TAILQ_EMPTY(&tile->entities))
+        TAILQ_INIT(&tile->entities);
     return true;
 }
 

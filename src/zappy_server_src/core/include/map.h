@@ -36,4 +36,8 @@ map_t *create_new_map(int width, int height);
 /// \return The tile at the given coordinates or NULL if an error occured
 entity_t* get_tile(map_t *map, int x, int y);
 
+/// \brief Generate new ressources on the map !
+/// \param map The map informations
+void generate_new_ressource(map_t *map);
+
 #endif /* MAP_H */
