@@ -9,6 +9,7 @@
 #include "container.h"
 #include <stdbool.h>
 #include <uuid/uuid.h>
+#include <stdio.h>
 
 tile_t *create_new_tile(void)
 {
@@ -45,7 +46,12 @@ bool remove_entity_from_tile(tile_t *tile, entity_t *entity)
         return false;
     if (entity->type == ENTITY_TILE_TYPE || !is_entity_on_tile(tile, entity))
         return false;
-    TAILQ_REMOVE(&tile->entities, entity, entities);
+    if (TAILQ_NEXT(entity, entities) == NULL) {
+        TAILQ_REMOVE(&tile->entities, entity, entities);
+        TAILQ_INIT(&tile->entities);
+        return true;
+    } else
+        TAILQ_REMOVE(&tile->entities, entity, entities);
     return true;
 }
 

@@ -28,7 +28,12 @@ namespace gui {
             };
             void update(bool forceUpdate = false);
             inline void setAreaServer(const sf::Vector2f &position, const sf::Vector2f &size) {
-                _areaServer = {position.x, position.y, size.x, size.y};
+                sf::FloatRect temp;
+                temp.left = position.x;
+                temp.top = position.y;
+                temp.width = size.x;
+                temp.height = size.y;
+                _areaServer = temp;
                 _updateBody();
             };
         private:

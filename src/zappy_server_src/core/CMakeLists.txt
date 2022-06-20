@@ -14,8 +14,10 @@ set (SRC
     ${SRC_ROOT}/command_hold.c
     ${COMMANDS_SOURCES}
     ${SRC_ROOT}/scheduler.c
+    ${SRC_ROOT}/player_life.c
     ${SRC_ROOT}/scheduler_delete.c
     ${SRC_ROOT}/argument_handling.c
+    ${SRC_ROOT}/ressource_generation.c
     ${SRC_ROOT}/container_utils.c
     ${SRC_ROOT}/map.c
     ${SRC_ROOT}/team.c

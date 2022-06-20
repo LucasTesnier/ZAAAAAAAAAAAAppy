@@ -14,6 +14,7 @@
 #include "entity/player.h"
 #include "entity/tile.h"
 #include "sys/queue.h"
+#include <stdio.h>
 
 void entity_wrapper_remove_entity(entity_wrapper_t *wrapper, entity_t *entity)
 {

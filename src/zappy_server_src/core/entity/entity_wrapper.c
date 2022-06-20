@@ -11,6 +11,7 @@
 #include "entity/entity_types.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 entity_wrapper_t *create_entity_wrapper(void)
 {
@@ -42,8 +43,10 @@ void delete_entity_wrapper(entity_wrapper_t *wrapper)
 {
     if (!wrapper)
         return;
+    printf("=============Deleting all entities=============\n");
     delete_entities_list(&wrapper->players);
     delete_entities_list(&wrapper->eggs);
     delete_entities_list(&wrapper->tiles);
     free(wrapper);
+    printf("===============================================\n");
 }
