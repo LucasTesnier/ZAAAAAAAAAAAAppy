@@ -95,6 +95,26 @@ Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
     return e;
 }
 
+Start Unpack::UnpackStart(std::vector<std::string> &unpacked)
+{
+    Start start;
+    try {
+        auto data = stov(unpacked[1], ';');
+        start.size_x = std::stoi(data[0]);
+        start.size_y = std::stoi(data[1]);
+        start.team_number = std::stoi(data[2]);
+        data.clear();
+        data = stov(unpacked[2], '}');
+        /// GET TEAM LIST
+        auto temp = stov(data[1], ';');
+        start.max_player = std::stoi(temp[0]);
+        /// UNPACK THE TILE
+    } catch(...) {
+        throw(UnpackException("Unpack start" "Invalid packed string"));
+    }
+    return start;
+}
+
 void Unpack::UnpackEntity(Player &p, std::string &packed)
 {
     auto unpacked = stov(packed, '{');
@@ -120,4 +140,13 @@ void Unpack::UnpackEntity(Egg &e, std::string &packed)
         e = UnpackEgg(unpacked);
     } else
         throw(UnpackException("Unpack" "Invalid packed type egg"));
+}
+
+void Unpack::UnpackEntity(Start &e, std::string &packed)
+{
+    auto unpacked = stov(packed, '{');
+    if (unpacked[0] == "start") {
+        e = UnpackStart(unpacked);
+    } else
+        throw(UnpackException("Unpack" "Invalid packed type start"));
 }

@@ -30,10 +30,14 @@ void Core::run()
         _sfml.display();
         if (clock.getElapsedTime().asSeconds() >= 1) {
             clock.restart();
-            std::cout << "FPS: " << fps << std::endl;
             fps = 0;
         }
         fps++;
+        if (!c_interface_get_response_state())
+            continue;
+        if (!c_interface_get_unexpected_response_state())
+            continue;
+        std::cout << "Get : " << c_interface_get_unexpected_response() << std::endl;
     }
 }
 
@@ -81,8 +85,9 @@ void Core::setup(int ac, char **av)
     _getArgs(ac, av);
     str = (char *)_machine.c_str();
     std::cout << "str: " << str << std::endl;
-    if (!c_interface_try_to_connect_to_server(str, std::atoi(_port.c_str())))
+    if (!c_interface_try_to_connect_to_server(str, std::atoi(_port.c_str()))) {
         throw (CoreException("Core setup", "Unable to connect to the server"));
+    }
 }
 
 Core::~Core()
