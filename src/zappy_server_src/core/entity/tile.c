@@ -42,7 +42,6 @@ bool add_entity_to_tile(tile_t *tile, entity_t *entity)
 
 bool remove_entity_from_tile(tile_t *tile, entity_t *entity)
 {
-    entity_t *tmp = NULL;
     if (tile == NULL)
         return false;
     if (entity->type == ENTITY_TILE_TYPE || !is_entity_on_tile(tile, entity))
