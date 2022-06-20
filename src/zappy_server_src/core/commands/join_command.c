@@ -12,6 +12,7 @@
 #include "team.h"
 #include "entity/entity.h"
 #include "entity/player.h"
+#include "entity/tile.h"
 #include <stdlib.h>
 
 /// \brief Create the response for the join function
@@ -50,29 +51,31 @@ entity_t **player_entity, server_data_t *serv)
     if (!(player_data = create_player(arg)))
         return false;
     entity_set_data(*player_entity, player_data);
+    add_entity_to_tile((tile_t*)get_tile(serv->map, (*player_entity)->position.x,
+    (*player_entity)->position.y)->data, *player_entity);
     return true;
 }
 
-bool command_join(char *arg, player_list_t *player, server_data_t *serv)
+bool command_join(char *arg, player_list_t *plr, server_data_t *serv)
 {
     team_t *tmp = NULL;
     entity_t *player_entity = NULL;
     char *res = NULL;
 
-    if (!player->is_auth)
-        return print_retcode(401, NULL, player->player_peer, false);
+    if (!plr->is_auth)
+        return print_retcode(401, NULL, plr->player_peer, false);
     if (!(tmp = get_team_by_name(arg, &serv->teams)))
-        return print_retcode(312, arg, player->player_peer, false);
+        return print_retcode(312, arg, plr->player_peer, false);
     if (tmp->current_members >= tmp->max_members)
-        return print_retcode(313, arg, player->player_peer, false);
+        return print_retcode(313, arg, plr->player_peer, false);
     tmp->current_members++;
     if (!command_join_create_player_data(arg, &player_entity, serv))
-        return print_retcode(500, arg, player->player_peer, false);
-    player->player_data = player_entity;
+        return print_retcode(500, arg, plr->player_peer, false);
+    plr->player_data = player_entity;
     entity_wrapper_add_player(serv->entities, player_entity);
-    pop_message(player->player_peer);
-    print_retcode(211, (res = join_resp(serv, tmp)),
-    player->player_peer, true);
+    send_entities_list_info(serv);
+    pop_message(plr->player_peer);
+    print_retcode(211, (res = join_resp(serv, tmp)), plr->player_peer, true);
     free(res);
     return true;
 }

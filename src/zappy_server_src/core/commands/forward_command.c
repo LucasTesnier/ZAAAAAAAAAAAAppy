@@ -22,13 +22,13 @@ static void move_x(entity_t *player, map_t *map)
     player_t *player_data = (player_t *)player->data;
     tile_t *tile = NULL;
 
-    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
+    remove_entity_from_tile(tile, player);
     if (player_data->orientation == NORTH)
-        pos->x = (pos->x - 1) % map->height;
+        pos->x = (pos->x - 1) < 0 ? map->height : (pos->x - 1) % map->height;
     else
         pos->x = (pos->x + 1) % map->height;
-    remove_entity_from_tile(tile, player);
-    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     add_entity_to_tile(tile, player);
 }
 
@@ -41,11 +41,12 @@ static void move_y(entity_t *player, map_t *map)
     player_t *player_data = (player_t *)player->data;
     tile_t *tile = NULL;
 
-    tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
+    tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
+    remove_entity_from_tile(tile, player);
     if (player_data->orientation == EAST)
-        pos->x = (pos->y + 1) % map->height;
+        pos->y = (pos->y + 1) % map->height;
     else
-        pos->x = (pos->y - 1) % map->height;
+        pos->y = (pos->y - 1) < 0 ? map->height : (pos->y - 1) % map->height;
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y);
     add_entity_to_tile(tile, player);
@@ -56,7 +57,7 @@ bool command_forward(char *arg, player_list_t *player, server_data_t *serv)
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     if (!scheduler_schedule_event(serv->scheduler,
-    ((player_t *)player->player_data)->uuid, 7))
+    ((player_t *)player->player_data->data)->uuid, 7))
         return false;
     player->scheduled_action = find_ai_command_end("/forward", NULL);
     if (player->scheduled_action == NULL)
@@ -79,6 +80,8 @@ server_data_t *serv)
         move_x(player_entity, serv->map);
     else
         move_y(player_entity, serv->map);
+    TAILQ_INSERT_HEAD(&serv->entities->players, player_entity, entities);
+    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(213, NULL, player->player_peer, true);
 }

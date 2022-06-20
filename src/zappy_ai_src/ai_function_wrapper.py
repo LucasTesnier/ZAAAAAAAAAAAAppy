@@ -86,9 +86,8 @@ class ServerWrapper:
             self.__GetRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
             self.__GetRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
             self.__GetNetworkState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_network_state")
-            self.DLLibWrapper.closeLibray()
-        except:
-            print("The provided lib doesn't contain all the required funtions.", file=stderr)
+        except Exception as ex:
+            print(ex, file=stderr)
             return False
         return True
 

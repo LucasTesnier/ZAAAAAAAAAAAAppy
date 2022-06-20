@@ -20,6 +20,7 @@ scheduler_t *create_scheduler(double freq)
         return (NULL);
     scheduler->freq = freq;
     scheduler->clock = time(NULL);
+    scheduler->ressource = time(NULL);
     TAILQ_INIT(&scheduler->events);
     return scheduler;
 }
@@ -48,6 +49,7 @@ bool scheduler_schedule_event(scheduler_t *self, uuid_t uuid, int ticks)
         return false;
     uuid_copy(new_event->id, uuid);
     new_event->ticks = ticks;
+    new_event->clock = time(NULL);
     TAILQ_INSERT_TAIL(&self->events, new_event, events);
     return true;
 }
@@ -63,7 +65,10 @@ void scheduler_update(scheduler_t *self)
     tmp = TAILQ_FIRST(&self->events);
     while (tmp != NULL) {
         tmp2 = TAILQ_NEXT(tmp, events);
-        tmp->ticks -= floor((now - self->clock) * self->freq);
+        if (floor((now - tmp->clock) * self->freq) > 0) {
+            tmp->ticks -= floor((now - tmp->clock) * self->freq);
+            tmp->clock = now;
+        }
         if (tmp->ticks <= 0) {
             TAILQ_REMOVE(&self->events, tmp, events);
             free(tmp);
@@ -86,7 +91,10 @@ struct timeval scheduler_get_smallest_timeout(scheduler_t *self)
         if (tmp_time < smallest)
             smallest = tmp_time;
     }
+    tmp_time = time(NULL);
     if (smallest == 10000000000)
-        return (struct timeval){.tv_sec = -1, .tv_usec = 0};
+        return (struct timeval){.tv_sec =
+        (20 - floor((tmp_time - self->ressource) * self->freq)) *
+        (1 / self->freq), .tv_usec = 0};
     return (struct timeval){.tv_sec = smallest, .tv_usec = 0};
 }

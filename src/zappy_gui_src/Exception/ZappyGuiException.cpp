@@ -24,3 +24,7 @@ const char *ZappyGuiException::what() const noexcept
 CoreException::CoreException(std::string title, std::string description) : ZappyGuiException(title, description)
 {
 }
+
+ServerCommunicationException::ServerCommunicationException(std::string title, std::string description) : ZappyGuiException(title, description)
+{
+}

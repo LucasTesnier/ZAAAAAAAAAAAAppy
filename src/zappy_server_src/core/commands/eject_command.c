@@ -18,7 +18,7 @@ bool command_eject(char *arg, player_list_t *player, server_data_t *serv)
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     if (!scheduler_schedule_event(serv->scheduler,
-    ((player_t *)player->player_data)->uuid, 7))
+    ((player_t *)player->player_data->data)->uuid, 7))
         return false;
     player->scheduled_action = find_ai_command_end("/eject", NULL);
     if (player->scheduled_action == NULL)
@@ -40,7 +40,7 @@ enum player_orientation_e dir)
     if (dir == NORTH)
         pos->x = (pos->x - 1) % map->height;
     else
-        pos->x = (pos->x + 1) % map->height;
+        pos->x = (pos->x - 1) < 0 ? map->height : (pos->x - 1) % map->height;
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
     add_entity_to_tile(tile, player);
@@ -60,7 +60,7 @@ enum player_orientation_e dir)
     if (dir == EAST)
         pos->x = (pos->y + 1) % map->height;
     else
-        pos->x = (pos->y - 1) % map->height;
+        pos->x = (pos->y - 1) < 0 ? map->height : (pos->y - 1) % map->height;
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y);
     add_entity_to_tile(tile, player);
@@ -108,6 +108,7 @@ server_data_t *serv)
     tile = (tile_t *)get_tile(serv->map,
     player_entity->position.x, player_entity->position.y)->data;
     eject_action(serv, player_data, tile);
+    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(219, NULL, player->player_peer, true);
 }

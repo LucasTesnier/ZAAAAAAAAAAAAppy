@@ -231,6 +231,82 @@ server_data_t *serv);
 void send_unexpected_eject(enum player_orientation_e direction,
 server_data_t *serv, player_t *tmp);
 
+/// \brief Send a died signal to a player
+/// \param serv Server informations
+/// \param tmp The data of the player
+void send_unexpected_dead(server_data_t *serv, player_t *tmp);
+
+/// \brief Tell to the gui that the game is paused
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_game_paused(server_data_t *serv);
+
+/// \brief Tell to the gui that the game is started
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_game_started(server_data_t *serv);
+
+/// \brief Tell to the gui that a team has win
+/// \param serv Server informations
+/// \param team_name The name of the team
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_team_win(server_data_t *serv, char *team_name);
+
+/// \brief Tell to the gui that a team has lose
+/// \param serv Server informations
+/// \param team_name The name of the team
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_team_lose(server_data_t *serv, char *team_name);
+
+/// \brief Tell to the gui all the map informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_map_info(server_data_t *serv);
+
+/// \brief Tell to the gui all the entities informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_entities_list_info(server_data_t *serv);
+
+/// \brief Cross all the map tile and concat it
+/// \param map The map data
+/// \return char* The concatened map
+char *pack_all_tile(map_t *map);
+
+/// \brief Cross all the map tile and concat it
+/// \param entities The entities list
+/// \return char* The concatened map
+char *pack_all_entities(entity_wrapper_t *entities);
+
+/// \brief Tell to the gui all the game informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool send_start_info(server_data_t *serv);
+
+/// \brief Cross all the player and remove life
+/// \param self The scheduler
+/// \param serv The server information
+///
+void scheduler_update_life(scheduler_t *self, server_data_t *serv);
+
+/// \brief Generate new ressources every 20 ticks
+/// \param self The scheduler
+/// \param serv The server informations
+void scheduler_update_ressource(scheduler_t *self, server_data_t *serv);
+
+/// \brief Return the matched player_list of a player_t
+/// \param serv The server informations
+/// \param tmp The player object
+/// \return player_list_t* The founded player_list
+player_list_t *find_player_list_by_uuid(server_data_t *serv, player_t *tmp);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},

@@ -12,6 +12,7 @@
 #include "entity/player.h"
 #include "entity/tile.h"
 #include "entity/entity_types.h"
+#include <stdio.h>
 
 /// \brief Entity data delete functions
 static void (*entity_delete_funcs[])(void *) = {
@@ -24,6 +25,7 @@ void delete_entity(entity_t *entity)
 {
     if (!entity)
         return;
+    printf("||\tDeleting entity at pos: {%d, %d}\n", entity->position.x, entity->position.y);
     entity_delete_funcs[entity->type](entity->data);
     free(entity);
 }
