@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 
@@ -244,8 +242,12 @@ class Ai:
     def __getPlayerCurrentLevel(self) -> int:
         return self.__playerCurrentLevel
 
+    """This is used to know the maximal range of the player's vision depending on his level
+        The player range could be calculate as follow : maxRange = (x+1)²
+            where x is the level of the player
+    """
     def __getPlayerMaxRange(self) -> int:
-        playerLevel = self.__playerCurrentLevel
+        playerLevel = self.__playerCurrentLevel + 1
         return (playerLevel * playerLevel)
 
     """ -------------------------------------------Public members functions------------------------------------------"""
@@ -493,8 +495,3 @@ class Ai:
         if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
             return "linemate"
         return "nothing"
-
-"""Note for reviewers, this is only debug used to start the main loop of the class"""
-if (__name__ == "__main__"):
-    AI = Ai(4, "bonjour")
-    AI.start()
