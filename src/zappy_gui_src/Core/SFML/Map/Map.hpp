@@ -52,9 +52,16 @@ namespace gui {
             void display();
         private:
 
+            /// \brief Display the actual selected and hover tile if it's different to index -1.
+            void _displaySelectedAndHoverTiles();
+
+            /// \brief Find if the selected or hover tile must be update.
+            /// \param i The actual index of the tile to find if it need to be update.
+            /// \param mouse The mouse cursor position on the window.
+            void _findSelectedAndHoverTiles(std::size_t &i, const sf::Vector2i &mouse);
+
             /// \brief Update the position of the map depending on events.
-            /// \param moveMap The vector use to move the map.
-            void _updateMoveMap(sf::Vector2f &moveMap);
+            void _updateMoveMap();
 
             /// \brief Find if the tile should be displayed on the screen.
             /// \param area The global bound of the tile.
