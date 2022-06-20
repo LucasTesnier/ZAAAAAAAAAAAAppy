@@ -369,7 +369,7 @@ class Ai:
             return False
         if not self.__getRequiredComponent() == "nothing":
             return False
-        if not self.__getVisionOfTheMap().GetTile(0, 0).player == LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player"):
+        if not self.__getVisionOfTheMap().GetTile(0).player == LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player"):
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
