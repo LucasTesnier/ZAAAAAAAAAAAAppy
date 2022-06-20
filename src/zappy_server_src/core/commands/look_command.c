@@ -87,7 +87,7 @@ static char *get_a_tile_content(tile_t *tile)
 static char *look_action(server_data_t *serv, unsigned int level,
 position_t position)
 {
-    char *res = malloc(sizeof(char) * 2);
+    char *res = malloc(sizeof(char) * 4);
     char *temp = NULL;
 
     if (res == NULL)
@@ -97,10 +97,10 @@ position_t position)
     res[1] = '\0';
     temp = get_a_tile_content(
     (tile_t *)get_tile(serv->map, position.x, position.y)->data);
-    res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 1));
+    res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
     strcat(res, temp);
     free(temp);
-    strcat(res, "]");
+    strcat(res, ",]");
     return res;
 }
 

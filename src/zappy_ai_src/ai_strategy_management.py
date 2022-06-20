@@ -32,7 +32,7 @@ FOOD_START = 1260
 SAFETY_MARGIN = 300
 
 """This is this indication for the AI to switch to survival strategy under or equal to 300 units of time"""
-FOOD_LIMIT = 300
+FOOD_LIMIT = 800
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
@@ -150,7 +150,7 @@ class Ai:
         self.__teamName = teamName
 
         """This is the wrapper of the library used to communicate with the server"""
-        self.__lib = ServerWrapper("./libzappy_ai_api.so")
+        self.__lib = ServerWrapper("./src/zappy_ai_src/libzappy_ai_api.so")
 
         """This boolean is used to know the current state of the AI
             True if the AI is looping and making some actions
@@ -244,7 +244,7 @@ class Ai:
             where x is the level of the player
     """
     def __getPlayerMaxRange(self) -> int:
-        playerLevel = self.__playerCurrentLevel + 1
+        playerLevel = self.__playerCurrentLevel
         return (playerLevel * playerLevel)
 
     """ -------------------------------------------Public members functions------------------------------------------"""
@@ -296,6 +296,11 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
+        self.__lib.AskInventory()
+        while 1:
+            if self.__lib.GetResponseState():
+                break
+        self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() >= 7:
@@ -309,11 +314,11 @@ class Ai:
             Like getting the most required component at a time T
         """
         component = self.__getTargetComponent()
-        for i in range(0, self.__getPlayerMaxRange() + 1):
+        for i in range(0, self.__getPlayerMaxRange()): 
             if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
                 self.__setTargetTile(i)
                 break
-        if self.__getTargetTileIndex() == 2:
+        if self.__getTargetTileIndex() == 0:
             self.__lib.AskTakeObject(component)
             while 1:
                 if self.__lib.GetResponseState():
@@ -491,4 +496,4 @@ class Ai:
             return "deraumere"
         if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
             return "linemate"
-        return "nothing"
+        return "thystame"
