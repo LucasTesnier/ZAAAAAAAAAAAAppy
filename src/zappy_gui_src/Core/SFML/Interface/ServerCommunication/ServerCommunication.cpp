@@ -6,6 +6,7 @@
 */
 
 #include "ServerCommunication.hpp"
+#include "ZappyGuiException.hpp"
 
 using namespace gui;
 
@@ -23,6 +24,9 @@ void ServerCommunication::display()
 {
     _window->draw(_body);
     _window->draw(_button);
+    if (!_isOpen)
+        return;
+    _window->draw(_text);
 }
 
 void ServerCommunication::_updateBody()
@@ -32,11 +36,17 @@ void ServerCommunication::_updateBody()
     if (_isOpen) {
         _body.setSize(sf::Vector2f(windowSize.x / 10, windowSize.y));
         _body.setPosition(sf::Vector2f(0, 0));
-        _button.setPosition(sf::Vector2f(_body.getPosition().x + _body.getSize().x - _button.getSize().x - 10, _body.getPosition().y + 10));
+        _button.setPosition(sf::Vector2f(_body.getPosition().x + _body.getSize().x - _button.getGlobalBounds().width - 10, _body.getPosition().y + 10));
+        _button.setPoint(0, {10, 0});
+        _button.setPoint(1, {0, 5});
+        _button.setPoint(2, {10, 10});
     } else {
         _body.setSize(sf::Vector2f(30, windowSize.y));
         _body.setPosition(sf::Vector2f(0, 0));
         _button.setPosition(sf::Vector2f(_body.getPosition().x + 10, _body.getPosition().y + 10));
+        _button.setPoint(0, {0, 0});
+        _button.setPoint(1, {10, 5});
+        _button.setPoint(2, {0, 10});
     }
 }
 
@@ -53,8 +63,8 @@ void ServerCommunication::update(bool forceUpdate)
         _clock.restart();
         return;
     }
-    if (mouse.x >= _button.getPosition().x && mouse.x <= _button.getPosition().x + _button.getSize().x) {
-        if (mouse.y >= _button.getPosition().y && mouse.y <= _button.getPosition().y + _button.getSize().y) {
+    if (mouse.x >= _button.getPosition().x && mouse.x <= _button.getPosition().x + _button.getGlobalBounds().width) {
+        if (mouse.y >= _button.getPosition().y && mouse.y <= _button.getPosition().y + _button.getGlobalBounds().height) {
             _isOpen = (_isOpen) ? false : true;
             _updateBody();
             _clock.restart();
@@ -68,8 +78,18 @@ void ServerCommunication::initializeShapes()
 
     _body.setSize(sf::Vector2f(window.x / 10, window.y));
     _body.setPosition(sf::Vector2f(0, 0));
-    _body.setFillColor(sf::Color::Red);
-    _button.setSize(sf::Vector2f(10, 10));
-    _button.setPosition(_body.getPosition().x + _body.getSize().x - _button.getSize().x - 10, _body.getPosition().y + 10);
-    _body.setFillColor(sf::Color::Green);
+    _body.setFillColor(sf::Color(150, 170, 183));
+    _button.setPointCount(3);
+    _button.setPoint(0, {10, 0});
+    _button.setPoint(1, {0, 5});
+    _button.setPoint(2, {10, 10});
+    _button.setPosition(_body.getPosition().x + _body.getSize().x - _button.getGlobalBounds().width - 10, _body.getPosition().y + 10);
+    _button.setFillColor(sf::Color(43, 89, 72));
+    if (!_font.loadFromFile(FONT_PATH))
+        throw (ServerCommunicationException("Server communication", "Could not load font"));
+    _text.setPosition(_body.getPosition().x + 10, _body.getPosition().y + 10);
+    _text.setFillColor(sf::Color::White);
+    _text.setFont(_font);
+    _text.setString("Server communication");
+    _text.setCharacterSize(16);
 }

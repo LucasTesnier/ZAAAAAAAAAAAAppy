@@ -13,6 +13,8 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
+#define FONT_PATH "assets/arial.ttf"
+
 namespace gui {
     /// \brief Class which show the communication with the server.
     class ServerCommunication {
@@ -68,13 +70,18 @@ namespace gui {
             sf::RectangleShape _body;
 
             /// \brief It's the button to open or close the server communication menu.
-            sf::RectangleShape _button;
+            sf::ConvexShape _button;
 
             /// \brief It's the status of the server communication. It's true if the server communication is open, false otherwise.
             bool _isOpen;
 
             /// \brief It's the clock to update the server communication action. If there is not enough time spended, it's not update (0.2s).
             sf::Clock _clock;
+
+            /// \brief It's the text to display on the server communication menu.
+            sf::Text _text;
+
+            sf::Font _font;
     };
 } // namespace gui
 

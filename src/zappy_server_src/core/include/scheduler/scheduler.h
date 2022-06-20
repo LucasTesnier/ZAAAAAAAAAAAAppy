@@ -44,6 +44,9 @@ typedef struct scheduler_s {
 /// \brief Create a new scheduler with a given frequency
 scheduler_t *create_scheduler(double freq);
 
+/// \brief Destroy a previously created scheduler
+void scheduler_delete(scheduler_t *scheduler);
+
 /// \brief Schedule a new event bound to an uuid
 /// \return true or false if the event has been scheduled
 bool scheduler_schedule_event(scheduler_t *self, uuid_t uuid, int ticks);
