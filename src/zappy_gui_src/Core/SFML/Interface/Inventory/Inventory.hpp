@@ -11,6 +11,8 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
+#define FONT_PATH "assets/arial.ttf"
+
 namespace gui {
     class Inventory {
         public:
@@ -42,9 +44,11 @@ namespace gui {
             std::shared_ptr<sf::RenderWindow> _window;
             sf::RectangleShape _body;
             bool _isOpen;
-            sf::RectangleShape _button;
+            sf::ConvexShape _button;
             sf::Clock _clock;
             sf::FloatRect _areaServer;
+            sf::Text _text;
+            sf::Font _font;
     };
 }
 

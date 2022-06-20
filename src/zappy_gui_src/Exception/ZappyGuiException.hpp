@@ -53,6 +53,13 @@ namespace gui {
             /// \brief  The exception of the server communication.
             ServerCommunicationException(std::string title = "Server Communication Exception", std::string description = "Unknown error");
     };
+
+    /// \brief Class for the inventory exception.
+    class InventoryException : public ZappyGuiException {
+        public:
+            /// \brief  The exception of the server communication.
+            InventoryException(std::string title = "Inventory Exception", std::string description = "Unknown error");
+    };
 } //namespace gui
 
 #endif /* !ZAPPYGUIEXCEPTION_HPP_ */

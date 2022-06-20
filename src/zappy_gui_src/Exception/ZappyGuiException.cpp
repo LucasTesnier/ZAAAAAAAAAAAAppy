@@ -28,3 +28,7 @@ CoreException::CoreException(std::string title, std::string description) : Zappy
 ServerCommunicationException::ServerCommunicationException(std::string title, std::string description) : ZappyGuiException(title, description)
 {
 }
+
+InventoryException::InventoryException(std::string title, std::string description) : ZappyGuiException(title, description)
+{
+}

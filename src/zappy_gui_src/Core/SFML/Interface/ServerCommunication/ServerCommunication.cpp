@@ -76,6 +76,7 @@ void ServerCommunication::initializeShapes()
 {
     sf::Vector2u window = _window->getSize();
 
+    _body.setOutlineThickness(1);
     _body.setSize(sf::Vector2f(window.x / 10, window.y));
     _body.setPosition(sf::Vector2f(0, 0));
     _button.setPointCount(3);
