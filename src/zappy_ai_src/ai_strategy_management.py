@@ -326,12 +326,14 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
+        self.__setTargetTile(-1)
         component = self.__getTargetComponent()
         for i in range(0, self.__getPlayerMaxRange()):
             if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
                 self.__setTargetTile(i)
                 break
-        if self.__getTargetTileIndex():
+        idx : int = self.__getTargetTileIndex()
+        if idx >= 0 and idx <= self.__getPlayerMaxRange():
             self.__lib.AskTakeObject(component)
             if not self.__waitForAction():
                 return
