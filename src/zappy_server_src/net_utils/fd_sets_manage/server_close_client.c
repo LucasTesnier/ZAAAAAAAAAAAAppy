@@ -13,7 +13,6 @@ bool server_close_client(tcp_server_t *srv, peer_t *tmp)
 {
     if (!tmp || !srv)
         return (false);
-    CIRCLEQ_REMOVE(&srv->peers_head, tmp, peers);
     tmp->connected = false;
     return (true);
 }
