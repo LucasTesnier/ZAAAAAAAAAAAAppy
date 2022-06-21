@@ -22,8 +22,8 @@ namespace gui {
     class SFML {
         public:
 
-            /// \brief Constructor of the SFML.
-            SFML();
+            /// \brief Construct a new SFML object
+            SFML(const sf::Vector2f mapSize);
 
             /// \brief Destructor of the SFML.
             ~SFML() = default;
@@ -37,6 +37,27 @@ namespace gui {
             /// \brief Display the SFML.
             void display();
 
+            /// \brief Change the size of the map
+            /// \param mapSize The map size
+            void _changeMapSize(const sf::Vector2f mapSize);
+
+            /// \brief add a player object to the map
+            /// \param player the player object to add
+            inline void addPlayer(gui::entity::Player &player) {
+                _map.addPlayer(player);
+            }
+
+            /// \brief add a tileInfo object to the map
+            /// \param tileInfo the tileInfo object to add
+            inline void addTilesInfo(gui::entity::Tile &tileInfo) {
+                _map.addTilesInfo(tileInfo);
+            }
+
+            /// \brief add a egg object to the map
+            /// \param egg the egg object to add
+            inline void addEgg(gui::entity::Egg &egg){
+                _map.addEgg(egg);
+            }
         private:
 
             void _getEvent();

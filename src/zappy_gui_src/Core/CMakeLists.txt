@@ -19,6 +19,8 @@ target_link_libraries(${TARGET}_core
     PUBLIC zappy_gui_sfml
     PUBLIC zappy_gui_exception
     PUBLIC zappy_gui_api
+    PUBLIC zappy_gui_network_unpack
+    PUBLIC zappy_gui_entity
 )
 
 set_target_properties(${TARGET} PROPERTIES
@@ -27,3 +29,4 @@ set_target_properties(${TARGET} PROPERTIES
 
 add_subdirectory(SFML)
 add_subdirectory(Network)
+add_subdirectory(Entity)

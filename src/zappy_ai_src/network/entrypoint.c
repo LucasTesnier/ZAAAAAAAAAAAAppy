@@ -51,9 +51,15 @@ int main(int ac, char **av)
     while (!c_interface_get_response_state());
     if (!c_interface_get_forward_response())
         return 84;
+    if (!c_interface_get_network_state())
+        return 0;
     if (!c_interface_ask_right())
         return 84;
+    if (!c_interface_get_network_state())
+        return 0;
     while (!c_interface_get_response_state());
+    if (!c_interface_get_network_state())
+        return 0;
     if (!c_interface_get_right_response())
         return 84;
     if (!c_interface_ask_left())

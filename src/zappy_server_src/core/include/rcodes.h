@@ -89,6 +89,9 @@ static const retcodes_t retcodes[] = {
     {.repr = "315 Place : ko.\n",
     .code = 315,
     .params = NULL},
+    {.repr = "316 Incantation failed : ko.\n",
+    .code = 316,
+    .params = NULL},
     /// ADD HERE RETCODE FOR ERROR
     {.repr = "401 Please login.\n",
     .code = 401,

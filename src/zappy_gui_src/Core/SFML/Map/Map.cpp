@@ -77,7 +77,10 @@ void Map::display()
     sf::Vector2f moveMap = {0, 0};
     sf::FloatRect area;
     std::size_t tmp = 0;
+    sf::CircleShape _playerRepresentation;
 
+    _playerRepresentation.setFillColor(sf::Color::Green);
+    _playerRepresentation.setRadius(10);
     _updateMoveMap(moveMap);
     for (auto &it : _tile) {
         if (moveMap.x || moveMap.y)
@@ -99,6 +102,10 @@ void Map::display()
         }
         _tile[i]->setColor(sf::Color(255, 255, 255));
         _window->draw(_tile[i]->getShape());
+        if (_tile[i]->getPlayers().size()) {
+            _playerRepresentation.setPosition({_tile[i]->getIsoPosition().left + _tile[i]->getIsoPosition().width / 2, _tile[i]->getIsoPosition().top + _tile[i]->getIsoPosition().height / 2});
+            _window->draw(_playerRepresentation);
+        }
     }
     if (_tileSelected < _mapSize.x * _mapSize.y) {
         _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
@@ -112,5 +119,4 @@ void Map::display()
 
 Map::~Map()
 {
-
 }

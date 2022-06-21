@@ -37,6 +37,12 @@ typedef struct scheduler_s {
     /// \brief The multiplicative inverse of a second
     double freq;
 
+    /// \brief The clock of the scheduler
+    time_t clock;
+
+    /// \brief The clock for the ressources
+    time_t ressource;
+
     /// \brief The list of events
     struct scheduler_event_list events;
 } scheduler_t;
@@ -64,5 +70,9 @@ bool scheduler_has_event(scheduler_t *self, uuid_t uuid);
 /// \note If the returned time is 0, either there is no event scheduled or self
 /// is null
 struct timeval scheduler_get_smallest_timeout(scheduler_t *self);
+
+/// \brief Remove an event from the scheduler
+/// \param uuid The uuid event to remove
+void scheduler_remove_event(scheduler_t *self, uuid_t uuid);
 
 #endif /* SCHEDULER_H */

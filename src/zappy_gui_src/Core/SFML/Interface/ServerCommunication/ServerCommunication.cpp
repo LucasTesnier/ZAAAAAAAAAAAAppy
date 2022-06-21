@@ -75,6 +75,7 @@ void ServerCommunication::update(bool forceUpdate)
 void ServerCommunication::initializeShapes()
 {
     sf::Vector2u window = _window->getSize();
+    sf::Vector2f pos;
 
     _body.setOutlineThickness(1);
     _body.setSize(sf::Vector2f(window.x / 10, window.y));
@@ -83,10 +84,14 @@ void ServerCommunication::initializeShapes()
     _button.setPoint(0, {10, 0});
     _button.setPoint(1, {0, 5});
     _button.setPoint(2, {10, 10});
-    _button.setPosition(_body.getPosition().x + _body.getSize().x - _button.getGlobalBounds().width - 10, _body.getPosition().y + 10);
+    pos.x = _body.getPosition().x + _body.getSize().x - _button.getGlobalBounds().width - 10;
+    pos.y = _body.getPosition().y + 10;
+    _button.setPosition(pos);
     if (!_font.loadFromFile(FONT_PATH))
         throw (ServerCommunicationException("Server communication", "Could not load font"));
-    _text.setPosition(_body.getPosition().x + 10, _body.getPosition().y + 10);
+    pos.x = _body.getPosition().x + 10;
+    pos.y =  _body.getPosition().y + 10;
+    _text.setPosition(pos);
     _text.setFillColor(sf::Color::White);
     _text.setFont(_font);
     _text.setString("Server communication");

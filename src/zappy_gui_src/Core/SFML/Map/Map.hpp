@@ -15,7 +15,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Event.hpp"
-
+#include "Entity.hpp"
 #include <iostream>
 
 namespace gui {
@@ -50,12 +50,65 @@ namespace gui {
 
             /// \brief Display the map on the window. Update all information of the map if necessary.
             void display();
+
+             /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Player> &getPlayers() const {
+                return _players;
+            };
+
+            /// \brief add a player object to the vector
+            /// \param player the player object to add
+            inline void addPlayer(gui::entity::Player &player) {
+                _players.emplace_back(player);
+                _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+            }
+
+            /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Tile> &getTilesInfo() const {
+                return _tilesInfo;
+            };
+
+            /// \brief add a tile object to the vector
+            /// \param tileInfo the tile object to set
+            inline void addTilesInfo(gui::entity::Tile &tileInfo) {
+                _tilesInfo.emplace_back(tileInfo);
+            }
+
+            /// \brief Get the vector of players of the tile.
+            /// \return The vector of players.
+            inline const std::vector<gui::entity::Egg> &getEggs() const {
+                return _eggs;
+            };
+
+            /// \brief add a player object to the vector
+            /// \param tileInfo the player object to add
+            inline void addEgg(gui::entity::Egg &egg) {
+                _eggs.emplace_back(egg);
+            }
+
         private:
 
             /// \brief Update the position of the map depending on events.
             /// \param moveMap The vector use to move the map.
             void _updateMoveMap(sf::Vector2f &moveMap);
 
+            /// \brief Transform a vector position to an index.
+            /// \param pos The position to be transform.
+            /// \return The corresponding index of the pos.
+            inline std::size_t itop(sf::Vector2f pos) {
+                return pos.y * _mapSize.x + pos.x;
+            };
+
+            /// \brief Transfom an index to a position.
+            /// \param index The index to be transfom.
+            /// \return The corresponding pos of the index.
+            inline sf::Vector2f ptoi(std::size_t index) {
+                return sf::Vector2f(index % int(_mapSize.y), index / _mapSize.y);
+            };
+
+            void _pushEntityInTile();
             /// \brief Find if the tile should be displayed on the screen.
             /// \param area The global bound of the tile.
             /// \param windowSize The size of the window.
@@ -88,6 +141,15 @@ namespace gui {
 
             /// \brief Zoom to be applied.
             float _zoom;
+
+            /// \brief vector of tiles info
+            std::vector<gui::entity::Tile> _tilesInfo;
+
+            /// \brief vector of players to be displayed on the tile
+            std::vector<gui::entity::Player> _players;
+
+            /// \brief vector of eggs to be displayed on the tile
+            std::vector<gui::entity::Egg> _eggs;
     };
 } // namespace gui
 
