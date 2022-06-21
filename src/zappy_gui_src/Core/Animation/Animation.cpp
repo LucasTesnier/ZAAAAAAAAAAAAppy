@@ -5,6 +5,8 @@
 ** Animation
 */
 
+/// \file src/zappy_gui_src/Core/Animation/Animation.cpp
+
 #include "Animation.hpp"
 #include "ZappyGuiException.hpp"
 

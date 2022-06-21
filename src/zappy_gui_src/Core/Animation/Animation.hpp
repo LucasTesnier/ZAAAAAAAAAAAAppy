@@ -5,6 +5,8 @@
 ** Animation
 */
 
+/// \file src/zappy_gui_src/Core/Animation/Animation.hpp
+
 #ifndef ANIMATION_HPP_
 #define ANIMATION_HPP_
 
