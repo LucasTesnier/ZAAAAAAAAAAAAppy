@@ -63,12 +63,17 @@ static void process_send(player_list_t **to_send, server_data_t *serv,
 player_list_t *send, char *message)
 {
     char *temp = malloc(sizeof(char) * (strlen(message) + 15));
+    entity_t *player = NULL;
 
     if (temp == NULL)
         return;
     for (int i = 0; to_send[i]; i++) {
         temp[0] = '\0';
-        sprintf(temp, "message %i, %s", 1, message);
+        player = to_send[i]->player_data;
+        sprintf(temp, "message %i, %s", get_directionnal_value(
+        player->position, (position_t) {
+        serv->map->width, serv->map->height}, send->player_data->position,
+        ((player_t *)player->data)->orientation), message);
         print_retcode(603, temp, to_send[i]->player_peer, true);
     }
     (void) send;
