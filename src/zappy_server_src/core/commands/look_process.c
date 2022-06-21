@@ -13,18 +13,44 @@
 #include "entity/player.h"
 #include "entity/tile.h"
 
-position_t *compute_the_looked_case(position_t player, position_t map_size,
+static void look_north(position_t player,
+position_t map_size, int lvl, position_t* looked_cases)
+{
+    position_t tmp = player;
+
+    for (int i = 0; i < lvl; i++) {
+        
+    }
+}
+
+static void look_south(position_t player,
+position_t map_size, int lvl, position_t* looked_cases)
+{
+    tile_t *tile = NULL;
+}
+
+static void look_west(position_t player,
+position_t map_size, int lvl, position_t* looked_cases)
+{
+    tile_t *tile = NULL;
+}
+
+static void look_east(position_t player,
+position_t map_size, int lvl, position_t* looked_cases)
+{
+    tile_t *tile = NULL;
+}
+
+position_t *compute_look_cmd(position_t player, position_t map_size,
 int level, enum player_orientation_e orientation)
 {
-    position_t *looked_case = malloc(sizeof(position_t) * 2);
+    position_t *looked_cases = malloc(sizeof(position_t) * 2);
+    void (*look[])(position_t, position_t, int, position_t*) = {
+        look_north, look_south, look_east, look_west
+    };
 
-    if (!looked_case)
+    if (!looked_cases)
         return NULL;
-    looked_case[0] = (position_t) {player.x, player.y};
-    looked_case[1] = (position_t) {-1, -1};
-    (void) player;
-    (void) map_size;
-    (void) level;
-    (void) orientation;
-    return looked_case;
+    look[orientation](player, map_size, level, looked_cases);
+    return looked_cases;
 }
