@@ -313,8 +313,8 @@ class Ai:
     def __checkNetwork(self) -> None:
         """
         Check the network state by calling the right function in the loaded lib
-        Return true if the network is ok
-        False otherwise
+        Nothing to do if the network is ok
+        Print and error message and exit otherwise
         """
         if not self.__lib.GetNetworkState():
             print("The connection to the server has been lost", file=stderr)
