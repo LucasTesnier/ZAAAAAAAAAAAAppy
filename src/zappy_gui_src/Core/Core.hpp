@@ -39,6 +39,8 @@ namespace gui {
             /// \param type string representating the type of entities to remove
             void _removeEntities(std::string &type);
 
+            bool _updateEntity(std::vector<std::string> &entityAsString, std::string &type, std::string &response);
+            void _updateEntity(std::string &type, std::string &response);
             /// \brief update entities depending on the response of the server
             /// \param response string representating the packed response of the server
             void _updateEntities(std::string &response);

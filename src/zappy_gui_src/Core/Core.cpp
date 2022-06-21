@@ -110,6 +110,54 @@ void Core::_waitForServerAnswer()
     while(!c_interface_get_response_state());
 }
 
+bool Core::_updateEntity(std::vector<std::string> &entityAsString, std::string &type, std::string &response)
+{
+    bool remove = false;
+
+    entityAsString = _stringToVector(response, type);
+    if (response.find(type) != (size_t)-1)
+        remove = true;
+    if (!entityAsString.empty() && entityAsString.at(0).rfind("start", 0) == 0)
+        entityAsString.erase(entityAsString.begin());
+    if (!entityAsString.empty() && remove) {
+        _removeEntities(type);
+        return true;
+    }
+    return false;
+}
+
+void Core::_updateEntity(std::string &type, std::string &response)
+{
+    std::vector<std::string> entityAsString;
+
+    if (_updateEntity(entityAsString, type, response)) {
+        for (std::string &it : entityAsString) {
+            it.insert(0, type);
+            if (type == "player") {
+                entity::Player p;
+                try {
+                    _unpackObject->UnpackEntity(p, it);
+                    _sfml->addPlayer(p);
+                } catch (...) {}
+            }
+            if (type == "egg") {
+                entity::Egg e;
+                try {
+                    _unpackObject->UnpackEntity(e, it);
+                    _sfml->addEgg(e);
+                } catch (...) {}
+            }
+            if (type == "tile") {
+                entity::Tile t;
+                try {
+                    _unpackObject->UnpackEntity(t, it);
+                    _sfml->addTilesInfo(t);
+                } catch (...) {}
+            }
+        }
+    }
+}
+
 void Core::_updateEntity(gui::entity::Tile entity, std::string &type, std::string &response)
 {
     std::vector<std::string> splitted = _stringToVector(response, type);
