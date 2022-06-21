@@ -51,6 +51,10 @@ namespace gui {
             /// \param av The parameters.
             void _getArgs(int ac, char **av);
 
+            /// \brief Parse all entities comming from the server and add them to the SFML object
+            /// \param str the string of packed entities
+            void _parseEntities(std::string &str);
+
             /// \brief The port of the server.
             std::string _port;
 

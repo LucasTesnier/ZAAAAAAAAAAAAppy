@@ -30,7 +30,24 @@ class Unpack {
     Unpack() = default;
     ~Unpack() = default;
 
-    /// \brief split a string into a vector
+    /// \brief Unpack an entity
+    /// \param unpacked the string to unpack
+    void UnpackEntity(gui::entity::Player &p, std::string &packed);
+
+    /// \brief Unpack an entity
+    /// \param unpacked the string to unpack
+    void UnpackEntity(gui::entity::Tile &t, std::string &packed);
+
+    /// \brief Unpack an entity
+    /// \param unpacked the string to unpack
+    void UnpackEntity(gui::entity::Egg &e, std::string &packed);
+
+    /// \brief Unpack an entity
+    /// \param unpacked the string to unpack
+    void UnpackEntity(Start &e, std::string &packed);
+
+   private:
+        /// \brief split a string into a vector
     /// \param str the string to split
     /// \param separator the character spliting the string
     /// \param pushEmptyStrings bool if need to push empty strings
@@ -57,23 +74,5 @@ class Unpack {
     /// \brief Unpack a start data
     /// \param unpacked the vector of strings to Unpack strings
     Start UnpackStart(std::vector<std::string> &unpacked);
-
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
-    void UnpackEntity(gui::entity::Player &p, std::string &packed);
-
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
-    void UnpackEntity(gui::entity::Tile &t, std::string &packed);
-
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
-    void UnpackEntity(gui::entity::Egg &e, std::string &packed);
-
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
-    void UnpackEntity(Start &e, std::string &packed);
-
-   private:
 };
 }  // namespace gui
