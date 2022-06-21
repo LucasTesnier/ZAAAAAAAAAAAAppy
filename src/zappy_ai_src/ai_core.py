@@ -33,7 +33,8 @@ class ClientCore:
             print("Failed to connect to server", file=stderr)
             return False
 
-        self.serverInterface.AskJoinTeam(self.__teamName)
+        if not self.serverInterface.AskJoinTeam(self.__teamName):
+            safeExitError()
         while not self.serverInterface.GetResponseState():
             pass
         info : str = self.serverInterface.GetRepJoinTeam()
