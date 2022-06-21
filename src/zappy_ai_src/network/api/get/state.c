@@ -37,6 +37,23 @@ bool c_interface_get_response_state(void)
     return true;
 }
 
+bool c_interface_flush_asked_data(void)
+{
+    char *resp = NULL;
+
+    if (client_data == NULL)
+        return false;
+    if (!client_data->net_srv->pending_write)
+        return true;
+    update_client(client_data->net_srv);
+    resp = fetch_message(client_data->net_srv);
+    if (resp != NULL) {
+        client_data->current_response = resp;
+        dprintf(2, "Get response : %s\n", resp);
+    }
+    return !client_data->net_srv->pending_write;
+}
+
 bool c_interface_get_network_state(void)
 {
     if (client_data == NULL)
