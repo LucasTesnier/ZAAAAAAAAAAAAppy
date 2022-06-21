@@ -22,10 +22,7 @@ class ClientCore:
         if not self.serverInterface.getNecessaryFunctions():
             return False
 
-        if not self.serverInterface.ConnectToServer(self.__ip, self.__port):
-            print("There is no server at this ip / port.", file=stderr)
-            return False
-
+        self.serverInterface.ConnectToServer(self.__ip, self.__port)
         while not self.serverInterface.GetResponseState():
             pass
         if not self.serverInterface.GetRepConnectToServer():
