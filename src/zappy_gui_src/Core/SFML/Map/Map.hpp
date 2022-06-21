@@ -97,7 +97,11 @@ namespace gui {
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
-            void _displaySelectedAndHoverTiles(sf::CircleShape &entityRepresentation);
+            void _displaySelectedTile(sf::CircleShape &entityRepresentation);
+
+            /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
+            /// \param entityRepresentation The circle shape used to display entities.
+            void _displayHoveredTile(sf::CircleShape &entityRepresentation);
 
             /// \brief Find if the selected or hover tile must be update.
             /// \param i The actual index of the tile to find if it need to be update.
