@@ -40,4 +40,7 @@ entity_t* get_tile(map_t *map, int x, int y);
 /// \param map The map informations
 void generate_new_ressource(map_t *map);
 
+/// \brief Utility function to print the map
+void display_map(map_t *map);
+
 #endif /* MAP_H */

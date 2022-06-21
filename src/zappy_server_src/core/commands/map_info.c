@@ -38,11 +38,13 @@ bool send_map_info(server_data_t *serv)
     peer_t *peer = NULL;
     char *temp = NULL;
 
-    for (size_t i = 0; i < serv->active_player_n; i++)
-        if (serv->active_players[i]->type == GUI) {
+    for (size_t i = 0; i < serv->active_player_n; i++) {
+        if (serv->active_players[i]->disconnected == CONNECTED &&
+        serv->active_players[i]->type == GUI) {
             peer = serv->active_players[i]->player_peer;
             break;
         }
+    }
     if (peer == NULL) {
         dprintf(2, "No GUI client found.\n");
         return false;

@@ -7,6 +7,7 @@
 
 #include "Tile.hpp"
 #include "math.h"
+#include "ZappyGuiException.hpp"
 
 using namespace gui;
 
@@ -40,23 +41,11 @@ Tile Tile::operator=(const Tile &tile)
 void Tile::setTexture(const std::string &texturePath)
 {
     _texture = std::make_shared<sf::Texture>();
-
-    if (!_texture->loadFromFile(texturePath)) {
-        return;
-    }
+    if (!_texture->loadFromFile(texturePath))
+        throw (TileException("Tile exception", "Texture cannot be load"));
     _texturePath = texturePath;
     _shape.setTexture(_texture.get());
 }
-
-// void Tile::setTexturesInventory(const std::string &texturePath)
-// {
-//     _textureFood = std::make_shared<sf::Texture>();
-
-//     if (!_textureFood->loadFromFile(texturePath)) {
-//         return;
-//     }
-//     _shape.setTexture(_texture.get());
-// }
 
 int Tile::isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse)
 {
@@ -112,11 +101,6 @@ void Tile::setZoom(float zoom)
     _size.x *= zoom;
     _size.y *= zoom;
     _setShape();
-}
-
-const std::vector<int> &Tile::getInventory() const
-{
-    return _inventory;
 }
 
 Tile::~Tile()

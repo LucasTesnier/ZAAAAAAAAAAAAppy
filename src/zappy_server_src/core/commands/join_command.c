@@ -72,6 +72,7 @@ bool command_join(char *arg, player_list_t *plr, server_data_t *serv)
         return print_retcode(500, arg, plr->player_peer, false);
     plr->player_data = player_entity;
     entity_wrapper_add_player(serv->entities, player_entity);
+    add_user_to_team(tmp, ((player_t *)player_entity->data)->uuid);
     send_entities_list_info(serv);
     pop_message(plr->player_peer);
     print_retcode(211, (res = join_resp(serv, tmp)), plr->player_peer, true);

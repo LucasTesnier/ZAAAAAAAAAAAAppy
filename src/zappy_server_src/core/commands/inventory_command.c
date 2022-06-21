@@ -32,8 +32,8 @@ server_data_t *serv)
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
     container_t *inventory = NULL;
+    char *temp = NULL;
 
-    (void) arg;
     (void) serv;
     if (!player->player_data)
         return print_retcode(402, arg, player->player_peer, false);
@@ -41,6 +41,8 @@ server_data_t *serv)
     player_data = (player_t *)player_entity->data;
     inventory = player_data->inventory;
     pop_message(player->player_peer);
-    return print_retcode(212, pack_inventory(inventory),
-        player->player_peer, true);
+    temp = pack_inventory(inventory);
+    print_retcode(212, temp, player->player_peer, true);
+    free(temp);
+    return true;
 }

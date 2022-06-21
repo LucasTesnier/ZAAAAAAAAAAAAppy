@@ -26,7 +26,8 @@ server_data_t *serv, player_t *tmp)
     if (direction == WEST)
         dir = "4";
     for (size_t i = 0; i < serv->active_player_n; i++) {
-        if (serv->active_players[i]->type == AI && !uuid_compare(((player_t *)
+        if (serv->active_players[i]->disconnected == CONNECTED &&
+        serv->active_players[i]->type == AI && !uuid_compare(((player_t *)
         serv->active_players[i]->player_data->data)->uuid, tmp->uuid)) {
             print_retcode(602, dir, serv->active_players[i]->player_peer,
             true);
@@ -38,7 +39,8 @@ server_data_t *serv, player_t *tmp)
 void send_unexpected_dead(server_data_t *serv, player_t *tmp)
 {
     for (size_t i = 0; i < serv->active_player_n; i++) {
-        if (serv->active_players[i]->type == AI && !uuid_compare(((player_t *)
+        if (serv->active_players[i]->disconnected == CONNECTED &&
+        serv->active_players[i]->type == AI && !uuid_compare(((player_t *)
         serv->active_players[i]->player_data->data)->uuid, tmp->uuid)) {
             print_retcode(601, NULL, serv->active_players[i]->player_peer,
             true);
@@ -50,7 +52,8 @@ void send_unexpected_dead(server_data_t *serv, player_t *tmp)
 player_list_t *find_player_list_by_uuid(server_data_t *serv, player_t *tmp)
 {
     for (size_t i = 0; i < serv->active_player_n; i++) {
-        if (serv->active_players[i]->type == AI && !uuid_compare(((player_t *)
+        if (serv->active_players[i]->disconnected == CONNECTED &&
+        serv->active_players[i]->type == AI && !uuid_compare(((player_t *)
         serv->active_players[i]->player_data->data)->uuid, tmp->uuid)) {
             return serv->active_players[i];
         }

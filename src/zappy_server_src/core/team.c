@@ -47,8 +47,8 @@ bool add_user_to_team(team_t* team, uuid_t user_uuid)
     for (int i = 0; i< team->current_members; i++)
         if (uuid_compare(team->members_uuid[i], user_uuid) == 0)
             return false;
-    team->current_members++;
     uuid_copy(team->members_uuid[team->current_members], user_uuid);
+    team->current_members++;
     return true;
 }
 
