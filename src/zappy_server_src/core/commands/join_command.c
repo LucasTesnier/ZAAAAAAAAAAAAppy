@@ -68,7 +68,6 @@ bool command_join(char *arg, player_list_t *plr, server_data_t *serv)
         return print_retcode(312, arg, plr->player_peer, false);
     if (tmp->current_members >= tmp->max_members)
         return print_retcode(313, arg, plr->player_peer, false);
-    tmp->current_members++;
     if (!command_join_create_player_data(arg, &player_entity, serv))
         return print_retcode(500, arg, plr->player_peer, false);
     plr->player_data = player_entity;

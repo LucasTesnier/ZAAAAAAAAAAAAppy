@@ -23,17 +23,18 @@ using namespace gui;
 /// \brief The default value for the machine if it's not specify.
 static const char *DEFAULT_MACHINE = "localhost";
 
-std::vector<std::string> split(std::string text, std::string delim)
+std::vector<std::string> Core::_stringToVector(std::string text, std::string delim)
 {
     std::vector<std::string> vec;
-    size_t pos = 0, prevPos = 0;
+    size_t pos = 0;
+    size_t prevPos = 0;
+
     while (1) {
         pos = text.find(delim, prevPos);
         if (pos == std::string::npos) {
             vec.push_back(text.substr(prevPos));
             return vec;
         }
-
         vec.push_back(text.substr(prevPos, pos - prevPos));
         prevPos = pos + delim.length();
     }
@@ -41,30 +42,30 @@ std::vector<std::string> split(std::string text, std::string delim)
 
 void Core::run()
 {
-    int fps = 0;
-    sf::Clock clock;
+    std::string response;
 
     while (_sfml->isRunning()) {
         _sfml->display();
-        if (clock.getElapsedTime().asSeconds() >= 1) {
-            clock.restart();
-            fps = 0;
-        }
-        fps++;
         if (!c_interface_get_response_state())
             continue;
         if (!c_interface_get_unexpected_response_state())
             continue;
-        std::cout << "Get : " << c_interface_get_unexpected_response() << std::endl;
+        response = std::string(c_interface_get_unexpected_response());
+        _updateEntities(response);
     }
+}
+
+void Core::_removeEntities(std::string &type)
+{
+    _sfml->removeEntities(type);
 }
 
 void Core::_resolveMachineHostname()
 {
     hostent* hostname = gethostbyname(_machine.c_str());
-    if(hostname)
+
+    if (hostname)
         _machine = std::string(inet_ntoa(**(in_addr**)hostname->h_addr_list));
-    // _machine = "127.0.0.1";
 }
 
 void Core::_getArgs(int ac, char **av)
@@ -89,44 +90,135 @@ void Core::_getArgs(int ac, char **av)
     }
     if (_machine.empty()) {
         _machine = std::string(DEFAULT_MACHINE);
-        std::cout << "machine empty: " << _machine << std::endl;
     }
     if (_port.empty())
         throw (CoreException("Core setup", "Empty port. Please select port with the flag \"-p PORT\"."));
     _resolveMachineHostname();
 }
 
-void Core::setup(int ac, char **av)
+void Core::_connectToServer()
 {
-    char *str;
-    std::vector<std::string> tilesSplitted;
-    gui::entity::Tile t;
+    char *str = NULL;
 
-    _getArgs(ac, av);
     str = (char *)_machine.c_str();
-    std::cout << "str: " << str << std::endl;
     if (!c_interface_try_to_connect_to_server(str, std::atoi(_port.c_str())))
         throw (CoreException("Core setup", "Unable to connect to the server"));
+}
+
+void Core::_waitForServerAnswer()
+{
     while(!c_interface_get_response_state());
+}
+
+void Core::_updateEntity(gui::entity::Tile entity, std::string &type, std::string &response)
+{
+    std::vector<std::string> splitted = _stringToVector(response, type);
+    bool remove = false;
+
+    if (response.find(type) != (size_t)-1)
+        remove = true;
+    if (!splitted.empty() && splitted.at(0).rfind("start", 0) == 0)
+        splitted.erase(splitted.begin());
+    if (!splitted.empty() && remove) {
+        _removeEntities(type);
+        for (auto &it : splitted) {
+            if (!it.empty()) {
+                try {
+                    it.insert(0, type);
+                    _unpackObject->UnpackEntity(entity, it);
+                    _sfml->addTilesInfo(entity);
+                } catch (...) {}
+            }
+        }
+    }
+    splitted.clear();
+}
+
+void Core::_updateEntity(gui::entity::Player entity, std::string &type, std::string &response)
+{
+    std::vector<std::string> splitted = _stringToVector(response, type);
+    bool remove = false;
+
+    if (response.find(type) != (size_t)-1)
+        remove = true;
+    if (!splitted.empty() && splitted.at(0).rfind("start", 0) == 0)
+        splitted.erase(splitted.begin());
+    if (!splitted.empty() && remove) {
+        _removeEntities(type);
+        for (auto &it : splitted) {
+            if (!it.empty()) {
+                try {
+                    it.insert(0, type);
+                    _unpackObject->UnpackEntity(entity, it);
+                    _sfml->addPlayer(entity);
+                } catch (...) {}
+            }
+        }
+    }
+    splitted.clear();
+}
+
+void Core::_updateEntity(gui::entity::Egg entity, std::string &type, std::string &response)
+{
+    std::vector<std::string> splitted = _stringToVector(response, type);
+    bool remove = false;
+
+    if (response.find(type) != (size_t)-1)
+        remove = true;
+    if (!splitted.empty() && splitted.at(0).rfind("start", 0) == 0)
+        splitted.erase(splitted.begin());
+    if (!splitted.empty() && remove) {
+        _removeEntities(type);
+        for (auto &it : splitted) {
+            if (!it.empty()) {
+                try {
+                    it.insert(0, type);
+                    _unpackObject->UnpackEntity(entity, it);
+                    _sfml->addEgg(entity);
+                } catch (...) {}
+            }
+        }
+    }
+    splitted.clear();
+}
+
+void Core::_updateEntities(std::string &response)
+{
+    gui::entity::Tile t;
+    gui::entity::Player p;
+    gui::entity::Egg e;
+    std::string tilestr = std::string("tile");
+    std::string playerstr = std::string("player");
+    std::string eggstr = std::string("egg");
+
+    if (response.empty())
+        return;
+    _updateEntity(t, tilestr, response);
+    _updateEntity(p, playerstr, response);
+    _updateEntity(e, eggstr, response);
+}
+
+void Core::setup(int ac, char **av)
+{
+    std::string response;
+    sf::Vector2f mapSize;
+
+    _getArgs(ac, av);
+    _connectToServer();
+    _waitForServerAnswer();
     if (!c_interface_get_unexpected_response_state())
         throw (CoreException("Core setup", "Invalid receive data"));
-    std::string temp = std::string(c_interface_get_unexpected_response());
-    _unpackObject.UnpackEntity(_startData, temp);
-    const sf::Vector2f mapSize = {(float)_startData.size_x, (float)_startData.size_y};
+    response = std::string(c_interface_get_unexpected_response());
+    _unpackObject->UnpackEntity(*_startData, response);
+    mapSize = {(float)_startData->size_x, (float)_startData->size_y};
     _sfml = std::make_unique<gui::SFML>(mapSize);
-    tilesSplitted = split(temp, std::string("tile"));
-    tilesSplitted.erase(tilesSplitted.begin());
-    for (auto &tile : tilesSplitted) {
-        tile.insert(0, "tile");
-        std::cout << tile << std::endl;
-        _unpackObject.UnpackEntity(t ,tile);
-        _sfml->addTilesInfo(t);
-    }
+    _updateEntities(response);
 }
 
 Core::Core()
 {
-    _unpackObject = gui::unpack::Unpack();
+    _unpackObject = std::make_unique<unpack::Unpack>();
+    _startData = std::make_unique<unpack::Start>();
 }
 
 Core::~Core()

@@ -32,3 +32,7 @@ ServerCommunicationException::ServerCommunicationException(std::string title, st
 InventoryException::InventoryException(std::string title, std::string description) : ZappyGuiException(title, description)
 {
 }
+
+TileException::TileException(std::string title, std::string description) : ZappyGuiException(title, description)
+{
+}

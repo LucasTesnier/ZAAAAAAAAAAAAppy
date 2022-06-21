@@ -35,6 +35,24 @@ namespace gui {
             /// \brief Setup the core with the given parameters.
             void setup(int ac, char **av);
         private:
+            /// \brief remove entities depending on the type given
+            /// \param type string representating the type of entities to remove
+            void _removeEntities(std::string &type);
+
+            /// \brief update entities depending on the response of the server
+            /// \param response string representating the packed response of the server
+            void _updateEntities(std::string &response);
+
+            void _updateEntity(gui::entity::Tile entity, std::string &type, std::string &response);
+            void _updateEntity(gui::entity::Player entity, std::string &type, std::string &response);
+            void _updateEntity(gui::entity::Egg entity, std::string &type, std::string &response);
+
+            /// \brief Start the connection with the server.
+            /// \throw CoreException if the connection can't be established.
+            void _connectToServer();
+
+            /// \brief Wait while the server don't send a response.
+            void _waitForServerAnswer();
 
             /// \brief Resolve the hostname to ip address to connect the client to the server.
             void _resolveMachineHostname();
@@ -44,20 +62,29 @@ namespace gui {
             /// \param av The parameters.
             void _getArgs(int ac, char **av);
 
+            /// \brief Parse all entities comming from the server and add them to the SFML object
+            /// \param str the string of packed entities
+            void _parseEntities(std::string &str);
+            /// \brief Convert a string to a vector.
+            /// \param text The string in which find the vector.
+            /// \param delim The delimiter.
+            /// \return The vector found in the string.
+            std::vector<std::string> _stringToVector(std::string text, std::string delim);
+
             /// \brief The port of the server.
             std::string _port;
 
-            /// \brief The ip of the server.
+            /// \brief The ip of the server. It store temporarly the name of the machine, that is replaced by the IP address.
             std::string _machine;
 
             /// \brief An instance of the sfml graphical part.
             std::unique_ptr<SFML> _sfml;
 
             /// \brief Instance of the unpack object
-            gui::unpack::Unpack _unpackObject;
+            std::unique_ptr<unpack::Unpack> _unpackObject;
 
             /// \brief The starting data
-            gui::unpack::Start _startData;
+            std::unique_ptr<unpack::Start> _startData;
     };
 } // namespace gui
 

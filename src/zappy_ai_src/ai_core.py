@@ -9,9 +9,9 @@ class ClientCore:
         self.__ip  : str = ip
         self.__port : int = port
         self.serverInterface : ServerWrapper = ServerWrapper("./src/zappy_ai_src/libzappy_ai_api.so")
-        self.__mapY : int
-        self.__mapX : int
-        self.__placesLeft : int
+        self.__mapY : int = 0
+        self.__mapX : int = 0
+        self.__placesLeft : int = 0
 
     def connectToServer(self) -> bool:
         """
@@ -45,7 +45,8 @@ class ClientCore:
 
     def run(self) -> None:
         """ Main Loop of the ClientCore """
-        """ BEWARE : You must call connectToServer() first or it will lead to undefined behavior """
+        if not self.connectToServer():
+            return
         newIA : Ai = Ai(self.__placesLeft, self.__teamName)
         newIA.start()
         pass

@@ -78,7 +78,7 @@ gui::entity::Tile Unpack::UnpackTile(std::vector<std::string> &unpacked)
         tile = stov(unpacked[2], '}');
         t._inventory = UnpackInventory(tile[0]);
     } catch(...) {
-        throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Tile invalid parsing"));
     }
     return t;
 }
@@ -92,7 +92,7 @@ gui::entity::Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
         egg[2].pop_back();
         e._team_name = egg[2];
     } catch(...) {
-        throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Egg invalid parsing"));
     }
     return e;
 }
@@ -112,7 +112,7 @@ Start Unpack::UnpackStart(std::vector<std::string> &unpacked)
         start.max_player = std::stoi(temp[0]);
         /// UNPACK THE TILE
     } catch(...) {
-        throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Start invalid parsing"));
     }
     return start;
 }
@@ -123,7 +123,7 @@ void Unpack::UnpackEntity(gui::entity::Player &p, std::string &packed)
     if (unpacked[0] == "player") {
         p = UnpackPlayer(unpacked);
     } else
-    throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Player entity invalid parsing"));
 }
 
 void Unpack::UnpackEntity(gui::entity::Tile &t, std::string &packed)
@@ -132,7 +132,7 @@ void Unpack::UnpackEntity(gui::entity::Tile &t, std::string &packed)
     if (unpacked[0] == "tile") {
         t = UnpackTile(unpacked);
     } else
-        throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Tile entity invalid parsing"));
 }
 
 void Unpack::UnpackEntity(gui::entity::Egg &e, std::string &packed)
@@ -141,7 +141,7 @@ void Unpack::UnpackEntity(gui::entity::Egg &e, std::string &packed)
     if (unpacked[0] == "egg") {
         e = UnpackEgg(unpacked);
     } else
-        throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Egg entity invalid parsing"));
 }
 
 void Unpack::UnpackEntity(Start &e, std::string &packed)
@@ -150,5 +150,5 @@ void Unpack::UnpackEntity(Start &e, std::string &packed)
     if (unpacked[0] == "start") {
         e = UnpackStart(unpacked);
     } else
-        throw (std::invalid_argument("Player invalid parsing"));
+        throw (std::invalid_argument("Start entity invalid parsing"));
 }
