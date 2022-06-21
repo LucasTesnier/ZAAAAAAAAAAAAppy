@@ -1,7 +1,7 @@
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from sys import stderr
-from ai_core import safeExitError
+from ai_safe_error import safeExitError
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """

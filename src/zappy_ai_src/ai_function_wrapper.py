@@ -1,7 +1,7 @@
-from numpy import c_
 from ai_DLLib_wrapper import DLLibWrapper
 import ctypes
 from sys import stderr
+from ai_safe_error import safeExitError
 
 class ServerWrapper:
     def __init__(self, libName : str):
@@ -108,6 +108,8 @@ class ServerWrapper:
     def GetRepConnectToServer(self) -> bool:
         """ Wrapped Function : Get the response of ConnectToServer() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepConnectToServer.restype = ctypes.c_bool
         c_value = self.__GetRepConnectToServer()
         return c_value
@@ -124,6 +126,8 @@ class ServerWrapper:
     def GetRepJoinTeam(self) -> str:
         """ Wrapped Function : Get the response about joining a team """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepJoinTeam.restype = ctypes.c_char_p
         c_value = self.__GetRepJoinTeam()
         return c_value.decode("UTF-8")
@@ -131,6 +135,8 @@ class ServerWrapper:
     def GetResponseState(self) -> bool:
         """ Wrapped Function : Return true if a response is available, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetResponseState.restype = ctypes.c_bool
         c_value = self.__GetResponseState()
         return c_value
@@ -138,6 +144,8 @@ class ServerWrapper:
     def GetUnexpectedResponseState(self) -> bool:
         """ Wrapped Function : Return true if a response is available, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetUnexpectedResponseState.restype = ctypes.c_bool
         c_value = self.__GetUnexpectedResponseState()
         return c_value
@@ -145,6 +153,8 @@ class ServerWrapper:
     def GetUnexpectedResponse(self) -> str:
         """ Wrapped Function : Return the unexpected message """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetUnexpectedResponse.restype = ctypes.c_char_p
         c_value = self.__GetUnexpectedResponse()
         return c_value.decode("UTF-8")
@@ -251,6 +261,8 @@ class ServerWrapper:
     def GetRepForward(self) -> bool:
         """ Wrapped Function : Get the reponse of AskForward() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepForward.restype = ctypes.c_bool
         c_value = self.__GetRepForward()
         return c_value
@@ -258,6 +270,8 @@ class ServerWrapper:
     def GetRepTurnRight(self) -> bool:
         """ Wrapped Function : Get the reponse of AskTurnRight() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepTurnRight.restype = ctypes.c_bool
         c_value = self.__GetRepTurnRight()
         return c_value
@@ -265,6 +279,8 @@ class ServerWrapper:
     def GetRepTurnLeft(self) -> bool:
         """ Wrapped Function : Get the reponse of AskTurnLeft() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepTurnLeft.restype = ctypes.c_bool
         c_value = self.__GetRepTurnLeft()
         return c_value
@@ -272,6 +288,8 @@ class ServerWrapper:
     def GetRepLook(self) -> str:
         """ Wrapped Function : Get the reponse of AskLook() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepLook.restype = ctypes.c_char_p
         c_value = self.__GetRepLook()
         return c_value.decode("UTF-8")
@@ -279,6 +297,8 @@ class ServerWrapper:
     def GetRepInventory(self) -> str:
         """ Wrapped Function : Get the reponse of AskInventory() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepInventory.restype = ctypes.c_char_p
         c_value = self.__GetRepInventory()
         return c_value.decode("UTF-8")
@@ -286,6 +306,8 @@ class ServerWrapper:
     def GetRepBroadcastText(self) -> bool:
         """ Wrapped Function : Get the reponse of AskBroadcastText() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepBroadcastText.restype = ctypes.c_bool
         c_value = self.__GetRepBroadcastText()
         return c_value
@@ -293,6 +315,8 @@ class ServerWrapper:
     def GetRepConnectNbr(self) -> bool:
         """ Wrapped Function : Get the reponse of AskConnectNbr() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepConnectNbr.restype = ctypes.c_bool
         c_value = self.__GetRepConnectNbr()
         return c_value
@@ -300,6 +324,8 @@ class ServerWrapper:
     def GetRepFork(self) -> bool:
         """ Wrapped Function : Get the reponse of AskFork() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepFork.restype = ctypes.c_bool
         c_value = self.__GetRepFork()
         return c_value
@@ -307,6 +333,8 @@ class ServerWrapper:
     def GetRepEject(self) -> bool:
         """ Wrapped Function : Get the reponse of AskEject() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepEject.restype = ctypes.c_bool
         c_value = self.__GetRepEject()
         return c_value
@@ -314,6 +342,8 @@ class ServerWrapper:
     def GetRepTakeObject(self) -> bool:
         """ Wrapped Function : Get the reponse of AskTakeObject() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepTakeObject.restype = ctypes.c_bool
         c_value = self.__GetRepTakeObject()
         return c_value
@@ -321,6 +351,8 @@ class ServerWrapper:
     def GetRepPlaceObject(self) -> bool:
         """ Wrapped Function : Get the reponse of AskPlaceObject() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepPlaceObject.restype = ctypes.c_bool
         c_value = self.__GetRepPlaceObject()
         return c_value
@@ -328,6 +360,8 @@ class ServerWrapper:
     def GetRepIncantation(self) -> int:
         """ Wrapped Function : Get the reponse of AskIncantation() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        if not self.GetNetworkState():
+            safeExitError()
         self.__GetRepIncantation.restype = ctypes.c_int
         c_value = self.__GetRepIncantation()
         return c_value
