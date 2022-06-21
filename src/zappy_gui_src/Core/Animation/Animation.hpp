@@ -14,12 +14,12 @@
 
 namespace gui {
     /// \brief Animation class should be used to create an animation in sfml.
-    /// It contains a list of texture that will be updated, depending on a duration time, with the function update.
+    /// \note It contains a list of texture that will be updated, depending on a duration time, with the function update.
     /// You should define a duration between each frame.
     /// You should define a position for the animation.
     /// You should define a size for the animation.
     /// You should add a texture for the animation.
-    /// Be careful, a texture is always add at the end of the vector of texture.
+    /// \warning Be careful, a texture is always add at the end of the vector of texture.
     class Animation {
         public:
             /// \brief Create a new instance of Animation.
