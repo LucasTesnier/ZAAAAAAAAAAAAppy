@@ -93,7 +93,7 @@ void entity_wrapper_add_player(entity_wrapper_t *wrapper, entity_t *player);
 /// \param position the egg position
 /// \param team_name the egg team_name
 /// \return uuid_t * The uuid of the created egg
-uuid_t *entity_wrapper_create_egg(entity_wrapper_t *wrapper, position_t pos,
+entity_t * entity_wrapper_create_egg(entity_wrapper_t *wrapper, position_t pos,
 const char *team_name);
 
 /// \brief Add a previously created egg entity to the collection of entity
