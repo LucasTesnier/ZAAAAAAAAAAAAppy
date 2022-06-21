@@ -32,13 +32,10 @@ void Animation::udpate()
 void Animation::addTexture(const std::string &texturePath, const sf::Vector2f &position, const sf::Vector2f &size)
 {
     sf::Image image;
-    sf::Texture texture;
 
     if (!image.loadFromFile(texturePath))
         throw AnimationException("Animation Exception", "Load image with file path failed");
-    if (!texture.loadFromImage(image, sf::IntRect(position.x, position.y, size.x, size.y)))
-        throw AnimationException("Animation Exception", "Load texture with image failed");
-    _textures.push_back(texture);
+    addTexture(image, position, size);
 }
 
 void Animation::addTexture(const sf::Image &image, const sf::Vector2f &position, const sf::Vector2f &size)
@@ -48,6 +45,7 @@ void Animation::addTexture(const sf::Image &image, const sf::Vector2f &position,
     if (!texture.loadFromImage(image, sf::IntRect(position.x, position.y, size.x, size.y)))
         throw AnimationException("Animation Exception", "Load texture with image failed");
     _textures.push_back(texture);
+    _shape.setTexture(&_textures.back());
 }
 
 const sf::RectangleShape &Animation::getShape() const
