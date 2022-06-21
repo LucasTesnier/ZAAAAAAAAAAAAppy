@@ -13,14 +13,16 @@
 
 bool c_interface_ask_right(void)
 {
-    if (client_data == NULL || client_data->net_srv->pending_write)
+    if (client_data == NULL || client_data->net_srv->pending_write
+    || !c_interface_get_network_state())
         return false;
     return send_request("turn", "right");
 }
 
 bool c_interface_ask_left(void)
 {
-    if (client_data == NULL || client_data->net_srv->pending_write)
+    if (client_data == NULL || client_data->net_srv->pending_write
+    || !c_interface_get_network_state())
         return false;
     return send_request("turn", "left");
 }
