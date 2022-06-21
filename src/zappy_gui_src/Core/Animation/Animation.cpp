@@ -6,6 +6,7 @@
 */
 
 #include "Animation.hpp"
+#include "ZappyGuiException.hpp"
 
 using namespace gui;
 
@@ -19,11 +20,11 @@ Animation::Animation()
 
 void Animation::udpate()
 {
-    if (_clock.getElapsedTime().asMilliseconds() > _duration) {
+    if (std::size_t(_clock.getElapsedTime().asMilliseconds()) > _duration) {
         _textureUsed++;
         if (_textureUsed >= _textures.size())
             _textureUsed = 0;
-        _sprite.setTexture(_textures[_textureUsed]);
+        _shape.setTexture(&_textures[_textureUsed]);
         _clock.restart();
     }
 }
@@ -34,14 +35,24 @@ void Animation::addTexture(const std::string &texturePath, const sf::Vector2f &p
     sf::Texture texture;
 
     if (!image.loadFromFile(texturePath))
-        throw std::exception();
-    texture.loadFromImage(image, sf::IntRect(position.x, position.y, size.x, size.y));
+        throw AnimationException("Animation Exception", "Load image with file path failed");
+    if (!texture.loadFromImage(image, sf::IntRect(position.x, position.y, size.x, size.y)))
+        throw AnimationException("Animation Exception", "Load texture with image failed");
     _textures.push_back(texture);
 }
 
-const sf::Sprite &Animation::getSprite() const
+void Animation::addTexture(const sf::Image &image, const sf::Vector2f &position, const sf::Vector2f &size)
 {
-    return _sprite;
+    sf::Texture texture;
+
+    if (!texture.loadFromImage(image, sf::IntRect(position.x, position.y, size.x, size.y)))
+        throw AnimationException("Animation Exception", "Load texture with image failed");
+    _textures.push_back(texture);
+}
+
+const sf::RectangleShape &Animation::getShape() const
+{
+    return _shape;
 }
 
 void Animation::setDuration(std::size_t duration)
@@ -56,6 +67,20 @@ const std::size_t &Animation::getDuration() const
 
 void Animation::setPosition(const sf::Vector2f &position)
 {
-    _sprite.setPosition(position);
+    _shape.setPosition(position);
 }
 
+const sf::Vector2f &Animation::getPosition() const
+{
+    return _shape.getPosition();
+}
+
+void Animation::setSize(const sf::Vector2f &size)
+{
+    _shape.setSize(size);
+}
+
+const sf::Vector2f &Animation::getSize() const
+{
+    return _shape.getSize();
+}

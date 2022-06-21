@@ -17,7 +17,8 @@ namespace gui {
             ~Animation() = default;
             void udpate();
             void addTexture(const std::string &texturePath, const sf::Vector2f &position, const sf::Vector2f &size);
-            const sf::Sprite &getSprite() const;
+            void addTexture(const sf::Image &image, const sf::Vector2f &position, const sf::Vector2f &size);
+            const sf::RectangleShape &getShape() const;
             void setDuration(std::size_t duration);
             const std::size_t &getDuration() const;
             void setPosition(const sf::Vector2f &position);
@@ -25,7 +26,7 @@ namespace gui {
             void setSize(const sf::Vector2f &size);
             const sf::Vector2f &getSize() const;
         private:
-            sf::Sprite _sprite;
+            sf::RectangleShape _shape;
             std::vector<sf::Texture> _textures;
             sf::Clock _clock;
             std::size_t _duration;

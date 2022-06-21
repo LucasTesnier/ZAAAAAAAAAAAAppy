@@ -30,3 +30,4 @@ set_target_properties(${TARGET} PROPERTIES
 add_subdirectory(SFML)
 add_subdirectory(Network)
 add_subdirectory(Entity)
+add_subdirectory(Animation)
