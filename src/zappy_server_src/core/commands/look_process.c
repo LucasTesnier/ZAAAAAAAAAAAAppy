@@ -17,6 +17,10 @@
 void resolve_looked_cases(position_t *looked_cases, size_t looked_case_idx,
 position_t map_size);
 
+/// \brief Get all the tiles when in front of a player when facing north
+/// \param player the player position
+/// \param map_size the map size
+/// \param looked_cases the collection of cases visited by the look cmd
 static void look_north(position_t player,
 position_t map_size, int lvl, position_t* looked_cases)
 {
@@ -36,6 +40,10 @@ position_t map_size, int lvl, position_t* looked_cases)
     resolve_looked_cases(looked_cases, looked_case_idx, map_size);
 }
 
+/// \brief Get all the tiles when in front of a player when facing south
+/// \param player the player position
+/// \param map_size the map size
+/// \param looked_cases the collection of cases visited by the look cmd
 static void look_south(position_t player,
 position_t map_size, int lvl, position_t* looked_cases)
 {
@@ -55,6 +63,10 @@ position_t map_size, int lvl, position_t* looked_cases)
     resolve_looked_cases(looked_cases, looked_case_idx, map_size);
 }
 
+/// \brief Get all the tiles when in front of a player when facing west
+/// \param player the player position
+/// \param map_size the map size
+/// \param looked_cases the collection of cases visited by the look cmd
 static void look_west(position_t player,
 position_t map_size, int lvl, position_t* looked_cases)
 {
@@ -74,6 +86,10 @@ position_t map_size, int lvl, position_t* looked_cases)
     resolve_looked_cases(looked_cases, looked_case_idx, map_size);
 }
 
+/// \brief Get all the tiles when in front of a player when facing east
+/// \param player the player position
+/// \param map_size the map size
+/// \param looked_cases the collection of cases visited by the look cmd
 static void look_east(position_t player,
 position_t map_size, int lvl, position_t* looked_cases)
 {
