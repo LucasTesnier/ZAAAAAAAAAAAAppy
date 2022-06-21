@@ -52,7 +52,6 @@ void Core::run()
             continue;
         response = std::string(c_interface_get_unexpected_response());
         _updateEntities(response);
-        // std::cout << "REP: " << response << std::endl;
     }
 }
 
@@ -111,11 +110,80 @@ void Core::_waitForServerAnswer()
     while(!c_interface_get_response_state());
 }
 
-void Core::_updateEntities(std::string &str)
+void Core::_updateEntity(gui::entity::Tile entity, std::string &type, std::string &response)
 {
-    std::vector<std::string> tilesSplitted;
-    std::vector<std::string> playersSplitted;
-    std::vector<std::string> eggsSplitted;
+    std::vector<std::string> splitted = _stringToVector(response, type);
+    bool remove = false;
+
+    if (response.find(type) != (size_t)-1)
+        remove = true;
+    if (!splitted.empty() && splitted.at(0).rfind("start", 0) == 0)
+        splitted.erase(splitted.begin());
+    if (!splitted.empty() && remove) {
+        _removeEntities(type);
+        for (auto &it : splitted) {
+            if (!it.empty()) {
+                try {
+                    it.insert(0, type);
+                    _unpackObject->UnpackEntity(entity, it);
+                    _sfml->addTilesInfo(entity);
+                } catch (...) {}
+            }
+        }
+    }
+    splitted.clear();
+}
+
+void Core::_updateEntity(gui::entity::Player entity, std::string &type, std::string &response)
+{
+    std::vector<std::string> splitted = _stringToVector(response, type);
+    bool remove = false;
+
+    if (response.find(type) != (size_t)-1)
+        remove = true;
+    if (!splitted.empty() && splitted.at(0).rfind("start", 0) == 0)
+        splitted.erase(splitted.begin());
+    if (!splitted.empty() && remove) {
+        _removeEntities(type);
+        for (auto &it : splitted) {
+            if (!it.empty()) {
+                try {
+                    it.insert(0, type);
+                    _unpackObject->UnpackEntity(entity, it);
+                    _sfml->addPlayer(entity);
+                } catch (...) {}
+            }
+        }
+    }
+    splitted.clear();
+}
+
+void Core::_updateEntity(gui::entity::Egg entity, std::string &type, std::string &response)
+{
+    std::vector<std::string> splitted = _stringToVector(response, type);
+    bool remove = false;
+
+    if (response.find(type) != (size_t)-1)
+        remove = true;
+    if (!splitted.empty() && splitted.at(0).rfind("start", 0) == 0)
+        splitted.erase(splitted.begin());
+    if (!splitted.empty() && remove) {
+        _removeEntities(type);
+        for (auto &it : splitted) {
+            if (!it.empty()) {
+                try {
+                    it.insert(0, type);
+                    _unpackObject->UnpackEntity(entity, it);
+                    _sfml->addEgg(entity);
+                } catch (...) {}
+            }
+        }
+    }
+    splitted.clear();
+}
+
+void Core::_updateEntities(std::string &response)
+{
     gui::entity::Tile t;
     gui::entity::Player p;
     gui::entity::Egg e;
@@ -123,62 +191,17 @@ void Core::_updateEntities(std::string &str)
     std::string playerstr = std::string("player");
     std::string eggstr = std::string("egg");
 
-    if (str.empty())
+    if (response.empty())
         return;
-    tilesSplitted = _stringToVector(str, tilestr);
-    playersSplitted = _stringToVector(str, playerstr);
-    eggsSplitted = _stringToVector(str, eggstr);
-    if (!tilesSplitted.empty() && tilesSplitted.at(0).rfind("start", 0) == 0)
-        tilesSplitted.erase(tilesSplitted.begin());
-    if (!playersSplitted.empty() && playersSplitted.at(0).rfind("start", 0) == 0)
-        playersSplitted.erase(playersSplitted.begin());
-    if (!eggsSplitted.empty() && eggsSplitted.at(0).rfind("start", 0) == 0)
-        eggsSplitted.erase(eggsSplitted.begin());
-    if (!tilesSplitted.empty() && tilesSplitted.size() > 1) {
-        _removeEntities(tilestr);
-        for (auto &tile : tilesSplitted) {
-            if (!tile.empty()) {
-                try {
-                    tile.insert(0, tilestr);
-                    _unpackObject->UnpackEntity(t, tile);
-                    _sfml->addTilesInfo(t);
-                } catch (...) {}
-            }
-        }
-    }
-    if (!playersSplitted.empty() && playersSplitted.size() > 2) {
-        _removeEntities(playerstr);
-        for (auto &player : playersSplitted) {
-            if (!player.empty()) {
-                try {
-                    player.insert(0, playerstr);
-                    _unpackObject->UnpackEntity(p, player);
-                    _sfml->addPlayer(p);
-                } catch (...) {}
-            }
-        }
-    }
-    if (!eggsSplitted.empty() && eggsSplitted.size() > 2) {
-        _removeEntities(eggstr);
-        for (auto &egg : eggsSplitted) {
-            if (!egg.empty()) {
-                try {
-                    egg.insert(0, eggstr);
-                    _unpackObject->UnpackEntity(e, egg);
-                    _sfml->addEgg(e);
-                } catch (...) {}
-            }
-        }
-    }
-    tilesSplitted.clear();
-    playersSplitted.clear();
-    eggsSplitted.clear();
+    _updateEntity(t, tilestr, response);
+    _updateEntity(p, playerstr, response);
+    _updateEntity(e, eggstr, response);
 }
 
 void Core::setup(int ac, char **av)
 {
     std::string response;
-    sf::Vector2f mapSize = {5, 5}; //TODO delete the default value
+    sf::Vector2f mapSize;
 
     _getArgs(ac, av);
     _connectToServer();

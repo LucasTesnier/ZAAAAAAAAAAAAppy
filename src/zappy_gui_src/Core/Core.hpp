@@ -43,6 +43,10 @@ namespace gui {
             /// \param response string representating the packed response of the server
             void _updateEntities(std::string &response);
 
+            void _updateEntity(gui::entity::Tile entity, std::string &type, std::string &response);
+            void _updateEntity(gui::entity::Player entity, std::string &type, std::string &response);
+            void _updateEntity(gui::entity::Egg entity, std::string &type, std::string &response);
+
             /// \brief Start the connection with the server.
             /// \throw CoreException if the connection can't be established.
             void _connectToServer();
