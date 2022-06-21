@@ -315,9 +315,10 @@ void process_eggs_inspection(server_data_t *serv);
 /// \param player The player position
 /// \param map_size The size of the map
 /// \param level The level of the player
+/// \param orientation The orientation of the player
 /// \return position_t* The list of all the looked case
 position_t *compute_the_looked_case(position_t player, position_t map_size,
-int level);
+int level, enum player_orientation_e orientation);
 
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {

@@ -83,28 +83,30 @@ static char *get_a_tile_content(tile_t *tile)
 /// \param serv The serv informations
 /// \param level The player level
 /// \param position The player position
+/// \param map The size of the map
 /// \return char* The formated look result
-static char *look_action(server_data_t *serv, unsigned int level,
-position_t position)
+static char *look_action(server_data_t *serv, player_t *player,
+position_t position, position_t map)
 {
     char *res = malloc(sizeof(char) * 4);
     char *temp = NULL;
+    position_t *looked = compute_the_looked_case(position, map,
+    player->level, player->orientation);
 
-    if (res == NULL)
+    if (res == NULL || looked == NULL)
         return NULL;
-    (void) level;
     res[0] = '[';
     res[1] = '\0';
-    /// DO THE LOOP RIGHT HERE
-    temp = get_a_tile_content(
-    (tile_t *)get_tile(serv->map, position.x, position.y)->data);
-    res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
-    strcat(res, temp);
-    free(temp);
-    /// strcat(res, ",");
-    /// END LOOP
-    /// strcat(res, "]");
-    strcat(res, ",]");
+    for (int i = 0; looked[i].x != -1; i++) {
+        temp = get_a_tile_content(
+        (tile_t *)get_tile(serv->map, looked[i].x, looked[i].y)->data);
+        res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
+        strcat(res, temp);
+        free(temp);
+        strcat(res, ",");
+    }
+    strcat(res, "]");
+    free(looked);
     return res;
 }
 
@@ -120,7 +122,8 @@ server_data_t *serv)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
-    res = look_action(serv, player_data->level, player_entity->position);
+    res = look_action(serv, player_data, player_entity->position,
+    (position_t) {serv->map->width, serv->map->height});
     pop_message(player->player_peer);
     print_retcode(215, res, player->player_peer, true);
     free(res);
