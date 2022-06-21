@@ -35,10 +35,13 @@ namespace gui {
             /// \brief Setup the core with the given parameters.
             void setup(int ac, char **av);
         private:
+            /// \brief remove entities depending on the type given
+            /// \param type string representating the type of entities to remove
+            void _removeEntities(std::string &type);
 
-            void _removeEntities();
-
-            void _updateEntities(std::string &temp);
+            /// \brief update entities depending on the response of the server
+            /// \param response string representating the packed response of the server
+            void _updateEntities(std::string &response);
 
             /// \brief Start the connection with the server.
             /// \throw CoreException if the connection can't be established.

@@ -40,16 +40,22 @@ void Map::_updateTileVectorSize()
     _pushEntityInTile();
 }
 
-void Map::removeEntities()
+void Map::removeEntities(std::string &type)
 {
-    _players.clear();
-    _eggs.clear();
-    _tilesInfo.clear();
-    for (auto &it : _tile) {
-        it->removeEggs();
-        it->removePlayers();
-        it->removeTileInfo();
-    }
+    if (type == "tile") {
+        _tilesInfo.clear();
+        for (auto &it : _tile)
+            it->removeTileInfo();
+    } else if (type == "player") {
+        _players.clear();
+        for (auto &it : _tile)
+            it->removePlayers();
+    } else if (type == "egg") {
+        _eggs.clear();
+        for (auto &it : _tile)
+            it->removeEggs();
+    } else
+        return;
 }
 
 void Map::_updateMoveMap()

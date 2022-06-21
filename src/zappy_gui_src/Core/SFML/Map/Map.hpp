@@ -90,7 +90,9 @@ namespace gui {
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
 
-            void removeEntities();
+            /// \brief remove entities depending on the type given
+            /// \param type string representating the type of entities to remove
+            void removeEntities(std::string &type);
         private:
 
             /// \brief Display the actual selected and hover tile if it's different to index -1.

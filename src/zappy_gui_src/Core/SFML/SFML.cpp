@@ -28,9 +28,9 @@ SFML::SFML(const sf::Vector2f mapSize) : _run(true)
     _interface.setMapSize(mapSize);
 }
 
-void SFML::removeEntities()
+void SFML::removeEntities(std::string &type)
 {
-    _map.removeEntities();
+    _map.removeEntities(type);
 }
 
 void SFML::_changeMapSize(const sf::Vector2f mapSize)
