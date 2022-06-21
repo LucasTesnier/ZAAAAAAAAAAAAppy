@@ -30,7 +30,7 @@ bool command_look(char *arg, player_list_t *player, server_data_t *serv)
 /// \param tile The concerned tile
 /// \param cases The tile ressources
 /// \param res The result
-static void get_a_tile_content_player(tile_t *tile,
+static void get_tile_content_entities(tile_t *tile,
 container_t *cases, char *res)
 {
     int player_number = 0;
@@ -56,7 +56,7 @@ container_t *cases, char *res)
 /// \brief Get all the ressources in a tile and format it
 /// \param tile The concerned tile
 /// \return The result
-static char *get_a_tile_content(tile_t *tile)
+static char *get_tile_content(tile_t *tile)
 {
     container_t *cases = tile->inventory;
     char *res = malloc(sizeof(char) * 10000);
@@ -74,7 +74,7 @@ static char *get_a_tile_content(tile_t *tile)
         strcat(res, "sibur ");
     for (unsigned int i = 0; i < cases->mendiane; i++)
         strcat(res, "mendiane ");
-    get_a_tile_content_player(tile, cases, res);
+    get_tile_content_entities(tile, cases, res);
     res[strlen(res) - 1] = '\0';
     return res;
 }
@@ -90,7 +90,7 @@ position_t position, position_t map)
 {
     char *res = malloc(sizeof(char) * 4);
     char *temp = NULL;
-    position_t *looked = compute_the_looked_case(position, map,
+    position_t *looked = compute_look_cmd(position, map,
     player->level, player->orientation);
 
     if (res == NULL || looked == NULL)
@@ -98,7 +98,7 @@ position_t position, position_t map)
     res[0] = '[';
     res[1] = '\0';
     for (int i = 0; looked[i].x != -1; i++) {
-        temp = get_a_tile_content(
+        temp = get_tile_content(
         (tile_t *)get_tile(serv->map, looked[i].x, looked[i].y)->data);
         res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
         strcat(res, temp);
