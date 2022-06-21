@@ -36,6 +36,8 @@ static const retcodes_t retcodes[] = {
     {313, 1, EXPECTED},
     {314, 0, EXPECTED},
     {315, 0, EXPECTED},
+    {316, 0, EXPECTED},
+    {317, 0, EXPECTED},
     {401, 0, EXPECTED},
     {402, 1, EXPECTED},
     {501, 1, EXPECTED},

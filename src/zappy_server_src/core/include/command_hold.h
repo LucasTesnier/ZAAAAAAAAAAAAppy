@@ -307,6 +307,10 @@ void scheduler_update_ressource(scheduler_t *self, server_data_t *serv);
 /// \return player_list_t* The founded player_list
 player_list_t *find_player_list_by_uuid(server_data_t *serv, player_t *tmp);
 
+/// \brief Cross all the eggs and remove them when it's time
+/// \param serv The server information
+void process_eggs_inspection(server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
