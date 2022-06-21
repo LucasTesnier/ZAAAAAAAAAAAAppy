@@ -39,8 +39,19 @@ namespace gui {
             /// \param type string representating the type of entities to remove
             void _removeEntities(std::string &type);
 
-            bool _updateEntity(std::vector<std::string> &entityAsString, std::string &type, std::string &response);
-            void _updateEntity(std::string &type, std::string &response);
+            /// \brief Check if an entity need to be updated. It also fill the `entityAsString` variable.
+            /// \param entityAsString A vector of string which contains the representation of all entity of a type.
+            /// \param type The type of the entity as a string (player, egg or tile).
+            /// \param response The response of the server to get from the string information of an entity type.
+            /// \return true if the entity need to be updated.
+            /// \return false if the entity don't need to be updated.
+            bool _canEntityUpdate(std::vector<std::string> &entityAsString, std::string &type, std::string &response);
+
+            /// \brief Update the entity corresponding on his type.
+            /// \param type The type of the entity as a string (player, egg or tile).
+            /// \param response The response of the server to get from the string information of an entity type.
+            void _updateEntities(std::string &type, std::string &response);
+
             /// \brief update entities depending on the response of the server
             /// \param response string representating the packed response of the server
             void _updateEntities(std::string &response);
