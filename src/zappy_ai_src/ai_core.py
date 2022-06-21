@@ -54,4 +54,3 @@ class ClientCore:
             return
         newIA : Ai = Ai(self.__placesLeft, self.__teamName)
         newIA.start()
-        pass
