@@ -127,7 +127,7 @@ void Core::setup(int ac, char **av)
     gui::entity::Tile t;
     gui::entity::Player p;
     gui::entity::Egg e;
-    temp = std::string("start{5;5;2;{AAAAA;BBBB};4}tile{0;0;inventory{0;1;0;0;0;0;0}}player{42;4242;inventory{10;0;0;0;0;0;0};guiguilebg;1;0}tile{1;0;inventory{1;1;0;0;0;1;0}}tile{2;0;inventory{0;0;1;0;0;0;0}}tile{3;0;inventory{0;0;0;0;0;0;0}}tile{4;0;inventory{1;0;0;0;0;0;0}}tile{0;1;inventory{0;0;0;1;1;0;0}}tile{1;1;inventory{1;0;0;0;0;0;0}}tile{2;1;inventory{0;0;0;0;0;0;0}}tile{3;1;inventory{1;1;0;0;0;0;1}}tile{4;1;inventory{0;0;0;0;0;0;0}}tile{0;2;inventory{0;0;0;0;0;0;0}}tile{1;2;inventory{0;1;0;1;0;0;0}}tile{2;2;inventory{0;0;0;0;0;0;0}}tile{3;2;inventory{0;0;1;0;0;0;0}}tile{4;2;inventory{0;0;0;0;0;0;0}}tile{0;3;inventory{2;1;0;0;0;0;0}}tile{1;3;inventory{0;0;0;0;0;0;0}}tile{2;3;inventory{1;0;0;0;1;0;0}}tile{3;3;inventory{0;1;1;0;0;0;0}}tile{4;3;inventory{1;0;0;0;0;0;0}}tile{0;4;inventory{0;0;0;0;0;0;0}}tile{1;4;inventory{1;0;0;0;0;1;0}}tile{2;4;inventory{1;1;0;0;0;0;0}}tile{3;4;inventory{0;0;0;0;0;0;0}}tile{4;4;inventory{2;0;0;0;0;0;0}}");
+    temp = std::string("start{5;5;2;{AAAAA;BBBB};4}tile{0;0;inventory{0;1;0;0;0;0;0}}player{2;3;inventory{10;0;0;0;0;0;0};guiguilebg;1;0}tile{1;0;inventory{1;1;0;0;0;1;0}}tile{2;0;inventory{0;0;1;0;0;0;0}}tile{3;0;inventory{0;0;0;0;0;0;0}}tile{4;0;inventory{1;0;0;0;0;0;0}}tile{0;1;inventory{0;0;0;1;1;0;0}}tile{1;1;inventory{1;0;0;0;0;0;0}}tile{2;1;inventory{0;0;0;0;0;0;0}}tile{3;1;inventory{1;1;0;0;0;0;1}}tile{4;1;inventory{0;0;0;0;0;0;0}}tile{0;2;inventory{0;0;0;0;0;0;0}}tile{1;2;inventory{0;1;0;1;0;0;0}}tile{2;2;inventory{0;0;0;0;0;0;0}}tile{3;2;inventory{0;0;1;0;0;0;0}}tile{4;2;inventory{0;0;0;0;0;0;0}}tile{0;3;inventory{2;1;0;0;0;0;0}}tile{1;3;inventory{0;0;0;0;0;0;0}}tile{2;3;inventory{1;0;0;0;1;0;0}}tile{3;3;inventory{0;1;1;0;0;0;0}}tile{4;3;inventory{1;0;0;0;0;0;0}}tile{0;4;inventory{0;0;0;0;0;0;0}}tile{1;4;inventory{1;0;0;0;0;1;0}}tile{2;4;inventory{1;1;0;0;0;0;0}}tile{3;4;inventory{0;0;0;0;0;0;0}}tile{4;4;inventory{2;0;0;0;0;0;0}}");
     tilesSplitted = _stringToVector(temp, std::string("tile"));
     playersSplitted = _stringToVector(temp, std::string("player"));
     eggsSplitted = _stringToVector(temp, std::string("egg"));
@@ -148,8 +148,6 @@ void Core::setup(int ac, char **av)
         std::cout << player << std::endl;
         _unpackObject->UnpackEntity(p, player);
         std::cout << p.getTeamName() << std::endl;
-        p._position.first = 1;
-        p._position.second = 1;
         _sfml->addPlayer(p);
     }
     for (auto &egg : eggsSplitted) {
