@@ -20,6 +20,7 @@ set (SRC
     ${SRC_ROOT}/ressource_generation.c
     ${SRC_ROOT}/container_utils.c
     ${SRC_ROOT}/map.c
+    ${SRC_ROOT}/map_utils.c
     ${SRC_ROOT}/team.c
     ${SRC_ROOT}/teams_remove.c
     ${ENTITY_SRC}
