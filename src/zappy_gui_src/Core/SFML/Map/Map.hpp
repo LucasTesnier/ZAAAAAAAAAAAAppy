@@ -95,7 +95,8 @@ namespace gui {
             void removeEntities(std::string &type);
         private:
 
-            /// \brief Display the actual selected and hover tile if it's different to index -1.
+            /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
+            /// \param entityRepresentation The circle shape used to display entities.
             void _displaySelectedAndHoverTiles(sf::CircleShape &entityRepresentation);
 
             /// \brief Find if the selected or hover tile must be update.
@@ -134,8 +135,18 @@ namespace gui {
             void _updateTileVectorSize();
 
             /// \brief Display players that are in the tile, if there is at least one player.
+            /// \param tile The tile to get information from.
+            /// \param playerRepresentation The representation of a player as a green circle shape.
             void _displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation);
-            void _displayResources(Tile &tile, sf::CircleShape &resourcesRpresentation);
+
+            /// \brief Display resources that are in the tile, if there is at least one resource.
+            /// \param tile The tile to get information from.
+            /// \param resourcesRepresentation The representation of a resource as a grey circle shape.
+            void _displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation);
+
+            /// \brief Display eggs that are in the tile, if there is at least one egg.
+            /// \param tile The tile to get information from.
+            /// \param eggRepresentation The representation of an egg as a yellow circle shape.
             void _displayEggs(Tile &tile, sf::CircleShape &eggRpresentation);
 
             /// \brief The window to display on.

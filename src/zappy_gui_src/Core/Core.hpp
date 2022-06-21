@@ -43,8 +43,22 @@ namespace gui {
             /// \param response string representating the packed response of the server
             void _updateEntities(std::string &response);
 
+            /// \brief Update informations about the corresponding entity, depending on the server answer.
+            /// \param entity The entity on which put informations to update.
+            /// \param type The type of the entity. It's usefull to find the correct information inside the `response` parameter.
+            /// \param response Information from the server to update the entity with.
             void _updateEntity(gui::entity::Tile entity, std::string &type, std::string &response);
+
+            /// \brief Update informations about the corresponding entity, depending on the server answer.
+            /// \param entity The entity on which put informations to update.
+            /// \param type The type of the entity. It's usefull to find the correct information inside the `response` parameter.
+            /// \param response Information from the server to update the entity with.
             void _updateEntity(gui::entity::Player entity, std::string &type, std::string &response);
+
+            /// \brief Update informations about the corresponding entity, depending on the server answer.
+            /// \param entity The entity on which put informations to update.
+            /// \param type The type of the entity. It's usefull to find the correct information inside the `response` parameter.
+            /// \param response Information from the server to update the entity with.
             void _updateEntity(gui::entity::Egg entity, std::string &type, std::string &response);
 
             /// \brief Start the connection with the server.

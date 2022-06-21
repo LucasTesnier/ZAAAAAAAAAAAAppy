@@ -191,13 +191,6 @@ void Map::display()
     _displaySelectedAndHoverTiles(_entityReprensentation);
 }
 
-void Map::_pushEntityInTile()
-{
-    for (auto &it : _players) {
-        _tile[itop(sf::Vector2f(it.getPosition().first, it.getPosition().second))]->addPlayer(it);
-    }
-}
-
 Map::~Map()
 {
 
