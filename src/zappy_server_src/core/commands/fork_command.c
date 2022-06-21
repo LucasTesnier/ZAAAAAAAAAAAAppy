@@ -45,7 +45,8 @@ static bool fork_verification(server_data_t *serv, player_t *player)
     dprintf(2, "Fork ask for the team %s, which allow to max %i player.\
     Have %i player and %i eggs in the game\n", player->team, team->max_members,
     team->current_members, eggs_number);
-    if (team->max_members <= team->current_members + eggs_number)
+    if (team->max_members <= team->current_members + eggs_number
+    || team->max_members + eggs_number >= 6)
         return false;
     return true;
 }
@@ -55,6 +56,7 @@ server_data_t *serv)
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
+    uuid_t *temp = NULL;
 
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
@@ -64,9 +66,45 @@ server_data_t *serv)
         pop_message(player->player_peer);
         return print_retcode(317, NULL, player->player_peer, false);
     }
-    entity_wrapper_create_egg(serv->entities,
+    temp = entity_wrapper_create_egg(serv->entities,
     player_entity->position, player_data->team);
+    scheduler_schedule_event(serv->scheduler, *temp, 20);
     send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(218, NULL, player->player_peer, true);
+}
+
+/// \brief Remove an egg off the game
+/// \param serv The server informations
+/// \param egg The egg object
+/// \param egg_e The egg entity
+static void remove_egg(server_data_t *serv, egg_t *egg, entity_t *egg_e)
+{
+    team_t *team = get_team_by_name(egg->team_name, &serv->teams);
+
+    if (team == NULL)
+        return;
+    team->max_members += 1;
+    dprintf(2, "A new slot (%i) have been open for the team %s.\n",
+    team->max_members, egg->team_name);
+    entity_wrapper_remove_entity(serv->entities, egg_e);
+    pack_all_entities(serv->entities);
+}
+
+void process_eggs_inspection(server_data_t *serv)
+{
+    entity_t *entity = NULL;
+    entity_t *entity2 = NULL;
+    egg_t *egg = NULL;
+
+    if (!serv)
+        return;
+    entity = TAILQ_FIRST(&serv->entities->eggs);
+    while (entity != NULL) {
+        entity2 = TAILQ_NEXT(entity, entities);
+        egg = (egg_t *)entity->data;
+        if (!scheduler_has_event(serv->scheduler, egg->id))
+            remove_egg(serv, egg, entity);
+        entity = entity2;
+    }
 }
