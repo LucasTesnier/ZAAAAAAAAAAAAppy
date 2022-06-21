@@ -121,7 +121,6 @@ namespace gui {
                 return sf::Vector2f(index % int(_mapSize.y), index / _mapSize.y);
             };
 
-            void _pushEntityInTile();
             /// \brief Find if the tile should be displayed on the screen.
             /// \param area The global bound of the tile.
             /// \param windowSize The size of the window.

@@ -37,7 +37,6 @@ void Map::_updateTileVectorSize()
         else
             _tile.back()->setTexture(_tile[0]->getTexture());
     }
-    _pushEntityInTile();
 }
 
 void Map::removeEntities(std::string &type)
