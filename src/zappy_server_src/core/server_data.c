@@ -58,6 +58,9 @@ player_state_t comp)
     for (size_t i = 0; i < server_data->active_player_n; i++) {
         if (server_data->active_players[i]->disconnected == comp)
             server_remove_player(server_data, server_data->active_players[i]);
+        if (server_data->active_players[i]->player_peer != NULL &&
+            server_data->active_players[i]->player_peer->connected == false)
+            server_remove_player(server_data, server_data->active_players[i]);
     }
 }
 
