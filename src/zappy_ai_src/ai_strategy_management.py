@@ -68,6 +68,27 @@ TIME_LIMIT = {
     "incantation": 300
 }
 
+"""This static array provides information for moving in the map
+    It lists the tiles that are front of the player depending on the index of the tile you want to reach
+    - First element represents the indexes of the tiles that will always be in front of the player
+        It calculates with the following thinking :
+        x = n² + n
+            where n is the level of player and x the index we are looking for
+    - Second element represents the maximum index of the line containing the target tile
+        It calculates with the following thinking :
+        x = n² + 2n
+"""
+PATH_REFERENCES = [{0, 0},       # UNUSED LEVEL 0
+                   (2, 3),       # LEVEL 1
+                   (6, 8),       # LEVEL 2
+                   (12, 15),     # LEVEL 3
+                   (20, 24),     # LEVEL 4
+                   (30, 35),     # LEVEL 5
+                   (42, 48),     # LEVEL 6
+                   (56, 63),     # LEVEL 7
+                   (72, 80),     # LEVEL 8
+                   ]
+
 """This static array is used to know every requirements for elevation
     - Player represents the amount of player needed for elevation
     - From Linemate to thystame are the name of component and the amount needed for elevation per level
@@ -466,6 +487,36 @@ class Ai:
             return False
         self.__decrAvailableSlots()
         return True
+
+    def __reachSpecificTile(self, index: int):
+        """This is used by AI to reach a specific tile depending on the index given as argument
+            This function can be very useful in many cases like get a specific component for elevation
+            or maybe to join teamMates to help them for elevation
+            This function will set the move queue with getMethods after calling asking methods of the API
+            Param :     index: int, representing the index of the tile you want to reach
+        """
+        nbForwardSteps = 0
+        frontTileIndex = 0
+        for i in range(8, 1):
+            if index <= PATH_REFERENCES[i][1]:
+                fronTileIndex = PATH_REFERENCES[i][0]
+                nbForwardSteps = i
+        for i in range(0, nbForwardSteps):
+            self.__lib.AskForward()
+            # PUSH GETFORWARD IN Q
+        nbForwardSteps = index - frontTileIndex
+        if nbForwardSteps < 0:
+            self.__lib.AskTurnLeft()
+            nbForwardSteps *= -1
+            # PUSH GETRESPONSELEFT
+        elif not nbForwardSteps:
+            return
+        else:
+            self.__lib.AskTurnRight()
+            # PUSH GETRESPONSERIGHT
+        for i in range(0, nbForwardSteps):
+            self.__lib.AskForward()
+            # PUSH GETFORWARD IN Q
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
