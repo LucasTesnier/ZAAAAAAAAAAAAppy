@@ -93,6 +93,15 @@ namespace gui {
             /// \brief remove entities depending on the type given
             /// \param type string representating the type of entities to remove
             void removeEntities(std::string &type);
+
+            /// \brief get the actual selected tile
+            /// \return the tile selected by the user
+            inline const sf::Vector2f &getSelectedTilePos() const {
+                // sf::Vector2f noTile = sf::Vector2f(-1, -1);
+                if (int(_tileSelected) == -1)
+                    return _noTileSelected;
+                return _tile[_tileSelected].get()->getPosition();
+            };
         private:
 
             /// \brief Display the actual selected and hover tile if it's different to index -1.
@@ -149,6 +158,9 @@ namespace gui {
 
             /// \brief The selected tile.
             std::size_t _tileSelected;
+
+            /// \brief the default pos of no vector selected
+            sf::Vector2f _noTileSelected;
 
             /// \brief The hovered tile.
             std::size_t _tileHover;

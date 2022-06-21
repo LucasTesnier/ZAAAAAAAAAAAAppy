@@ -10,8 +10,10 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <utility>
 
 #define FONT_PATH "assets/arial.ttf"
+#define FOOD_PATH "assets/burger.png"
 
 namespace gui {
     class Inventory {
@@ -21,10 +23,16 @@ namespace gui {
             ~Inventory();
             inline void setWindow(std::shared_ptr<sf::RenderWindow> window) {
                 _window = window;
-                initialize_shapes();
+                initShapes();
+                initTilePosition();
+                initTileInventory();
             };
             void display();
-            void initialize_shapes();
+            void initTilePosition();
+            void initTileInventory();
+            void setPosTextsInv();
+            void setPosSpritesInv();
+            void initShapes();
             inline const sf::Vector2f &getPosition() const {
                 return _body.getPosition();
             };
@@ -44,6 +52,12 @@ namespace gui {
             inline void setButtonColor(const sf::Color &color) {
                 _button.setFillColor(color);
             };
+            inline void setTilePosition(const sf::Vector2f &tilePosition) {
+                _tilePosition = tilePosition;
+            }
+            inline void setTileInventory(std::vector<int> tileInventory) {
+                _tileInventory = tileInventory;
+            }
         private:
             void _updateBody();
             std::shared_ptr<sf::RenderWindow> _window;
@@ -53,7 +67,14 @@ namespace gui {
             sf::Clock _clock;
             sf::FloatRect _areaServer;
             sf::Text _text;
+            sf::Text _textPos;
             sf::Font _font;
+            std::vector<sf::Text> _textsInv;
+            std::vector<sf::Sprite> _spritesInv;
+            sf::Vector2f _tilePosition;
+            std::vector<int> _tileInventory;
+            std::vector<std::string> _players;
+            std::vector<std::string> _eggs;
     };
 }
 

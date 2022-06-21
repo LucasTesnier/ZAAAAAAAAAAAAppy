@@ -18,7 +18,7 @@ SFML::SFML(const sf::Vector2f mapSize) : _run(true)
 
     settings.antialiasingLevel = 8;
     _event = std::make_shared<Event>();
-    _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Close, settings);
+    _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Fullscreen, settings);
     _window.get()->setFramerateLimit(maxFps);
     _map.setWindow(_window);
     _map.setEvent(_event);
@@ -47,6 +47,7 @@ void SFML::display()
     _window->clear(sf::Color(127, 127, 127, 255));
     _map.display();
     _interface.updateAndDisplay();
+    _interface.setInventoryTilePos(_map.getSelectedTilePos());
     _window->display();
 }
 
