@@ -95,11 +95,15 @@ position_t position)
     (void) level;
     res[0] = '[';
     res[1] = '\0';
+    /// DO THE LOOP RIGHT HERE
     temp = get_a_tile_content(
     (tile_t *)get_tile(serv->map, position.x, position.y)->data);
     res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
     strcat(res, temp);
     free(temp);
+    /// strcat(res, ",");
+    /// END LOOP
+    /// strcat(res, "]");
     strcat(res, ",]");
     return res;
 }
