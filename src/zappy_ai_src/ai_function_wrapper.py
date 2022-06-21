@@ -93,11 +93,16 @@ class ServerWrapper:
 
 
     def ConnectToServer(self, machineName : str, port : int):
-        """ Wrapped Function : Try to connect the AI to the server """
+        """ Wrapped Function : Try to connect the AI to the server
+            Return True if a server has been found
+            Return False otherwise
+        """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_machineName = machineName.encode("UTF-8")
         c_port = ctypes.c_int(port)
-        self.__ConnectToServer(b_machineName, c_port)
+        self.__ConnectToServer.restype = ctypes.c_bool
+        c_value = self.__ConnectToServer(b_machineName, c_port)
+        return c_value
 
     def GetRepConnectToServer(self) -> bool:
         """ Wrapped Function : Get the response of ConnectToServer() """
