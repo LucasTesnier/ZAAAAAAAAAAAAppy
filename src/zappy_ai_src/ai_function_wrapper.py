@@ -1,3 +1,4 @@
+from numpy import c_
 from ai_DLLib_wrapper import DLLibWrapper
 import ctypes
 from sys import stderr
@@ -111,11 +112,14 @@ class ServerWrapper:
         c_value = self.__GetRepConnectToServer()
         return c_value
 
-    def AskJoinTeam(self, teamName : str) -> None:
+    def AskJoinTeam(self, teamName : str) -> bool:
         """ Wrapped Function : Try to join a Team """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_teamName = teamName.encode("UTF-8")
-        self.__AskJoinTeam(ctypes.c_char_p(b_teamName))
+        self.__AskJoinTeam.restype = ctypes.c_bool
+        c_value = self.__AskJoinTeam(ctypes.c_char_p(b_teamName))
+        return c_value
 
     def GetRepJoinTeam(self) -> str:
         """ Wrapped Function : Get the response about joining a team """
@@ -145,68 +149,104 @@ class ServerWrapper:
         c_value = self.__GetUnexpectedResponse()
         return c_value.decode("UTF-8")
 
-    def AskForward(self) -> None:
+    def AskForward(self) -> bool:
         """ Wrapped Function : Move the client forward """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskForward()
+        self.__AskForward.restype = ctypes.c_bool
+        c_value = self.__AskForward()
+        return c_value
 
-    def AskTurnRight(self) -> None:
+    def AskTurnRight(self) -> bool:
         """ Wrapped Function : Turn the client to the right """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskTurnRight()
+        self.__AskTurnRight.restype = ctypes.c_bool
+        c_value = self.__AskTurnRight()
+        return c_value
 
-    def AskTurnLeft(self) -> None:
+    def AskTurnLeft(self) -> bool:
         """ Wrapped Function : Turn the client to the left """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskTurnLeft()
+        self.__AskTurnLeft.restype = ctypes.c_bool
+        c_value = self.__AskTurnLeft()
+        return c_value
 
-    def AskLook(self) -> None:
+    def AskLook(self) -> bool:
         """ Wrapped Function : Look around the client """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskLook()
+        self.__AskLook.restype = ctypes.c_bool
+        c_value = self.__AskLook()
+        return c_value
 
-    def AskInventory(self) -> None:
+    def AskInventory(self) -> bool:
         """ Wrapped Function : Ask for the client inventory """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskInventory()
+        self.__AskInventory.restype = ctypes.c_bool
+        c_value = self.__AskInventory()
+        return c_value
 
-    def AskBroadcastText(self, message : str) -> None:
+    def AskBroadcastText(self, message : str) -> bool:
         """ Wrapped Function : Broadcast a text """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_message = message.encode("UTF-8")
-        self.__AskBroadcastText(ctypes.c_char_p(b_message))
+        self.__AskBroadcastText.restype = ctypes.c_bool
+        c_value = self.__AskBroadcastText(ctypes.c_char_p(b_message))
+        return c_value
 
-    def AskConnectNbr(self) -> None:
+    def AskConnectNbr(self) -> bool:
         """ Wrapped Function : Ask for the place left on the client's team """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskConnectNbr()
+        self.__AskConnectNbr.restype = ctypes.c_bool
+        c_value = self.__AskConnectNbr()
+        return c_value
 
-    def AskFork(self) -> None:
+    def AskFork(self) -> bool:
         """ Wrapped Function : Fork the client to lay an egg """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskFork()
+        self.__AskFork.restype = ctypes.c_bool
+        c_value = self.__AskFork()
+        return c_value
 
-    def AskEject(self) -> None:
+    def AskEject(self) -> bool:
         """ Wrapped Function : Eject the other clients of the client's tile """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskEject()
+        self.__AskEject.restype = ctypes.c_bool
+        c_value = self.__AskEject()
+        return c_value
 
-    def AskTakeObject(self, object : str) -> None:
+    def AskTakeObject(self, object : str) -> bool:
         """ Wrapped Function : Take an object on the client tile """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_object = object.encode("UTF-8")
-        self.__AskTakeObject(ctypes.c_char_p(b_object))
+        self.__AskTakeObject.restype = ctypes.c_bool
+        c_value = self.__AskTakeObject(ctypes.c_char_p(b_object))
+        return c_value
 
-    def AskPlaceObject(self, object : str) -> None:
+    def AskPlaceObject(self, object : str) -> bool:
         """ Wrapped Function : Place an object on the client tile """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_object = object.encode("UTF-8")
-        self.__AskPlaceObject(ctypes.c_char_p(b_object))
+        self.__AskPlaceObject.restype = ctypes.c_bool
+        c_value = self.__AskPlaceObject(ctypes.c_char_p(b_object))
+        return c_value
 
-    def AskIncantation(self) -> None:
+    def AskIncantation(self) -> bool:
         """ Wrapped Function : Start an incantation on the client tile """
+        """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskIncantation()
+        self.__AskIncantation.restype = ctypes.c_bool
+        c_value = self.__AskIncantation()
+        return c_value
 
     def GetRepForward(self) -> bool:
         """ Wrapped Function : Get the reponse of AskForward() """
