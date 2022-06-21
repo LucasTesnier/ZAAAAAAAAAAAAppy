@@ -311,6 +311,15 @@ player_list_t *find_player_list_by_uuid(server_data_t *serv, player_t *tmp);
 /// \param serv The server information
 void process_eggs_inspection(server_data_t *serv);
 
+/// \brief Compute the looked case by a player
+/// \param player The player position
+/// \param map_size The size of the map
+/// \param level The level of the player
+/// \param orientation The orientation of the player
+/// \return position_t* The list of all the looked case
+position_t *compute_look_cmd(position_t player, position_t map_size,
+int level, enum player_orientation_e orientation);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
