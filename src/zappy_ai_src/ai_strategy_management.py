@@ -1,5 +1,6 @@
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
+from sys import stderr
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -21,8 +22,9 @@ from ai_handle_response import Inventory, Map, Tile
 
 LEVEL_MAX = 8
 
-"""Player is starting the game with 120 food which represents 1200 unit of time
-    like you probably know 1 food == 10 units of time
+"""Player is starting the game with 10 food which represents 1260 unit of time
+    like you probably know 1 food == 126 units of time
+    Value is given in units of time
 """
 FOOD_START = 1260
 
@@ -32,7 +34,7 @@ FOOD_START = 1260
 SAFETY_MARGIN = 300
 
 """This is this indication for the AI to switch to survival strategy under or equal to 300 units of time"""
-FOOD_LIMIT = 800
+FOOD_LIMIT = 300
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
@@ -176,6 +178,9 @@ class Ai:
         """
         self.__targetTileIndex = -1
 
+        """This is used by AI to know if it reached the tile targeted previously, in order to set another one"""
+        self.__targetTileReached = True
+
         """This private member represents the currently most needed component by the AI.
             It can be useful to use relevant action from the AI in component research as example.
             Set as str: 'food' by default
@@ -209,6 +214,9 @@ class Ai:
     def __setTargetTile(self, index: int):
         self.__targetTileIndex = index
 
+    def __setTargetTileReached(self, status: bool):
+        self.__targetTileReached = status
+
     def __setTargetComponent(self, targetComponent: str):
         self.__targetComponent = targetComponent
 
@@ -232,6 +240,9 @@ class Ai:
 
     def __getTargetTileIndex(self) -> int:
         return self.__targetTileIndex
+
+    def __getTargetTileReached(self) -> bool:
+        return self.__targetTileReached
 
     def __getTargetComponent(self) -> str:
         return self.__targetComponent
@@ -298,6 +309,7 @@ class Ai:
         if not self.__waitForAction():
             return
         self.__inventory.fillInventory(self.__lib.GetRepInventory())
+
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() >= 7:
@@ -305,6 +317,16 @@ class Ai:
         else:
             self.__farming()
         self.__actionsProceed()
+
+    def __checkNetwork(self) -> None:
+        """
+        Check the network state by calling the right function in the loaded lib
+        Nothing to do if the network is ok
+        Print and error message and exit otherwise
+        """
+        if not self.__lib.GetNetworkState():
+            print("The connection to the server has been lost", file=stderr)
+            exit(84)
 
     def __waitForAction(self) -> bool:
         """
@@ -321,17 +343,22 @@ class Ai:
                 else:
                     return True
 
+    def __setAnotherTargetTile(self, component: str):
+        """"This is used to set another target as a tile if the first one got reached by the player"""
+        for i in range(0, self.__getPlayerMaxRange()):
+            if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
+                self.__setTargetTile(i)
+                break
+        self.__setTargetTileReached(False)
 
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
         component = self.__getTargetComponent()
-        for i in range(0, self.__getPlayerMaxRange()):
-            if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
-                self.__setTargetTile(i)
-                break
-        if self.__getTargetTileIndex():
+        if self.__getTargetTileReached():
+            self.__setAnotherTargetTile(component)
+        else:
             self.__lib.AskTakeObject(component)
             if not self.__waitForAction():
                 return
@@ -506,4 +533,4 @@ class Ai:
             return "deraumere"
         if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
             return "linemate"
-        return "thystame"
+        return "nothing"
