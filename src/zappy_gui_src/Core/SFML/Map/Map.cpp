@@ -105,12 +105,23 @@ void Map::_displaySelectedAndHoverTiles()
     }
 }
 
+void Map::_displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation)
+{
+    if (tile.getPlayers().size()) {
+        playerRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2, tile.getGlobalBound().top + tile.getGlobalBound().height / 2});
+        _window->draw(playerRepresentation);
+    }
+}
+
 void Map::display()
 {
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());
     sf::FloatRect area;
     std::size_t tmp = 0;
+    sf::CircleShape _playerRepresentation;
 
+    _playerRepresentation.setFillColor(sf::Color::Green);
+    _playerRepresentation.setRadius(10);
     _updateMoveMap();
     for (std::size_t i = 0; i < _tile.size(); i++) {
         area = _tile[i]->getGlobalBound();
@@ -122,11 +133,11 @@ void Map::display()
             tmp = i;
         _findSelectedAndHoverTiles(i, mouse);
         _window->draw(_tile[i]->getShape());
+        _displayPlayers(*_tile[i], _playerRepresentation);
     }
     _displaySelectedAndHoverTiles();
 }
 
 Map::~Map()
 {
-
 }
