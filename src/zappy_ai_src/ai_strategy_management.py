@@ -1,6 +1,7 @@
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from sys import stderr
+from ai_core import safeExitError
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -280,7 +281,8 @@ class Ai:
             print("[AI] libzappy_ai_api charged, SUCCESS!")
         else:
             print("[AI] cannot charge libzappy_ai_api, ERROR!")
-        self.__lib.AskLook()
+        if not self.__lib.AskLook():
+            safeExitError()
         while 1:
             if self.__lib.GetResponseState():
                 break
@@ -305,7 +307,8 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
-        self.__lib.AskInventory()
+        if not self.__lib.AskInventory():
+            safeExitError()
         if not self.__waitForAction():
             return
         self.__inventory.fillInventory(self.__lib.GetRepInventory())
@@ -359,15 +362,18 @@ class Ai:
         if self.__getTargetTileReached():
             self.__setAnotherTargetTile(component)
         else:
-            self.__lib.AskTakeObject(component)
+            if not self.__lib.AskTakeObject(component):
+                safeExitError()
             if not self.__waitForAction():
                 return
             self.__lib.GetRepTakeObject()
-        self.__lib.AskForward()
+        if not self.__lib.AskForward():
+            safeExitError()
         if not self.__waitForAction():
             return
         self.__lib.GetRepForward()
-        self.__lib.AskLook()
+        if not self.__lib.AskLook():
+            safeExitError()
         if not self.__waitForAction():
                 return
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
@@ -412,7 +418,8 @@ class Ai:
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
-        self.__lib.AskIncantation()
+        if not self.__lib.AskIncantation():
+            safeExitError()
         while 1:
             if self.__lib.GetResponseState():
                 break
@@ -437,7 +444,8 @@ class Ai:
         else:
             nbPlayer = 1
         message = self.__getTeamName() + ';' + str(nbPlayer) + ';' + action + '\n'
-        self.__lib.AskBroadcastText("Broadcast " + message)
+        if not self.__lib.AskBroadcastText("Broadcast " + message):
+            safeExitError()
         return True
 
     def __fork(self) -> bool:
@@ -449,7 +457,8 @@ class Ai:
             return False
         if self.__getAvailableSlots() == 0:
             return False
-        self.__lib.AskFork()
+        if not self.__lib.AskFork():
+            safeExitError()
         while 1:
             if self.__lib.GetResponseState():
                 break
