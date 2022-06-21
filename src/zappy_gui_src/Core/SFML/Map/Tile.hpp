@@ -185,6 +185,16 @@ namespace gui {
             inline void addEgg(gui::entity::Egg &egg) {
                 _eggs.emplace_back(egg);
             }
+
+            inline void removePlayers() {
+                _players.clear();
+            };
+            inline void removeEggs() {
+                _eggs.clear();
+            };
+            inline void removeTileInfo() {
+                _tileInfo._inventory.clear();
+            };
         private:
 
             /// \brief Set the points of the tile.

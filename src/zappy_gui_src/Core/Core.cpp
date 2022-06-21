@@ -23,6 +23,23 @@ using namespace gui;
 /// \brief The default value for the machine if it's not specify.
 static const char *DEFAULT_MACHINE = "localhost";
 
+std::vector<std::string> Core::_stringToVector(std::string text, std::string delim)
+{
+    std::vector<std::string> vec;
+    size_t pos = 0;
+    size_t prevPos = 0;
+
+    while (1) {
+        pos = text.find(delim, prevPos);
+        if (pos == std::string::npos) {
+            vec.push_back(text.substr(prevPos));
+            return vec;
+        }
+        vec.push_back(text.substr(prevPos, pos - prevPos));
+        prevPos = pos + delim.length();
+    }
+}
+
 void Core::run()
 {
     std::string response;
@@ -34,8 +51,15 @@ void Core::run()
         if (!c_interface_get_unexpected_response_state())
             continue;
         response = std::string(c_interface_get_unexpected_response());
-        _parseEntities(response);
+        _removeEntities();
+        _updateEntities(response);
+        std::cout << "REP: " << response << std::endl;
     }
+}
+
+void Core::_removeEntities()
+{
+    _sfml->removeEntities();
 }
 
 void Core::_resolveMachineHostname()
@@ -88,23 +112,7 @@ void Core::_waitForServerAnswer()
     while(!c_interface_get_response_state());
 }
 
-static std::vector<std::string> split(std::string text, std::string delim)
-{
-    std::vector<std::string> vec;
-    size_t pos = 0, prevPos = 0;
-    while (1) {
-        pos = text.find(delim, prevPos);
-        if (pos == std::string::npos) {
-            vec.push_back(text.substr(prevPos));
-            return vec;
-        }
-
-        vec.push_back(text.substr(prevPos, pos - prevPos));
-        prevPos = pos + delim.length();
-    }
-}
-
-void Core::_parseEntities(std::string &str)
+void Core::_updateEntities(std::string &str)
 {
     std::vector<std::string> tilesSplitted;
     std::vector<std::string> playersSplitted;
@@ -115,9 +123,9 @@ void Core::_parseEntities(std::string &str)
 
     if (str.empty())
         return;
-    tilesSplitted = split(str, std::string("tile"));
-    playersSplitted = split(str, std::string("player"));
-    eggsSplitted = split(str, std::string("egg"));
+    tilesSplitted = _stringToVector(str, std::string("tile"));
+    playersSplitted = _stringToVector(str, std::string("player"));
+    eggsSplitted = _stringToVector(str, std::string("egg"));
     if (!tilesSplitted.empty() && tilesSplitted.at(0).rfind("start", 0) == 0)
         tilesSplitted.erase(tilesSplitted.begin());
     if (!playersSplitted.empty() && playersSplitted.at(0).rfind("start", 0) == 0)
@@ -127,27 +135,33 @@ void Core::_parseEntities(std::string &str)
     if (!tilesSplitted.empty() && tilesSplitted.size() > 1) {
         for (auto &tile : tilesSplitted) {
             if (!tile.empty()) {
+                try {
                 tile.insert(0, "tile");
                 _unpackObject->UnpackEntity(t, tile);
                 _sfml->addTilesInfo(t);
+                } catch (...) {}
             }
         }
     }
     if (!playersSplitted.empty() && playersSplitted.size() > 2) {
         for (auto &player : playersSplitted) {
             if (!player.empty()) {
-                player.insert(0, "player");
-                _unpackObject->UnpackEntity(p, player);
-                _sfml->addPlayer(p);
+                try {
+                    player.insert(0, "player");
+                    _unpackObject->UnpackEntity(p, player);
+                    _sfml->addPlayer(p);
+                } catch (...) {}
             }
         }
     }
     if (!eggsSplitted.empty() && eggsSplitted.size() > 2) {
         for (auto &egg : eggsSplitted) {
             if (!egg.empty()) {
-                egg.insert(0, "egg");
-                _unpackObject->UnpackEntity(e, egg);
-                _sfml->addEgg(e);
+                try {
+                    egg.insert(0, "egg");
+                    _unpackObject->UnpackEntity(e, egg);
+                    _sfml->addEgg(e);
+                } catch (...) {}
             }
         }
     }
@@ -170,7 +184,7 @@ void Core::setup(int ac, char **av)
     _unpackObject->UnpackEntity(*_startData, response);
     mapSize = {(float)_startData->size_x, (float)_startData->size_y};
     _sfml = std::make_unique<gui::SFML>(mapSize);
-    _parseEntities(response);
+    _updateEntities(response);
 }
 
 Core::Core()

@@ -36,6 +36,10 @@ namespace gui {
             void setup(int ac, char **av);
         private:
 
+            void _removeEntities();
+
+            void _updateEntities(std::string &temp);
+
             /// \brief Start the connection with the server.
             /// \throw CoreException if the connection can't be established.
             void _connectToServer();
@@ -54,6 +58,11 @@ namespace gui {
             /// \brief Parse all entities comming from the server and add them to the SFML object
             /// \param str the string of packed entities
             void _parseEntities(std::string &str);
+            /// \brief Convert a string to a vector.
+            /// \param text The string in which find the vector.
+            /// \param delim The delimiter.
+            /// \return The vector found in the string.
+            std::vector<std::string> _stringToVector(std::string text, std::string delim);
 
             /// \brief The port of the server.
             std::string _port;
