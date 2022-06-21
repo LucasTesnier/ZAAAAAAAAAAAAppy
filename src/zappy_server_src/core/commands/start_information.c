@@ -83,7 +83,8 @@ bool send_start_info(server_data_t *serv)
     char *temp = NULL;
 
     for (size_t i = 0; i < serv->active_player_n; i++)
-        if (serv->active_players[i]->type == GUI) {
+        if (serv->active_players[i]->disconnected == CONNECTED &&
+        serv->active_players[i]->type == GUI) {
             peer = serv->active_players[i]->player_peer;
             break;
         }
