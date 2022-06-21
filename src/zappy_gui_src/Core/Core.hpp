@@ -36,6 +36,8 @@ namespace gui {
             void setup(int ac, char **av);
         private:
 
+            void _removeEntities();
+
             void _updateEntities(std::string &temp);
 
             /// \brief Start the connection with the server.

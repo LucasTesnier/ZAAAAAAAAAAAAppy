@@ -40,6 +40,18 @@ void Map::_updateTileVectorSize()
     _pushEntityInTile();
 }
 
+void Map::removeEntities()
+{
+    _players.clear();
+    _eggs.clear();
+    _tilesInfo.clear();
+    for (auto &it : _tile) {
+        it->removeEggs();
+        it->removePlayers();
+        it->removeTileInfo();
+    }
+}
+
 void Map::_updateMoveMap()
 {
     int value = 10;

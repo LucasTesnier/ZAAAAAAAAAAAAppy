@@ -48,10 +48,16 @@ void Core::run()
             continue;
         if (!c_interface_get_unexpected_response_state())
             continue;
+        _removeEntities();
         std::string temp = std::string(c_interface_get_unexpected_response());
         std::cout << temp << std::endl;
         _updateEntities(temp);
     }
+}
+
+void Core::_removeEntities()
+{
+    _sfml->removeEntities();
 }
 
 void Core::_resolveMachineHostname()
@@ -118,9 +124,9 @@ void Core::_updateEntities(std::string &temp)
     eggsSplitted = _stringToVector(temp, std::string("egg"));
     // if (tilesSplitted.at(0).rfind("start", 0) == 0)
         tilesSplitted.erase(tilesSplitted.begin());
-    if (playersSplitted.at(0).rfind("start", 0) == 0)
+    // if (playersSplitted.at(0).rfind("start", 0) == 0)
         playersSplitted.erase(playersSplitted.begin());
-    if (eggsSplitted.at(0).rfind("start", 0) == 0)
+    // if (eggsSplitted.at(0).rfind("start", 0) == 0)
         eggsSplitted.erase(eggsSplitted.begin());
     for (auto &tile : tilesSplitted) {
         tile.insert(0, "tile");

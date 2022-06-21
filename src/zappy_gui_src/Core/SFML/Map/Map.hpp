@@ -90,6 +90,7 @@ namespace gui {
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
 
+            void removeEntities();
         private:
 
             /// \brief Display the actual selected and hover tile if it's different to index -1.

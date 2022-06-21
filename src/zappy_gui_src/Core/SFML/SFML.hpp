@@ -58,6 +58,8 @@ namespace gui {
             inline void addEgg(gui::entity::Egg &egg){
                 _map.addEgg(egg);
             }
+
+            void removeEntities();
         private:
 
             void _getEvent();
