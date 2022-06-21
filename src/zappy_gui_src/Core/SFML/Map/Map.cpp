@@ -106,6 +106,14 @@ void Map::_displaySelectedAndHoverTiles()
     }
 }
 
+void Map::_displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation)
+{
+    if (tile.getPlayers().size()) {
+        playerRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2, tile.getGlobalBound().top + tile.getGlobalBound().height / 2});
+        _window->draw(playerRepresentation);
+    }
+}
+
 void Map::display()
 {
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());
@@ -126,10 +134,7 @@ void Map::display()
             tmp = i;
         _findSelectedAndHoverTiles(i, mouse);
         _window->draw(_tile[i]->getShape());
-        if (_tile[i]->getPlayers().size()) {
-            _playerRepresentation.setPosition({_tile[i]->getGlobalBound().left + _tile[i]->getGlobalBound().width, _tile[i]->getGlobalBound().top});
-            _window->draw(_playerRepresentation);
-        }
+        _displayPlayers(*_tile[i], _playerRepresentation);
     }
     _displaySelectedAndHoverTiles();
 }
