@@ -74,6 +74,7 @@ namespace gui {
             /// \param tileInfo the tile object to set
             inline void addTilesInfo(gui::entity::Tile &tileInfo) {
                 _tilesInfo.emplace_back(tileInfo);
+                _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
             }
 
             /// \brief Get the vector of players of the tile.
@@ -86,12 +87,13 @@ namespace gui {
             /// \param tileInfo the player object to add
             inline void addEgg(gui::entity::Egg &egg) {
                 _eggs.emplace_back(egg);
+                _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
 
         private:
 
             /// \brief Display the actual selected and hover tile if it's different to index -1.
-            void _displaySelectedAndHoverTiles();
+            void _displaySelectedAndHoverTiles(sf::CircleShape &entityRepresentation);
 
             /// \brief Find if the selected or hover tile must be update.
             /// \param i The actual index of the tile to find if it need to be update.
@@ -130,6 +132,8 @@ namespace gui {
 
             /// \brief Display players that are in the tile, if there is at least one player.
             void _displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation);
+            void _displayResources(Tile &tile, sf::CircleShape &resourcesRpresentation);
+            void _displayEggs(Tile &tile, sf::CircleShape &eggRpresentation);
 
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;

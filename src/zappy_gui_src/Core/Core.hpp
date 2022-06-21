@@ -36,6 +36,8 @@ namespace gui {
             void setup(int ac, char **av);
         private:
 
+            void _updateEntities(std::string &temp);
+
             /// \brief Start the connection with the server.
             /// \throw CoreException if the connection can't be established.
             void _connectToServer();
