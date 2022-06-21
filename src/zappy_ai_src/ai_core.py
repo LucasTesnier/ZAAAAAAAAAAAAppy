@@ -1,3 +1,4 @@
+from numpy import std
 from ai_function_wrapper import ServerWrapper
 from sys import stderr
 from ai_strategy_management import Ai
@@ -53,3 +54,8 @@ class ClientCore:
         newIA : Ai = Ai(self.__placesLeft, self.__teamName)
         newIA.start()
         pass
+
+
+def safeExitError(exitCode : int = 84, message : str = "Connection to server lost"):
+    print(message, file=stderr)
+    exit(exitCode)
