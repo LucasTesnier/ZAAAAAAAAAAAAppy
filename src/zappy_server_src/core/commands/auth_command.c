@@ -37,6 +37,7 @@ bool command_login(char *arg, player_list_t *player, server_data_t *serv)
 
     if (!strncmp(arg, "GUI", 3)) {
         player->type = GUI;
+        player->is_auth = true;
         pop_message(player->player_peer);
         return send_start_info(serv);
     }
