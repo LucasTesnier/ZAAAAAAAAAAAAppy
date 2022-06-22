@@ -4,15 +4,27 @@ from sys import stderr
 class Inventory:
     def __init__(self, inventoryResponse : str):
         """ Constructor of the Inventory Class """
-        self.__food : int = 0
-        self.__linemate : int = 0
-        self.__deraumere : int = 0
-        self.__sibur : int = 0
-        self.__mendiane : int = 0
-        self.__phiras : int = 0
-        self.__thystame : int = 0
+        self.__food: int = 0
+        self.__linemate: int = 0
+        self.__deraumere: int = 0
+        self.__sibur: int = 0
+        self.__mendiane: int = 0
+        self.__phiras: int = 0
+        self.__thystame: int = 0
         if not self.fillInventory(inventoryResponse):
             print("The given string cannot be used to create an inventory", file=stderr)
+
+    def __getitem__(self, item):
+        stringEquivalent = {
+            'food': self.__food,
+            'linemate': self.__linemate,
+            'deraumere': self.__deraumere,
+            'sibur': self.__sibur,
+            'mendiane': self.__mendiane,
+            'phiras': self.__phiras,
+            'thystame': self.__thystame
+        }
+        return stringEquivalent[item]
 
     def fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
