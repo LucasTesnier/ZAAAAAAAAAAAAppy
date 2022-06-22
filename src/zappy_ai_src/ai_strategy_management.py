@@ -231,7 +231,7 @@ class Ai:
         self.__mapVisionTicksCpt = 0
 
     def __del__(self):
-        """Default Destructor of the Core class"""
+        """Default Destructor of the AI class"""
         self.running = False
 
     """----------------------------------------Getter and Setter for AI class----------------------------------------"""
