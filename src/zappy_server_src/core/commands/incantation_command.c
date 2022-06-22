@@ -43,14 +43,16 @@ container_t *inventory)
 /// \param level The level of incantation
 /// \return true When operation succeed
 /// \return false When operation failed
-static bool incantation_verif(tile_t *tile, unsigned int level)
+static bool incantation_verif(entity_wrapper_t *wrapper, unsigned int level,
+position_t player_pos)
 {
     int total_player = 0;
     container_t cont = {0, 0, 0, 0, 0, 0, 0};
     entity_t *entity = NULL;
 
-    TAILQ_FOREACH(entity, &tile->entities, entities) {
-        if (entity->type != ENTITY_PLAYER_TYPE)
+    TAILQ_FOREACH(entity, &wrapper->players, entities) {
+        if (entity->position.x != player_pos.x
+            && entity->position.y != player_pos.y)
             continue;
         if (((player_t *)entity->data)->level >= level)
             total_player++;
@@ -69,15 +71,13 @@ server_data_t *serv)
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
-    tile_t *tile = NULL;
 
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
-    tile = (tile_t *)get_tile(serv->map,
-    player_entity->position.x, player_entity->position.y)->data;
-    if (!incantation_verif(tile, player_data->level))
+    if (!incantation_verif(serv->entities, player_data->level,
+        player_entity->position))
         return print_retcode(316, NULL, player->player_peer, false);
     if (!scheduler_schedule_event(serv->scheduler,
     ((player_t *)player->player_data->data)->uuid, 300))
@@ -94,13 +94,13 @@ server_data_t *serv)
 /// \param tile The current tile
 /// \return char* The newly level
 static char *incantation_action(server_data_t *serv,
-player_t *player, tile_t *tile)
+player_t *player, position_t player_pos)
 {
     char *res = malloc(sizeof(char) * 2);
 
     if (res == NULL)
         return NULL;
-    if (!incantation_verif(tile, player->level))
+    if (!incantation_verif(serv->entities, player->level, player_pos))
         return NULL;
     player->level += 1;
     res[0] = '\0';
@@ -120,16 +120,13 @@ server_data_t *serv)
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
-    tile_t *tile = NULL;
     char *res = NULL;
 
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
-    tile = (tile_t *)get_tile(serv->map,
-    player_entity->position.x, player_entity->position.y)->data;
-    res = incantation_action(serv, player_data, tile);
+    res = incantation_action(serv, player_data, player_entity->position);
     pop_message(player->player_peer);
     if (res != NULL)
         print_retcode(222, res, player->player_peer, true);

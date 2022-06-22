@@ -46,13 +46,11 @@ entity_t **player_entity, server_data_t *serv)
         .x = rand() % serv->map->height,
         .y = rand() % serv->map->width
     });
-    if (!player_entity)
+    if (!*player_entity)
         return false;
     if (!(player_data = create_player(arg)))
         return false;
     entity_set_data(*player_entity, player_data);
-    add_entity_to_tile((tile_t*)get_tile(serv->map, (*player_entity)->position.x,
-    (*player_entity)->position.y)->data, *player_entity);
     return true;
 }
 
