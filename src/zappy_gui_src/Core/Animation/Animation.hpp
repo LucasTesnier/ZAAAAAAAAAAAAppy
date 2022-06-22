@@ -14,12 +14,12 @@
 
 namespace gui {
     /// \brief Animation class should be used to create an animation in sfml.
-    /// \note It contains a list of texture that will be updated, depending on a duration time, with the function update.
+    /// \note It contains a vector of texture that will be updated, depending on a duration time, with the function update.
     /// You should define a duration between each frame.
     /// You should define a position for the animation.
     /// You should define a size for the animation.
     /// You should add a texture for the animation.
-    /// \warning Be careful, a texture is always add at the end of the vector of texture.
+    /// \warning A texture is always add at the end of the vector of texture.
     class Animation {
         public:
             /// \brief Create a new instance of Animation.
@@ -34,7 +34,7 @@ namespace gui {
             /// \brief It adds a texture on the vector of texture used for the animation.
             /// \warning Be carful, the texture is added at the end of the vector. Please add texture in the correct order.
             /// \param texturePath The path to load the texture from.
-            /// \param position The position to get the texture from in the image loaded.
+            /// \param position The position from which the texture of the loaded image is to be obtained.
             /// \param size The size to get the texture from in the image loaded.
             /// \throw AnimationException will be thrown if the image cannot be loaded.
             void addTexture(const std::string &texturePath, const sf::Vector2f &position, const sf::Vector2f &size);
@@ -42,7 +42,7 @@ namespace gui {
             /// \brief It adds a texture on the vector of texture used for the animation.
             /// \warning Be carful, the texture is added at the end of the vector. Please add texture in the correct order.
             /// \param image The image used to create the texture from.
-            /// \param position The position to get the texture from in the image loaded.
+            /// \param position The position from which the texture of the loaded image is to be obtained.
             /// \param size The size to get the texture from in the image loaded.
             /// \throw AnimationException will be thrown if the texture cannot be created.
             void addTexture(const sf::Image &image, const sf::Vector2f &position, const sf::Vector2f &size);
