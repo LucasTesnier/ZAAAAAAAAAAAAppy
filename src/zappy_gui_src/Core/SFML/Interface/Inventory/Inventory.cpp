@@ -7,7 +7,6 @@
 
 /// \file src/zappy_gui_src/Core/SFML/Interface/Inventory/Inventory.cpp
 
-
 #include "Inventory.hpp"
 #include "ZappyGuiException.hpp"
 #include <string>
@@ -62,8 +61,6 @@ void Inventory::display()
         _window->draw(t);
     for (auto &t : _textsEgg)
         _window->draw(t);
-    // for (auto &s : _spritesInv)
-    //     _window->draw(s);
 }
 
 void Inventory::initTextTilePosition()
@@ -77,8 +74,6 @@ void Inventory::initTextTilePosition()
 
 void Inventory::initTextTileInventory()
 {
-    // sf::Texture texture;
-    // sf::Sprite sprite;
     sf::Text text;
 
     for (auto &val : _tileInventory) {
@@ -91,14 +86,6 @@ void Inventory::initTextTileInventory()
         t.setCharacterSize(20);
     }
     setPosTextsInv();
-    // if (!texture.loadFromFile(FOOD_PATH)) {
-    //     throw InventoryException("Inventory Exception", "Could not load texture");
-    // }
-    // texture.setSmooth(true);
-    // sprite.setTexture(texture);
-    // sprite.setScale(0.2, 0.2);
-    // sprite.setPosition(_body.getPosition().x + 120, _body.getPosition().y + 45);
-    // _spritesInv.push_back(sprite);
 }
 
 void Inventory::initTextPlayer()
@@ -212,7 +199,6 @@ void Inventory::_updateBody()
     setPosTextsInv();
     setPosTextsPlayer();
     setPosTextsEgg();
-    // setPosSpritesInv();
 }
 
 void Inventory::update(bool forceUpdate)
