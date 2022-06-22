@@ -71,7 +71,6 @@ player_list_t *player, server_data_t *serv)
         move_x(player_entity, serv->map);
     else
         move_y(player_entity, serv->map);
-//    TAILQ_INSERT_HEAD(&serv->entities->players, player_entity, entities);
     send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(213, NULL, player->player_peer, true);
