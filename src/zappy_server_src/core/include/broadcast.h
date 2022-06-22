@@ -45,7 +45,7 @@ enum player_orientation_e dir)
 
 /// \brief Get the rest of the directionnal list
 /// \param direction_list The directionnal list
-static inline void broadcast_get_direction_list_other(
+static inline void broadcast_get_direction_x(
 enum player_orientation_e *direction_list)
 {
     if (direction_list[0] == SOUTH) {
