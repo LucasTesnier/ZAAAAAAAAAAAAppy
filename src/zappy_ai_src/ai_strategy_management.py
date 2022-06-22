@@ -360,7 +360,7 @@ class Ai:
                 - Death of the player
                 - Eject from another player (not implemented at the moment)
                 - Broadcast, sending message from another player (not implemented at the moment)
-            """
+        """
         response = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
@@ -561,7 +561,7 @@ class Ai:
         frontTileIndex = 0
         for i in range(8, 1):
             if index <= PATH_REFERENCES[i][1]:
-                fronTileIndex = PATH_REFERENCES[i][0]
+                frontTileIndex = PATH_REFERENCES[i][0]
                 nbForwardSteps = i
         for i in range(0, nbForwardSteps):
             self.__lib.AskForward()
