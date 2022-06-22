@@ -57,8 +57,17 @@ namespace gui {
     /// \brief Class for the Tile exception.
     class TileException : public ZappyGuiException {
         public:
-            /// \brief  The exception of the server communication.
+            /// \brief The exception of the server communication.
             TileException(std::string title = "Server Communication Exception", std::string description = "Unknown error");
+    };
+
+    /// \brief Class for the Animation exception. Use it only if an error occurs in the Animation class.
+    class AnimationException : public ZappyGuiException {
+        public:
+            /// \brief The constructor of the Animation exception.
+            /// \param title The title of the exception. `Animation Exception` is set by default.
+            /// \param description The description of the exception. `Unknown error` is set by default.
+            AnimationException(std::string title = "Animation Exception", std::string description = "Unknown error");
     };
 } //namespace gui
 
