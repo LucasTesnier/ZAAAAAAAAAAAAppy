@@ -4,6 +4,7 @@ from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from sys import stderr
 from ai_safe_error import safeExitError
+from ai_queue_wrapper import AIQueues
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -40,10 +41,10 @@ SAFETY_MARGIN = 300
 FOOD_LIMIT = 300
 
 """This is the limit before the next update of the mapVision"""
-MAP_VISION_UPDATE_LIMIT = 10
+MAP_VISION_UPDATE_LIMIT = 50
 
 """This is the limit before the next update of the inventory"""
-INVENTORY_UPDATE_LIMIT = 20
+INVENTORY_UPDATE_LIMIT = 50
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
@@ -238,7 +239,10 @@ class Ai:
             to move or not, to participate of teamCall of something else
         """
         self.__ableToMove = True
-        
+
+        self.__Queues : AIQueues = AIQueues(10)
+
+
     def __del__(self):
         """Default Destructor of the AI class"""
         self.running = False
@@ -395,11 +399,11 @@ class Ai:
         if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskInventory()
             self.__resetInventoryTicksCpt()
-            #PUSH GetInventory methods in QUEUE
+            self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
         if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskLook()
             self.__resetMapVisionTicksCpt()
-            #PUSH getLook methods
+            self.__Queues.addInAiQueue(self.__lib.GetRepLook)
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
         These functions are considered as actions
@@ -474,6 +478,9 @@ class Ai:
         if  self.__waitForAction():
             return
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
+        if self.__Queues.isServerQueueFull():
+            responses = self.__Queues.emptyServerQueue(3)
+        self.__Queues.addInServerQueue()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
         """This is used by AI to know if the specific component is present on the specific tile
@@ -571,21 +578,20 @@ class Ai:
                 nbForwardSteps = PATH_REFERENCES.index(vector)
         for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
-            # PUSH GETFORWARD IN Q
+            self.__Queues.addInAiQueue(self.__lib.GetRepForward)
         nbForwardSteps = index - frontTileIndex
         if nbForwardSteps < 0:
             self.__lib.AskTurnLeft()
             nbForwardSteps *= -1
-            # PUSH GETRESPONSELEFT
+            self.__Queues.addInAiQueue(self.__lib.GetRepTurnLeft)
         elif nbForwardSteps == 0:
             return
         else:
             self.__lib.AskTurnRight()
-            # PUSH GETRESPONSERIGHT
+            self.__Queues.addInAiQueue(self.__lib.GetRepTurnRight)
         for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
-            # PUSH GETFORWARD IN Q
-
+            self.__Queues.addInAiQueue(self.__lib.GetRepForward)
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
         These functions are considered as decisions
