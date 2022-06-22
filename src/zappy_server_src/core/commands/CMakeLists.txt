@@ -10,6 +10,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/broadcast_command.c
     ${SRC_ROOT}/connectnbr_command.c
     ${SRC_ROOT}/fork_command.c
+    ${SRC_ROOT}/fork_utils.c
     ${SRC_ROOT}/eject_command.c
     ${SRC_ROOT}/take_command.c
     ${SRC_ROOT}/place_command.c
