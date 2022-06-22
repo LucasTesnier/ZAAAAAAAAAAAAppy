@@ -1,7 +1,6 @@
 find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
 
 set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/SFML/Interface)
-set (INCLUDE_TILE ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/SFML/Map)
 set (SRC_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_gui_src/Core/SFML/Interface)
 
 set (TARGET zappy_gui_interface)
@@ -31,4 +30,5 @@ target_include_directories(${TARGET}
 target_link_libraries(${TARGET}
     PUBLIC wrapper_sfml
     PUBLIC zappy_gui_exception
+    PUBLIC zappy_gui_entity
 )

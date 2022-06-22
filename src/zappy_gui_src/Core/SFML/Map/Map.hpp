@@ -102,12 +102,28 @@ namespace gui {
                 return _tile[_tileSelected].get()->getPosition();
             };
 
-            /// \brief get the actual selected tile
-            /// \return the tile selected by the user
+            /// \brief get the inventory selected tile
+            /// \return the inventory of the tile selected by the user
             inline const std::vector<int> &getSelectedTileInventory() const {
                 if (int(_tileSelected) == -1)
                     return _noTileSelectedInv;
                 return _tile[_tileSelected].get()->getTileInfo().getInventory();
+            };
+
+            /// \brief get the vector of players on the selected tile
+            /// \return the vector of players on the tile selected by the user
+            inline const std::vector<gui::entity::Player> &getSelectedTilePlayers() const {
+                if (int(_tileSelected) == -1)
+                    return _noTileSelectedPlayer;
+                return _tile[_tileSelected].get()->getPlayers();
+            };
+
+            /// \brief get the vector of eggs on the selected tile
+            /// \return the vector of eggs on the tile selected by the user
+            inline const std::vector<gui::entity::Egg> &getSelectedTileEggs() const {
+                if (int(_tileSelected) == -1)
+                    return _noTileSelectedEggs;
+                return _tile[_tileSelected].get()->getEggs();
             };
         private:
 
@@ -169,8 +185,14 @@ namespace gui {
             /// \brief the default pos of no tile selected
             sf::Vector2f _noTileSelected;
 
-            /// \brief the default vector of no tile selected
+            /// \brief the default vector of no tile selected inventory
             std::vector<int> _noTileSelectedInv;
+
+            /// \brief the default vector of no tile selected players
+            std::vector<gui::entity::Player> _noTileSelectedPlayer;
+
+            /// \brief the default vector of no tile selected eggs
+            std::vector<gui::entity::Egg> _noTileSelectedEggs;
 
             /// \brief The hovered tile.
             std::size_t _tileHover;

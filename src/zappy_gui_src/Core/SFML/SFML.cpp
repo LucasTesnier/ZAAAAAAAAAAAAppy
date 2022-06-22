@@ -49,6 +49,8 @@ void SFML::display()
     _interface.updateAndDisplay();
     _interface.setInventoryTilePos(_map.getSelectedTilePos());
     _interface.setInventoryTileInv(_map.getSelectedTileInventory());
+    _interface.setInventoryPlayers(_map.getSelectedTilePlayers());
+    // _interface.setInventory(_map.getSelectedTilePlayers());
     _window->display();
 }
 

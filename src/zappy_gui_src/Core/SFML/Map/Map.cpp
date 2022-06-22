@@ -18,13 +18,8 @@ Map::Map()
     _mapSize = {10, 10};
     _zoom = 1;
     _noTileSelected = {-1, -1};
-    _noTileSelectedInv.emplace_back(0);
-    _noTileSelectedInv.emplace_back(0);
-    _noTileSelectedInv.emplace_back(0);
-    _noTileSelectedInv.emplace_back(0);
-    _noTileSelectedInv.emplace_back(0);
-    _noTileSelectedInv.emplace_back(0);
-    _noTileSelectedInv.emplace_back(0);
+    std::vector<int> tmpVec{0, 0, 0, 0, 0, 0, 0,};
+    _noTileSelectedInv = tmpVec;
 }
 
 void Map::_updateTileVectorSize()
