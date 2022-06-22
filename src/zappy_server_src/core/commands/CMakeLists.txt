@@ -19,6 +19,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/map_info.c
     ${SRC_ROOT}/entity_info.c
     ${SRC_ROOT}/start_information.c
+    ${SRC_ROOT}/broadcast_process.c
     ${SRC_ROOT}/look_process.c
     ${SRC_ROOT}/look_utils.c
 

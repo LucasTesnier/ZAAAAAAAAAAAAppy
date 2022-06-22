@@ -293,7 +293,6 @@ bool send_start_info(server_data_t *serv);
 /// \brief Cross all the player and remove life
 /// \param self The scheduler
 /// \param serv The server information
-///
 void scheduler_update_life(scheduler_t *self, server_data_t *serv);
 
 /// \brief Generate new ressources every 20 ticks
@@ -310,6 +309,15 @@ player_list_t *find_player_list_by_uuid(server_data_t *serv, player_t *tmp);
 /// \brief Cross all the eggs and remove them when it's time
 /// \param serv The server information
 void process_eggs_inspection(server_data_t *serv);
+
+/// \brief Get directionnal value of a broadcast for a player
+/// \param player The receiver position
+/// \param map_size The size of the map
+/// \param sender The position of the sender
+/// \param orientation The orientation of the receiver
+/// \return int The directionnal value
+int get_directionnal_value(position_t player, position_t map_size,
+position_t sender, enum player_orientation_e orientation);
 
 /// \brief Compute the looked case by a player
 /// \param player The player position
