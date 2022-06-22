@@ -39,9 +39,6 @@ player_list_t *player_info)
 {
     if (player_info->player_peer->pending_write == true)
         return;
-    remove_entity_from_tile((tile_t *)get_tile(server_data->map,
-    player_info->player_data->position.x,
-    player_info->player_data->position.y), player_info->player_data);
     entity_wrapper_remove_entity(server_data->entities,
     player_info->player_data);
     CIRCLEQ_REMOVE(&server_data->server->network_server->peers_head,
