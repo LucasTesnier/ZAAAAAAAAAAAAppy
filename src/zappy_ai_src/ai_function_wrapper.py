@@ -130,6 +130,8 @@ class ServerWrapper:
             safeExitError()
         self.__GetRepJoinTeam.restype = ctypes.c_char_p
         c_value = self.__GetRepJoinTeam()
+        if c_value == None:
+            return None
         return c_value.decode("UTF-8")
 
     def GetResponseState(self) -> bool:

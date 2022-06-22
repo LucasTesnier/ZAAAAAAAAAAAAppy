@@ -38,6 +38,9 @@ class ClientCore:
         while not self.serverInterface.GetResponseState():
             pass
         info : str = self.serverInterface.GetRepJoinTeam()
+        if info == None:
+            print("The team name " + self.__teamName + " doesn't exist.", file=stderr)
+            return False
         infos = info.split(",")
         try:
             self.__mapX = int(infos[0])
