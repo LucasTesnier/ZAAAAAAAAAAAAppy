@@ -35,6 +35,44 @@ namespace gui {
             /// \brief Setup the core with the given parameters.
             void setup(int ac, char **av);
         private:
+            /// \brief remove entities depending on the type given
+            /// \param type string representating the type of entities to remove
+            void _removeEntities(std::string &type);
+
+            /// \brief Check if an entity need to be updated. It also fill the `entityAsString` variable.
+            /// \param entityAsString A vector of string which contains the representation of all entity of a type.
+            /// \param type The type of the entity as a string (player, egg or tile).
+            /// \param response The response of the server to get from the string information of an entity type.
+            /// \return true if the entity need to be updated.
+            /// \return false if the entity don't need to be updated.
+            bool _canEntityUpdate(std::vector<std::string> &entityAsString, std::string &type, std::string &response);
+
+            /// \brief Update the entity corresponding on his type.
+            /// \param type The type of the entity as a string (player, egg or tile).
+            /// \param response The response of the server to get from the string information of an entity type.
+            void _updateEntities(std::string &type, std::string &response);
+
+            /// \brief update entities depending on the response of the server
+            /// \param response string representating the packed response of the server
+            void _updateEntities(std::string &response);
+
+            /// \brief Update informations about the corresponding entity, depending on the server answer.
+            /// \param entity The entity on which put informations to update.
+            /// \param type The type of the entity. It's usefull to find the correct information inside the `response` parameter.
+            /// \param response Information from the server to update the entity with.
+            void _updateEntity(gui::entity::Tile entity, std::string &type, std::string &response);
+
+            /// \brief Update informations about the corresponding entity, depending on the server answer.
+            /// \param entity The entity on which put informations to update.
+            /// \param type The type of the entity. It's usefull to find the correct information inside the `response` parameter.
+            /// \param response Information from the server to update the entity with.
+            void _updateEntity(gui::entity::Player entity, std::string &type, std::string &response);
+
+            /// \brief Update informations about the corresponding entity, depending on the server answer.
+            /// \param entity The entity on which put informations to update.
+            /// \param type The type of the entity. It's usefull to find the correct information inside the `response` parameter.
+            /// \param response Information from the server to update the entity with.
+            void _updateEntity(gui::entity::Egg entity, std::string &type, std::string &response);
 
             /// \brief Start the connection with the server.
             /// \throw CoreException if the connection can't be established.
@@ -51,6 +89,9 @@ namespace gui {
             /// \param av The parameters.
             void _getArgs(int ac, char **av);
 
+            /// \brief Parse all entities comming from the server and add them to the SFML object
+            /// \param str the string of packed entities
+            void _parseEntities(std::string &str);
             /// \brief Convert a string to a vector.
             /// \param text The string in which find the vector.
             /// \param delim The delimiter.

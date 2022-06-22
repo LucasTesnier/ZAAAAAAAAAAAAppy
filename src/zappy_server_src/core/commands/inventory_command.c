@@ -27,14 +27,13 @@ bool command_inventory(char *arg, player_list_t *player, server_data_t *serv)
 }
 
 bool command_inventory_end(char *arg, player_list_t *player,
-server_data_t *serv)
+server_data_t *serv __attribute__((unused)))
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
     container_t *inventory = NULL;
     char *temp = NULL;
 
-    (void) serv;
     if (!player->player_data)
         return print_retcode(402, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
