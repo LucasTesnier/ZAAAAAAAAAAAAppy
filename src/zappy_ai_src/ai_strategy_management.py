@@ -230,6 +230,11 @@ class Ai:
         """This private member represents the counter of ticks to know when the temporary mapVision should be updated"""
         self.__mapVisionTicksCpt = 0
 
+        """This private member informs if the player is able
+            to move or not, to participate of teamCall of something else
+        """
+        self.__ableToMove = True
+
     def __del__(self):
         """Default Destructor of the AI class"""
         self.running = False
@@ -256,6 +261,9 @@ class Ai:
 
     def __setTargetComponent(self, targetComponent: str):
         self.__targetComponent = targetComponent
+
+    def __setAbleToMove(self, ability: bool):
+        self.__ableToMove = ability
 
     def __incrPlayerCurrentLevel(self):
         self.__playerCurrentLevel += 1
@@ -310,6 +318,9 @@ class Ai:
 
     def __getMapVisionTicksCpt(self) -> int:
         return self.__mapVisionTicksCpt
+
+    def __getAbleToMove(self) -> bool:
+        return self.__ableToMove
 
     def __getPlayerMaxRange(self) -> int:
         """This is used to know the maximal range of the player's vision depending on his level
@@ -395,7 +406,6 @@ class Ai:
         if not self.__waitForAction():
             return
         self.__inventory.fillInventory(self.__lib.GetRepInventory())
-
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() >= 7:
@@ -588,6 +598,7 @@ class Ai:
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
         self.__setTargetComponent("food")
+        self.__setAbleToMove(False)
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by aggressive strategy
@@ -598,7 +609,7 @@ class Ai:
         """This is the main function of aggressive strategy, it manages all actions to deny other teams
             and then avoid their win
         """
-        pass
+        self.__setAbleToMove(True)
 
     def __takeSpecificComponent(self):
         """This is used by the AI in case of needing a specific component and get it
@@ -629,6 +640,7 @@ class Ai:
         """This is the main function of farming strategy, it manages all actions to get components as fast as possible
         """
         self.__setTargetComponent(self.__getRequiredComponent())
+        self.__setAbleToMove(True)
 
     def __findClosestTileFromComponent(self, component: str) -> int:
         """This is used by AI to find the closest tile depending on the component requested
