@@ -65,7 +65,7 @@ enum player_orientation_e *direction_list)
 /// \brief Compute the directionnal list for a player broadcast
 /// \param orientation The orientation of the player
 /// \return enum player_orientation_e* The directionnal list
-static inline enum player_orientation_e *broadcast_get_direction_list(
+static inline void broadcast_get_direction_list_y(
 enum player_orientation_e orientation)
 {
     enum player_orientation_e *direction_list =
