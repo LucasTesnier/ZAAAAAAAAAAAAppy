@@ -14,7 +14,8 @@
 #include "entity/player.h"
 #include <stdlib.h>
 
-bool command_logout(char *arg, player_list_t *player, server_data_t *serv)
+bool command_logout(char *arg __attribute__((unused)),
+player_list_t *player, server_data_t *serv __attribute__((unused)))
 {
     char *type = NULL;
 
@@ -25,13 +26,12 @@ bool command_logout(char *arg, player_list_t *player, server_data_t *serv)
         type = "GUI";
     if (player->type == UNKNOWN)
         type = "UNKNOWN";
-    (void) arg;
-    (void) serv;
     pop_message(player->player_peer);
     return print_retcode(202, type, player->player_peer, true);
 }
 
-bool command_login(char *arg, player_list_t *player, server_data_t *serv)
+bool command_login(char *arg, player_list_t *player,
+server_data_t *serv __attribute__((unused)))
 {
     char *type = NULL;
 
@@ -48,9 +48,6 @@ bool command_login(char *arg, player_list_t *player, server_data_t *serv)
     if (player->type == UNKNOWN)
         return print_retcode(402, arg, player->player_peer, false);
     player->is_auth = true;
-    (void) serv;
     pop_message(player->player_peer);
     return print_retcode(201, type, player->player_peer, true);
 }
-
-

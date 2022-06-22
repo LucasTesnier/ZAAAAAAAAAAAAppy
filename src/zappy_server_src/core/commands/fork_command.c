@@ -12,6 +12,9 @@
 #include "team.h"
 #include "entity/player.h"
 #include "entity/eggs.h"
+#include "entity/tile.h"
+
+void manage_forked_egg(entity_t *player_entity, server_data_t *serv);
 
 bool command_fork(char *arg, player_list_t *player, server_data_t *serv)
 {
@@ -56,7 +59,6 @@ server_data_t *serv)
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
-    uuid_t *temp = NULL;
 
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
@@ -66,9 +68,7 @@ server_data_t *serv)
         pop_message(player->player_peer);
         return print_retcode(317, NULL, player->player_peer, false);
     }
-    temp = entity_wrapper_create_egg(serv->entities,
-    player_entity->position, player_data->team);
-    scheduler_schedule_event(serv->scheduler, *temp, 20);
+    manage_forked_egg(player_entity, serv);
     send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(218, NULL, player->player_peer, true);
@@ -81,12 +81,15 @@ server_data_t *serv)
 static void remove_egg(server_data_t *serv, egg_t *egg, entity_t *egg_e)
 {
     team_t *team = get_team_by_name(egg->team_name, &serv->teams);
+    entity_t *tmp = NULL;
 
     if (team == NULL)
         return;
     team->max_members += 1;
     dprintf(2, "A new slot (%i) have been open for the team %s.\n",
     team->max_members, egg->team_name);
+    tmp = get_tile(serv->map, egg_e->position.x, egg_e->position.y);
+    remove_entity_from_tile((tile_t*)tmp->data, egg_e);
     entity_wrapper_remove_entity(serv->entities, egg_e);
     send_entities_list_info(serv);
 }

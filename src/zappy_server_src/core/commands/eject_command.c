@@ -97,13 +97,12 @@ static void eject_action(server_data_t *serv, player_t *player, tile_t *tile)
 }
 
 bool command_eject_end(char *arg, player_list_t *player,
-server_data_t *serv)
+server_data_t *serv __attribute__((unused)))
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
     tile_t *tile = NULL;
 
-    (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
