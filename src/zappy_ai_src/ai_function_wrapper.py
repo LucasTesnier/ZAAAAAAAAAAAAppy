@@ -17,6 +17,7 @@ class ServerWrapper:
         self.__GetUnexpectedResponseState = None
         self.__GetUnexpectedResponse = None
         self.__GetNetworkState = None
+        self.__FlushData = None
 
         """ Ask an action for the AI to the server """
         self.__AskForward = None
@@ -87,11 +88,18 @@ class ServerWrapper:
             self.__GetRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
             self.__GetRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
             self.__GetNetworkState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_network_state")
+            self.__FlushData = self.DLLibWrapper.getFunctionFromLibrary("c_interface_flush_asked_data")
         except Exception as ex:
             print(ex, file=stderr)
             return False
         return True
 
+    def __Flush(self) -> None:
+        """ Wrapped Function : Flush the Api's command to the server """
+        """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
+        self.__FlushData.restype = ctypes.c_bool
+        while not self.__FlushData():
+            continue
 
     def ConnectToServer(self, machineName : str, port : int):
         """ Wrapped Function : Try to connect the AI to the server
@@ -121,6 +129,8 @@ class ServerWrapper:
         b_teamName = teamName.encode("UTF-8")
         self.__AskJoinTeam.restype = ctypes.c_bool
         c_value = self.__AskJoinTeam(ctypes.c_char_p(b_teamName))
+        if c_value:
+            self.__Flush()
         return c_value
 
     def GetRepJoinTeam(self) -> str:
@@ -165,6 +175,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskForward.restype = ctypes.c_bool
         c_value = self.__AskForward()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskTurnRight(self) -> bool:
@@ -173,6 +185,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskTurnRight.restype = ctypes.c_bool
         c_value = self.__AskTurnRight()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskTurnLeft(self) -> bool:
@@ -181,6 +195,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskTurnLeft.restype = ctypes.c_bool
         c_value = self.__AskTurnLeft()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskLook(self) -> bool:
@@ -189,6 +205,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskLook.restype = ctypes.c_bool
         c_value = self.__AskLook()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskInventory(self) -> bool:
@@ -197,6 +215,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskInventory.restype = ctypes.c_bool
         c_value = self.__AskInventory()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskBroadcastText(self, message : str) -> bool:
@@ -206,6 +226,8 @@ class ServerWrapper:
         b_message = message.encode("UTF-8")
         self.__AskBroadcastText.restype = ctypes.c_bool
         c_value = self.__AskBroadcastText(ctypes.c_char_p(b_message))
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskConnectNbr(self) -> bool:
@@ -214,6 +236,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskConnectNbr.restype = ctypes.c_bool
         c_value = self.__AskConnectNbr()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskFork(self) -> bool:
@@ -222,6 +246,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskFork.restype = ctypes.c_bool
         c_value = self.__AskFork()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskEject(self) -> bool:
@@ -230,6 +256,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskEject.restype = ctypes.c_bool
         c_value = self.__AskEject()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskTakeObject(self, object : str) -> bool:
@@ -239,6 +267,8 @@ class ServerWrapper:
         b_object = object.encode("UTF-8")
         self.__AskTakeObject.restype = ctypes.c_bool
         c_value = self.__AskTakeObject(ctypes.c_char_p(b_object))
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskPlaceObject(self, object : str) -> bool:
@@ -248,6 +278,8 @@ class ServerWrapper:
         b_object = object.encode("UTF-8")
         self.__AskPlaceObject.restype = ctypes.c_bool
         c_value = self.__AskPlaceObject(ctypes.c_char_p(b_object))
+        if c_value:
+            self.__Flush()
         return c_value
 
     def AskIncantation(self) -> bool:
@@ -256,6 +288,8 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         self.__AskIncantation.restype = ctypes.c_bool
         c_value = self.__AskIncantation()
+        if c_value:
+            self.__Flush()
         return c_value
 
     def GetRepForward(self) -> bool:
@@ -301,6 +335,8 @@ class ServerWrapper:
             safeExitError()
         self.__GetRepInventory.restype = ctypes.c_char_p
         c_value = self.__GetRepInventory()
+        if c_value:
+            self.__Flush()
         return c_value.decode("UTF-8")
 
     def GetRepBroadcastText(self) -> bool:
