@@ -228,8 +228,7 @@ server_data_t *serv);
 /// \param direction The eject direction
 /// \param serv Server informations
 /// \param tmp The data of the player
-void send_unexpected_eject(enum player_orientation_e direction,
-server_data_t *serv, player_t *tmp);
+void send_unexpected_eject(int direction, server_data_t *serv, player_t *tmp);
 
 /// \brief Send a died signal to a player
 /// \param serv Server informations
@@ -327,6 +326,13 @@ position_t sender, enum player_orientation_e orientation);
 /// \return position_t* The list of all the looked case
 position_t *compute_look_cmd(position_t player, position_t map_size,
 int level, enum player_orientation_e orientation);
+
+/// \brief Compute the direction of an ejection
+/// \param serv The server information
+/// \param entity The entity which has been eject
+/// \param old The position before ejection
+/// \return int The direction where the ejection from
+int get_eject_dir(server_data_t *serv, entity_t *entity, position_t old);
 
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
