@@ -81,15 +81,12 @@ server_data_t *serv)
 static void remove_egg(server_data_t *serv, egg_t *egg, entity_t *egg_e)
 {
     team_t *team = get_team_by_name(egg->team_name, &serv->teams);
-    entity_t *tmp = NULL;
 
     if (team == NULL)
         return;
     team->max_members += 1;
     dprintf(2, "A new slot (%i) have been open for the team %s.\n",
     team->max_members, egg->team_name);
-    tmp = get_tile(serv->map, egg_e->position.x, egg_e->position.y);
-    remove_entity_from_tile((tile_t*)tmp->data, egg_e);
     entity_wrapper_remove_entity(serv->entities, egg_e);
     send_entities_list_info(serv);
 }
