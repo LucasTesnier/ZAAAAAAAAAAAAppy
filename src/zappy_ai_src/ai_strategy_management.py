@@ -215,6 +215,9 @@ class Ai:
         """
         self.__playerCurrentLevel = 1
 
+        """This private member represents the frequency of time units used in scheduling management on server"""
+        self.__frequency = 0
+
     def __del__(self):
         """Default Destructor of the Core class"""
         self.running = False
@@ -245,6 +248,9 @@ class Ai:
     def __incrPlayerCurrentLevel(self):
         self.__playerCurrentLevel += 1
 
+    def __setFrequency(self, frequency: int):
+        self.__frequency = frequency
+
     def __getAvailableSlots(self):
         return self.__availableSlots
 
@@ -271,6 +277,9 @@ class Ai:
 
     def __getPlayerCurrentLevel(self) -> int:
         return self.__playerCurrentLevel
+
+    def __getFrequency(self) -> int:
+        return self.__frequency
 
     """This is used to know the maximal range of the player's vision depending on his level
         The player range could be calculate as follow : maxRange = (x+1)²
@@ -308,6 +317,12 @@ class Ai:
             if self.__lib.GetResponseState():
                 break
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
+        tmpFood = self.__inventory.GetFood()
+        self.__lib.AskInventory()
+        while not self.__lib.GetResponseState():
+            pass
+        self.__setInventory(self.__lib.GetRepInventory())
+        self.__setFrequency(int((tmpFood - self.__inventory.GetFood()) / 2))
 
     """This is used by AI to manage every unexpected response send by the server like :
         - Death of the player
