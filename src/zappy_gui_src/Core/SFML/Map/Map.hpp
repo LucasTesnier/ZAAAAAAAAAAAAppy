@@ -97,11 +97,11 @@ namespace gui {
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
-            void _displaySelectedTile(sf::CircleShape &entityRepresentation);
+            void _displaySelectedTile(sf::RectangleShape &entityRepresentation);
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
-            void _displayHoveredTile(sf::CircleShape &entityRepresentation);
+            void _displayHoveredTile(sf::RectangleShape &entityRepresentation);
 
             /// \brief Find if the selected or hover tile must be update.
             /// \param i The actual index of the tile to find if it need to be update.
@@ -140,17 +140,17 @@ namespace gui {
             /// \brief Display players that are in the tile, if there is at least one player.
             /// \param tile The tile to get information from.
             /// \param playerRepresentation The representation of a player as a green circle shape.
-            void _displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation);
+            void _displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation);
 
             /// \brief Display resources that are in the tile, if there is at least one resource.
             /// \param tile The tile to get information from.
             /// \param resourcesRepresentation The representation of a resource as a grey circle shape.
-            void _displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation);
+            void _displayResources(Tile &tile, sf::RectangleShape &resourcesRepresentation);
 
             /// \brief Display eggs that are in the tile, if there is at least one egg.
             /// \param tile The tile to get information from.
             /// \param eggRepresentation The representation of an egg as a yellow circle shape.
-            void _displayEggs(Tile &tile, sf::CircleShape &eggRpresentation);
+            void _displayEggs(Tile &tile, sf::RectangleShape &eggRpresentation);
 
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
