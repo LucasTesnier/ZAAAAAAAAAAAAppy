@@ -24,7 +24,7 @@ class ClientCore:
             return False
 
         if not self.serverInterface.ConnectToServer(self.__ip, self.__port):
-            print("There is no server at this ip " + self.__ip + " / port " + str(self.__port), file=stderr)
+            print(f"There is no server at this ip {self.__ip} / port {self.__port}", file=stderr)
             return False
 
         while not self.serverInterface.GetResponseState():
@@ -39,7 +39,7 @@ class ClientCore:
             pass
         info : str = self.serverInterface.GetRepJoinTeam()
         if info == None:
-            print("The team name " + self.__teamName + " doesn't exist.", file=stderr)
+            print(f"The team name {self.__teamName} doesn't exist.", file=stderr)
             return False
         infos = info.split(",")
         try:
