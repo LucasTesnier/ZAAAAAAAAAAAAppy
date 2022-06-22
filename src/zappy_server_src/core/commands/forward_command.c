@@ -66,13 +66,12 @@ bool command_forward(char *arg, player_list_t *player, server_data_t *serv)
     return true;
 }
 
-bool command_forward_end(char *arg, player_list_t *player,
-server_data_t *serv)
+bool command_forward_end(char *arg __attribute__((unused)),
+player_list_t *player, server_data_t *serv)
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
 
-    (void) arg;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;

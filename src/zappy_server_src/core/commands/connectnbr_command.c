@@ -28,13 +28,13 @@ static char *get_connectnbr_resp(player_t *player, server_data_t *serv)
     return res;
 }
 
-bool command_connectnbr(char *arg, player_list_t *player, server_data_t *serv)
+bool command_connectnbr(char *arg, player_list_t *player,
+server_data_t *serv __attribute__((unused)))
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
     char *res = NULL;
 
-    (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;

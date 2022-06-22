@@ -59,8 +59,9 @@ player_list_t *player)
 /// \param serv The server informations
 /// \param send The sender informations
 /// \param message The message to send
-static void process_send(player_list_t **to_send, server_data_t *serv,
-player_list_t *send, char *message)
+static void process_send(player_list_t **to_send,
+server_data_t *serv __attribute__((unused)),
+player_list_t *send __attribute__((unused)), char *message)
 {
     char *temp = malloc(sizeof(char) * (strlen(message) + 15));
     entity_t *player = NULL;
@@ -76,17 +77,14 @@ player_list_t *send, char *message)
         ((player_t *)player->data)->orientation), message);
         print_retcode(603, temp, to_send[i]->player_peer, true);
     }
-    (void) send;
-    (void) serv;
     free(temp);
 }
 
 bool command_broadcast_end(char *arg, player_list_t *player,
-server_data_t *serv)
+server_data_t *serv __attribute__((unused)))
 {
     player_list_t **to_send = NULL;
 
-    (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     to_send = get_send_list(serv, player);
