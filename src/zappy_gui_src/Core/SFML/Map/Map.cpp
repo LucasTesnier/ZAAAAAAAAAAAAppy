@@ -163,6 +163,8 @@ void Map::_displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation)
 void Map::_displayResources(Tile &tile, sf::RectangleShape &ressourcesRepresentation)
 {
     std::size_t index = 1;
+    int multiplierFood = 10;
+    int multiplierStone = 5;
 
     ressourcesRepresentation.setSize(sf::Vector2f(5, 5));
     ressourcesRepresentation.setOutlineThickness(0.5);
@@ -171,15 +173,15 @@ void Map::_displayResources(Tile &tile, sf::RectangleShape &ressourcesRepresenta
         if (it) {
             ressourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - ressourcesRepresentation.getGlobalBounds().height / 2});
             _window->draw(ressourcesRepresentation);
-            if (it >= 2) {
+            if (it >= 2 * (index == 1 ? multiplierFood : multiplierStone)) {
                 ressourcesRepresentation.move(-4, 4);
                 _window->draw(ressourcesRepresentation);
             }
-            if (it >= 3) {
+            if (it >= 3 * (index == 1 ? multiplierFood : multiplierStone)) {
                 ressourcesRepresentation.move(8, 0);
                 _window->draw(ressourcesRepresentation);
             }
-            if (it >= 4) {
+            if (it >= 4 * (index == 1 ? multiplierFood : multiplierStone)) {
                 ressourcesRepresentation.move(-4, 4);
                 _window->draw(ressourcesRepresentation);
             }
