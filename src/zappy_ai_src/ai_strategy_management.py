@@ -86,6 +86,7 @@ TIME_LIMIT = {
         It calculates with the following thinking :
         x = n² + 2n
 """
+
 PathVector = namedtuple("PathVector", ["frontTileIndex", "maxIndexInLine"])
 PATH_REFERENCES = [PathVector(0, 0),       # UNUSED LEVEL 0
                    PathVector(2, 3),       # LEVEL 1
@@ -237,7 +238,7 @@ class Ai:
             to move or not, to participate of teamCall of something else
         """
         self.__ableToMove = True
-
+        
     def __del__(self):
         """Default Destructor of the AI class"""
         self.running = False
@@ -425,30 +426,22 @@ class Ai:
         else:
             self.__farming()
 
-    def __checkNetwork(self) -> None:
-        """
-        Check the network state by calling the right function in the loaded lib
-        Nothing to do if the network is ok
-        Print and error message and exit otherwise
-        """
-        if not self.__lib.GetNetworkState():
-            print("The connection to the server has been lost", file=stderr)
-            exit(84)
-
     def __waitForAction(self) -> bool:
         """
         Wait for a launched action and handle the possible unexpected responses
         Return true if the Client is running
         Otherwise return False
         """
-        while 1:
-            if self.__lib.GetResponseState():
-                if self.__lib.GetUnexpectedResponseState():
-                    self.__unexpectedResponseManagement()
-                    if not self.__getIsRunning():
-                        return False
-                else:
-                    return True
+        while not self.__lib.GetResponseState():
+            pass
+        if self.__lib.GetUnexpectedResponseState():
+            self.__unexpectedResponseManagement()
+            if not self.__getIsRunning():
+                return False
+            else:
+                return True
+        else:
+            return True
 
     def __setAnotherTargetTile(self, component: str):
         """"This is used to set another target as a tile if the first one got reached by the player"""
