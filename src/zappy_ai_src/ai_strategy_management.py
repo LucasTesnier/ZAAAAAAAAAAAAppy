@@ -416,6 +416,8 @@ class Ai:
             self.__unexpectedResponseManagement()
             if not self.__getIsRunning():
                 return False
+            else:
+                return True
         else:
             return True
 
