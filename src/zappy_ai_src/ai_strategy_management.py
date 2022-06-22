@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from sys import stderr
@@ -84,15 +86,17 @@ TIME_LIMIT = {
         It calculates with the following thinking :
         x = n² + 2n
 """
-PATH_REFERENCES = [{0, 0},       # UNUSED LEVEL 0
-                   (2, 3),       # LEVEL 1
-                   (6, 8),       # LEVEL 2
-                   (12, 15),     # LEVEL 3
-                   (20, 24),     # LEVEL 4
-                   (30, 35),     # LEVEL 5
-                   (42, 48),     # LEVEL 6
-                   (56, 63),     # LEVEL 7
-                   (72, 80),     # LEVEL 8
+
+PathVector = namedtuple("PathVector", ["frontTileIndex", "maxIndexInLine"])
+PATH_REFERENCES = [PathVector(0, 0),       # UNUSED LEVEL 0
+                   PathVector(2, 3),       # LEVEL 1
+                   PathVector(6, 8),       # LEVEL 2
+                   PathVector(12, 15),     # LEVEL 3
+                   PathVector(20, 24),     # LEVEL 4
+                   PathVector(30, 35),     # LEVEL 5
+                   PathVector(42, 48),     # LEVEL 6
+                   PathVector(56, 63),     # LEVEL 7
+                   PathVector(72, 80),     # LEVEL 8
                    ]
 
 """This static array is used to know every requirements for elevation
@@ -230,8 +234,13 @@ class Ai:
         """This private member represents the counter of ticks to know when the temporary mapVision should be updated"""
         self.__mapVisionTicksCpt = 0
 
+        """This private member informs if the player is able
+            to move or not, to participate of teamCall of something else
+        """
+        self.__ableToMove = True
+        
     def __del__(self):
-        """Default Destructor of the Core class"""
+        """Default Destructor of the AI class"""
         self.running = False
 
     """----------------------------------------Getter and Setter for AI class----------------------------------------"""
@@ -256,6 +265,9 @@ class Ai:
 
     def __setTargetComponent(self, targetComponent: str):
         self.__targetComponent = targetComponent
+
+    def __setAbleToMove(self, ability: bool):
+        self.__ableToMove = ability
 
     def __incrPlayerCurrentLevel(self):
         self.__playerCurrentLevel += 1
@@ -311,13 +323,16 @@ class Ai:
     def __getMapVisionTicksCpt(self) -> int:
         return self.__mapVisionTicksCpt
 
+    def __getAbleToMove(self) -> bool:
+        return self.__ableToMove
+
     def __getPlayerMaxRange(self) -> int:
         """This is used to know the maximal range of the player's vision depending on his level
                 The player range could be calculate as follow : maxRange = (x+1)²
                     where x is the level of the player
             """
         playerLevel = self.__playerCurrentLevel + 1
-        return (playerLevel * playerLevel)
+        return playerLevel * playerLevel
 
     """ -------------------------------------------Public members functions------------------------------------------"""
 
@@ -342,6 +357,10 @@ class Ai:
             print("[AI] libzappy_ai_api charged, SUCCESS!")
         else:
             print("[AI] cannot charge libzappy_ai_api, ERROR!")
+        self.__initFrequency()
+
+    def __initFrequency(self):
+        """This is used by Ai to initialize the frequency which is very useful in decision-making"""
         if not self.__lib.AskLook():
             safeExitError()
         while 1:
@@ -360,7 +379,7 @@ class Ai:
                 - Death of the player
                 - Eject from another player (not implemented at the moment)
                 - Broadcast, sending message from another player (not implemented at the moment)
-            """
+        """
         response = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
@@ -395,14 +414,17 @@ class Ai:
         if not self.__waitForAction():
             return
         self.__inventory.fillInventory(self.__lib.GetRepInventory())
+        self.__setStrategy()
+        self.__actionsProceed()
 
+    def __setStrategy(self):
+        """This is used by Ai on each tick of loop to define the best strategy applied"""
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() >= 7:
             self.__deny()
         else:
             self.__farming()
-        self.__actionsProceed()
 
     def __waitForAction(self) -> bool:
         """
@@ -449,35 +471,31 @@ class Ai:
         self.__lib.GetRepForward()
         if not self.__lib.AskLook():
             safeExitError()
-        if not self.__waitForAction():
-                return
+        if  self.__waitForAction():
+            return
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
 
-    def __isThereComponentOnThisTile(self, component: str, tile: Tile, x=None) -> bool:
+    def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
         """This is used by AI to know if the specific component is present on the specific tile
             Param   :     component:  str,    representing the specific component needed by the AI
             Param   :     tile:       Tile,   representing the specific tile where AI search component
             return  :     True if component is present
                           False otherwise
         """
-        result = {
-            'food': lambda x: tile.food,
-            'sibur': lambda x: tile.sibur,
-            'phiras': lambda x: tile.phiras,
-            'linemate': lambda x: tile.linemate,
-            'deraumere': lambda x: tile.deraumere,
-            'mendiane': lambda x: tile.mendiane,
-            'thystame': lambda x: tile.thystame
-        }[component](x)
-        if (result):
-            return True
-        return False
+        componentTemplate = {
+            'food': tile.food,
+            'sibur': tile.sibur,
+            'phiras': tile.phiras,
+            'linemate': tile.linemate,
+            'deraumere': tile.deraumere,
+            'mendiane': tile.mendiane,
+            'thystame': tile.thystame
+        }
+        return componentTemplate[component] != 0
 
-    def __isThisActionRealisable(self, action: str):
+    def __isThisActionRealisable(self, action: str) -> bool:
         """This is used by the AI to know if the action is realisable or not depending on its food"""
-        if not self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action):
-            return False
-        return True
+        return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action)
 
     def __tryElevation(self) -> bool:
         """This is used when the AI thinks it's the good timing to level up
@@ -485,11 +503,11 @@ class Ai:
                         False otherwise
         """
         levelOfPlayer = self.__getPlayerCurrentLevel()
-        if not self.__getInventory().GetFood() >= TIME_LIMIT.get("incantation"):
+        if self.__getInventory().GetFood() < TIME_LIMIT.get("incantation"):
             return False
-        if not self.__getRequiredComponent() == "nothing":
+        if self.__getRequiredComponent() != "nothing":
             return False
-        if not self.__getVisionOfTheMap().GetTile(0).player == LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player"):
+        if self.__getVisionOfTheMap().GetTile(0).player != LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player"):
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
@@ -514,12 +532,8 @@ class Ai:
         if not self.__isThisActionRealisable("broadcast"):
             return False
         levelOfPlayer = self.__getPlayerCurrentLevel()
-        if action == "elevation":
-            nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player')
-        else:
-            nbPlayer = 1
-        message = self.__getTeamName() + ';' + str(nbPlayer) + ';' + action + '\n'
-        if not self.__lib.AskBroadcastText("Broadcast " + message):
+        nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "elevation" else 1
+        if not self.__lib.AskBroadcastText(f"Broadcast {self.__getTeamName()};{nbPlayer};{action}\n"):
             safeExitError()
         return True
 
@@ -551,11 +565,11 @@ class Ai:
         """
         nbForwardSteps = 0
         frontTileIndex = 0
-        for i in range(8, 1):
-            if index <= PATH_REFERENCES[i][1]:
-                fronTileIndex = PATH_REFERENCES[i][0]
-                nbForwardSteps = i
-        for i in range(0, nbForwardSteps):
+        for vector in reversed(PATH_REFERENCES[1:]):
+            if index <= vector.maxIndexInLine:
+                frontTileIndex = vector.frontTileIndex
+                nbForwardSteps = PATH_REFERENCES.index(vector)
+        for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
             # PUSH GETFORWARD IN Q
         nbForwardSteps = index - frontTileIndex
@@ -563,12 +577,12 @@ class Ai:
             self.__lib.AskTurnLeft()
             nbForwardSteps *= -1
             # PUSH GETRESPONSELEFT
-        elif not nbForwardSteps:
+        elif nbForwardSteps == 0:
             return
         else:
             self.__lib.AskTurnRight()
             # PUSH GETRESPONSERIGHT
-        for i in range(0, nbForwardSteps):
+        for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
             # PUSH GETFORWARD IN Q
 
@@ -580,6 +594,7 @@ class Ai:
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
         self.__setTargetComponent("food")
+        self.__setAbleToMove(False)
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by aggressive strategy
@@ -590,7 +605,7 @@ class Ai:
         """This is the main function of aggressive strategy, it manages all actions to deny other teams
             and then avoid their win
         """
-        pass
+        self.__setAbleToMove(True)
 
     def __takeSpecificComponent(self):
         """This is used by the AI in case of needing a specific component and get it
@@ -621,6 +636,7 @@ class Ai:
         """This is the main function of farming strategy, it manages all actions to get components as fast as possible
         """
         self.__setTargetComponent(self.__getRequiredComponent())
+        self.__setAbleToMove(True)
 
     def __findClosestTileFromComponent(self, component: str) -> int:
         """This is used by AI to find the closest tile depending on the component requested
@@ -635,16 +651,15 @@ class Ai:
             return : the required component or nothing if all requirements are met
         """
         playerLevel = self.__getPlayerCurrentLevel()
-        if self.__getInventory().GetThystame() < LEVEL_UP_REQUIREMENTS[playerLevel].get("thystame"):
-            return "thystame"
-        if self.__getInventory().GetPhiras() < LEVEL_UP_REQUIREMENTS[playerLevel].get("phiras"):
-            return "phiras"
-        if self.__getInventory().GetMendiane() < LEVEL_UP_REQUIREMENTS[playerLevel].get("mendiane"):
-            return "mendiane"
-        if self.__getInventory().GetSibur() < LEVEL_UP_REQUIREMENTS[playerLevel].get("sibur"):
-            return "sibur"
-        if self.__getInventory().GetDeraumere() < LEVEL_UP_REQUIREMENTS[playerLevel].get("deraumere"):
-            return "deraumere"
-        if self.__getInventory().GetLinemate() < LEVEL_UP_REQUIREMENTS[playerLevel].get("linemate"):
-            return "linemate"
+        componentList = [
+            "thystame",
+            "phiras",
+            "mendiane",
+            "sibur",
+            "deraumere",
+            "linemate"
+        ]
+        for component in componentList:
+            if self.__getInventory()[component] < LEVEL_UP_REQUIREMENTS[playerLevel].get(component):
+                return component
         return "nothing"
