@@ -137,24 +137,51 @@ void Map::_displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation)
 {
     playerRepresentation.setFillColor(sf::Color::Green);
     playerRepresentation.setRadius(10);
+    playerRepresentation.setOutlineColor(sf::Color::Black);
+    playerRepresentation.setOutlineThickness(1);
     if (tile.getPlayers().size()) {
         playerRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - playerRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top});
         _window->draw(playerRepresentation);
+        if (tile.getPlayers().size() >= 2) {
+            playerRepresentation.move(-4, 4);
+            _window->draw(playerRepresentation);
+        }
+        if (tile.getPlayers().size() >= 3) {
+            playerRepresentation.move(8, 0);
+            _window->draw(playerRepresentation);
+        }
+        if (tile.getPlayers().size() >= 4) {
+            playerRepresentation.move(-4, 4);
+            _window->draw(playerRepresentation);
+        }
     }
 }
 
-void Map::_displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation)
+void Map::_displayResources(Tile &tile, sf::CircleShape &ressourcesRepresentation)
 {
     std::size_t index = 1;
 
-    resourcesRepresentation.setRadius(5);
-    resourcesRepresentation.setFillColor(sf::Color(0, 0, 0));
-    for (auto &it : tile.getTileInfo()._inventory) {
+    ressourcesRepresentation.setRadius(5);
+    ressourcesRepresentation.setOutlineThickness(0.5);
+    ressourcesRepresentation.setFillColor(sf::Color(0, 0, 0));
+    for (auto &it : tile.getTileInfo().getInventory()) {
         if (it) {
-            resourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - resourcesRepresentation.getGlobalBounds().height / 2});
-            _window->draw(resourcesRepresentation);
+            ressourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - ressourcesRepresentation.getGlobalBounds().height / 2});
+            _window->draw(ressourcesRepresentation);
+            if (it >= 2) {
+                ressourcesRepresentation.move(-4, 4);
+                _window->draw(ressourcesRepresentation);
+            }
+            if (it >= 3) {
+                ressourcesRepresentation.move(8, 0);
+                _window->draw(ressourcesRepresentation);
+            }
+            if (it >= 4) {
+                ressourcesRepresentation.move(-4, 4);
+                _window->draw(ressourcesRepresentation);
+            }
         }
-        resourcesRepresentation.setFillColor(resourcesRepresentation.getFillColor() + sf::Color(30, 30, 30));
+        ressourcesRepresentation.setFillColor(ressourcesRepresentation.getFillColor() + sf::Color(30, 30, 30));
         index++;
     }
 }
@@ -163,9 +190,23 @@ void Map::_displayEggs(Tile &tile, sf::CircleShape &eggRepresentation)
 {
     eggRepresentation.setFillColor(sf::Color::Yellow);
     eggRepresentation.setRadius(8);
+    eggRepresentation.setOutlineColor(sf::Color::Black);
+    eggRepresentation.setOutlineThickness(1);
     if (tile.getEggs().size()) {
         eggRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - eggRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top + tile.getGlobalBound().height - eggRepresentation.getGlobalBounds().height});
         _window->draw(eggRepresentation);
+        if (tile.getEggs().size() >= 2) {
+            eggRepresentation.move(-4, 4);
+            _window->draw(eggRepresentation);
+        }
+        if (tile.getEggs().size() >= 3) {
+            eggRepresentation.move(8, 0);
+            _window->draw(eggRepresentation);
+        }
+        if (tile.getEggs().size() >= 4) {
+            eggRepresentation.move(-4, 4);
+            _window->draw(eggRepresentation);
+        }
     }
 }
 

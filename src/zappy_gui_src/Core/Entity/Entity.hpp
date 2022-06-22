@@ -52,17 +52,17 @@ namespace gui::entity {
         player_orientation_e _orientation;
         /// \brief get the position
         /// \return a pair containing the position x and y
-        std::pair<int, int> getPosition() {
+        std::pair<int, int> &getPosition() {
             return _position;
         }
         /// \brief get the inventory
         /// \return a vector containing the inventory
-        std::vector<int> getInventory() {
+        std::vector<int> &getInventory() {
             return _inventory;
         }
         /// \brief get the team name
         /// \return a string containing the name of the team
-        std::string getTeamName() {
+        std::string &getTeamName() {
             return _team_name;
         }
         /// \brief get the level
@@ -72,7 +72,7 @@ namespace gui::entity {
         }
         /// \brief get the orientation
         /// \return the orientation of the player
-        player_orientation_e getOrientation() {
+        player_orientation_e &getOrientation() {
             return _orientation;
         }
     };
@@ -89,12 +89,12 @@ namespace gui::entity {
         std::vector<int> _inventory;
         /// \brief get the position
         /// \return a pair containing the position x and y
-        std::pair<int, int> getPosition() {
+        std::pair<int, int> &getPosition() {
             return _position;
         }
         /// \brief get the inventory
         /// \return a vector containing the inventory
-        std::vector<int> getInventory() {
+        const std::vector<int> &getInventory() const {
             return _inventory;
         }
     };
@@ -111,12 +111,12 @@ namespace gui::entity {
         std::string _team_name;
         /// \brief get the position
         /// \return a pair containing the position x and y
-        std::pair<int, int> getPosition() {
+        std::pair<int, int> &getPosition() {
             return _position;
         }
         /// \brief get the team name
         /// \return a string containing the name of the team
-        std::string getTeamName() {
+        std::string &getTeamName() {
             return _team_name;
         }
     };
