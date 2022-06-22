@@ -22,6 +22,7 @@ set (COMMANDS_SOURCES
     ${SRC_ROOT}/broadcast_process.c
     ${SRC_ROOT}/look_process.c
     ${SRC_ROOT}/look_utils.c
+    ${SRC_ROOT}/eject_process.c
 
     PARENT_SCOPE
 )

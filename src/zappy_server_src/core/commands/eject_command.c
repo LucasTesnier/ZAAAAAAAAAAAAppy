@@ -38,10 +38,10 @@ enum player_orientation_e dir)
 
     tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
     if (dir == NORTH)
-        pos->x = (pos->x - 1) % (map->height - 1);
+        pos->x = (map->width == 1) ? 0 : (pos->x - 1) % (map->width - 1);
     else
-        pos->x = (pos->x - 1) < 0 ? map->height - 1 :
-            (pos->x - 1) % (map->height - 1);
+        pos->x = (pos->x - 1) < 0 ? map->width - 1 :
+            (pos->x - 1) % (map->width - 1);
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
     add_entity_to_tile(tile, player);
@@ -59,7 +59,7 @@ enum player_orientation_e dir)
 
     tile = (tile_t*)get_tile(map, pos->x, pos->y)->data;
     if (dir == EAST)
-        pos->x = (pos->y + 1) % (map->height - 1);
+        pos->x = (map->height == 1) ? 0 : (pos->y + 1) % (map->height - 1);
     else
         pos->x = (pos->y - 1) < 0 ? (map->height - 1)
             : (pos->y - 1) % (map->height - 1);
@@ -75,14 +75,14 @@ enum player_orientation_e dir)
 static void eject_action(server_data_t *serv, player_t *player, tile_t *tile)
 {
     entity_t *entity = NULL;
-    player_t *tmp = NULL;
+    position_t pos;
 
     TAILQ_FOREACH(entity, &tile->entities, entities) {
         if (entity->type != ENTITY_PLAYER_TYPE)
             continue;
-        tmp = (player_t *)entity->data;
-        if (!uuid_compare(tmp->uuid, player->uuid))
+        if (!uuid_compare(((player_t *)entity->data)->uuid, player->uuid))
             continue;
+        pos = entity->position;
         if (player->orientation == NORTH)
             move_x(entity, serv->map, NORTH);
         if (player->orientation == SOUTH)
@@ -91,7 +91,8 @@ static void eject_action(server_data_t *serv, player_t *player, tile_t *tile)
             move_y(entity, serv->map, EAST);
         if (player->orientation == WEST)
             move_y(entity, serv->map, WEST);
-        send_unexpected_eject(player->orientation, serv, tmp);
+        send_unexpected_eject(get_eject_dir(serv, entity, pos), serv,
+        (player_t *)entity->data);
     }
 }
 
