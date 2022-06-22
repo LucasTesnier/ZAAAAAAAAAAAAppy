@@ -17,6 +17,9 @@ Map::Map()
     _tileHover = -1;
     _mapSize = {10, 10};
     _zoom = 1;
+    _noTileSelected = {-1, -1};
+    std::vector<int> tmpVec{0, 0, 0, 0, 0, 0, 0,};
+    _noTileSelectedInv = tmpVec;
 }
 
 void Map::_updateTileVectorSize()
