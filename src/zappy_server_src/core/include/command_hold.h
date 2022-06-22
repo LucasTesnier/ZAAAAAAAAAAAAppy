@@ -319,6 +319,15 @@ void process_eggs_inspection(server_data_t *serv);
 int get_directionnal_value(position_t player, position_t map_size,
 position_t sender, enum player_orientation_e orientation);
 
+/// \brief Compute the looked case by a player
+/// \param player The player position
+/// \param map_size The size of the map
+/// \param level The level of the player
+/// \param orientation The orientation of the player
+/// \return position_t* The list of all the looked case
+position_t *compute_look_cmd(position_t player, position_t map_size,
+int level, enum player_orientation_e orientation);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},

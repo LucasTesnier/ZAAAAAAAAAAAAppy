@@ -58,6 +58,9 @@ namespace gui {
             inline void addEgg(gui::entity::Egg &egg){
                 _map.addEgg(egg);
             }
+            /// \brief remove entities depending on the type given
+            /// \param type string representating the type of entities to remove
+            void removeEntities(std::string &type);
         private:
 
             void _getEvent();

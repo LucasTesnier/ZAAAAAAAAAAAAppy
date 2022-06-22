@@ -51,4 +51,8 @@ def main() -> int:
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    try:
+        exit(main())
+    except KeyboardInterrupt:
+        print("The AI has been manually stopped.")
+        exit(0)

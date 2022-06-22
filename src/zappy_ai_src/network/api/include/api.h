@@ -103,6 +103,11 @@ bool c_interface_get_response_state(void);
 /// \return false If the response is expected
 bool c_interface_get_unexpected_response_state(void);
 
+/// \brief Flush the asked data. Call after a ask function
+/// \return true When the asked data has been send to the server
+/// \return false When the ased data has not been send
+bool c_interface_flush_asked_data(void);
+
 /// \brief Return the state of the network connection
 /// \return true When everything is alright
 /// \return false When the network connexion hase been closed

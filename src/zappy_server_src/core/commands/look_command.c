@@ -30,7 +30,7 @@ bool command_look(char *arg, player_list_t *player, server_data_t *serv)
 /// \param tile The concerned tile
 /// \param cases The tile ressources
 /// \param res The result
-static void get_a_tile_content_player(tile_t *tile,
+static void get_tile_content_entities(tile_t *tile,
 container_t *cases, char *res)
 {
     int player_number = 0;
@@ -56,7 +56,7 @@ container_t *cases, char *res)
 /// \brief Get all the ressources in a tile and format it
 /// \param tile The concerned tile
 /// \return The result
-static char *get_a_tile_content(tile_t *tile)
+static char *get_tile_content(tile_t *tile)
 {
     container_t *cases = tile->inventory;
     char *res = malloc(sizeof(char) * 10000);
@@ -74,7 +74,7 @@ static char *get_a_tile_content(tile_t *tile)
         strcat(res, "sibur ");
     for (unsigned int i = 0; i < cases->mendiane; i++)
         strcat(res, "mendiane ");
-    get_a_tile_content_player(tile, cases, res);
+    get_tile_content_entities(tile, cases, res);
     res[strlen(res) - 1] = '\0';
     return res;
 }
@@ -83,24 +83,30 @@ static char *get_a_tile_content(tile_t *tile)
 /// \param serv The serv informations
 /// \param level The player level
 /// \param position The player position
+/// \param map The size of the map
 /// \return char* The formated look result
-static char *look_action(server_data_t *serv, unsigned int level,
-position_t position)
+static char *look_action(server_data_t *serv, player_t *player,
+position_t position, position_t map)
 {
     char *res = malloc(sizeof(char) * 4);
     char *temp = NULL;
+    position_t *looked = compute_look_cmd(position, map,
+    player->level, player->orientation);
 
-    if (res == NULL)
+    if (res == NULL || looked == NULL)
         return NULL;
-    (void) level;
     res[0] = '[';
     res[1] = '\0';
-    temp = get_a_tile_content(
-    (tile_t *)get_tile(serv->map, position.x, position.y)->data);
-    res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
-    strcat(res, temp);
-    free(temp);
-    strcat(res, ",]");
+    for (int i = 0; looked[i].x != -1; i++) {
+        temp = get_tile_content(
+        (tile_t *)get_tile(serv->map, looked[i].x, looked[i].y)->data);
+        res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
+        strcat(res, temp);
+        free(temp);
+        strcat(res, ",");
+    }
+    strcat(res, "]");
+    free(looked);
     return res;
 }
 
@@ -116,7 +122,8 @@ server_data_t *serv)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
-    res = look_action(serv, player_data->level, player_entity->position);
+    res = look_action(serv, player_data, player_entity->position,
+    (position_t) {serv->map->width, serv->map->height});
     pop_message(player->player_peer);
     print_retcode(215, res, player->player_peer, true);
     free(res);

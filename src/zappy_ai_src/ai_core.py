@@ -1,6 +1,7 @@
 from ai_function_wrapper import ServerWrapper
 from sys import stderr
 from ai_strategy_management import Ai
+from ai_safe_error import safeExitError
 
 class ClientCore:
     def __init__(self, teamName : str, ip : str, port : int):
@@ -22,14 +23,18 @@ class ClientCore:
         if not self.serverInterface.getNecessaryFunctions():
             return False
 
-        self.serverInterface.ConnectToServer(self.__ip, self.__port)
+        if not self.serverInterface.ConnectToServer(self.__ip, self.__port):
+            print("There is no server at this ip " + self.__ip + " / port " + str(self.__port), file=stderr)
+            return False
+
         while not self.serverInterface.GetResponseState():
             pass
         if not self.serverInterface.GetRepConnectToServer():
             print("Failed to connect to server", file=stderr)
             return False
 
-        self.serverInterface.AskJoinTeam(self.__teamName)
+        if not self.serverInterface.AskJoinTeam(self.__teamName):
+            safeExitError()
         while not self.serverInterface.GetResponseState():
             pass
         info : str = self.serverInterface.GetRepJoinTeam()
@@ -49,4 +54,3 @@ class ClientCore:
             return
         newIA : Ai = Ai(self.__placesLeft, self.__teamName)
         newIA.start()
-        pass
