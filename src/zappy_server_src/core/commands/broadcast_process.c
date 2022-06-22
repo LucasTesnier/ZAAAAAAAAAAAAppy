@@ -74,7 +74,7 @@ position_t dest, enum player_orientation_e orientation)
     broad_data.count = 0;
     broad_data.turn_number = 1;
     broad_data.current_pos = player;
-    broad_data.direction_list = broadcast_get_direction_list(orientation);
+    broad_data.direction_list = broadcast_get_direction_list_y(orientation);
     if (broad_data.direction_list == NULL)
         return - 1;
     while (1) {
