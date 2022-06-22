@@ -16,7 +16,6 @@
 #include "Entity.hpp"
 
 #define FONT_PATH "assets/arial.ttf"
-#define FOOD_PATH "assets/burger.png"
 
 namespace gui {
     class Inventory {

@@ -77,7 +77,7 @@ namespace gui {
 
             /// \brief call the inventory object and set inventory
             /// \param pos the inventory to set
-            inline void addInventoryEgg(const std::vector<gui::entity::Egg> &e) {
+            inline void setInventoryEggs(const std::vector<gui::entity::Egg> &e) {
                 _inventory.setEggs(e);
             }
 
