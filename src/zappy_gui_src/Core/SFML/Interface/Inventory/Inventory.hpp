@@ -55,7 +55,7 @@ namespace gui {
             inline void setTilePosition(const sf::Vector2f &tilePosition) {
                 _tilePosition = tilePosition;
             }
-            inline void setTileInventory(std::vector<int> tileInventory) {
+            inline void setTileInventory(const std::vector<int> &tileInventory) {
                 _tileInventory = tileInventory;
             }
         private:

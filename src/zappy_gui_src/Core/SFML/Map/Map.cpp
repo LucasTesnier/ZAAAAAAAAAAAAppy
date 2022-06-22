@@ -18,6 +18,13 @@ Map::Map()
     _mapSize = {10, 10};
     _zoom = 1;
     _noTileSelected = {-1, -1};
+    _noTileSelectedInv.emplace_back(0);
+    _noTileSelectedInv.emplace_back(0);
+    _noTileSelectedInv.emplace_back(0);
+    _noTileSelectedInv.emplace_back(0);
+    _noTileSelectedInv.emplace_back(0);
+    _noTileSelectedInv.emplace_back(0);
+    _noTileSelectedInv.emplace_back(0);
 }
 
 void Map::_updateTileVectorSize()

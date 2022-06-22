@@ -57,17 +57,18 @@ namespace gui {
                 _minimap.setMapSize(_mapSize);
             };
 
-            /// \brief get the inventory object
-            /// \return the inventory object
-            inline Inventory &getInventoryClass() {
-                return _inventory;
-            };
-
-            /// \brief call the inventory object position
+            /// \brief call the inventory object and set the position
             /// \param pos the position to set
             inline void setInventoryTilePos(const sf::Vector2f &pos) {
                 _inventory.setTilePosition(pos);
             }
+
+            /// \brief call the inventory object and set inventory
+            /// \param pos the inventory to set
+            inline void setInventoryTileInv(const std::vector<int> &inv) {
+                _inventory.setTileInventory(inv);
+            }
+
         private:
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;

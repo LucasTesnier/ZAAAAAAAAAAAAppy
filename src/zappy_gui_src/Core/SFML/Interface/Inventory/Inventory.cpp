@@ -137,6 +137,11 @@ void Inventory::_updateBody()
     _text.setPosition(_body.getPosition().x + 40, _body.getPosition().y + 10);
     _textPos.setPosition(_body.getPosition().x + 50, _body.getPosition().y + 60);
     _textPos.setString(std::string("x: " + std::to_string(int(_tilePosition.x)) + "\n\n\ny: " + std::to_string(int(_tilePosition.y))));
+    int i = 0;
+    for (auto &t : _textsInv) {
+        t.setString(std::to_string(_tileInventory.at(i)));
+        i++;
+    }
     setPosTextsInv();
     setPosSpritesInv();
 }
