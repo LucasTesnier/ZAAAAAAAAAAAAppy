@@ -185,7 +185,6 @@ void Inventory::_updateBody()
             t.setString("Team: " + _players.at(j).getTeamName() +
                         "\nLevel: " + std::to_string(_players.at(j).getLevel()));
         j++;
-
     }
     std::size_t k = 0;
     for (auto &t : _textsEgg) {
@@ -194,7 +193,6 @@ void Inventory::_updateBody()
         else if (k < _eggs.size())
             t.setString("Team: " + _eggs.at(k).getTeamName());
         k++;
-
     }
     setPosTextsInv();
     setPosTextsPlayer();
