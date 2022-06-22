@@ -5,6 +5,8 @@
 ** fork_utils
 */
 
+/// \file src/zapper_server_src/core/commands/broadcast_command.c
+
 #include "command_hold.h"
 #include "entity/player.h"
 #include "entity/eggs.h"
