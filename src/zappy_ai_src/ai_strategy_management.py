@@ -353,6 +353,10 @@ class Ai:
             print("[AI] libzappy_ai_api charged, SUCCESS!")
         else:
             print("[AI] cannot charge libzappy_ai_api, ERROR!")
+        self.__initFrequency()
+
+    def __initFrequency(self):
+        """This is used by Ai to initialize the frequency which is very useful in decision making"""
         if not self.__lib.AskLook():
             safeExitError()
         while 1:
