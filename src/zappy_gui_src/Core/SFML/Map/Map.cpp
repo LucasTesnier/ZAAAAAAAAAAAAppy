@@ -40,7 +40,6 @@ void Map::_updateTileVectorSize()
         else
             _tile.back()->setTexture(_tile[0]->getTexture());
     }
-    _pushEntityInTile();
 }
 
 void Map::removeEntities(std::string &type)
@@ -49,16 +48,17 @@ void Map::removeEntities(std::string &type)
         _tilesInfo.clear();
         for (auto &it : _tile)
             it->removeTileInfo();
-    } else if (type == "player") {
+    }
+    if (type == "player") {
         _players.clear();
         for (auto &it : _tile)
             it->removePlayers();
-    } else if (type == "egg") {
+    }
+    if (type == "egg") {
         _eggs.clear();
         for (auto &it : _tile)
             it->removeEggs();
-    } else
-        return;
+    }
 }
 
 void Map::_updateMoveMap()
@@ -113,7 +113,7 @@ void Map::_findSelectedAndHoverTiles(std::size_t &i, const sf::Vector2i &mouse)
     }
 }
 
-void Map::_displaySelectedAndHoverTiles(sf::CircleShape &entityRepresentation)
+void Map::_displaySelectedTile(sf::CircleShape &entityRepresentation)
 {
     if (_tileSelected < _mapSize.x * _mapSize.y) {
         _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
@@ -123,6 +123,10 @@ void Map::_displaySelectedAndHoverTiles(sf::CircleShape &entityRepresentation)
         _displayResources(*_tile[_tileSelected], entityRepresentation);
         _displayEggs(*_tile[_tileSelected], entityRepresentation);
     }
+}
+
+void Map::_displayHoveredTile(sf::CircleShape &entityRepresentation)
+{
     if (_tileHover < _mapSize.x * _mapSize.y) {
         _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
         _window->draw(_tile[_tileHover]->getShape());
@@ -132,7 +136,6 @@ void Map::_displaySelectedAndHoverTiles(sf::CircleShape &entityRepresentation)
         _displayEggs(*_tile[_tileHover], entityRepresentation);
     }
 }
-
 void Map::_displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation)
 {
     playerRepresentation.setFillColor(sf::Color::Green);
@@ -191,14 +194,8 @@ void Map::display()
         _displayResources(*_tile[i], _entityReprensentation);
         _displayEggs(*_tile[i], _entityReprensentation);
     }
-    _displaySelectedAndHoverTiles(_entityReprensentation);
-}
-
-void Map::_pushEntityInTile()
-{
-    for (auto &it : _players) {
-        _tile[itop(sf::Vector2f(it.getPosition().first, it.getPosition().second))]->addPlayer(it);
-    }
+    _displaySelectedTile(_entityReprensentation);
+    _displayHoveredTile(_entityReprensentation);
 }
 
 Map::~Map()

@@ -228,8 +228,7 @@ server_data_t *serv);
 /// \param direction The eject direction
 /// \param serv Server informations
 /// \param tmp The data of the player
-void send_unexpected_eject(enum player_orientation_e direction,
-server_data_t *serv, player_t *tmp);
+void send_unexpected_eject(int direction, server_data_t *serv, player_t *tmp);
 
 /// \brief Send a died signal to a player
 /// \param serv Server informations
@@ -293,7 +292,6 @@ bool send_start_info(server_data_t *serv);
 /// \brief Cross all the player and remove life
 /// \param self The scheduler
 /// \param serv The server information
-///
 void scheduler_update_life(scheduler_t *self, server_data_t *serv);
 
 /// \brief Generate new ressources every 20 ticks
@@ -306,6 +304,35 @@ void scheduler_update_ressource(scheduler_t *self, server_data_t *serv);
 /// \param tmp The player object
 /// \return player_list_t* The founded player_list
 player_list_t *find_player_list_by_uuid(server_data_t *serv, player_t *tmp);
+
+/// \brief Cross all the eggs and remove them when it's time
+/// \param serv The server information
+void process_eggs_inspection(server_data_t *serv);
+
+/// \brief Get directionnal value of a broadcast for a player
+/// \param player The receiver position
+/// \param map_size The size of the map
+/// \param sender The position of the sender
+/// \param orientation The orientation of the receiver
+/// \return int The directionnal value
+int get_directionnal_value(position_t player, position_t map_size,
+position_t sender, enum player_orientation_e orientation);
+
+/// \brief Compute the looked case by a player
+/// \param player The player position
+/// \param map_size The size of the map
+/// \param level The level of the player
+/// \param orientation The orientation of the player
+/// \return position_t* The list of all the looked case
+position_t *compute_look_cmd(position_t player, position_t map_size,
+int level, enum player_orientation_e orientation);
+
+/// \brief Compute the direction of an ejection
+/// \param serv The server information
+/// \param entity The entity which has been eject
+/// \param old The position before ejection
+/// \return int The direction where the ejection from
+int get_eject_dir(server_data_t *serv, entity_t *entity, position_t old);
 
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {

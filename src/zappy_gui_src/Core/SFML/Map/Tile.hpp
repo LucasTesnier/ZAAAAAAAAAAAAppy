@@ -186,15 +186,22 @@ namespace gui {
                 _eggs.emplace_back(egg);
             }
 
+            /// \brief Remove all players that are stored.
             inline void removePlayers() {
                 _players.clear();
             };
+
+            /// \brief Remove all eggs that are stored.
             inline void removeEggs() {
                 _eggs.clear();
             };
+
+            /// \brief Remove all tile information that are stored.
+            /// \warning It's about tile information from the server, and not global tile information.
             inline void removeTileInfo() {
                 _tileInfo._inventory.clear();
             };
+
         private:
 
             /// \brief Set the points of the tile.

@@ -26,9 +26,10 @@ static void move_x(entity_t *player, map_t *map)
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     remove_entity_from_tile(tile, player);
     if (player_data->orientation == NORTH)
-        pos->x = (pos->x - 1) < 0 ? (map->width - 1) : (pos->x - 1) % (map->width - 1);
+        pos->x = (pos->x - 1) < 0 ? (map->width - 1) :
+        (pos->x - 1) % (map->width - 1);
     else
-        pos->x = (pos->x + 1) % (map->width - 1);
+        pos->x = (map->width == 1) ? 0 : (pos->x + 1) % (map->width - 1);
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     add_entity_to_tile(tile, player);
 }
@@ -45,9 +46,10 @@ static void move_y(entity_t *player, map_t *map)
     tile = (tile_t*)(get_tile(map, pos->x, pos->y)->data);
     remove_entity_from_tile(tile, player);
     if (player_data->orientation == EAST)
-        pos->y = (pos->y + 1) % (map->height - 1);
+        pos->y = (map->height == 1) ? 0 : (pos->y + 1) % (map->height - 1);
     else
-        pos->y = (pos->y - 1) < 0 ? (map->height - 1) : (pos->y - 1) % (map->height - 1);
+        pos->y = (pos->y - 1) < 0 ? (map->height - 1) :
+        (pos->y - 1) % (map->height - 1);
     remove_entity_from_tile(tile, player);
     tile = (tile_t*)get_tile(map, pos->x, pos->y);
     add_entity_to_tile(tile, player);
@@ -66,13 +68,12 @@ bool command_forward(char *arg, player_list_t *player, server_data_t *serv)
     return true;
 }
 
-bool command_forward_end(char *arg, player_list_t *player,
-server_data_t *serv)
+bool command_forward_end(char *arg __attribute__((unused)),
+player_list_t *player, server_data_t *serv)
 {
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
 
-    (void) arg;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;

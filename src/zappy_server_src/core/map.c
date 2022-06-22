@@ -46,7 +46,7 @@ static int compute_ressource_number(map_t *map, float density)
 /// \param type The type of the ressources
 static void add_ressource_randomly(map_t *map, char *type)
 {
-    entity_t *tile = get_tile(map, rand() % map->height, rand() % map->width);
+    entity_t *tile = get_tile(map, rand() % map->width, rand() % map->height);
     container_t *cases = NULL;
 
     if (tile == NULL)
@@ -72,7 +72,7 @@ void generate_new_ressource(map_t *map)
 {
     for (int i = 0; gen_list[i].name; i++) {
         for (int j = 0; j <
-        compute_ressource_number(map, gen_list[i].density); j++)
+        compute_ressource_number(map, gen_list[i].density) + 1; j++)
             add_ressource_randomly(map, gen_list[i].name);
     }
 }

@@ -30,20 +30,24 @@ class Unpack {
     Unpack() = default;
     ~Unpack() = default;
 
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
+    /// \brief Unpack an entity player from a packed string.
+    /// \param p The player entity to fill with information passed in the `packed` parameter.
+    /// \param packed The string packed to be use to get informations about a player entity.
     void UnpackEntity(gui::entity::Player &p, std::string &packed);
 
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
+    /// \brief Unpack an entity tile from a packed string.
+    /// \param t The tile entity to fill with information passed in the `packed` parameter.
+    /// \param packed The string packed to be use to get informations about a tile entity.
     void UnpackEntity(gui::entity::Tile &t, std::string &packed);
 
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
+    /// \brief Unpack an entity egg from a packed string.
+    /// \param e The egg entity to fill with information passed in the `packed` parameter.
+    /// \param packed The string packed to be use to get informations about an egg entity.
     void UnpackEntity(gui::entity::Egg &e, std::string &packed);
 
-    /// \brief Unpack an entity
-    /// \param unpacked the string to unpack
+    /// \brief Unpack an entity start from a packed string.
+    /// \param e The start entity to fill with information passed in the `packed` parameter.
+    /// \param packed The string packed to be use to get informations about a start entity.
     void UnpackEntity(Start &e, std::string &packed);
 
    private:

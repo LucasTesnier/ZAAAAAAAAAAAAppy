@@ -127,8 +127,13 @@ namespace gui {
             };
         private:
 
-            /// \brief Display the actual selected and hover tile if it's different to index -1.
-            void _displaySelectedAndHoverTiles(sf::CircleShape &entityRepresentation);
+            /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
+            /// \param entityRepresentation The circle shape used to display entities.
+            void _displaySelectedTile(sf::CircleShape &entityRepresentation);
+
+            /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
+            /// \param entityRepresentation The circle shape used to display entities.
+            void _displayHoveredTile(sf::CircleShape &entityRepresentation);
 
             /// \brief Find if the selected or hover tile must be update.
             /// \param i The actual index of the tile to find if it need to be update.
@@ -152,7 +157,6 @@ namespace gui {
                 return sf::Vector2f(index % int(_mapSize.y), index / _mapSize.y);
             };
 
-            void _pushEntityInTile();
             /// \brief Find if the tile should be displayed on the screen.
             /// \param area The global bound of the tile.
             /// \param windowSize The size of the window.
@@ -166,8 +170,18 @@ namespace gui {
             void _updateTileVectorSize();
 
             /// \brief Display players that are in the tile, if there is at least one player.
+            /// \param tile The tile to get information from.
+            /// \param playerRepresentation The representation of a player as a green circle shape.
             void _displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation);
-            void _displayResources(Tile &tile, sf::CircleShape &resourcesRpresentation);
+
+            /// \brief Display resources that are in the tile, if there is at least one resource.
+            /// \param tile The tile to get information from.
+            /// \param resourcesRepresentation The representation of a resource as a grey circle shape.
+            void _displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation);
+
+            /// \brief Display eggs that are in the tile, if there is at least one egg.
+            /// \param tile The tile to get information from.
+            /// \param eggRepresentation The representation of an egg as a yellow circle shape.
             void _displayEggs(Tile &tile, sf::CircleShape &eggRpresentation);
 
             /// \brief The window to display on.

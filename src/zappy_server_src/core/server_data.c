@@ -9,6 +9,7 @@
 
 #include "server.h"
 #include "argument_handling.h"
+#include "entity/tile.h"
 #include <stdlib.h>
 
 bool server_add_player(server_data_t *server_data)
@@ -38,6 +39,9 @@ player_list_t *player_info)
 {
     if (player_info->player_peer->pending_write == true)
         return;
+    remove_entity_from_tile((tile_t *)get_tile(server_data->map,
+    player_info->player_data->position.x,
+    player_info->player_data->position.y), player_info->player_data);
     entity_wrapper_remove_entity(server_data->entities,
     player_info->player_data);
     CIRCLEQ_REMOVE(&server_data->server->network_server->peers_head,
@@ -57,6 +61,9 @@ player_state_t comp)
 {
     for (size_t i = 0; i < server_data->active_player_n; i++) {
         if (server_data->active_players[i]->disconnected == comp)
+            server_remove_player(server_data, server_data->active_players[i]);
+        if (server_data->active_players[i]->player_peer != NULL &&
+            server_data->active_players[i]->player_peer->connected == false)
             server_remove_player(server_data, server_data->active_players[i]);
     }
 }

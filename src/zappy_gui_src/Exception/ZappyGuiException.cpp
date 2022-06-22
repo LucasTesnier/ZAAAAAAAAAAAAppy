@@ -36,3 +36,7 @@ InventoryException::InventoryException(std::string title, std::string descriptio
 TileException::TileException(std::string title, std::string description) : ZappyGuiException(title, description)
 {
 }
+
+AnimationException::AnimationException(std::string title, std::string description) : ZappyGuiException(title, description)
+{
+}

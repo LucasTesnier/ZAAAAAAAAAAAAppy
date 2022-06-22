@@ -75,7 +75,6 @@ server_data_t *serv)
     entity_t *player_entity = NULL;
     player_t *player_data = NULL;
 
-    (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
