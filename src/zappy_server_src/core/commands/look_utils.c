@@ -21,12 +21,16 @@ position_t map_size)
 {
     for (size_t i = 0; i < looked_case_idx; i++) {
         if (looked_cases[i].x < 0)
-            looked_cases[i].x = abs(looked_cases[i].x) % (map_size.x - 1);
+            looked_cases[i].x = (map_size.x == 1) ? 0 : abs(looked_cases[i].x)
+            % (map_size.x - 1);
         if (looked_cases[i].x >= map_size.x)
-            looked_cases[i].x = looked_cases[i].x % (map_size.x - 1);
+            looked_cases[i].x = (map_size.x == 1) ? 0 : looked_cases[i].x
+            % (map_size.x - 1);
         if (looked_cases[i].y < 0)
-            looked_cases[i].y = abs(looked_cases[i].y) % (map_size.y - 1);
+            looked_cases[i].y = (map_size.y == 1) ? 0 : abs(looked_cases[i].y)
+            % (map_size.y - 1);
         if (looked_cases[i].y >= map_size.y)
-            looked_cases[i].y = looked_cases[i].y % (map_size.y - 1);
+            looked_cases[i].y = (map_size.y == 1) ? 0 : looked_cases[i].y
+            % (map_size.y - 1);
     }
 }
