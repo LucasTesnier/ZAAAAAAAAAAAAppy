@@ -181,7 +181,7 @@ void Inventory::_updateBody()
     for (auto &t : _textsPlayer) {
         if (_players.empty())
             t.setString("Player");
-        if (j < _players.size())
+        else if (j < _players.size())
             t.setString("Team: " + _players.at(j).getTeamName() +
                         "\nLevel: " + std::to_string(_players.at(j).getLevel()));
         j++;
@@ -191,7 +191,7 @@ void Inventory::_updateBody()
     for (auto &t : _textsEgg) {
         if (_eggs.empty())
             t.setString("Egg");
-        if (k < _players.size())
+        else if (k < _eggs.size())
             t.setString("Team: " + _eggs.at(k).getTeamName());
         k++;
 
