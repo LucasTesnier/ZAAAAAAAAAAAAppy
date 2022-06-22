@@ -12,6 +12,7 @@
 #include "team.h"
 #include "entity/player.h"
 #include "entity/tile.h"
+#include <sys/queue.h>
 
 bool command_look(char *arg, player_list_t *player, server_data_t *serv)
 {
@@ -30,35 +31,30 @@ bool command_look(char *arg, player_list_t *player, server_data_t *serv)
 /// \param tile The concerned tile
 /// \param cases The tile ressources
 /// \param res The result
-static void get_tile_content_entities(tile_t *tile,
-container_t *cases, char *res)
+static void get_tile_content_entities(container_t *cases, char *res,
+entity_wrapper_t *wrapper, position_t curr_pos)
 {
-    int player_number = 0;
-    int egg_number = 0;
     entity_t *tmp;
 
     for (unsigned int i = 0; i < cases->phiras; i++)
         strcat(res, "phiras ");
     for (unsigned int i = 0; i < cases->thystame; i++)
         strcat(res, "thystame ");
-    TAILQ_FOREACH(tmp, &tile->entities, entities) {
-        if (tmp->type == ENTITY_PLAYER_TYPE)
-            player_number++;
-        if (tmp->type == ENTITY_EGG_TYPE)
-            egg_number++;
-    }
-    for (int i = 0; i < player_number - 1; i++)
-        strcat(res, "player ");
-    for (int i = 0; i < egg_number; i++)
-        strcat(res, "egg ");
+    TAILQ_FOREACH(tmp, &wrapper->players, entities)
+        if (tmp->position.x == curr_pos.x && tmp->position.y == curr_pos.y)
+            strcat(res, "player ");
+    TAILQ_FOREACH(tmp, &wrapper->eggs, entities)
+        if (tmp->position.x == curr_pos.x && tmp->position.y == curr_pos.y)
+            strcat(res, "eggs ");
 }
 
 /// \brief Get all the ressources in a tile and format it
 /// \param tile The concerned tile
 /// \return The result
-static char *get_tile_content(tile_t *tile)
+static char *get_tile_content(entity_t *tile, entity_wrapper_t *wrapper)
 {
-    container_t *cases = tile->inventory;
+    tile_t *tile_data = (tile_t *)tile->data;
+    container_t *cases = tile_data->inventory;
     char *res = malloc(sizeof(char) * 10000);
 
     if (res == NULL)
@@ -74,7 +70,7 @@ static char *get_tile_content(tile_t *tile)
         strcat(res, "sibur ");
     for (unsigned int i = 0; i < cases->mendiane; i++)
         strcat(res, "mendiane ");
-    get_tile_content_entities(tile, cases, res);
+    get_tile_content_entities(cases, res, wrapper, tile->position);
     res[strlen(res) - 1] = '\0';
     return res;
 }
@@ -99,7 +95,8 @@ position_t position, position_t map)
     res[1] = '\0';
     for (int i = 0; looked[i].x != -1; i++) {
         temp = get_tile_content(
-        (tile_t *)get_tile(serv->map, looked[i].x, looked[i].y)->data);
+        get_tile(serv->map, looked[i].x, looked[i].y)
+        ,serv->entities);
         res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
         strcat(res, temp);
         free(temp);
