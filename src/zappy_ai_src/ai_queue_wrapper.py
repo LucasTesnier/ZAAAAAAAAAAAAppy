@@ -19,6 +19,10 @@ class AIQueues:
         """ If the server Queue hasn't any object, return True """
         return self.__serverQueue.empty()
 
+    def isAiQueueEmpty(self) -> bool:
+        """ If the server Queue hasn't any object, return True """
+        return self.__aiQueue.empty()
+
     def addInAiQueue(self, newObj, transferToServerQueue : bool = False):
         """
         Add the newObj in the infinite Queue
@@ -50,7 +54,7 @@ class AIQueues:
         Return the number of objects transfered
         """
         added : int = 0
-        while not self.isServerQueueFull():
+        while not self.isAiQueueEmpty() and not self.isServerQueueFull():
             newObj = self.__popFromAiQueue()
             self.__addInServerQueue(newObj)
             added += 1
