@@ -34,8 +34,14 @@ FOOD_START = 1260
 """
 SAFETY_MARGIN = 300
 
-"""This is this indication for the AI to switch to survival strategy under or equal to 300 units of time"""
+"""This is indication for the AI to switch to survival strategy under or equal to 300 units of time"""
 FOOD_LIMIT = 300
+
+"""This is the limit before the next update of the mapVision"""
+MAP_VISION_UPDATE_LIMIT = 10
+
+"""This is the limit before the next update of the inventory"""
+INVENTORY_UPDATE_LIMIT = 20
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
@@ -218,6 +224,12 @@ class Ai:
         """This private member represents the frequency of time units used in scheduling management on server"""
         self.__frequency = 0
 
+        """This private member represents the counter of ticks to know when the temporary inventory should be updated"""
+        self.__inventoryTicksCpt = 0
+
+        """This private member represents the counter of ticks to know when the temporary mapVision should be updated"""
+        self.__mapVisionTicksCpt = 0
+
     def __del__(self):
         """Default Destructor of the Core class"""
         self.running = False
@@ -247,6 +259,18 @@ class Ai:
 
     def __incrPlayerCurrentLevel(self):
         self.__playerCurrentLevel += 1
+
+    def __incrInventoryTicksCpt(self):
+        self.__inventoryTicksCpt += 1
+
+    def __resetInventoryTicksCpt(self):
+        self.__inventoryTicksCpt = 0
+
+    def __incrMapVisionTicksCpt(self):
+        self.__mapVisionTicksCpt += 1
+
+    def __resetMapVisionTicksCpt(self):
+        self.__mapVisionTicksCpt = 0
 
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
@@ -281,12 +305,18 @@ class Ai:
     def __getFrequency(self) -> int:
         return self.__frequency
 
-    """This is used to know the maximal range of the player's vision depending on his level
-        The player range could be calculate as follow : maxRange = (x+1)²
-            where x is the level of the player
-    """
+    def __getInventoryTicksCpt(self) -> int:
+        return self.__inventoryTicksCpt
+
+    def __getMapVisionTicksCpt(self) -> int:
+        return self.__mapVisionTicksCpt
+
     def __getPlayerMaxRange(self) -> int:
-        playerLevel = self.__playerCurrentLevel
+        """This is used to know the maximal range of the player's vision depending on his level
+                The player range could be calculate as follow : maxRange = (x+1)²
+                    where x is the level of the player
+            """
+        playerLevel = self.__playerCurrentLevel + 1
         return (playerLevel * playerLevel)
 
     """ -------------------------------------------Public members functions------------------------------------------"""
@@ -301,12 +331,13 @@ class Ai:
         self.__initAI()
         while self.__getIsRunning():
             self.__playerStrategyManagement()
+            self.__ticksCptManagement()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
 
-    """This is used at start of the AI loop to initialize inventory and vision to have a base"""
     def __initAI(self):
+        """This is used at start of the AI loop to initialize inventory and vision to have a base"""
         if self.__lib.getNecessaryFunctions():
             print("[AI] libzappy_ai_api charged, SUCCESS!")
         else:
@@ -324,16 +355,32 @@ class Ai:
         self.__setInventory(self.__lib.GetRepInventory())
         self.__setFrequency(int((tmpFood - self.__inventory.GetFood()) / 2))
 
-    """This is used by AI to manage every unexpected response send by the server like :
-        - Death of the player
-        - Eject from another player (not implemented at the moment)
-        - Broadcast, sending message from another player (not implemented at the moment)
-    """
     def __unexpectedResponseManagement(self):
+        """This is used by AI to manage every unexpected response send by the server like :
+                - Death of the player
+                - Eject from another player (not implemented at the moment)
+                - Broadcast, sending message from another player (not implemented at the moment)
+            """
         response = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
 
+    def __ticksCptManagement(self):
+        """This is used by AI to manage useful ticks counter
+            at each turn of the loop, Ai increments mapVisionTicksCpt & inventoryTicksCpt
+            and when (limit * f) is reached, it triggers the update action
+                where f is the frequency
+        """
+        self.__incrMapVisionTicksCpt()
+        self.__incrInventoryTicksCpt()
+        if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
+            self.__lib.AskInventory()
+            self.__resetInventoryTicksCpt()
+            #PUSH GetInventory methods in QUEUE
+        if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
+            self.__lib.AskLook()
+            self.__resetMapVisionTicksCpt()
+            #PUSH getLook methods
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
         These functions are considered as actions
