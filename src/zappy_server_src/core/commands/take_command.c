@@ -108,7 +108,6 @@ server_data_t *serv)
     player_t *player_data = NULL;
     tile_t *tile = NULL;
 
-    (void) serv;
     if (!player->player_data)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;

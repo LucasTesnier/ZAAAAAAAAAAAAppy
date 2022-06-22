@@ -29,11 +29,13 @@ int main(int ac, char **av)
     signal(SIGINT, sigint_handler);
     if (!c_interface_try_to_connect_to_server("127.0.0.1", port))
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     if (!c_interface_get_connect_to_server_response())
         return 84;
     if (!c_interface_ask_join("AAAAA"))
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     temp = c_interface_get_join_response();
     if (!temp)
@@ -41,6 +43,7 @@ int main(int ac, char **av)
     printf("Start info : %s\n", temp);
     if (!c_interface_ask_inventory())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     temp = c_interface_get_inventory_response();
     if (!temp)
@@ -48,6 +51,7 @@ int main(int ac, char **av)
     printf("Inventory : %s\n", temp);
     if (!c_interface_ask_forward())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     if (!c_interface_get_forward_response())
         return 84;
@@ -55,6 +59,7 @@ int main(int ac, char **av)
         return 0;
     if (!c_interface_ask_right())
         return 84;
+    while (!c_interface_flush_asked_data());
     if (!c_interface_get_network_state())
         return 0;
     while (!c_interface_get_response_state());
@@ -64,11 +69,13 @@ int main(int ac, char **av)
         return 84;
     if (!c_interface_ask_left())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     if (!c_interface_get_left_response())
         return 84;
     if (!c_interface_ask_look())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     temp = c_interface_get_look_response();
     if (temp == NULL)
@@ -76,11 +83,13 @@ int main(int ac, char **av)
     printf("Look : %s\n", temp);
     if (!c_interface_ask_broadcast("Hey !"))
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     if (!c_interface_get_broadcast_response())
         return 84;
     if (!c_interface_ask_connectable())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     int tmp = c_interface_get_connectable_response();
     if (tmp == -1)
@@ -88,24 +97,29 @@ int main(int ac, char **av)
     printf("Connectable : %i\n", tmp);
     if (!c_interface_ask_fork())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     if (!c_interface_get_fork_response())
         return 84;
     if (!c_interface_ask_eject())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     if (!c_interface_get_eject_response())
         return 84;
     if (!c_interface_ask_take("thystame"))
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     c_interface_get_take_response();
     if (!c_interface_ask_place("thystame"))
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     c_interface_get_place_response();
     if (!c_interface_ask_incantation())
         return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     tmp = c_interface_get_incantation_response();
     if (tmp == 0)

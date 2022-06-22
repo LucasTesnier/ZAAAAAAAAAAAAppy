@@ -74,6 +74,7 @@ namespace gui {
             /// \param tileInfo the tile object to set
             inline void addTilesInfo(gui::entity::Tile &tileInfo) {
                 _tilesInfo.emplace_back(tileInfo);
+                _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
             }
 
             /// \brief Get the vector of players of the tile.
@@ -86,12 +87,21 @@ namespace gui {
             /// \param tileInfo the player object to add
             inline void addEgg(gui::entity::Egg &egg) {
                 _eggs.emplace_back(egg);
+                _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
 
+            /// \brief remove entities depending on the type given
+            /// \param type string representating the type of entities to remove
+            void removeEntities(std::string &type);
         private:
 
-            /// \brief Display the actual selected and hover tile if it's different to index -1.
-            void _displaySelectedAndHoverTiles();
+            /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
+            /// \param entityRepresentation The circle shape used to display entities.
+            void _displaySelectedTile(sf::CircleShape &entityRepresentation);
+
+            /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
+            /// \param entityRepresentation The circle shape used to display entities.
+            void _displayHoveredTile(sf::CircleShape &entityRepresentation);
 
             /// \brief Find if the selected or hover tile must be update.
             /// \param i The actual index of the tile to find if it need to be update.
@@ -115,7 +125,6 @@ namespace gui {
                 return sf::Vector2f(index % int(_mapSize.y), index / _mapSize.y);
             };
 
-            void _pushEntityInTile();
             /// \brief Find if the tile should be displayed on the screen.
             /// \param area The global bound of the tile.
             /// \param windowSize The size of the window.
@@ -129,7 +138,19 @@ namespace gui {
             void _updateTileVectorSize();
 
             /// \brief Display players that are in the tile, if there is at least one player.
+            /// \param tile The tile to get information from.
+            /// \param playerRepresentation The representation of a player as a green circle shape.
             void _displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation);
+
+            /// \brief Display resources that are in the tile, if there is at least one resource.
+            /// \param tile The tile to get information from.
+            /// \param resourcesRepresentation The representation of a resource as a grey circle shape.
+            void _displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation);
+
+            /// \brief Display eggs that are in the tile, if there is at least one egg.
+            /// \param tile The tile to get information from.
+            /// \param eggRepresentation The representation of an egg as a yellow circle shape.
+            void _displayEggs(Tile &tile, sf::CircleShape &eggRpresentation);
 
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
