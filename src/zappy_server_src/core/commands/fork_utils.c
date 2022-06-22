@@ -28,5 +28,4 @@ void manage_forked_egg(entity_t *player_entity, server_data_t *serv)
         player_entity->position.y);
     if (!tile_entity)
         return;
-    add_entity_to_tile((tile_t*)tile_entity->data, egg_entity);
 }
