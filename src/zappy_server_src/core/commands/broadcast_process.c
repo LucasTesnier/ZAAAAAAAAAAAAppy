@@ -13,6 +13,9 @@
 #include "entity/entity.h"
 #include "broadcast.h"
 
+/// \brief End the spirale process and return the spirale value
+/// \param broad_data The broadcast data to destroy
+/// \return int The spirale value
 static int broadcast_directionnal_end(broadcast_data_t *broad_data)
 {
     free(broad_data->direction_list);
@@ -20,13 +23,20 @@ static int broadcast_directionnal_end(broadcast_data_t *broad_data)
     return broad_data->count;
 }
 
+/// \brief Do a complete side of the broadcast spirale
+/// \param broad_data The broadcast data for the spirale
+/// \param dest The destination of the spirale
+/// \param map_size The size of the map
+/// \param side The side of the spiral
+/// \return true When the spirale is ended
+/// \return false When the spirale is not ended
 static bool broadcast_do_a_movement(broadcast_data_t *broad_data,
-position_t dest, position_t map_size, int count)
+position_t dest, position_t map_size, int side)
 {
-    for (int i = 0; i < broad_data->movement_list[count]; i++) {
+    for (int i = 0; i < broad_data->movement_list[side]; i++) {
         broad_data->count++;
         broadcast_apply_direction_on_position(&broad_data->current_pos,
-        broad_data->direction_list[count]);
+        broad_data->direction_list[side]);
         if (resolve_directionnal_position(dest, broad_data->current_pos,
         map_size))
             return true;
@@ -34,6 +44,12 @@ position_t dest, position_t map_size, int count)
     return false;
 }
 
+/// \brief Do a complete turn of the broadcast spirale
+/// \param broad_data The broadcast data for spirale
+/// \param dest The destination of the spirale
+/// \param map_size The size of the map
+/// \return true When the spirale is ended
+/// \return false When the spirale is not ended
 static bool broadcast_do_movement(broadcast_data_t *broad_data,
 position_t dest, position_t map_size)
 {
