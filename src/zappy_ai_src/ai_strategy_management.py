@@ -385,6 +385,7 @@ class Ai:
                 - Eject from another player (not implemented at the moment)
                 - Broadcast, sending message from another player (not implemented at the moment)
         """
+        pos = 0
         response : str = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
@@ -401,10 +402,9 @@ class Ai:
                 print(e)
             action = infos[2]
             if action == "incantation":
-                messageInfo : BroadcastInfo = BroadcastInfo(action, teamName, pos, int(infos[3]), int (infos[4]), None)
+                return BroadcastInfo(action, teamName, pos, int(infos[3]), int (infos[4]), "")
             if action == "give":
-                messageInfo : BroadcastInfo = BroadcastInfo(action, teamName, pos, 0, 0, infos[2])
-            return messageInfo
+                return BroadcastInfo(action, teamName, pos, 0, 0, infos[2])
 
 
     def __ticksCptManagement(self):
