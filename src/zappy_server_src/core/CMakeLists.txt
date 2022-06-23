@@ -23,6 +23,7 @@ set (SRC
     ${SRC_ROOT}/map_utils.c
     ${SRC_ROOT}/team.c
     ${SRC_ROOT}/teams_remove.c
+    ${SRC_ROOT}/end_game_gestion.c
     ${ENTITY_SRC}
 
     ${INC_ROOT}/entrypoint.h

@@ -19,9 +19,11 @@ team_t *create_team(char *name, int max_members)
     if (!(team->name = strdup(name)))
         return NULL;
     team->max_members = max_members;
-    if (!(team->members_uuid = malloc(sizeof(uuid_t) * max_members)))
+    if (!(team->members_uuid = malloc(sizeof(uuid_t) * 6)))
         return NULL;
-    memset(team->members_uuid, 0, sizeof(uuid_t) * max_members);
+    memset(team->members_uuid, 0, sizeof(uuid_t) * 6);
+    for (int i = 0; i < 6; i++)
+        uuid_clear(team->members_uuid[i]);
     return team;
 }
 
@@ -44,11 +46,15 @@ bool add_user_to_team(team_t* team, uuid_t user_uuid)
         return false;
     if (team->current_members >= team->max_members)
         return false;
-    for (int i = 0; i< team->current_members; i++)
+    for (int i = 0; i < 6; i++) {
         if (uuid_compare(team->members_uuid[i], user_uuid) == 0)
             return false;
-    uuid_copy(team->members_uuid[team->current_members], user_uuid);
-    team->current_members++;
+        if (uuid_is_null(team->members_uuid[i])) {
+            uuid_copy(team->members_uuid[i], user_uuid);
+            team->current_members++;
+            return true;
+        }
+    }
     return true;
 }
 
