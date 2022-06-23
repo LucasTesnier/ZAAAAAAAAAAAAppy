@@ -1,7 +1,8 @@
+from hmac import new
 from queue import Queue
 
 class AIQueues:
-    def __init__(self, queueSize : int = 10):
+    def __init__(self, queueSize : int = 10, MoveFunctions = []):
         """
         Constructor of the AI Queue Class
         Init two queues, one corresponding to the API queue, the second one to have an infinite stock of object
@@ -10,6 +11,8 @@ class AIQueues:
         """
         self.__serverQueue : Queue = Queue(queueSize)
         self.__aiQueue : Queue = Queue(-1)
+        self.__movement : int = 0
+        self.__moveFunctions = MoveFunctions
 
     def isServerQueueFull(self) -> bool:
         """ If the server Queue cannot accept any more object, return True """
@@ -28,6 +31,8 @@ class AIQueues:
         Add the newObj in the infinite Queue
         if transferToServerQueue is True, it will try to put directly in the server Queue (Use case : Begin of the AI)
         """
+        if newObj in self.__moveFunctions:
+            self.__movement += 1
         if transferToServerQueue and not self.isServerQueueFull():
             self.__addInServerQueue(newObj)
         else:
@@ -68,4 +73,12 @@ class AIQueues:
         newObj = None
         if not self.isServerQueueEmpty():
             newObj = self.__popFromServerQueue()
+        if newObj in self.__moveFunctions:
+            self.__movement -= 1
         return newObj
+
+    def isMovementLeft(self) -> bool:
+        """
+        Return True if there is movement(s) left to do
+        """
+        return self.__movement != 0

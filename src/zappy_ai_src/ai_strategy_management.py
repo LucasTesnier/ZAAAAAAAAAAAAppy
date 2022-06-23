@@ -240,7 +240,7 @@ class Ai:
         """
         self.__ableToMove = True
 
-        self.__Queues : AIQueues = AIQueues(10)
+        self.__Queues : AIQueues = AIQueues(10, [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight])
 
 
     def __del__(self):
@@ -399,11 +399,15 @@ class Ai:
         if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskInventory()
             self.__resetInventoryTicksCpt()
-            self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
+            if self.__waitForAction():
+                return
+            self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskLook()
             self.__resetMapVisionTicksCpt()
-            self.__Queues.addInAiQueue(self.__lib.GetRepLook)
+            if self.__waitForAction():
+                return
+            self.__inventory.fillInventory(self.__lib.GetRepLook())
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
         These functions are considered as actions
@@ -435,10 +439,7 @@ class Ai:
             pass
         if self.__lib.GetUnexpectedResponseState():
             self.__unexpectedResponseManagement()
-            if not self.__getIsRunning():
-                return False
-            else:
-                return True
+            return self.__getIsRunning()
         else:
             return True
 
@@ -466,9 +467,11 @@ class Ai:
                 continue
             else:
                 if response in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
-                    self.__setTargetTileReached(not response())
+                    if not response():
+                        self.__setTargetTileReached(True)
+                    elif not self.__Queues.isMovementLeft():
+                        self.__setTargetTileReached(True)
                 if response in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
-                    ## TO IMPLEMENT
                     pass
                 if response == self.__lib.GetRepFork and not self.__lib.GetRepFork():
                     self.__availableSlots += 1
