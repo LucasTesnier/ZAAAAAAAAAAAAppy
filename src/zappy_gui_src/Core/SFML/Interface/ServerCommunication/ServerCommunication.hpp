@@ -98,6 +98,8 @@ namespace gui {
             /// \note Type value available are: `player`, `egg`, `tile`.
             /// \param type The type of the entity.
             void removeEntities(std::string &type);
+
+            void scroll(const float &scrollValue);
         private:
 
             /// \brief It converts an inventory's vector to a string.

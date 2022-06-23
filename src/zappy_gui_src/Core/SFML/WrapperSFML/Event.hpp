@@ -129,7 +129,18 @@ class Event {
         inline sf::Mouse::Button getButton() const {
             return _button;
         };
+
+        inline void setMouseScrollValue(float value) {
+            _scrollValue = value;
+        };
+
+        inline const float &getMouseScrollValue() const {
+            return _scrollValue;
+        };
     private:
+        /// \brief The scroll value.
+        float _scrollValue;
+
         /// \brief The key pressed status.
         bool _keyPressed;
 

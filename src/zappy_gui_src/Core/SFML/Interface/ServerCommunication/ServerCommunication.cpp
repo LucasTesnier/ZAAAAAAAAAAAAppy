@@ -112,6 +112,16 @@ void ServerCommunication::removeEntities(std::string &type)
     _updateText();
 }
 
+void ServerCommunication::scroll(const float &scrollValue)
+{
+    sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
+
+    if (mouse.x >= 0 && mouse.x <= _body.getSize().x && mouse.y >= 0 && mouse.y <= _body.getSize().y) {
+        if ((_text.getPosition().y < 0 && scrollValue > 0) || (_text.getPosition().y + _text.getGlobalBounds().height > _window.get()->getSize().y && scrollValue < 0))
+            _text.move(sf::Vector2f(0, scrollValue * 20));
+    }
+}
+
 std::string ServerCommunication::_inventoryToString(const std::vector<int> &inventory)
 {
     std::string inventoryAsString;
