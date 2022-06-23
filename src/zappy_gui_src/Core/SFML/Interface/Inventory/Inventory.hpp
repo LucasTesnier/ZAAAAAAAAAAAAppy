@@ -22,7 +22,7 @@ namespace gui {
         public:
             /// \brief constructor of the object
             Inventory();
-            /// \brief constructor of the object
+            /// \brief constructor of the object containing the window
             /// \param window the window to set
             Inventory(std::shared_ptr<sf::RenderWindow> window);
             /// \brief default destructor
@@ -47,14 +47,16 @@ namespace gui {
             void initTextPlayer();
             /// \brief initialize all the text relative to display the eggs
             void initTextEgg();
+            /// \brief initialize all the text relative to display the entities
+            std::vector<sf::Text> initTextEntities(std::string string);
             /// \brief set all the positions of the texts of the inventory
             void setPosTextsInv();
             /// \brief set all the positions of the sprites of the inventory
             void setPosSpritesInv();
             /// \brief set all the positions of the texts of the players
-            void setPosTextsPlayer();
+            void setPosTextsPlayer(int x, int y, int offset);
             /// \brief set all the positions of the texts of the eggs
-            void setPosTextsEgg();
+            void setPosTextsEgg(int x, int y, int offset);
             /// \brief initialize all the shapes of the class
             void initShapes();
             /// \brief get the position of the body

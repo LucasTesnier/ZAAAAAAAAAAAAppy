@@ -90,32 +90,28 @@ void Inventory::initTextTileInventory()
 
 void Inventory::initTextPlayer()
 {
-    sf::Text text;
-
-    for (int i = 0; i < 4; i++)
-        _textsPlayer.emplace_back(text);
-    for (auto &t : _textsPlayer) {
-        t.setFont(_font);
-        t.setFillColor(sf::Color::Black);
-        t.setCharacterSize(20);
-        t.setString("Player");
-    }
-    setPosTextsPlayer();
+    _textsPlayer = initTextEntities(std::string("Player"));
 }
 
 void Inventory::initTextEgg()
 {
+    _textsEgg = initTextEntities(std::string("Egg"));
+}
+
+std::vector<sf::Text> Inventory::initTextEntities(std::string string)
+{
     sf::Text text;
+    std::vector<sf::Text> vecText;
 
     for (int i = 0; i < 4; i++)
-        _textsEgg.emplace_back(text);
-    for (auto &t : _textsEgg) {
+        vecText.emplace_back(text);
+    for (auto &t : vecText) {
         t.setFont(_font);
         t.setFillColor(sf::Color::Black);
         t.setCharacterSize(20);
-        t.setString("Egg");
+        t.setString(string);
     }
-    setPosTextsEgg();
+    return vecText;
 }
 
 void Inventory::setPosTextsInv()
@@ -129,20 +125,20 @@ void Inventory::setPosTextsInv()
     _textsInv.at(6).setPosition(_body.getPosition().x + 830, _body.getPosition().y + 120);
 }
 
-void Inventory::setPosTextsPlayer()
+void Inventory::setPosTextsPlayer(int x, int y, int offset)
 {
-    _textsPlayer.at(0).setPosition(_body.getPosition().x + 1030, _body.getPosition().y + 60);
-    _textsPlayer.at(1).setPosition(_body.getPosition().x + 1030, _body.getPosition().y + 120);
-    _textsPlayer.at(2).setPosition(_body.getPosition().x + 1230, _body.getPosition().y + 60);
-    _textsPlayer.at(3).setPosition(_body.getPosition().x + 1230, _body.getPosition().y + 120);
+    _textsPlayer.at(0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
+    _textsPlayer.at(1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
+    _textsPlayer.at(2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
+    _textsPlayer.at(3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
 }
 
-void Inventory::setPosTextsEgg()
+void Inventory::setPosTextsEgg(int x, int y, int offset)
 {
-    _textsEgg.at(0).setPosition(_body.getPosition().x + 1430, _body.getPosition().y + 60);
-    _textsEgg.at(1).setPosition(_body.getPosition().x + 1430, _body.getPosition().y + 120);
-    _textsEgg.at(2).setPosition(_body.getPosition().x + 1630, _body.getPosition().y + 60);
-    _textsEgg.at(3).setPosition(_body.getPosition().x + 1630, _body.getPosition().y + 120);
+    _textsEgg.at(0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
+    _textsEgg.at(1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
+    _textsEgg.at(2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
+    _textsEgg.at(3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
 }
 
 void Inventory::setPosSpritesInv()
@@ -195,8 +191,8 @@ void Inventory::_updateBody()
         k++;
     }
     setPosTextsInv();
-    setPosTextsPlayer();
-    setPosTextsEgg();
+    setPosTextsPlayer(1030, 50, 150);
+    setPosTextsEgg(1330, 50, 150);
 }
 
 void Inventory::update(bool forceUpdate)
