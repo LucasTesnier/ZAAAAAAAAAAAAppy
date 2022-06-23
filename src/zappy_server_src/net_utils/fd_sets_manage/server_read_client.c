@@ -53,7 +53,7 @@ static int get_command_end_pos(char *buffer)
 /// \param tmp The peer where the info are stored
 static void parse_read_for_stack(char *read, peer_t *tmp)
 {
-    char *buffer = strdup(read);
+    char *buffer = read;
     int count = 0;
 
     if (buffer == NULL)
