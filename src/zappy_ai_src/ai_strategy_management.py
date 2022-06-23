@@ -451,6 +451,11 @@ class Ai:
         self.__setTargetTileReached(False)
 
     def __handleQueuesResponses(self, response) -> None:
+        """
+        From the response object given by self.__Queues.emptyServerQueue()
+        Find the correct way to get the response and process it
+        Only the getter of Forwarf, Right, Left, Take/Place Object, Eject, Fork and Incantation are handled
+        """
         responseTreated : bool = False
 
         while not responseTreated and self.__isRunning():
