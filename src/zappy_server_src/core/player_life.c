@@ -18,18 +18,14 @@
 #include <math.h>
 #include <stdio.h>
 
-/// \brief Remove a plyer from his team
-/// \param player The player informations
-/// \param serv The server informations
-/// \return true When operation succeed
-/// \return false When operation failed
-static bool remove_player_from_team(player_t *player, server_data_t *serv)
+bool remove_player_from_team(player_t *player, server_data_t *serv)
 {
     team_t *team = get_team_by_name(player->team, &serv->teams);
 
     if (!team)
         return false;
     remove_user_from_team(team, player->uuid);
+    defeat_detection(serv, player->team);
     return true;
 }
 
