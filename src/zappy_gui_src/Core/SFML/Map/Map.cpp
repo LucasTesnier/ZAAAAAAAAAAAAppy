@@ -217,6 +217,7 @@ void Map::_displayResources(Tile &tile)
     std::size_t multiplier = 1;
     int multiplierFood = 10;
     int multiplierStone = 5;
+    sf::Vector2f temp;
 
     for (auto &it : tile.getTileInfo().getInventory()) {
         if (index == 1)
