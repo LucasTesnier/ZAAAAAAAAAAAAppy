@@ -86,6 +86,8 @@ server_data_t *serv)
     player->scheduled_action = find_ai_command_end("/incantation", NULL);
     if (player->scheduled_action == NULL)
         return false;
+    player->incantation_position = (inc_pos_t){player_entity->position.x,
+    player_entity->position.y};
     return true;
 }
 
@@ -93,19 +95,20 @@ server_data_t *serv)
 /// \param serv The server informations
 /// \param player The player informations
 /// \param tile The current tile
+/// \param start_pos The starting position of the incatation
 /// \return char* The newly level
 static char *incantation_action(server_data_t *serv,
-player_t *player, position_t player_pos)
+player_t *player, position_t player_pos, inc_pos_t start_pos)
 {
     char *res = malloc(sizeof(char) * 2);
 
     if (res == NULL)
         return NULL;
-    if (!incantation_verif(serv->entities, player->level, player_pos))
+    if (!incantation_verif(serv->entities, player->level, player_pos) ||
+    start_pos.x != player_pos.x || start_pos.y != player_pos.y)
         return NULL;
     remove_ressource_randomly(serv->entities, player_pos,
-    (container_t) {0,
-        inc_lvl[player->level - 1].linemate,
+    (container_t) {0, inc_lvl[player->level - 1].linemate,
         inc_lvl[player->level - 1].deraumere,
         inc_lvl[player->level - 1].sibur,
         inc_lvl[player->level - 1].mendiane,
@@ -130,7 +133,8 @@ server_data_t *serv)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
-    res = incantation_action(serv, player_data, player_entity->position);
+    res = incantation_action(serv, player_data, player_entity->position,
+    player->incantation_position);
     pop_message(player->player_peer);
     if (res != NULL)
         print_retcode(222, res, player->player_peer, true);
