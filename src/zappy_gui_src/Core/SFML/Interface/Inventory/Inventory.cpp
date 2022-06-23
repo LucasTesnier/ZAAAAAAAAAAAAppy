@@ -43,7 +43,7 @@ void Inventory::initShapes()
     _title.setCharacterSize(20);
     _title.setFillColor(sf::Color::Black);
     _title.setString("Inventory");
-    _title.setPosition(_body.getPosition().x + 40, _body.getPosition().y + 10);
+    _title.setPosition(sf::Vector2f(_body.getPosition().x + 40, _body.getPosition().y + 10));
 }
 
 void Inventory::display()
@@ -68,7 +68,7 @@ void Inventory::initTextTilePosition()
     _textPos.setCharacterSize(20);
     _textPos.setFillColor(sf::Color::Black);
     _textPos.setString(std::string("x: " + std::to_string(int(_tilePosition.x)) + "\n\n\ny: " + std::to_string(int(_tilePosition.y))));
-    _textPos.setPosition(_body.getPosition().x + 50, _body.getPosition().y + 60);
+    _textPos.setPosition(sf::Vector2f(_body.getPosition().x + 50, _body.getPosition().y + 60));
 }
 
 void Inventory::initTextTileInventory()
@@ -115,34 +115,34 @@ std::vector<sf::Text> Inventory::initTextEntities(std::string string)
 
 void Inventory::setPosTextsInv()
 {
-    _textsInv.at(0).setPosition(_body.getPosition().x + 230, _body.getPosition().y + 80);
-    _textsInv.at(1).setPosition(_body.getPosition().x + 430, _body.getPosition().y + 60);
-    _textsInv.at(2).setPosition(_body.getPosition().x + 430, _body.getPosition().y + 120);
-    _textsInv.at(3).setPosition(_body.getPosition().x + 630, _body.getPosition().y + 60);
-    _textsInv.at(4).setPosition(_body.getPosition().x + 630, _body.getPosition().y + 120);
-    _textsInv.at(5).setPosition(_body.getPosition().x + 830, _body.getPosition().y + 60);
-    _textsInv.at(6).setPosition(_body.getPosition().x + 830, _body.getPosition().y + 120);
+    _textsInv.at(0).setPosition(sf::Vector2f(_body.getPosition().x + 230, _body.getPosition().y + 80));
+    _textsInv.at(1).setPosition(sf::Vector2f(_body.getPosition().x + 430, _body.getPosition().y + 60));
+    _textsInv.at(2).setPosition(sf::Vector2f(_body.getPosition().x + 430, _body.getPosition().y + 120));
+    _textsInv.at(3).setPosition(sf::Vector2f(_body.getPosition().x + 630, _body.getPosition().y + 60));
+    _textsInv.at(4).setPosition(sf::Vector2f(_body.getPosition().x + 630, _body.getPosition().y + 120));
+    _textsInv.at(5).setPosition(sf::Vector2f(_body.getPosition().x + 830, _body.getPosition().y + 60));
+    _textsInv.at(6).setPosition(sf::Vector2f(_body.getPosition().x + 830, _body.getPosition().y + 120));
 }
 
 void Inventory::setPosTextsPlayer(int x, int y, int offset)
 {
-    _textsPlayer.at(0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
-    _textsPlayer.at(1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
-    _textsPlayer.at(2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
-    _textsPlayer.at(3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
+    _textsPlayer.at(0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
+    _textsPlayer.at(1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
+    _textsPlayer.at(2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
+    _textsPlayer.at(3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
 }
 
 void Inventory::setPosTextsEgg(int x, int y, int offset)
 {
-    _textsEgg.at(0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
-    _textsEgg.at(1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
-    _textsEgg.at(2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
-    _textsEgg.at(3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
+    _textsEgg.at(0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
+    _textsEgg.at(1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
+    _textsEgg.at(2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
+    _textsEgg.at(3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
 }
 
 void Inventory::setPosSpritesInv()
 {
-    _spritesInv.at(0).setPosition(_body.getPosition().x + 120, _body.getPosition().y + 45);
+    _spritesInv.at(0).setPosition(sf::Vector2f(_body.getPosition().x + 120, _body.getPosition().y + 45));
 }
 
 void Inventory::_updateBody()
@@ -164,8 +164,8 @@ void Inventory::_updateBody()
         _button.setPoint(1, {5, 0});
         _button.setPoint(2, {10, 10});
     }
-    _title.setPosition(_body.getPosition().x + 40, _body.getPosition().y + 10);
-    _textPos.setPosition(_body.getPosition().x + 50, _body.getPosition().y + 60);
+    _title.setPosition(sf::Vector2f(_body.getPosition().x + 40, _body.getPosition().y + 10));
+    _textPos.setPosition(sf::Vector2f(_body.getPosition().x + 50, _body.getPosition().y + 60));
     _textPos.setString(std::string("x: " + std::to_string(int(_tilePosition.x)) + "\n\n\ny: " + std::to_string(int(_tilePosition.y))));
     int i = 0;
     for (auto &t : _textsInv) {

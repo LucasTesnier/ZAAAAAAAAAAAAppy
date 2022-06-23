@@ -23,6 +23,7 @@ bool server_add_player(server_data_t *server_data)
     new_player->type = UNKNOWN;
     new_player->player_data = NULL;
     new_player->scheduled_action = NULL;
+    new_player->incantation_position = (position_t){0, 0};
     new_player->player_peer =
     fetch_last_added_peer(server_data->server->network_server);
     server_data->active_players = realloc(server_data->active_players,

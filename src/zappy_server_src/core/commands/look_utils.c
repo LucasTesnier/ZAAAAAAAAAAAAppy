@@ -34,3 +34,19 @@ position_t map_size)
             % (map_size.y - 1);
     }
 }
+
+int get_look_case_total_size(container_t *cases)
+{
+    int res = 0;
+    int convenance_entity = 1000;
+
+    res += strlen("food ") * cases->food;
+    res += strlen("linemate ") * cases->linemate;
+    res += strlen("deraumere ") * cases->deraumere;
+    res += strlen("sibur ") * cases->sibur;
+    res += strlen("mendiane ") * cases->mendiane;
+    res += strlen("phiras ") * cases->phiras;
+    res += strlen("thystame ") * cases->thystame;
+    res += convenance_entity;
+    return res;
+}

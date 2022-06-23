@@ -61,6 +61,8 @@ typedef struct player_list_s {
     entity_t *player_data;
     /// Scheduled action
     struct command_data_s *scheduled_action;
+    /// Position for incantation
+    position_t incantation_position;
 } player_list_t;
 
 typedef struct argument_s {
