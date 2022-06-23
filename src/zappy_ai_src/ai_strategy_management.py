@@ -172,6 +172,12 @@ LEVEL_UP_REQUIREMENTS = [{},
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
 
+UNEXPECTED = 1
+
+STOPPED = -1
+
+EXPECTED = 0
+
 class Ai:
     def __init__(self, availableSlots: int, teamName: str):
         """ Default Constructor of the Core class"""
@@ -415,8 +421,12 @@ class Ai:
         """
         if not self.__lib.AskInventory():
             safeExitError()
-        if not self.__waitForAction():
-            return
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
         self.__inventory.fillInventory(self.__lib.GetRepInventory())
         self.__setStrategy()
         self.__actionsProceed()
@@ -441,11 +451,11 @@ class Ai:
         if self.__lib.GetUnexpectedResponseState():
             self.__unexpectedResponseManagement()
             if not self.__getIsRunning():
-                return False
+                return STOPPED
             else:
-                return True
+                return UNEXPECTED
         else:
-            return True
+            return EXPECTED
 
     def __setAnotherTargetTile(self, component: str):
         """"This is used to set another target as a tile if the first one got reached by the player"""
@@ -465,18 +475,30 @@ class Ai:
         else:
             if not self.__lib.AskTakeObject(component):
                 safeExitError()
-            if not self.__waitForAction():
-                return
+            while True:
+                value = self.__waitForAction()
+                if value == STOPPED:
+                    return
+                if value == EXPECTED:
+                    break
             self.__lib.GetRepTakeObject()
         if not self.__lib.AskForward():
             safeExitError()
-        if not self.__waitForAction():
-            return
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
         self.__lib.GetRepForward()
         if not self.__lib.AskLook():
             safeExitError()
-        if  self.__waitForAction():
-            return
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
         if self.__Queues.isServerQueueFull():
             responses = self.__Queues.emptyServerQueue(3)
