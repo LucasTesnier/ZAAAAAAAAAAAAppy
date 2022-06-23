@@ -47,14 +47,6 @@ typedef enum player_state_e {
     LOGOUT
 } player_state_t;
 
-/// \brief Position when incantation is started
-typedef struct inc_pos_s {
-    /// \brief X position
-    int x;
-    /// \brief Y position
-    int y;
-} inc_pos_t;
-
 /// \brief Node of a player list
 typedef struct player_list_s {
     /// Peer of the network client
@@ -70,7 +62,7 @@ typedef struct player_list_s {
     /// Scheduled action
     struct command_data_s *scheduled_action;
     /// Position for incantation
-    inc_pos_t incantation_position;
+    position_t incantation_position;
 } player_list_t;
 
 typedef struct argument_s {

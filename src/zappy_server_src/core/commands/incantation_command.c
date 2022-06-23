@@ -86,8 +86,7 @@ server_data_t *serv)
     player->scheduled_action = find_ai_command_end("/incantation", NULL);
     if (player->scheduled_action == NULL)
         return false;
-    player->incantation_position = (inc_pos_t){player_entity->position.x,
-    player_entity->position.y};
+    player->incantation_position = player_entity->position;
     return true;
 }
 
@@ -98,7 +97,7 @@ server_data_t *serv)
 /// \param start_pos The starting position of the incatation
 /// \return char* The newly level
 static char *incantation_action(server_data_t *serv,
-player_t *player, position_t player_pos, inc_pos_t start_pos)
+player_t *player, position_t player_pos, position_t start_pos)
 {
     char *res = malloc(sizeof(char) * 2);
 
