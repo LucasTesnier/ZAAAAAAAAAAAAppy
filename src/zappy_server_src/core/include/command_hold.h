@@ -339,6 +339,11 @@ int get_eject_dir(server_data_t *serv, entity_t *entity, position_t old);
 /// \return int The total size for look command
 int get_look_case_total_size(container_t *cases);
 
+/// \brief Detect if a team has win the game !
+/// \param serv The server informations
+/// \param team_name The team name to detect
+void victory_detection(server_data_t *serv, char *team_name);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
