@@ -81,6 +81,30 @@ namespace gui {
             inline void removeEntities(std::string &type) {
                 _server.removeEntities(type);
             };
+            /// \brief call the inventory object and set the position
+            /// \param pos the position to set
+            inline void setInventoryTilePos(const sf::Vector2f &pos) {
+                _inventory.setTilePosition(pos);
+            }
+
+            /// \brief call the inventory object and set inventory
+            /// \param pos the inventory to set
+            inline void setInventoryTileInv(const std::vector<int> &inv) {
+                _inventory.setTileInventory(inv);
+            }
+
+            /// \brief call the inventory object and set players
+            /// \param p the player to set
+            inline void setInventoryPlayers(const std::vector<gui::entity::Player> &p) {
+                _inventory.setPlayers(p);
+            }
+
+            /// \brief call the inventory object and set eggs
+            /// \param e the eggs to set
+            inline void setInventoryEggs(const std::vector<gui::entity::Egg> &e) {
+                _inventory.setEggs(e);
+            }
+
         private:
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;

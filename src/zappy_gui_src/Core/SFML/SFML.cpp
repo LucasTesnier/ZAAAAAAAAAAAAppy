@@ -49,6 +49,10 @@ void SFML::display()
     _window->clear(sf::Color(127, 127, 127, 255));
     _map.display();
     _interface.updateAndDisplay();
+    _interface.setInventoryTilePos(_map.getSelectedTilePos());
+    _interface.setInventoryTileInv(_map.getSelectedTileInventory());
+    _interface.setInventoryPlayers(_map.getSelectedTilePlayers());
+    _interface.setInventoryEggs(_map.getSelectedTileEggs());
     _window->display();
 }
 

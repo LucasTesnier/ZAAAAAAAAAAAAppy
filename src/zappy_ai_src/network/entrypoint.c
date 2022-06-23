@@ -44,11 +44,17 @@ int main(int ac, char **av)
     if (!c_interface_ask_inventory())
         return 84;
     while (!c_interface_flush_asked_data());
+    if (!c_interface_ask_forward())
+        return 84;
+    while (!c_interface_flush_asked_data());
     while (!c_interface_get_response_state());
     temp = c_interface_get_inventory_response();
     if (!temp)
         return 84;
     printf("Inventory : %s\n", temp);
+    while (!c_interface_get_response_state());
+    if (!c_interface_get_forward_response())
+        return 84;
     if (!c_interface_ask_forward())
         return 84;
     while (!c_interface_flush_asked_data());

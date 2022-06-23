@@ -96,15 +96,47 @@ namespace gui {
             /// \brief remove entities depending on the type given
             /// \param type string representating the type of entities to remove
             void removeEntities(std::string &type);
+
+            /// \brief get the posititon of the selected tile
+            /// \return the position of the tile selected by the user
+            inline const sf::Vector2f &getSelectedTilePos() const {
+                if (int(_tileSelected) == -1)
+                    return _noTileSelected;
+                return _tile[_tileSelected].get()->getPosition();
+            };
+
+            /// \brief get the inventory selected tile
+            /// \return the inventory of the tile selected by the user
+            inline const std::vector<int> &getSelectedTileInventory() const {
+                if (int(_tileSelected) == -1)
+                    return _noTileSelectedInv;
+                return _tile[_tileSelected].get()->getTileInfo().getInventory();
+            };
+
+            /// \brief get the vector of players on the selected tile
+            /// \return the vector of players on the tile selected by the user
+            inline const std::vector<gui::entity::Player> &getSelectedTilePlayers() const {
+                if (int(_tileSelected) == -1)
+                    return _noTileSelectedPlayer;
+                return _tile[_tileSelected].get()->getPlayers();
+            };
+
+            /// \brief get the vector of eggs on the selected tile
+            /// \return the vector of eggs on the tile selected by the user
+            inline const std::vector<gui::entity::Egg> &getSelectedTileEggs() const {
+                if (int(_tileSelected) == -1)
+                    return _noTileSelectedEggs;
+                return _tile[_tileSelected].get()->getEggs();
+            };
         private:
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
-            void _displaySelectedTile(sf::CircleShape &entityRepresentation);
+            void _displaySelectedTile(sf::RectangleShape &entityRepresentation);
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
-            void _displayHoveredTile(sf::CircleShape &entityRepresentation);
+            void _displayHoveredTile(sf::RectangleShape &entityRepresentation);
 
             /// \brief Find if the selected or hover tile must be update.
             /// \param i The actual index of the tile to find if it need to be update.
@@ -143,17 +175,17 @@ namespace gui {
             /// \brief Display players that are in the tile, if there is at least one player.
             /// \param tile The tile to get information from.
             /// \param playerRepresentation The representation of a player as a green circle shape.
-            void _displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation);
+            void _displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation);
 
             /// \brief Display resources that are in the tile, if there is at least one resource.
             /// \param tile The tile to get information from.
             /// \param resourcesRepresentation The representation of a resource as a grey circle shape.
-            void _displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation);
+            void _displayResources(Tile &tile, sf::RectangleShape &resourcesRepresentation);
 
             /// \brief Display eggs that are in the tile, if there is at least one egg.
             /// \param tile The tile to get information from.
             /// \param eggRepresentation The representation of an egg as a yellow circle shape.
-            void _displayEggs(Tile &tile, sf::CircleShape &eggRpresentation);
+            void _displayEggs(Tile &tile, sf::RectangleShape &eggRpresentation);
 
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
@@ -166,6 +198,18 @@ namespace gui {
 
             /// \brief The selected tile.
             std::size_t _tileSelected;
+
+            /// \brief the default pos of no tile selected
+            sf::Vector2f _noTileSelected;
+
+            /// \brief the default vector of no tile selected inventory
+            std::vector<int> _noTileSelectedInv;
+
+            /// \brief the default vector of no tile selected players
+            std::vector<gui::entity::Player> _noTileSelectedPlayer;
+
+            /// \brief the default vector of no tile selected eggs
+            std::vector<gui::entity::Egg> _noTileSelectedEggs;
 
             /// \brief The hovered tile.
             std::size_t _tileHover;
