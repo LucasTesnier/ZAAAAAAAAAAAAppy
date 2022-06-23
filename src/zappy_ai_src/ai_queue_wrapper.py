@@ -60,14 +60,12 @@ class AIQueues:
             added += 1
         return added
 
-    def emptyServerQueue(self, nbToEmpty : int = 1):
+    def emptyServerQueue(self):
         """
-        Empty the server Queue of nbToEmpty (min 1 max 10) while the serverQueue isn't empty
-        Return the poped objects in a list
+        Empty the server Queue of one element
+        Return the poped object
         """
-        objGetter = []
-        while not self.isServerQueueEmpty() and nbToEmpty > 0:
+        newObj = None
+        if not self.isServerQueueEmpty():
             newObj = self.__popFromServerQueue()
-            objGetter.append(newObj)
-            nbToEmpty -= 1
-        return objGetter
+        return newObj

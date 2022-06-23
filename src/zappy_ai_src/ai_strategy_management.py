@@ -413,11 +413,6 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
-        if not self.__lib.AskInventory():
-            safeExitError()
-        if not self.__waitForAction():
-            return
-        self.__inventory.fillInventory(self.__lib.GetRepInventory())
         self.__setStrategy()
         self.__actionsProceed()
 
@@ -455,6 +450,28 @@ class Ai:
                 break
         self.__setTargetTileReached(False)
 
+    def __handleQueuesResponses(self, response) -> None:
+        responseTreated : bool = False
+
+        while not responseTreated and self.__isRunning():
+            if not self.__lib.GetResponseState():
+                continue
+            if self.__lib.GetUnexpectedResponseState():
+                self.__unexpectedResponseManagement()
+                continue
+            else:
+                if response in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
+                    self.__setTargetTileReached(not response())
+                if response in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
+                    ## TO IMPLEMENT
+                    pass
+                if response == self.__lib.GetRepFork and not self.__lib.GetRepFork():
+                    self.__availableSlots += 1
+                if response == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
+                    self.__incrPlayerCurrentLevel()
+                responseTreated = True
+
+
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
@@ -468,18 +485,10 @@ class Ai:
             if not self.__waitForAction():
                 return
             self.__lib.GetRepTakeObject()
-        if not self.__lib.AskForward():
-            safeExitError()
-        if not self.__waitForAction():
-            return
-        self.__lib.GetRepForward()
-        if not self.__lib.AskLook():
-            safeExitError()
-        if  self.__waitForAction():
-            return
-        self.__setVisionOfTheMap(self.__lib.GetRepLook())
+        self.__reachSpecificTile(self.__getTargetTileIndex())
         if self.__Queues.isServerQueueFull():
-            responses = self.__Queues.emptyServerQueue(3)
+            response = self.__Queues.emptyServerQueue()
+            self.__handleQueuesResponses(response)
         self.__Queues.addInServerQueue()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
