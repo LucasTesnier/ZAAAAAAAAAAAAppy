@@ -458,7 +458,7 @@ class Ai:
         """
         responseTreated : bool = False
 
-        while not responseTreated and self.__isRunning():
+        while not responseTreated and self.__getIsRunning():
             if not self.__lib.GetResponseState():
                 continue
             if self.__lib.GetUnexpectedResponseState():
