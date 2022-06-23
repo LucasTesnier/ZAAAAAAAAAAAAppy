@@ -60,8 +60,11 @@ namespace gui {
             /// \brief add a player object to the vector
             /// \param player the player object to add
             inline void addPlayer(gui::entity::Player &player) {
+                std::size_t tmp = itop(sf::Vector2f(player.getPosition().first, player.getPosition().second));
+
                 _players.emplace_back(player);
-                _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+                if (tmp < _tile.size())
+                    _tile[tmp]->addPlayer(player);
             }
 
             /// \brief Get the vector of players of the tile.

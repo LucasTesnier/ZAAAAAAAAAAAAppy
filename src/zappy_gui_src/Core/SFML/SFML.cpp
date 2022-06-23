@@ -19,6 +19,7 @@ SFML::SFML(const sf::Vector2f mapSize) : _run(true)
     settings.antialiasingLevel = 8;
     _event = std::make_shared<Event>();
     _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Zappy", sf::Style::Close, settings);
+    _window->setPosition(sf::Vector2i(0, 0));
     _window.get()->setFramerateLimit(maxFps);
     _map.setWindow(_window);
     _map.setEvent(_event);
@@ -31,6 +32,7 @@ SFML::SFML(const sf::Vector2f mapSize) : _run(true)
 void SFML::removeEntities(std::string &type)
 {
     _map.removeEntities(type);
+    _interface.removeEntities(type);
 }
 
 void SFML::_changeMapSize(const sf::Vector2f mapSize)

@@ -19,8 +19,6 @@
 /// \param y Y position of the tile
 static void display_tile(tile_t *tile, int x, int y)
 {
-    entity_t *player_entity = NULL;
-    player_t *player_entity_data = NULL;
     char *uuid_repr = malloc(sizeof(char) * 37);
 
     printf("============Printing tile at %d %d==============\n",
@@ -32,11 +30,6 @@ static void display_tile(tile_t *tile, int x, int y)
     printf("||\t Mendiane : %d\t||\n", tile->inventory->mendiane);
     printf("||\t Phiras : %d\t||\n", tile->inventory->phiras);
     printf("||\t Thystame : %d\t||\n", tile->inventory->thystame);
-    TAILQ_FOREACH(player_entity, &tile->entities, entities) {
-        player_entity_data = (player_t *)player_entity->data;
-        uuid_unparse(player_entity_data->uuid, uuid_repr);
-        printf("||\t Player : %s\t||\n", uuid_repr);
-    }
     printf("================================================\n");
     free(uuid_repr);
 }

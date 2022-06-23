@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include "Entity.hpp"
 
 /// \brief The path of the font to be used.
 #define FONT_PATH "assets/arial.ttf"
@@ -72,8 +73,26 @@ namespace gui {
                 _button.setFillColor(color);
             };
 
-            void setServerInformation(const std::string &serverInformation);
+            inline void addPlayer(gui::entity::Player &player) {
+                _players.push_back(player);
+                _updateText();
+            };
+
+            inline void addTilesInfo(gui::entity::Tile &tile) {
+                _tiles.push_back(tile);
+                _updateText();
+            };
+
+            inline void addEgg(gui::entity::Egg &egg) {
+                _eggs.push_back(egg);
+                _updateText();
+            };
+
+            void removeEntities(std::string &type);
         private:
+
+            std::string _inventoryToString(const std::vector<int> &inventory);
+            void _updateText();
             /// \brief The _updateBody function is a private function to update the global shape depending of it's status.
             void _updateBody();
 
@@ -99,6 +118,10 @@ namespace gui {
             sf::Font _font;
 
             std::string _serverInformation;
+
+            std::vector<entity::Player> _players;
+            std::vector<entity::Tile> _tiles;
+            std::vector<entity::Egg> _eggs;
     };
 } // namespace gui
 

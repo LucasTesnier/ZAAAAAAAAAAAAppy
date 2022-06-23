@@ -57,9 +57,20 @@ namespace gui {
                 _minimap.setMapSize(_mapSize);
             };
 
-            inline void setServerInformation(const std::string &serverInformation) {
-                _serverInformation = serverInformation;
-                _server.setServerInformation(_serverInformation);
+            inline void addPlayer(gui::entity::Player &player) {
+                _server.addPlayer(player);
+            };
+
+            inline void addTilesInfo(gui::entity::Tile &tile) {
+                _server.addTilesInfo(tile);
+            };
+
+            inline void addEgg(gui::entity::Egg &egg) {
+                _server.addEgg(egg);
+            };
+
+            inline void removeEntities(std::string &type) {
+                _server.removeEntities(type);
             };
         private:
             /// \brief The window to display on.
@@ -79,8 +90,6 @@ namespace gui {
 
             /// \brief The map size.
             sf::Vector2f _mapSize;
-
-            std::string _serverInformation;
     };
 } // namespace gui
 

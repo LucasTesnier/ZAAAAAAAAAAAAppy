@@ -51,7 +51,6 @@ void Core::run()
         if (!c_interface_get_unexpected_response_state())
             continue;
         response = std::string(c_interface_get_unexpected_response());
-        _sfml->setServerInformation(response);
         _updateEntities(response);
     }
 }

@@ -98,36 +98,55 @@ void ServerCommunication::initializeShapes()
     _text.setCharacterSize(16);
 }
 
-#include <iostream>
-
-void ServerCommunication::setServerInformation(const std::string &serverInformation)
+void ServerCommunication::removeEntities(std::string &type)
 {
-    std::vector<std::string> informations;
-    std::size_t position = 0;
-
-    _serverInformation = serverInformation;
-    std::cout << "start set server information" << std::endl;
-    while (!_serverInformation.empty()) {
-        std::size_t index = _serverInformation.find("tile", position);
-        if (index >= _serverInformation.size())
-            index = _serverInformation.find("player", position);
-        if (index >= _serverInformation.size())
-            index = _serverInformation.find("egg", position);
-        if (index != 0 && index < _serverInformation.size()) {
-            informations.push_back(_serverInformation.substr(0, index));
-            informations.back().append("\n");
-            _serverInformation = _serverInformation.substr(index);
-        } else if (index >= _serverInformation.size()) {
-            informations.push_back(_serverInformation.substr(0, index));
-            informations.back().append("\n");
-            break;
-        }
-            position++;
+    if (type == "tile") {
+        _tiles.clear();
     }
-    std::cout << "parsed the information" << std::endl;
-    for (std::string &it : informations)
-        _serverInformation.append(it);
-    std::cout << "created string" << std::endl;
+    if (type == "player") {
+        _players.clear();
+    }
+    if (type == "egg") {
+        _eggs.clear();
+    }
+    _updateText();
+}
+
+std::string ServerCommunication::_inventoryToString(const std::vector<int> &inventory)
+{
+    std::string inventoryAsString;
+
+    inventoryAsString.append("\tInventory:\n");
+    inventoryAsString.append("\t\tFood: " + std::to_string(inventory[0]) + "\n");
+    inventoryAsString.append("\t\tLinemate: " + std::to_string(inventory[1]) + "\n");
+    inventoryAsString.append("\t\tDeraumere: " + std::to_string(inventory[2]) + "\n");
+    inventoryAsString.append("\t\tSibur: " + std::to_string(inventory[3]) + "\n");
+    inventoryAsString.append("\t\tMendiane: " + std::to_string(inventory[4]) + "\n");
+    inventoryAsString.append("\t\tPhiras: " + std::to_string(inventory[5]) + "\n");
+    inventoryAsString.append("\t\tThystame: " + std::to_string(inventory[6]) + "\n");
+    return inventoryAsString;
+}
+
+void ServerCommunication::_updateText()
+{
+    _serverInformation.clear();
+    _serverInformation.append("SERVER COMMUNICATION\n");
+    _serverInformation.append("PLAYERS\n");
+    for (auto it : _players) {
+        _serverInformation.append("\tPosition: " + std::to_string(it._position.first) + ", " + std::to_string(it._position.second) + "\n");
+        _serverInformation.append("\tTeam name: " + it._team_name + "\n");
+        _serverInformation.append("\tLevel: " + std::to_string(it._level) + "\n");
+        _serverInformation.append(_inventoryToString(it._inventory));
+    }
+    _serverInformation.append("EGGS\n");
+    for (auto it : _eggs) {
+        _serverInformation.append("\tPosition: " + std::to_string(it._position.first) + ", " + std::to_string(it._position.second) + "\n");
+        _serverInformation.append("\tTeam name: " + it._team_name + "\n");
+    }
+    _serverInformation.append("TILES\n");
+    for (auto it : _tiles) {
+        _serverInformation.append(std::string(std::to_string(it._position.first) + ", " + std::to_string(it._position.second)) + "\n");
+        _serverInformation.append(_inventoryToString(it._inventory));
+    }
     _text.setString(_serverInformation);
-    std::cout << "display string" << std::endl;
-};
+}

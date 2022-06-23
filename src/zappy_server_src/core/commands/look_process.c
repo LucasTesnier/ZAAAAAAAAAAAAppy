@@ -29,7 +29,7 @@ position_t map_size, int lvl, position_t* looked_cases)
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
-        for (int j = MIN(left.x, right.x); j < MAX(left.x, right.x); j ++) {
+        for (int j = MIN(left.x, right.x); j <= MAX(left.x, right.x); j++) {
             looked_cases[looked_case_idx++] = (position_t){j, left.y};
         }
         left.x -= 1;
@@ -52,7 +52,7 @@ position_t map_size, int lvl, position_t* looked_cases)
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
-        for (int j = MIN(left.x, right.x); j < MAX(left.x, right.x); j++) {
+        for (int j = MIN(left.x, right.x); j <= MAX(left.x, right.x); j++) {
             looked_cases[looked_case_idx++] = (position_t) {j, left.y};
         }
         left.x -= 1;
@@ -75,7 +75,7 @@ position_t map_size, int lvl, position_t* looked_cases)
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
-        for (int j = MIN(left.x, right.x); j < MAX(left.x, right.x); j++) {
+        for (int j = MIN(left.x, right.x); j <= MAX(left.x, right.x); j++) {
             looked_cases[looked_case_idx++] = (position_t) {j, left.y};
         }
         left.y -= 1;
@@ -98,7 +98,7 @@ position_t map_size, int lvl, position_t* looked_cases)
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
-        for (int j = MIN(left.x, right.x); j < MAX(left.x, right.x); j++) {
+        for (int j = MIN(left.x, right.x); j <= MAX(left.x, right.x); j++) {
             looked_cases[looked_case_idx++] = (position_t) {j, left.y};
         }
         left.y -= 1;
@@ -119,11 +119,12 @@ int level, enum player_orientation_e orientation)
     };
     for (int i = 1; i <= level; i++)
         looked_cases_size += 3 + ((i - 1) * 2);
+    looked_cases_size++;
     looked_cases = malloc(sizeof(position_t) * looked_cases_size);
     if (!looked_cases)
         return NULL;
-    memset(looked_cases, -1, sizeof(position_t) * looked_cases_size);
     looked_cases[0] = player;
+    looked_cases[looked_cases_size - 1] = (position_t){-1, -1};
     look[orientation](player, map_size, level, looked_cases);
     return looked_cases;
 }

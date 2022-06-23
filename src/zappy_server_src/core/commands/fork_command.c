@@ -75,7 +75,7 @@ server_data_t *serv)
 }
 
 /// \brief Remove an egg off the game
-/// \param serv The server informations
+/// \param serv The server information's
 /// \param egg The egg object
 /// \param egg_e The egg entity
 static void remove_egg(server_data_t *serv, egg_t *egg, entity_t *egg_e)
