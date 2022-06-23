@@ -1,3 +1,4 @@
+from hmac import new
 from queue import Queue
 
 class AIQueues:
@@ -10,6 +11,7 @@ class AIQueues:
         """
         self.__serverQueue : Queue = Queue(queueSize)
         self.__aiQueue : Queue = Queue(-1)
+        self.__movement : int = 0
 
     def isServerQueueFull(self) -> bool:
         """ If the server Queue cannot accept any more object, return True """
@@ -60,14 +62,24 @@ class AIQueues:
             added += 1
         return added
 
-    def emptyServerQueue(self, nbToEmpty : int = 1):
+    def emptyServerQueue(self):
         """
-        Empty the server Queue of nbToEmpty (min 1 max 10) while the serverQueue isn't empty
-        Return the poped objects in a list
+        Empty the server Queue of one element
+        Return the poped object
         """
-        objGetter = []
-        while not self.isServerQueueEmpty() and nbToEmpty > 0:
+        newObj = None
+        if not self.isServerQueueEmpty():
             newObj = self.__popFromServerQueue()
-            objGetter.append(newObj)
-            nbToEmpty -= 1
-        return objGetter
+        return newObj
+
+    def incrMov(self) -> None:
+        self.__movement += 1
+
+    def decMov(self) -> None:
+        self.__movement -= 1
+
+    def isMovementLeft(self) -> bool:
+        """
+        Return True if there is movement(s) left to do
+        """
+        return self.__movement != 0
