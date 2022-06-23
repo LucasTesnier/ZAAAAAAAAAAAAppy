@@ -67,8 +67,6 @@ void Inventory::initTextTilePosition()
     _textPos.setFont(_font);
     _textPos.setCharacterSize(20);
     _textPos.setFillColor(sf::Color::Black);
-    _textPos.setString(std::string("x: " + std::to_string(int(_tilePosition.x)) + "\n\n\ny: " + std::to_string(int(_tilePosition.y))));
-    _textPos.setPosition(_body.getPosition().x + 50, _body.getPosition().y + 60);
 }
 
 void Inventory::initTextTileInventory()
@@ -165,8 +163,11 @@ void Inventory::_updateBody()
         _button.setPoint(2, {10, 10});
     }
     _title.setPosition(_body.getPosition().x + 40, _body.getPosition().y + 10);
+    if (_tilePosition.x == -1 && _tilePosition.y == -1)
+        _textPos.setString(std::string("x: None\n\n\ny: None"));
+    else
+        _textPos.setString(std::string("x: " + std::to_string(int(_tilePosition.x)) + "\n\n\ny: " + std::to_string(int(_tilePosition.y))));
     _textPos.setPosition(_body.getPosition().x + 50, _body.getPosition().y + 60);
-    _textPos.setString(std::string("x: " + std::to_string(int(_tilePosition.x)) + "\n\n\ny: " + std::to_string(int(_tilePosition.y))));
     int i = 0;
     for (auto &t : _textsInv) {
         t.setString(std::to_string(_tileInventory.at(i)));

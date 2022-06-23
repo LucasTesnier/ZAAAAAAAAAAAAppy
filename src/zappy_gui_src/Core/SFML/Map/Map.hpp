@@ -10,13 +10,21 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include "Tile.hpp"
-#include <memory>
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include <vector>
+#include "Tile.hpp"
 #include "Event.hpp"
 #include "Entity.hpp"
-#include <iostream>
+#include "Animation.hpp"
+
+#define FOOD_PATH "./assets/food.png"
+#define LINEMATE_PATH "assets/linemate.png"
+#define MENDIANE_PATH "assets/mendiane.png"
+#define PHIRAS_PATH "assets/phiras.png"
+#define DERAUMERE_PATH "assets/deraumere.png"
+#define SIBUR_PATH "assets/sibur.png"
+#define THYSTAME_PATH "assets/thystame.png"
 
 namespace gui {
     /// \brief Class for the map of the zappy. It contain all informations that will be display.
@@ -187,6 +195,9 @@ namespace gui {
             /// \param eggRepresentation The representation of an egg as a yellow circle shape.
             void _displayEggs(Tile &tile, sf::RectangleShape &eggRpresentation);
 
+            /// \brief initialize all the paths vector for ressources
+            void _initRessourcesPaths();
+
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
 
@@ -228,6 +239,12 @@ namespace gui {
 
             /// \brief vector of eggs to be displayed on the tile
             std::vector<gui::entity::Egg> _eggs;
+
+            /// \brief vector of paths for ressources
+            std::vector<std::string> _ressourcesPaths;
+
+            /// \brief an animation object
+            std::vector<Animation> _ressourcesAnim;
     };
 } // namespace gui
 

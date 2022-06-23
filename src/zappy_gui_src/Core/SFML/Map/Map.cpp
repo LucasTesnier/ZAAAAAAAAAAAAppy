@@ -8,6 +8,7 @@
 /// \file src/zappy_gui_src/Core/SFML/Map/Map.cpp
 
 #include "Map.hpp"
+#include "ZappyGuiException.hpp"
 
 using namespace gui;
 
@@ -20,6 +21,30 @@ Map::Map()
     _noTileSelected = {-1, -1};
     std::vector<int> tmpVec{0, 0, 0, 0, 0, 0, 0,};
     _noTileSelectedInv = tmpVec;
+    try {
+        _initRessourcesPaths();
+        std::cout << _ressourcesPaths.size() << std::endl;
+        for (size_t i = 0; i < _ressourcesPaths.size(); i++) {
+            Animation tmpAnim;
+            std::cout << i <<  _ressourcesPaths.at(i) << std::endl;
+            tmpAnim.addTexture(_ressourcesPaths.at(i), sf::Vector2f(), sf::Vector2f());
+            _ressourcesAnim.emplace_back(tmpAnim);
+        }
+    } catch (AnimationException &e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
+
+void Map::_initRessourcesPaths()
+{
+    _ressourcesPaths.emplace_back(FOOD_PATH);
+    _ressourcesPaths.emplace_back(LINEMATE_PATH);
+    _ressourcesPaths.emplace_back(DERAUMERE_PATH);
+    _ressourcesPaths.emplace_back(SIBUR_PATH);
+    _ressourcesPaths.emplace_back(MENDIANE_PATH);
+    _ressourcesPaths.emplace_back(PHIRAS_PATH);
+    _ressourcesPaths.emplace_back(THYSTAME_PATH);
+
 }
 
 void Map::_updateTileVectorSize()
@@ -163,28 +188,39 @@ void Map::_displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation)
 void Map::_displayResources(Tile &tile, sf::RectangleShape &ressourcesRepresentation)
 {
     std::size_t index = 1;
-    int multiplierFood = 10;
-    int multiplierStone = 5;
+    std::size_t multiplier = 1;
+    int multiplierFood = 1;
+    int multiplierStone = 1;
 
     ressourcesRepresentation.setSize(sf::Vector2f(5, 5));
     ressourcesRepresentation.setOutlineThickness(0.5);
     ressourcesRepresentation.setFillColor(sf::Color(0, 0, 0));
     for (auto &it : tile.getTileInfo().getInventory()) {
+        if (index == 1)
+            multiplier = multiplierFood;
+        else
+            multiplier = multiplierStone;
         if (it) {
-            ressourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - ressourcesRepresentation.getGlobalBounds().height / 2});
-            _window->draw(ressourcesRepresentation);
-            if (it >= 2 * (index == 1 ? multiplierFood : multiplierStone)) {
-                ressourcesRepresentation.move(-4, 4);
-                _window->draw(ressourcesRepresentation);
+            // ressourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - ressourcesRepresentation.getGlobalBounds().height / 2});
+            // _window->draw(ressourcesRepresentation);
+            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(18, 18));
+            _ressourcesAnim.at(index - 1).setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - ressourcesRepresentation.getGlobalBounds().height / 2});
+            _ressourcesAnim.at(index - 1).update();
+            _window->draw(_ressourcesAnim.at(index - 1).getShape());
+            if (it >= int(2 * multiplier)) {
+                std::cout << index << std::endl;
+                _ressourcesAnim.at(index - 1).moveShape({-6, 6});
+                _ressourcesAnim.at(index - 1).update();
+                _window->draw(_ressourcesAnim.at(index - 1).getShape());
             }
-            if (it >= 3 * (index == 1 ? multiplierFood : multiplierStone)) {
-                ressourcesRepresentation.move(8, 0);
-                _window->draw(ressourcesRepresentation);
-            }
-            if (it >= 4 * (index == 1 ? multiplierFood : multiplierStone)) {
-                ressourcesRepresentation.move(-4, 4);
-                _window->draw(ressourcesRepresentation);
-            }
+            // if (it >= int(3 * multiplier)) {
+            //     ressourcesRepresentation.move(8, 0);
+            //     _window->draw(ressourcesRepresentation);
+            // }
+            // if (it >= int(4 * multiplier)) {
+            //     ressourcesRepresentation.move(-4, 4);
+            //     _window->draw(ressourcesRepresentation);
+            // }
         }
         ressourcesRepresentation.setFillColor(ressourcesRepresentation.getFillColor() + sf::Color(30, 30, 30));
         index++;

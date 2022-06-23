@@ -29,7 +29,7 @@ namespace gui {
             ~Animation() = default;
 
             /// \brief It updates the texture used depending on the duration time and the previous index in the vector of texture.
-            void udpate();
+            void update();
 
             /// \brief It adds a texture on the vector of texture used for the animation.
             /// \warning Be carful, the texture is added at the end of the vector. Please add texture in the correct order.
@@ -53,10 +53,15 @@ namespace gui {
             /// \return const sf::RectangleShape reference of the shape.
             const sf::RectangleShape &getShape() const;
 
+            /// \brief It move the shape of the animation with the vector2f move.
+            /// \note Use this function to move the shape.
+            /// \warning Keep in mind that you need to draw the shape again.
+            void moveShape(const sf::Vector2f &move);
+
             /// \brief It sets the duration between each frame of the animation.
             /// \note The animation must be set as millisecond.
             /// \param duration The duration between each frame of the animation as millisecond.
-            void setDuration(std::size_t duration);
+            void setDuration(const std::size_t &duration);
 
             /// \brief It gets the duration between each frame of the animation.
             /// \return const std::size_t reference of the duration.
