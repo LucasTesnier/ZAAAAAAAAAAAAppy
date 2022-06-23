@@ -56,6 +56,11 @@ namespace gui {
                 _mapSize = mapSize;
                 _minimap.setMapSize(_mapSize);
             };
+
+            inline void setServerInformation(const std::string &serverInformation) {
+                _serverInformation = serverInformation;
+                _server.setServerInformation(_serverInformation);
+            };
         private:
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
@@ -74,6 +79,8 @@ namespace gui {
 
             /// \brief The map size.
             sf::Vector2f _mapSize;
+
+            std::string _serverInformation;
     };
 } // namespace gui
 

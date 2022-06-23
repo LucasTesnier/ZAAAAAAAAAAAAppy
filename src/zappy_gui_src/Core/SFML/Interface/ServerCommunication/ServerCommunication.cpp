@@ -97,3 +97,37 @@ void ServerCommunication::initializeShapes()
     _text.setString("Server communication");
     _text.setCharacterSize(16);
 }
+
+#include <iostream>
+
+void ServerCommunication::setServerInformation(const std::string &serverInformation)
+{
+    std::vector<std::string> informations;
+    std::size_t position = 0;
+
+    _serverInformation = serverInformation;
+    std::cout << "start set server information" << std::endl;
+    while (!_serverInformation.empty()) {
+        std::size_t index = _serverInformation.find("tile", position);
+        if (index >= _serverInformation.size())
+            index = _serverInformation.find("player", position);
+        if (index >= _serverInformation.size())
+            index = _serverInformation.find("egg", position);
+        if (index != 0 && index < _serverInformation.size()) {
+            informations.push_back(_serverInformation.substr(0, index));
+            informations.back().append("\n");
+            _serverInformation = _serverInformation.substr(index);
+        } else if (index >= _serverInformation.size()) {
+            informations.push_back(_serverInformation.substr(0, index));
+            informations.back().append("\n");
+            break;
+        }
+            position++;
+    }
+    std::cout << "parsed the information" << std::endl;
+    for (std::string &it : informations)
+        _serverInformation.append(it);
+    std::cout << "created string" << std::endl;
+    _text.setString(_serverInformation);
+    std::cout << "display string" << std::endl;
+};

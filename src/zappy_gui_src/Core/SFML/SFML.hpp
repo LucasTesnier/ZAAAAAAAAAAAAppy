@@ -61,6 +61,11 @@ namespace gui {
             /// \brief remove entities depending on the type given
             /// \param type string representating the type of entities to remove
             void removeEntities(std::string &type);
+
+            inline void setServerInformation(const std::string &serverInformation) {
+                _serverInformation = serverInformation;
+                _interface.setServerInformation(_serverInformation);
+            };
         private:
 
             void _getEvent();
@@ -78,6 +83,8 @@ namespace gui {
 
             /// \brief SFML interface.
             Interface _interface;
+
+            std::string _serverInformation;
     };
 } // namespace gui
 

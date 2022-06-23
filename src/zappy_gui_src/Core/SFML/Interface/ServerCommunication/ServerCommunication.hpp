@@ -71,6 +71,8 @@ namespace gui {
             inline void setButtonColor(const sf::Color &color) {
                 _button.setFillColor(color);
             };
+
+            void setServerInformation(const std::string &serverInformation);
         private:
             /// \brief The _updateBody function is a private function to update the global shape depending of it's status.
             void _updateBody();
@@ -95,6 +97,8 @@ namespace gui {
 
             /// \brief It's the font used for the text.
             sf::Font _font;
+
+            std::string _serverInformation;
     };
 } // namespace gui
 
