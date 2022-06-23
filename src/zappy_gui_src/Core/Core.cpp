@@ -57,6 +57,7 @@ void Core::run()
 
 void Core::_removeEntities(std::string &type)
 {
+    std::cout << "remove type " << type << std::endl;
     _sfml->removeEntities(type);
 }
 
@@ -170,8 +171,11 @@ void Core::_updateEntities(std::string &response)
     std::string playerstr = std::string("player");
     std::string eggstr = std::string("egg");
 
-    if (response.empty())
+    if (response.empty()) {
+        _removeEntities(playerstr);
+        _removeEntities(eggstr);
         return;
+    }
     _updateEntities(tilestr, response);
     _updateEntities(playerstr, response);
     _updateEntities(eggstr, response);
