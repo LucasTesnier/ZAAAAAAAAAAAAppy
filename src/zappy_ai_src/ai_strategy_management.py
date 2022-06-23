@@ -379,7 +379,7 @@ class Ai:
         self.__setInventory(self.__lib.GetRepInventory())
         self.__setFrequency(int((tmpFood - self.__inventory.GetFood()) / 2))
 
-    def __unexpectedResponseManagement(self) -> BroadcastInfo:
+    def __unexpectedResponseManagement(self):
         """This is used by AI to manage every unexpected response send by the server like :
                 - Death of the player
                 - Eject from another player (not implemented at the moment)
@@ -388,12 +388,13 @@ class Ai:
         response : str = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
+            return
         if response.startswith("message"):
             infos = response.split(", ")
             teamName = infos[1]
             if teamName != self.__teamName:
                 ## DENY ## TO IMPLEMENT ##
-                return None
+                return
             try:
                 pos = int(infos[0].split(" ")[1])
             except ValueError as e:
