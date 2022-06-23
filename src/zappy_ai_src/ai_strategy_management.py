@@ -172,10 +172,13 @@ LEVEL_UP_REQUIREMENTS = [{},
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
 
+""" This is a return value used by waitForAction() when an unexpected response happen """
 UNEXPECTED = 1
 
+""" This is a return value used by waitForAction() when the AI needs to be stopped """
 STOPPED = -1
 
+""" This is a return value used by waitForAction() when an expected response happen """
 EXPECTED = 0
 
 class Ai:
