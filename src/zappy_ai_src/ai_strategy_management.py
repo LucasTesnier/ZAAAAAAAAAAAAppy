@@ -384,9 +384,15 @@ class Ai:
                 - Eject from another player (not implemented at the moment)
                 - Broadcast, sending message from another player (not implemented at the moment)
         """
-        response = self.__lib.GetUnexpectedResponse()
+        response : str = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
+        if response.startswith("Broadcast"):
+            info = response.split(";")
+            teamName = info[1]
+            if teamName != self.__teamName:
+                return
+            message = info[:1]
 
     def __ticksCptManagement(self):
         """This is used by AI to manage useful ticks counter
