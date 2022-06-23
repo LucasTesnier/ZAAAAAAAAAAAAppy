@@ -46,6 +46,8 @@ namespace gui::entity {
         std::vector<int> _inventory;
         /// \brief string representating the team
         std::string _team_name;
+        /// \brief string representating the uuid
+        std::string _uuid;
         /// \brief level of the player
         int _level;
         /// \brief orientation of the player
@@ -64,6 +66,11 @@ namespace gui::entity {
         /// \return a string containing the name of the team
         std::string getTeamName() {
             return _team_name;
+        }
+        /// \brief get the uuid
+        /// \return a string containing the uuid of the player
+        const std::string &getTeamName() const {
+            return _uuid;
         }
         /// \brief get the level
         /// \return an int containing the level of the player
@@ -109,6 +116,8 @@ namespace gui::entity {
         std::pair<int, int> _position;
         /// \brief string representating the team
         std::string _team_name;
+        /// \brief string representating the uuid
+        std::string _uuid;
         /// \brief get the position
         /// \return a pair containing the position x and y
         std::pair<int, int> getPosition() {
@@ -118,6 +127,11 @@ namespace gui::entity {
         /// \return a string containing the name of the team
         std::string getTeamName() {
             return _team_name;
+        }
+        /// \brief get the uuid
+        /// \return a string containing the uuid of the player
+        const std::string &getTeamName() const {
+            return _uuid;
         }
     };
 }  // namespace gui::entity
