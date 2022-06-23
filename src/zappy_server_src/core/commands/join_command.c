@@ -43,8 +43,8 @@ entity_t **player_entity, server_data_t *serv)
     player_t *player_data = NULL;
 
     *player_entity = create_entity(ENTITY_PLAYER_TYPE, (position_t){
-        .x = rand() % serv->map->height,
-        .y = rand() % serv->map->width
+        .x = rand() % serv->map->width,
+        .y = rand() % serv->map->height
     });
     if (!*player_entity)
         return false;
