@@ -94,3 +94,18 @@ const sf::Vector2f &Animation::getSize() const
 {
     return _shape.getSize();
 }
+
+const sf::FloatRect Animation::getGlobalBounds()
+{
+    return _shape.getGlobalBounds();
+}
+
+void Animation::setColor(const sf::Color &color)
+{
+    _shape.setFillColor(color);
+}
+
+const sf::Color &Animation::getColor() const
+{
+    return _shape.getFillColor();
+}

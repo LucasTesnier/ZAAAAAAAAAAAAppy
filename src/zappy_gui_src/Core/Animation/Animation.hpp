@@ -83,6 +83,18 @@ namespace gui {
             /// \return const sf::Vector2f reference of the size.
             const sf::Vector2f &getSize() const;
 
+            /// \brief It gets the size of the shape used for the animation.
+            /// \return const sf::Vector2f reference of the size.
+            const sf::FloatRect getGlobalBounds();
+
+            /// \brief It sets the color of the shape used for the animation.
+            /// \param color The color to be set on the shape.
+            void setColor(const sf::Color &color);
+
+            /// \brief It gets the color of the shape used for the animation.
+            /// \return const sf::Color reference of the size.
+            const sf::Color &getColor() const;
+
         private:
             /// \brief It's the shape used for the animation.
             sf::RectangleShape _shape;
