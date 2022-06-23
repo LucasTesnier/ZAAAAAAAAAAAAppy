@@ -240,7 +240,7 @@ class Ai:
         """
         self.__ableToMove = True
 
-        self.__Queues : AIQueues = AIQueues(10, [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight])
+        self.__Queues : AIQueues = AIQueues(10)
 
 
     def __del__(self):
@@ -465,20 +465,17 @@ class Ai:
             if self.__lib.GetUnexpectedResponseState():
                 self.__unexpectedResponseManagement()
                 continue
-            else:
-                if response in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
-                    if not response():
-                        self.__setTargetTileReached(True)
-                    elif not self.__Queues.isMovementLeft():
-                        self.__setTargetTileReached(True)
-                if response in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
-                    pass
-                if response == self.__lib.GetRepFork and not self.__lib.GetRepFork():
-                    self.__availableSlots += 1
-                if response == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
-                    self.__incrPlayerCurrentLevel()
-                responseTreated = True
-
+            if response in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
+                self.__Queues.decMov() if response() else self.__setTargetTileReached(True)
+            if response in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
+                pass
+            if response == self.__lib.GetRepFork and not self.__lib.GetRepFork():
+                self.__availableSlots += 1
+            if response == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
+                self.__incrPlayerCurrentLevel()
+            responseTreated = True
+        if not self.__Queues.isMovementLeft():
+            self.__setTargetTileReached(True)
 
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
@@ -596,19 +593,23 @@ class Ai:
         for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
+            self.__Queues.incrMov()
         nbForwardSteps = index - frontTileIndex
         if nbForwardSteps < 0:
             self.__lib.AskTurnLeft()
             nbForwardSteps *= -1
             self.__Queues.addInAiQueue(self.__lib.GetRepTurnLeft)
+            self.__Queues.incrMov()
         elif nbForwardSteps == 0:
             return
         else:
             self.__lib.AskTurnRight()
             self.__Queues.addInAiQueue(self.__lib.GetRepTurnRight)
+            self.__Queues.incrMov()
         for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
+            self.__Queues.incrMov()
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
         These functions are considered as decisions
