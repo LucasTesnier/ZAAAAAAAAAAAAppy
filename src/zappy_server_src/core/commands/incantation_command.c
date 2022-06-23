@@ -12,6 +12,7 @@
 #include "team.h"
 #include "entity/player.h"
 #include "entity/tile.h"
+#include "incantation.h"
 
 /// \brief List of all the incantation data
 static const incantation_level_t inc_lvl[] = {
@@ -102,15 +103,18 @@ player_t *player, position_t player_pos)
         return NULL;
     if (!incantation_verif(serv->entities, player->level, player_pos))
         return NULL;
+    remove_ressource_randomly(serv->entities, player_pos,
+    (container_t) {0,
+        inc_lvl[player->level - 1].linemate,
+        inc_lvl[player->level - 1].deraumere,
+        inc_lvl[player->level - 1].sibur,
+        inc_lvl[player->level - 1].mendiane,
+        inc_lvl[player->level - 1].phiras,
+        inc_lvl[player->level - 1].thystame},
+    player->level);
     player->level += 1;
     res[0] = '\0';
     sprintf(res, "%i", player->level);
-    player->inventory->linemate -= inc_lvl[player->level - 2].linemate;
-    player->inventory->deraumere -= inc_lvl[player->level - 2].deraumere;
-    player->inventory->sibur -= inc_lvl[player->level - 2].sibur;
-    player->inventory->mendiane -= inc_lvl[player->level - 2].mendiane;
-    player->inventory->phiras -= inc_lvl[player->level - 2].phiras;
-    player->inventory->thystame -= inc_lvl[player->level - 2].thystame;
     send_entities_list_info(serv);
     return res;
 }

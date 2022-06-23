@@ -45,22 +45,26 @@ namespace gui {
             /// \param player the player object to add
             inline void addPlayer(gui::entity::Player &player) {
                 _map.addPlayer(player);
+                _interface.addPlayer(player);
             }
 
             /// \brief add a tileInfo object to the map
             /// \param tileInfo the tileInfo object to add
             inline void addTilesInfo(gui::entity::Tile &tileInfo) {
                 _map.addTilesInfo(tileInfo);
+                _interface.addTilesInfo(tileInfo);
             }
 
             /// \brief add a egg object to the map
             /// \param egg the egg object to add
             inline void addEgg(gui::entity::Egg &egg){
                 _map.addEgg(egg);
+                _interface.addEgg(egg);
             }
             /// \brief remove entities depending on the type given
             /// \param type string representating the type of entities to remove
             void removeEntities(std::string &type);
+
         private:
 
             void _getEvent();
