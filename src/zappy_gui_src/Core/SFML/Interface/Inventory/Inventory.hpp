@@ -67,6 +67,9 @@ namespace gui {
             /// \brief update the body from the clicks of the mouse on the button
             /// \param forceUpdate false by default, forcing the resize of the body
             void update(bool forceUpdate = false);
+            /// \brief set the FloatRect area of the server with a position and a size
+            /// \param position the position of the area
+            /// \param size the size of the area
             inline void setAreaServer(const sf::Vector2f &position, const sf::Vector2f &size) {
                 sf::FloatRect temp;
                 temp.left = position.x;
@@ -110,6 +113,10 @@ namespace gui {
         private:
             /// \brief resize the body and all the shapes on it
             void _updateBody();
+            /// \brief detect if the button is clicked
+            /// \return true if clicked, false either
+            /// \param mouse the position of the mouse
+            bool _isButtonClicked(sf::Vector2i mouse);
             /// \brief the SFML window from the Core
             std::shared_ptr<sf::RenderWindow> _window;
             /// \brief the rectangle containing all the shapes

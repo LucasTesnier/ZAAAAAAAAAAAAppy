@@ -194,6 +194,14 @@ void Inventory::_updateBody()
     setPosTextsEgg(1330, 50, 150);
 }
 
+bool Inventory::_isButtonClicked(sf::Vector2i mouse)
+{
+    if (mouse.x >= _button.getPosition().x && mouse.x <= _button.getPosition().x + _button.getGlobalBounds().width)
+        if (mouse.y >= _button.getPosition().y && mouse.y <= _button.getPosition().y + _button.getGlobalBounds().height)
+            return true;
+    return false;
+}
+
 void Inventory::update(bool forceUpdate)
 {
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
@@ -206,12 +214,10 @@ void Inventory::update(bool forceUpdate)
         _clock.restart();
         return;
     }
-    if (mouse.x >= _button.getPosition().x && mouse.x <= _button.getPosition().x + _button.getGlobalBounds().width) {
-        if (mouse.y >= _button.getPosition().y && mouse.y <= _button.getPosition().y + _button.getGlobalBounds().height) {
-            _isOpen = (_isOpen) ? false : true;
-            _updateBody();
-            _clock.restart();
-        }
+    if (_isButtonClicked(mouse)) {
+        _isOpen = (_isOpen) ? false : true;
+        _updateBody();
+        _clock.restart();
     }
 }
 
