@@ -97,3 +97,56 @@ void ServerCommunication::initializeShapes()
     _text.setString("Server communication");
     _text.setCharacterSize(16);
 }
+
+void ServerCommunication::removeEntities(std::string &type)
+{
+    if (type == "tile") {
+        _tiles.clear();
+    }
+    if (type == "player") {
+        _players.clear();
+    }
+    if (type == "egg") {
+        _eggs.clear();
+    }
+    _updateText();
+}
+
+std::string ServerCommunication::_inventoryToString(const std::vector<int> &inventory)
+{
+    std::string inventoryAsString;
+
+    inventoryAsString.append("\tInventory:\n");
+    inventoryAsString.append("\t\tFood: " + std::to_string(inventory[0]) + "\n");
+    inventoryAsString.append("\t\tLinemate: " + std::to_string(inventory[1]) + "\n");
+    inventoryAsString.append("\t\tDeraumere: " + std::to_string(inventory[2]) + "\n");
+    inventoryAsString.append("\t\tSibur: " + std::to_string(inventory[3]) + "\n");
+    inventoryAsString.append("\t\tMendiane: " + std::to_string(inventory[4]) + "\n");
+    inventoryAsString.append("\t\tPhiras: " + std::to_string(inventory[5]) + "\n");
+    inventoryAsString.append("\t\tThystame: " + std::to_string(inventory[6]) + "\n");
+    return inventoryAsString;
+}
+
+void ServerCommunication::_updateText()
+{
+    _serverInformation.clear();
+    _serverInformation.append("SERVER COMMUNICATION\n");
+    _serverInformation.append("PLAYERS\n");
+    for (auto it : _players) {
+        _serverInformation.append("\tPosition: " + std::to_string(it._position.first) + ", " + std::to_string(it._position.second) + "\n");
+        _serverInformation.append("\tTeam name: " + it._team_name + "\n");
+        _serverInformation.append("\tLevel: " + std::to_string(it._level) + "\n");
+        _serverInformation.append(_inventoryToString(it._inventory));
+    }
+    _serverInformation.append("EGGS\n");
+    for (auto it : _eggs) {
+        _serverInformation.append("\tPosition: " + std::to_string(it._position.first) + ", " + std::to_string(it._position.second) + "\n");
+        _serverInformation.append("\tTeam name: " + it._team_name + "\n");
+    }
+    _serverInformation.append("TILES\n");
+    for (auto it : _tiles) {
+        _serverInformation.append(std::string(std::to_string(it._position.first) + ", " + std::to_string(it._position.second)) + "\n");
+        _serverInformation.append(_inventoryToString(it._inventory));
+    }
+    _text.setString(_serverInformation);
+}
