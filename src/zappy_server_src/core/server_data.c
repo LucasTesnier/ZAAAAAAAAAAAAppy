@@ -64,7 +64,8 @@ player_state_t comp)
             server_remove_player(server_data, server_data->active_players[i]);
         if (server_data->active_players[i]->player_peer != NULL &&
             server_data->active_players[i]->player_peer->connected == false
-            && server_data->active_players[i]->type == AI)
+            && server_data->active_players[i]->type == AI &&
+            server_data->active_players[i]->player_data)
             remove_player_from_team(
             (player_t *)server_data->active_players[i]->player_data->data,
             server_data);
