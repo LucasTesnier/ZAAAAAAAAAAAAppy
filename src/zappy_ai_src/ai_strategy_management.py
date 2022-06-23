@@ -5,6 +5,7 @@ from ai_handle_response import Inventory, Map, Tile
 from sys import stderr
 from ai_safe_error import safeExitError
 from ai_queue_wrapper import AIQueues
+from ai_broadcast_to_object import BroadcastInfo
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -378,7 +379,7 @@ class Ai:
         self.__setInventory(self.__lib.GetRepInventory())
         self.__setFrequency(int((tmpFood - self.__inventory.GetFood()) / 2))
 
-    def __unexpectedResponseManagement(self):
+    def __unexpectedResponseManagement(self) -> BroadcastInfo:
         """This is used by AI to manage every unexpected response send by the server like :
                 - Death of the player
                 - Eject from another player (not implemented at the moment)
@@ -387,12 +388,23 @@ class Ai:
         response : str = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
-        if response.startswith("Broadcast"):
-            info = response.split(";")
-            teamName = info[1]
+        if response.startswith("message"):
+            infos = response.split(", ")
+            teamName = infos[1]
             if teamName != self.__teamName:
-                return
-            message = info[:1]
+                ## DENY ## TO IMPLEMENT ##
+                return None
+            try:
+                pos = int(infos[0].split(" ")[1])
+            except ValueError as e:
+                print(e)
+            action = infos[2]
+            if action == "incantation":
+                messageInfo : BroadcastInfo = BroadcastInfo(action, teamName, pos, int(infos[3]), int (infos[4]), None)
+            if action == "give":
+                messageInfo : BroadcastInfo = BroadcastInfo(action, teamName, pos, 0, 0, infos[2])
+            return messageInfo
+
 
     def __ticksCptManagement(self):
         """This is used by AI to manage useful ticks counter
@@ -560,7 +572,7 @@ class Ai:
             return False
         levelOfPlayer = self.__getPlayerCurrentLevel()
         nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "elevation" else 1
-        if not self.__lib.AskBroadcastText(f"Broadcast {self.__getTeamName()};{nbPlayer};{action}\n"):
+        if not self.__lib.AskBroadcastText(f"Broadcast {self.__getTeamName()}, {action}, {nbPlayer}\n"):
             safeExitError()
         return True
 
