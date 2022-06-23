@@ -72,7 +72,7 @@ entity_t *entity, player_list_t *user)
 static void drop_player_inventory(server_data_t *serv, entity_t *entity)
 {
     tile_t *tile = (tile_t *)get_tile(serv->map, entity->position.x,
-    entity->position.y);
+    entity->position.y)->data;
     container_t *inventory = ((player_t *)entity->data)->inventory;
 
     if (tile == NULL)
