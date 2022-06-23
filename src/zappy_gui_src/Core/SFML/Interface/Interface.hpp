@@ -57,18 +57,27 @@ namespace gui {
                 _minimap.setMapSize(_mapSize);
             };
 
+            /// \brief Add the player passed as parameter to the server menu.
+            /// \param player The player to be added.
             inline void addPlayer(gui::entity::Player &player) {
                 _server.addPlayer(player);
             };
 
+            /// \brief Add the tile passed as parameter to the server menu.
+            /// \param tile The tile to be added.
             inline void addTilesInfo(gui::entity::Tile &tile) {
                 _server.addTilesInfo(tile);
             };
 
+            /// \brief Add the egg passed as parameter to the server menu.
+            /// \param egg The egg to be added.
             inline void addEgg(gui::entity::Egg &egg) {
                 _server.addEgg(egg);
             };
 
+            /// \brief Remove all entities depending on the type.
+            /// \note Type value available are: `player`, `egg`, `tile`.
+            /// \param type The type of the entity
             inline void removeEntities(std::string &type) {
                 _server.removeEntities(type);
             };

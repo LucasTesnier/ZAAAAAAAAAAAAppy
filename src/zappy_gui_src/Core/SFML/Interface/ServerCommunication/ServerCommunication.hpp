@@ -73,26 +73,41 @@ namespace gui {
                 _button.setFillColor(color);
             };
 
+            /// \brief Add a player at the end of a vector of players. It updates also the text on the left menu.
+            /// \param player The player to be added.
             inline void addPlayer(gui::entity::Player &player) {
                 _players.push_back(player);
                 _updateText();
             };
 
+            /// \brief Add a tile at the end of a vector of tiles. It updates also the text on the left menu.
+            /// \param tile The tile to be added.
             inline void addTilesInfo(gui::entity::Tile &tile) {
                 _tiles.push_back(tile);
                 _updateText();
             };
 
+            /// \brief Add an egg at the end of a vector of eggs. It updates also the text on the left menu.
+            /// \param egg The egg to be added.
             inline void addEgg(gui::entity::Egg &egg) {
                 _eggs.push_back(egg);
                 _updateText();
             };
 
+            /// \brief Remove all entities depending on the type.
+            /// \note Type value available are: `player`, `egg`, `tile`.
+            /// \param type The type of the entity.
             void removeEntities(std::string &type);
         private:
 
+            /// \brief It converts an inventory's vector to a string.
+            /// \param inventory The inventory to be converted.
+            /// \return The new string which represents the inventory.
             std::string _inventoryToString(const std::vector<int> &inventory);
+
+            /// \brief It updates the text on the left menu depending on informations in players, eggs, and tiles vectors.
             void _updateText();
+
             /// \brief The _updateBody function is a private function to update the global shape depending of it's status.
             void _updateBody();
 
@@ -117,10 +132,16 @@ namespace gui {
             /// \brief It's the font used for the text.
             sf::Font _font;
 
+            /// \brief String which represent the information that will be displayed on the left menu.
             std::string _serverInformation;
 
+            /// \brief A vector which contains all players that are updated by the server.
             std::vector<entity::Player> _players;
+
+            /// \brief A vector which contains all tiles that are updated by the server.
             std::vector<entity::Tile> _tiles;
+
+            /// \brief A vector which contains all eggs that are updated by the server.
             std::vector<entity::Egg> _eggs;
     };
 } // namespace gui
