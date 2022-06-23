@@ -138,6 +138,8 @@ void Map::_displayHoveredTile(sf::RectangleShape &entityRepresentation)
 }
 void Map::_displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation)
 {
+    sf::Vector2f temp;
+
     playerRepresentation.setFillColor(sf::Color::Green);
     playerRepresentation.setSize(sf::Vector2f(10, 10));
     playerRepresentation.setOutlineColor(sf::Color::Black);
@@ -146,15 +148,21 @@ void Map::_displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation)
         playerRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - playerRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top});
         _window->draw(playerRepresentation);
         if (tile.getPlayers().size() >= 2) {
-            playerRepresentation.move(-4, 4);
+            temp.x = -4;
+            temp.y = 4;
+            playerRepresentation.move(temp);
             _window->draw(playerRepresentation);
         }
         if (tile.getPlayers().size() >= 3) {
-            playerRepresentation.move(8, 0);
+            temp.x = 8;
+            temp.y = 0;
+            playerRepresentation.move(temp);
             _window->draw(playerRepresentation);
         }
         if (tile.getPlayers().size() >= 4) {
-            playerRepresentation.move(-4, 4);
+            temp.x = -4;
+            temp.y = 4;
+            playerRepresentation.move(temp);
             _window->draw(playerRepresentation);
         }
     }
@@ -165,6 +173,7 @@ void Map::_displayResources(Tile &tile, sf::RectangleShape &ressourcesRepresenta
     std::size_t index = 1;
     int multiplierFood = 10;
     int multiplierStone = 5;
+    sf::Vector2f temp;
 
     ressourcesRepresentation.setSize(sf::Vector2f(5, 5));
     ressourcesRepresentation.setOutlineThickness(0.5);
@@ -174,15 +183,21 @@ void Map::_displayResources(Tile &tile, sf::RectangleShape &ressourcesRepresenta
             ressourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - ressourcesRepresentation.getGlobalBounds().height / 2});
             _window->draw(ressourcesRepresentation);
             if (it >= 2 * (index == 1 ? multiplierFood : multiplierStone)) {
-                ressourcesRepresentation.move(-4, 4);
+                temp.x = -4;
+                temp.y = 4;
+                ressourcesRepresentation.move(temp);
                 _window->draw(ressourcesRepresentation);
             }
             if (it >= 3 * (index == 1 ? multiplierFood : multiplierStone)) {
-                ressourcesRepresentation.move(8, 0);
+                temp.x = 8;
+                temp.y = 0;
+                ressourcesRepresentation.move(temp);
                 _window->draw(ressourcesRepresentation);
             }
             if (it >= 4 * (index == 1 ? multiplierFood : multiplierStone)) {
-                ressourcesRepresentation.move(-4, 4);
+                temp.x = -4;
+                temp.y = 4;
+                ressourcesRepresentation.move(temp);
                 _window->draw(ressourcesRepresentation);
             }
         }
@@ -193,6 +208,8 @@ void Map::_displayResources(Tile &tile, sf::RectangleShape &ressourcesRepresenta
 
 void Map::_displayEggs(Tile &tile, sf::RectangleShape &eggRepresentation)
 {
+    sf::Vector2f temp;
+
     eggRepresentation.setFillColor(sf::Color::Yellow);
     eggRepresentation.setSize(sf::Vector2f(8, 8));
     eggRepresentation.setOutlineColor(sf::Color::Black);
@@ -201,15 +218,21 @@ void Map::_displayEggs(Tile &tile, sf::RectangleShape &eggRepresentation)
         eggRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - eggRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top + tile.getGlobalBound().height - eggRepresentation.getGlobalBounds().height});
         _window->draw(eggRepresentation);
         if (tile.getEggs().size() >= 2) {
-            eggRepresentation.move(-4, 4);
+            temp.x = -4;
+            temp.y = 4;
+            eggRepresentation.move(temp);
             _window->draw(eggRepresentation);
         }
         if (tile.getEggs().size() >= 3) {
-            eggRepresentation.move(8, 0);
+            temp.x = 8;
+            temp.y = 0;
+            eggRepresentation.move(temp);
             _window->draw(eggRepresentation);
         }
         if (tile.getEggs().size() >= 4) {
-            eggRepresentation.move(-4, 4);
+            temp.x = -4;
+            temp.y = 4;
+            eggRepresentation.move(temp);
             _window->draw(eggRepresentation);
         }
     }
