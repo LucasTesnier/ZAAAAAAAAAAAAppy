@@ -20,5 +20,6 @@ peer_t *new_peer(int fd, struct sockaddr_in addr)
     new_peer->peer_addr = addr;
     new_peer->connected = true;
     new_peer->pending_read = 0;
+    new_peer->pending_write = 0;
     return (new_peer);
 }

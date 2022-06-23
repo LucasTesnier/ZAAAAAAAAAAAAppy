@@ -17,6 +17,9 @@ Map::Map()
     _tileHover = -1;
     _mapSize = {10, 10};
     _zoom = 1;
+    _noTileSelected = {-1, -1};
+    std::vector<int> tmpVec{0, 0, 0, 0, 0, 0, 0,};
+    _noTileSelectedInv = tmpVec;
 }
 
 void Map::_updateTileVectorSize()
@@ -110,7 +113,7 @@ void Map::_findSelectedAndHoverTiles(std::size_t &i, const sf::Vector2i &mouse)
     }
 }
 
-void Map::_displaySelectedTile(sf::CircleShape &entityRepresentation)
+void Map::_displaySelectedTile(sf::RectangleShape &entityRepresentation)
 {
     if (_tileSelected < _mapSize.x * _mapSize.y) {
         _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
@@ -122,7 +125,7 @@ void Map::_displaySelectedTile(sf::CircleShape &entityRepresentation)
     }
 }
 
-void Map::_displayHoveredTile(sf::CircleShape &entityRepresentation)
+void Map::_displayHoveredTile(sf::RectangleShape &entityRepresentation)
 {
     if (_tileHover < _mapSize.x * _mapSize.y) {
         _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
@@ -133,39 +136,105 @@ void Map::_displayHoveredTile(sf::CircleShape &entityRepresentation)
         _displayEggs(*_tile[_tileHover], entityRepresentation);
     }
 }
-void Map::_displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation)
+void Map::_displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation)
 {
+    sf::Vector2f temp;
+
     playerRepresentation.setFillColor(sf::Color::Green);
-    playerRepresentation.setRadius(10);
+    playerRepresentation.setSize(sf::Vector2f(10, 10));
+    playerRepresentation.setOutlineColor(sf::Color::Black);
+    playerRepresentation.setOutlineThickness(1);
     if (tile.getPlayers().size()) {
         playerRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - playerRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top});
         _window->draw(playerRepresentation);
+        if (tile.getPlayers().size() >= 2) {
+            temp.x = -4;
+            temp.y = 4;
+            playerRepresentation.move(temp);
+            _window->draw(playerRepresentation);
+        }
+        if (tile.getPlayers().size() >= 3) {
+            temp.x = 8;
+            temp.y = 0;
+            playerRepresentation.move(temp);
+            _window->draw(playerRepresentation);
+        }
+        if (tile.getPlayers().size() >= 4) {
+            temp.x = -4;
+            temp.y = 4;
+            playerRepresentation.move(temp);
+            _window->draw(playerRepresentation);
+        }
     }
 }
 
-void Map::_displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation)
+void Map::_displayResources(Tile &tile, sf::RectangleShape &ressourcesRepresentation)
 {
     std::size_t index = 1;
+    int multiplierFood = 10;
+    int multiplierStone = 5;
+    sf::Vector2f temp;
 
-    resourcesRepresentation.setRadius(5);
-    resourcesRepresentation.setFillColor(sf::Color(0, 0, 0));
-    for (auto &it : tile.getTileInfo()._inventory) {
+    ressourcesRepresentation.setSize(sf::Vector2f(5, 5));
+    ressourcesRepresentation.setOutlineThickness(0.5);
+    ressourcesRepresentation.setFillColor(sf::Color(0, 0, 0));
+    for (auto &it : tile.getTileInfo().getInventory()) {
         if (it) {
-            resourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - resourcesRepresentation.getGlobalBounds().height / 2});
-            _window->draw(resourcesRepresentation);
+            ressourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - ressourcesRepresentation.getGlobalBounds().height / 2});
+            _window->draw(ressourcesRepresentation);
+            if (it >= 2 * (index == 1 ? multiplierFood : multiplierStone)) {
+                temp.x = -4;
+                temp.y = 4;
+                ressourcesRepresentation.move(temp);
+                _window->draw(ressourcesRepresentation);
+            }
+            if (it >= 3 * (index == 1 ? multiplierFood : multiplierStone)) {
+                temp.x = 8;
+                temp.y = 0;
+                ressourcesRepresentation.move(temp);
+                _window->draw(ressourcesRepresentation);
+            }
+            if (it >= 4 * (index == 1 ? multiplierFood : multiplierStone)) {
+                temp.x = -4;
+                temp.y = 4;
+                ressourcesRepresentation.move(temp);
+                _window->draw(ressourcesRepresentation);
+            }
         }
-        resourcesRepresentation.setFillColor(resourcesRepresentation.getFillColor() + sf::Color(30, 30, 30));
+        ressourcesRepresentation.setFillColor(ressourcesRepresentation.getFillColor() + sf::Color(30, 30, 30));
         index++;
     }
 }
 
-void Map::_displayEggs(Tile &tile, sf::CircleShape &eggRepresentation)
+void Map::_displayEggs(Tile &tile, sf::RectangleShape &eggRepresentation)
 {
+    sf::Vector2f temp;
+
     eggRepresentation.setFillColor(sf::Color::Yellow);
-    eggRepresentation.setRadius(8);
+    eggRepresentation.setSize(sf::Vector2f(8, 8));
+    eggRepresentation.setOutlineColor(sf::Color::Black);
+    eggRepresentation.setOutlineThickness(1);
     if (tile.getEggs().size()) {
         eggRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - eggRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top + tile.getGlobalBound().height - eggRepresentation.getGlobalBounds().height});
         _window->draw(eggRepresentation);
+        if (tile.getEggs().size() >= 2) {
+            temp.x = -4;
+            temp.y = 4;
+            eggRepresentation.move(temp);
+            _window->draw(eggRepresentation);
+        }
+        if (tile.getEggs().size() >= 3) {
+            temp.x = 8;
+            temp.y = 0;
+            eggRepresentation.move(temp);
+            _window->draw(eggRepresentation);
+        }
+        if (tile.getEggs().size() >= 4) {
+            temp.x = -4;
+            temp.y = 4;
+            eggRepresentation.move(temp);
+            _window->draw(eggRepresentation);
+        }
     }
 }
 
@@ -174,7 +243,7 @@ void Map::display()
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());
     sf::FloatRect area;
     std::size_t tmp = 0;
-    sf::CircleShape _entityReprensentation;
+    sf::RectangleShape entityReprensentation;
 
     _updateMoveMap();
     for (std::size_t i = 0; i < _tile.size(); i++) {
@@ -187,12 +256,12 @@ void Map::display()
             tmp = i;
         _findSelectedAndHoverTiles(i, mouse);
         _window->draw(_tile[i]->getShape());
-        _displayPlayers(*_tile[i], _entityReprensentation);
-        _displayResources(*_tile[i], _entityReprensentation);
-        _displayEggs(*_tile[i], _entityReprensentation);
+        _displayPlayers(*_tile[i], entityReprensentation);
+        _displayResources(*_tile[i], entityReprensentation);
+        _displayEggs(*_tile[i], entityReprensentation);
     }
-    _displaySelectedTile(_entityReprensentation);
-    _displayHoveredTile(_entityReprensentation);
+    _displaySelectedTile(entityReprensentation);
+    _displayHoveredTile(entityReprensentation);
 }
 
 Map::~Map()

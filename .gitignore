@@ -86,3 +86,6 @@ toto
 
 # Tests Files
 *_test
+
+# Gimp image
+*.xcf
