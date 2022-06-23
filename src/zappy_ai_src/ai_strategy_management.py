@@ -405,11 +405,15 @@ class Ai:
         if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskInventory()
             self.__resetInventoryTicksCpt()
-            self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
+            if self.__waitForAction():
+                return
+            self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskLook()
             self.__resetMapVisionTicksCpt()
-            self.__Queues.addInAiQueue(self.__lib.GetRepLook)
+            if self.__waitForAction():
+                return
+            self.__inventory.fillInventory(self.__lib.GetRepLook())
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
         These functions are considered as actions
@@ -465,6 +469,32 @@ class Ai:
                 break
         self.__setTargetTileReached(False)
 
+    def __handleQueuesResponses(self, response) -> None:
+        """
+        From the response object given by self.__Queues.emptyServerQueue()
+        Find the correct way to get the response and process it
+        Only the getter of Forwarf, Right, Left, Take/Place Object, Eject, Fork and Incantation are handled
+        """
+        responseTreated : bool = False
+
+        while not responseTreated and self.__getIsRunning():
+            if not self.__lib.GetResponseState():
+                continue
+            if self.__lib.GetUnexpectedResponseState():
+                self.__unexpectedResponseManagement()
+                continue
+            if response in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
+                self.__Queues.decMov() if response() else self.__setTargetTileReached(True)
+            if response in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
+                pass
+            if response == self.__lib.GetRepFork and not self.__lib.GetRepFork():
+                self.__availableSlots += 1
+            if response == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
+                self.__incrPlayerCurrentLevel()
+            responseTreated = True
+        if not self.__Queues.isMovementLeft():
+            self.__setTargetTileReached(True)
+
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
@@ -501,7 +531,8 @@ class Ai:
                 break
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
         if self.__Queues.isServerQueueFull():
-            responses = self.__Queues.emptyServerQueue(3)
+            response = self.__Queues.emptyServerQueue()
+            self.__handleQueuesResponses(response)
         self.__Queues.addInServerQueue()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
@@ -601,19 +632,23 @@ class Ai:
         for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
+            self.__Queues.incrMov()
         nbForwardSteps = index - frontTileIndex
         if nbForwardSteps < 0:
             self.__lib.AskTurnLeft()
             nbForwardSteps *= -1
             self.__Queues.addInAiQueue(self.__lib.GetRepTurnLeft)
+            self.__Queues.incrMov()
         elif nbForwardSteps == 0:
             return
         else:
             self.__lib.AskTurnRight()
             self.__Queues.addInAiQueue(self.__lib.GetRepTurnRight)
+            self.__Queues.incrMov()
         for _ in range(0, nbForwardSteps):
             self.__lib.AskForward()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
+            self.__Queues.incrMov()
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
         These functions are considered as decisions

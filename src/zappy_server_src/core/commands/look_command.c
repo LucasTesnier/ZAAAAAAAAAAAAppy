@@ -55,7 +55,7 @@ static char *get_tile_content(entity_t *tile, entity_wrapper_t *wrapper)
 {
     tile_t *tile_data = (tile_t *)tile->data;
     container_t *cases = tile_data->inventory;
-    char *res = malloc(sizeof(char) * 10000);
+    char *res = malloc(sizeof(char) * get_look_case_total_size(cases));
 
     if (res == NULL)
         return NULL;
