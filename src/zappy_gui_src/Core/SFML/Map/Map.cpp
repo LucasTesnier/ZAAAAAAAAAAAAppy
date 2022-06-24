@@ -68,7 +68,7 @@ void Map::_updateTileVectorSize()
         _tile.back()->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
         _tile.back()->setSize(sf::Vector2f(100, 100));
         if (_tile.size() == 1)
-            _tile.back()->setTexture("assets/season1_ground1.png");
+            _tile.back()->setTexture("assets/ground1.png");
         else
             _tile.back()->setTexture(_tile[0]->getTexture());
     }
@@ -297,9 +297,4 @@ void Map::display()
     }
     _displaySelectedTile();
     _displayHoveredTile();
-}
-
-Map::~Map()
-{
-
 }
