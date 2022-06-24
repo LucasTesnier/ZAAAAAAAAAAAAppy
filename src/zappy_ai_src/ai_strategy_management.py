@@ -566,8 +566,7 @@ class Ai:
                 break
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
         if self.__Queues.isServerQueueFull():
-
-            self.__handleQueuesResponses(response)
+            self.__handleQueuesResponses()
         self.__Queues.addInServerQueue()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
