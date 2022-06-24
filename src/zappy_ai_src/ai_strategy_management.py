@@ -369,7 +369,7 @@ class Ai:
             self.__playerStrategyManagement()
             self.__actionsProceed()
             self.__ticksCptManagement()
-            self.__QueueManagement()
+            self.__queueManagement()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
