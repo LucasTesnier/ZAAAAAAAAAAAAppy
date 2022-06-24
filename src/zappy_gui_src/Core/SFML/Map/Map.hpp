@@ -41,7 +41,7 @@ namespace gui {
             Map();
 
             /// \brief Destructor of the Map.
-            ~Map();
+            ~Map() = default;
 
             /// \brief Set the render window to display on.
             /// \param window The window to be set.
