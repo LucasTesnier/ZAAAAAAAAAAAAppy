@@ -11,7 +11,7 @@
 
 player_t *create_player(const char *team_name)
 {
-    player_t *player = (player_t*)malloc(sizeof(player_t));
+    player_t *player = (player_t *)malloc(sizeof(player_t));
 
     if (!player)
         return NULL;

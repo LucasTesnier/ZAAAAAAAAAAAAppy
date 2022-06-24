@@ -22,12 +22,10 @@
     /// \brief Return value when operation failed
     #define FAILED 84
 
-/// Pointer to the server state for sigint handle
+/// \brief Pointer to the server state for sigint handle
 extern volatile bool *server_state;
 
-///
 /// \brief List of all the different client types
-///
 typedef enum client_type_s {
     /// Type for the Graphic Interface
     GUI,
@@ -65,6 +63,7 @@ typedef struct player_list_s {
     position_t incantation_position;
 } player_list_t;
 
+/// \brief Different settings of the game
 typedef struct argument_s {
     /// Port of the server
     long port;

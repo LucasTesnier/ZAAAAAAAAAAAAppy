@@ -40,35 +40,35 @@ int get_len_container(container_t *cont)
     return len;
 }
 
-int get_len_player(entity_t *ent, player_t *p)
+int get_len_player(entity_t *ent, player_t *player)
 {
     int len = 0;
 
     len += get_int_len(ent->position.x);
     len += get_int_len(ent->position.y);
-    len += get_len_container(p->inventory);
-    len += strlen(p->team);
-    len += get_int_len(p->level);
-    len += get_int_len(p->orientation);
+    len += get_len_container(player->inventory);
+    len += strlen(player->team);
+    len += get_int_len(player->level);
+    len += get_int_len(player->orientation);
     return len;
 }
 
-int get_len_tile(entity_t *ent, tile_t *t)
+int get_len_tile(entity_t *ent, tile_t *tile)
 {
     int len = 0;
 
     len += get_int_len(ent->position.x);
     len += get_int_len(ent->position.y);
-    len += get_len_container(t->inventory);
+    len += get_len_container(tile->inventory);
     return len;
 }
 
-int get_len_egg(entity_t *ent, egg_t *e)
+int get_len_egg(entity_t *ent, egg_t *egg)
 {
     int len = 0;
 
     len += get_int_len(ent->position.x);
     len += get_int_len(ent->position.y);
-    len += strlen(e->team_name);
+    len += strlen(egg->team_name);
     return len;
 }

@@ -5,7 +5,7 @@
 ** broadcast_process
 */
 
-/// \file src/zappy_server_src/core/commands/broadcast_command.c
+/// \file src/zappy_server_src/core/commands/broadcast_process.c
 
 #include "command_hold.h"
 #include "rcodes.h"

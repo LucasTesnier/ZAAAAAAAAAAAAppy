@@ -1,4 +1,5 @@
-set (INCLUDE_ROOT ${PROJECT_SOURCE_DIR}/src/zappy_server_src/net_utils/fd_sets_manage)
+set (INCLUDE_ROOT
+${PROJECT_SOURCE_DIR}/src/zappy_server_src/net_utils/fd_sets_manage)
 
 set (SRC_FD_SET_MANAGE
     ${INCLUDE_ROOT}/fd_sets_manage.c

@@ -22,7 +22,8 @@ static const incantation_level_t inc_lvl[] = {
     {4, 1, 1, 2, 0, 1, 0},
     {4, 1, 2, 1, 3, 0, 0},
     {6, 1, 2, 3, 0, 1, 0},
-    {6, 2, 2, 2, 2, 2, 1}
+    {6, 2, 2, 2, 2, 2, 1},
+    {10, 99, 99, 99, 99, 99, 99}
 };
 
 /// \brief Add the inventory content to the global container
@@ -90,7 +91,7 @@ server_data_t *serv)
     return true;
 }
 
-/// \brief Process 
+/// \brief Process
 /// \param serv The server informations
 /// \param player The player informations
 /// \param tile The current tile
@@ -108,8 +109,7 @@ player_t *player, position_t player_pos, position_t start_pos)
         return NULL;
     remove_ressource_randomly(serv->entities, player_pos,
     (container_t) {0, inc_lvl[player->level - 1].linemate,
-        inc_lvl[player->level - 1].deraumere,
-        inc_lvl[player->level - 1].sibur,
+        inc_lvl[player->level - 1].deraumere, inc_lvl[player->level - 1].sibur,
         inc_lvl[player->level - 1].mendiane,
         inc_lvl[player->level - 1].phiras,
         inc_lvl[player->level - 1].thystame},
@@ -118,6 +118,7 @@ player_t *player, position_t player_pos, position_t start_pos)
     res[0] = '\0';
     sprintf(res, "%i", player->level);
     send_entities_list_info(serv);
+    victory_detection(serv, player->team);
     return res;
 }
 

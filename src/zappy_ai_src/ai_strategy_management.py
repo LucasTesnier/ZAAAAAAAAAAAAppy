@@ -173,6 +173,15 @@ LEVEL_UP_REQUIREMENTS = [{},
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
 
+""" This is a return value used by waitForAction() when an unexpected response happen """
+UNEXPECTED = 1
+
+""" This is a return value used by waitForAction() when the AI needs to be stopped """
+STOPPED = -1
+
+""" This is a return value used by waitForAction() when an expected response happen """
+EXPECTED = 0
+
 class Ai:
     def __init__(self, availableSlots: int, teamName: str):
         """ Default Constructor of the Core class"""
@@ -418,14 +427,22 @@ class Ai:
         if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskInventory()
             self.__resetInventoryTicksCpt()
-            if self.__waitForAction():
-                return
+            while True:
+                value = self.__waitForAction()
+                if value == STOPPED:
+                    return
+                if value == EXPECTED:
+                    break
             self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskLook()
             self.__resetMapVisionTicksCpt()
-            if self.__waitForAction():
-                return
+            while True:
+                value = self.__waitForAction()
+                if value == STOPPED:
+                    return
+                if value == EXPECTED:
+                    break
             self.__inventory.fillInventory(self.__lib.GetRepLook())
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
@@ -436,6 +453,15 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
+        if not self.__lib.AskInventory():
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
+        self.__inventory.fillInventory(self.__lib.GetRepInventory())
         self.__setStrategy()
         self.__actionsProceed()
 
@@ -443,7 +469,7 @@ class Ai:
         """This is used by Ai on each tick of loop to define the best strategy applied"""
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
-        elif self.__getPlayerCurrentLevel() >= 7:
+        elif self.__getPlayerCurrentLevel() > 7:
             self.__deny()
         else:
             self.__farming()
@@ -458,9 +484,12 @@ class Ai:
             pass
         if self.__lib.GetUnexpectedResponseState():
             self.__unexpectedResponseManagement()
-            return self.__getIsRunning()
+            if not self.__getIsRunning():
+                return STOPPED
+            else:
+                return UNEXPECTED
         else:
-            return True
+            return EXPECTED
 
     def __setAnotherTargetTile(self, component: str):
         """"This is used to set another target as a tile if the first one got reached by the player"""
@@ -503,13 +532,37 @@ class Ai:
         component = self.__getTargetComponent()
         if self.__getTargetTileReached():
             self.__setAnotherTargetTile(component)
-        else:
-            if not self.__lib.AskTakeObject(component):
-                safeExitError()
-            if not self.__waitForAction():
+            return
+        if component == "nothing":
+            self.__tryElevation()
+            return
+        if not self.__lib.AskTakeObject(component):
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
                 return
-            self.__lib.GetRepTakeObject()
-        self.__reachSpecificTile(self.__getTargetTileIndex())
+            if value == EXPECTED:
+                break
+        self.__lib.GetRepTakeObject()
+        if not self.__lib.AskForward():
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
+        self.__lib.GetRepForward()
+        if not self.__lib.AskLook():
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
+        self.__setVisionOfTheMap(self.__lib.GetRepLook())
         if self.__Queues.isServerQueueFull():
             response = self.__Queues.emptyServerQueue()
             self.__handleQueuesResponses(response)
@@ -537,6 +590,13 @@ class Ai:
         """This is used by the AI to know if the action is realisable or not depending on its food"""
         return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action)
 
+    def __getNewPlayers(self, neededPlayers : int):
+        playerOnMap = 6 - self.__getAvailableSlots()
+        if neededPlayers > playerOnMap:
+            self.__fork()
+        else:
+            self.__teamCall("incantation")
+
     def __tryElevation(self) -> bool:
         """This is used when the AI thinks it's the good timing to level up
             return :    True if successfully asked the server
@@ -547,14 +607,19 @@ class Ai:
             return False
         if self.__getRequiredComponent() != "nothing":
             return False
-        if self.__getVisionOfTheMap().GetTile(0).player != LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player"):
+        neededPlayers : int = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player")
+        if self.__getVisionOfTheMap().GetTile(0).player != neededPlayers:
+            self.__getNewPlayers(neededPlayers)
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
         if not self.__lib.AskIncantation():
             safeExitError()
-        while 1:
-            if self.__lib.GetResponseState():
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
                 break
         if not self.__lib.GetRepIncantation():
             return False
@@ -572,8 +637,9 @@ class Ai:
         if not self.__isThisActionRealisable("broadcast"):
             return False
         levelOfPlayer = self.__getPlayerCurrentLevel()
-        nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "elevation" else 1
-        if not self.__lib.AskBroadcastText(f"Broadcast {self.__getTeamName()}, {action}, {nbPlayer}\n"):
+        nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "incantation" else 1
+        requiredLevel = self.__getPlayerCurrentLevel() if action == "incantation" else 1
+        if not self.__lib.AskBroadcastText(f"{self.__getTeamName()}, {action}, {nbPlayer}, {requiredLevel}\n"):
             safeExitError()
         return True
 
@@ -588,8 +654,11 @@ class Ai:
             return False
         if not self.__lib.AskFork():
             safeExitError()
-        while 1:
-            if self.__lib.GetResponseState():
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
                 break
         if not self.__lib.GetRepFork():
             return False

@@ -29,7 +29,7 @@ enum player_orientation_e {
     WEST
 };
 
-/// Reprensents a player
+/// \brief Reprensents a player
 typedef struct player_s {
     /// Unique player id
     uuid_t uuid;
