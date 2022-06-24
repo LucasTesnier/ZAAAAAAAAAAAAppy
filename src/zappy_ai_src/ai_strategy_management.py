@@ -344,6 +344,9 @@ class Ai:
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
 
+    def __getAskedIncantation(self) -> bool:
+        return self.__askedElevation
+
     def __getPlayerMaxRange(self) -> int:
         """This is used to know the maximal range of the player's vision depending on his level
                 The player range could be calculate as follow : maxRange = (x+1)²
@@ -568,10 +571,11 @@ class Ai:
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
-        if not self.__lib.AskIncantation():
-            safeExitError()
-        self.__Queues.addInAiQueue(self.__lib.GetRepIncantation)
-        self.__setAskedElevation(True)
+        if not self.__getAskedIncantation():
+            if not self.__lib.AskIncantation():
+                safeExitError()
+            self.__Queues.addInAiQueue(self.__lib.GetRepIncantation)
+            self.__setAskedElevation(True)
         return True
 
     def __teamCall(self, action: str) -> bool:
