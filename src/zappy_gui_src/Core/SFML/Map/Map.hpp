@@ -115,6 +115,9 @@ namespace gui {
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
 
+            /// \brief add a new status to the Status object
+            /// \param status the status to set
+            /// \todo TODO do something with the status : sound of lose or win, display something on screen
             inline void addStatus(gui::entity::Status &status) {
                 _statusGame = status;
             }
