@@ -486,16 +486,23 @@ class Ai:
                 self.__unexpectedResponseManagement()
                 continue
             if fctPtr in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
+                print("Pop Mov")
                 self.__Queues.decMov() if fctPtr() else self.__setTargetTileReached(True)
             if fctPtr in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
+                print("Pop useless")
                 fctPtr()
             if fctPtr == self.__lib.GetRepFork and self.__lib.GetRepFork():
+                print("Pop fork")
                 self.__decrAvailableSlots()
-            if fctPtr == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
+            if fctPtr == self.__lib.GetRepIncantation:
+                print("Pop incantation")
                 self.__incrPlayerCurrentLevel()
+                exit()
             if fctPtr == self.__lib.GetRepInventory:
+                print("Pop inventory")
                 self.__inventory.fillInventory(self.__lib.GetRepInventory())
             if fctPtr == self.__lib.GetRepLook:
+                print("Pop Look")
                 self.__visionOfTheMap.fillMap(self.__lib.GetRepLook())
             responseTreated = True
         if not self.__Queues.isMovementLeft():
