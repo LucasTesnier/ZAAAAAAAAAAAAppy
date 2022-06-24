@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 /// \brief Utility function to get the length of an int
-static int get_int_len(int val)
+static size_t get_int_len(int val)
 {
     char str[80];
 
@@ -20,7 +20,7 @@ static int get_int_len(int val)
     return strlen(str);
 }
 
-/// \brief get the length of the str reprensentaion of a container
+/// \brief get the length of the str representation of a container
 static int get_len_container(container_t *cont)
 {
     int len = 0;
