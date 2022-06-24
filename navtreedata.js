@@ -23,7 +23,7 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Zaaaaaaappppy", "index.html", [
-    [ "Zaaaaaaaaaaaappy", "index.html", [
+    [ "Zaaaaaaaaaaaappy", "index.html#autotoc_md0", [
       [ "Before continuing...", "index.html#autotoc_md1", [
         [ "Prerequisites", "index.html#autotoc_md2", null ],
         [ "Building program", "index.html#autotoc_md3", null ],
