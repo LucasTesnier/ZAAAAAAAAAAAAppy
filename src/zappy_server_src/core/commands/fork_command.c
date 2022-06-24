@@ -69,7 +69,6 @@ server_data_t *serv)
         return print_retcode(317, NULL, player->player_peer, false);
     }
     manage_forked_egg(player_entity, serv);
-    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(218, NULL, player->player_peer, true);
 }
@@ -88,7 +87,8 @@ static void remove_egg(server_data_t *serv, egg_t *egg, entity_t *egg_e)
     dprintf(2, "A new slot (%i) have been open for the team %s.\n",
     team->max_members, egg->team_name);
     entity_wrapper_remove_entity(serv->entities, egg_e);
-    send_entities_list_info(serv);
+    send_map_info(serv);
+//    send_entities_list_info(serv);
 }
 
 void process_eggs_inspection(server_data_t *serv)

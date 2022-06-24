@@ -111,7 +111,6 @@ player_t *player, position_t player_pos)
     player->inventory->mendiane -= inc_lvl[player->level - 2].mendiane;
     player->inventory->phiras -= inc_lvl[player->level - 2].phiras;
     player->inventory->thystame -= inc_lvl[player->level - 2].thystame;
-    send_entities_list_info(serv);
     return res;
 }
 
@@ -132,6 +131,7 @@ server_data_t *serv)
         print_retcode(222, res, player->player_peer, true);
     else
         print_retcode(316, NULL, player->player_peer, false);
+    entity_diff_add_entity(serv->modified_entities, player_entity);
     free(res);
     return true;
 }

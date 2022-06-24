@@ -72,7 +72,6 @@ player_list_t *player, server_data_t *serv)
     else
         move_y(player_entity, serv->map);
     entity_diff_add_entity(serv->modified_entities, player_entity);
-    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(213, NULL, player->player_peer, true);
 }
