@@ -68,11 +68,11 @@ static void add_ressource_randomly(map_t *map, char *type)
         cases->thystame += 1;
 }
 
-void generate_new_ressource(map_t *map)
+void generate_new_ressource(map_t *map, float *gen_density)
 {
-    for (int i = 0; gen_list[i].name; i++) {
+    for (int i = 0; i < 7; i++) {
         for (int j = 0; j <
-        compute_ressource_number(map, gen_list[i].density) + 1; j++)
+        compute_ressource_number(map, gen_density[i]) + 1; j++)
             add_ressource_randomly(map, gen_list[i].name);
     }
 }
@@ -104,6 +104,7 @@ map_t *create_new_map(int width, int height)
             map->tiles[i * width + j]->data = create_new_tile();
         }
     }
-    generate_new_ressource(map);
+    generate_new_ressource(map, (float []){0.5, 0.3, 0.15, 0.1,
+    0.1, 0.08, 0.05});
     return map;
 }

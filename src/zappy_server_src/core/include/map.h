@@ -38,7 +38,7 @@ entity_t* get_tile(map_t *map, int x, int y);
 
 /// \brief Generate new ressources on the map !
 /// \param map The map informations
-void generate_new_ressource(map_t *map);
+void generate_new_ressource(map_t *map, float *gen_density);
 
 /// \brief Utility function to print the map
 void display_map(map_t *map);

@@ -31,6 +31,8 @@ typedef enum client_type_s {
     GUI,
     /// Type for the player
     AI,
+    /// Type for the pannel control
+    FLUTTER,
     /// Type not defined yet
     UNKNOWN
 } client_type_t;
@@ -77,6 +79,8 @@ typedef struct argument_s {
     int client_nb;
     /// Frequence of time
     float freq;
+    /// The density data
+    float *generation_density;
 } argument_t;
 
 /// \brief Major data for the server

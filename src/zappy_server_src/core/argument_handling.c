@@ -9,6 +9,7 @@
 
 #include "server.h"
 #include "argument_handling.h"
+#include "density_flutter.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -112,6 +113,7 @@ argument_t *argument_handling(int ac, char **av)
     args->height = 0;
     args->client_nb = 0;
     args->freq = 0;
+    args->generation_density = get_default_density_value();
     if (!process_argument_handling(args, ac, av, &is_team))
         return NULL;
     if (!process_integrity(args))
@@ -126,5 +128,6 @@ void argument_destroy(argument_t *args)
     if (!args)
         return;
     free(args->team_list);
+    free(args->generation_density);
     free(args);
 }
