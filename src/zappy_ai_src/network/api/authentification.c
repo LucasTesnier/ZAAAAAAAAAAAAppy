@@ -16,7 +16,7 @@
 zappy_client_t *client_data = NULL;
 
 /// \brief Init the client_data structure and network info
-/// \param host Server adress
+/// \param host Server address
 /// \param port Port to connect
 /// \return true When operation succeed
 /// \return false When operation failed
