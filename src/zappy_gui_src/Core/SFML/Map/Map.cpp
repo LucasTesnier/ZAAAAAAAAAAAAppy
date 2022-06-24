@@ -62,17 +62,17 @@ void Map::_initSounds()
     try {
         _initSoundBuffer(SOUND_SPAWN_PATH, SPAWN_SOUND);
         _initSoundBuffer(SOUND_DEATH_PATH, DEATH_SOUND);
-        _initSoundBuffer(SOUND_DEATH_PATH, EGG_SOUND);
-        // _initSoundBuffer(SOUND_WIN_PATH, WIN_SOUND);
-        // _initSoundBuffer(SOUND_LOSE_PATH, LOSE_SOUND);
+        _initSoundBuffer(SOUND_EGG_PATH, EGG_SOUND);
+        _initSoundBuffer(SOUND_WIN_PATH, WIN_SOUND);
+        _initSoundBuffer(SOUND_LOSE_PATH, LOSE_SOUND);
     } catch (MapException &e) {
         std::cerr << e.what() << std::endl;
     }
     _initSound(SPAWN_SOUND);
     _initSound(DEATH_SOUND);
     _initSound(EGG_SOUND);
-    // _initSound(WIN_SOUND);
-    // _initSound(LOSE_SOUND);
+    _initSound(WIN_SOUND);
+    _initSound(LOSE_SOUND);
 }
 
 void Map::_initRessourcesPaths()
