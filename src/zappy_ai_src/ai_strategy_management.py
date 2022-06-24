@@ -629,6 +629,48 @@ class Ai:
             self.__lib.AskForward()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
             self.__Queues.incrMov()
+
+    def __reachBroadCastTile(self, tileIndex: int):
+        """This is used by AI after a broadcast call from other member of the team
+            In this case, if AI is able to move, with enough food, it tries to reach the tile asked in the broadcast
+        """
+        north = (1, 10)
+        west = (3, 14)
+        south = (5, 18)
+        east = (7, 22)
+        northDelta = north.index(1) - north.index(1)
+        westDelta = west.index(1) - west.index(1)
+        southDelta = south.index(1) - south.index(1)
+        eastDelta = east.index(1) - east.index(1)
+
+        if tileIndex == 0:
+            #don't move
+            pass
+        if tileIndex == north.index(0):
+            #forward
+            pass
+        if tileIndex == west.index(0):
+            #Turn left, forward
+            pass
+        if tileIndex == south.index(0):
+            # Turn left, turn left, forward
+            pass
+        if tileIndex == east.index(0):
+            #Turn right, forward
+            pass
+
+        if tileIndex == north.index(1):
+            #forward, forward
+            pass
+        if tileIndex == west.index(1):
+            #Turn left, forward, forward
+            pass
+        if tileIndex == south.index(1):
+            # Turn left, turn left, forward, forward
+            pass
+        if tileIndex == east.index(1):
+            #Turn right, forward, forward
+            pass
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
         These functions are considered as decisions
