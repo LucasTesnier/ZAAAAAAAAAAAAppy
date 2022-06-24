@@ -5,7 +5,7 @@
 ** entity_info
 */
 
-/// \file src/zappy_server_src/core/commands/map_info.c
+/// \file src/zappy_server_src/core/commands/entity_info.c
 
 #include "command_hold.h"
 #include "rcodes.h"

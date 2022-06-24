@@ -54,32 +54,32 @@ namespace gui::entity {
         player_orientation_e _orientation;
         /// \brief get the position
         /// \return a pair containing the position x and y
-        std::pair<int, int> getPosition() {
+        inline const std::pair<int, int> &getPosition() const {
             return _position;
         }
         /// \brief get the inventory
         /// \return a vector containing the inventory
-        std::vector<int> getInventory() {
+        inline const std::vector<int> &getInventory() const {
             return _inventory;
         }
         /// \brief get the team name
         /// \return a string containing the name of the team
-        std::string getTeamName() {
+        inline const std::string &getTeamName() const {
             return _team_name;
         }
         /// \brief get the uuid
         /// \return a string containing the uuid of the player
-        const std::string &getTeamName() const {
+        const std::string &getUuid() const {
             return _uuid;
         }
         /// \brief get the level
         /// \return an int containing the level of the player
-        int getLevel() {
+        inline const int &getLevel() const {
             return _level;
         }
         /// \brief get the orientation
         /// \return the orientation of the player
-        player_orientation_e getOrientation() {
+        inline const player_orientation_e &getOrientation() const {
             return _orientation;
         }
     };
@@ -96,12 +96,12 @@ namespace gui::entity {
         std::vector<int> _inventory;
         /// \brief get the position
         /// \return a pair containing the position x and y
-        std::pair<int, int> getPosition() {
+        inline const std::pair<int, int> &getPosition() const {
             return _position;
         }
         /// \brief get the inventory
         /// \return a vector containing the inventory
-        std::vector<int> getInventory() {
+        inline const std::vector<int> &getInventory() const {
             return _inventory;
         }
     };
@@ -120,17 +120,17 @@ namespace gui::entity {
         std::string _uuid;
         /// \brief get the position
         /// \return a pair containing the position x and y
-        std::pair<int, int> getPosition() {
+        inline const std::pair<int, int> &getPosition() const {
             return _position;
         }
         /// \brief get the team name
         /// \return a string containing the name of the team
-        std::string getTeamName() {
+        inline const std::string &getTeamName() const {
             return _team_name;
         }
         /// \brief get the uuid
         /// \return a string containing the uuid of the player
-        const std::string &getTeamName() const {
+        inline const std::string &getUuid() const {
             return _uuid;
         }
     };

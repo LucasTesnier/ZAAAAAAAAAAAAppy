@@ -15,6 +15,8 @@ Interface::Interface()
 {
     _server.setBackgroundColor(BACKGROUND_COLOR);
     _server.setButtonColor(BUTTON_COLOR);
+    _inventory.setBackgroundColor(BACKGROUND_COLOR);
+    _inventory.setButtonColor(BUTTON_COLOR);
 }
 
 void Interface::updateAndDisplay()

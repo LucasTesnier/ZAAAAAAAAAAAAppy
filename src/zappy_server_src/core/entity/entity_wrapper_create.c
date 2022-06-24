@@ -2,10 +2,10 @@
 ** EPITECH PROJECT, 2022
 ** ZAAAAAAAAAAAAppy
 ** File description:
-** entity_wrapper_add
+** entity_wrapper_create
 */
 
-/// \file src/zappy_server/core/include/entity/entity_wrapper_add.c
+/// \file src/zappy_server/core/include/entity/entity_wrapper_create.c
 
 #include <stdlib.h>
 #include "entity/entity.h"
