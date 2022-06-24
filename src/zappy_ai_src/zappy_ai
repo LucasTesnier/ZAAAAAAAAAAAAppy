@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+
+from socket import gethostbyname
+import sys
+import argparse
+from ai_core import ClientCore
+
+def displayHelp() -> None:
+    """ Display the Usage of the Zappy AI """
+    print("USAGE: ./zappy_ai_src -p port -n name -h machine")
+    print("\tport\tis the port number")
+    print("\tname\tis the name of the team")
+    print("\tmachine\tis the name of the machine; localhost by default")
+
+
+def needHelp(ac : int, av) ->  bool:
+    """
+    Check the arguments for help
+    Return True is flag found, false otherwise
+    """
+
+    if ac == 2:
+        if av[1] == "--help" or av[1] == "-h":
+            return True
+    return False
+
+def getIPFromHostname(hostname : str) -> str:
+    """ Find the IP corresponding to the Hostname, raise an RunTimeError if there isn't """
+    return gethostbyname(hostname)
+
+def main() -> int:
+    """ Main Function """
+    if needHelp(len(sys.argv), sys.argv):
+        displayHelp()
+        return 0
+    argsParser = argparse.ArgumentParser(add_help=False)
+    argsParser.add_argument("-p", dest="port", type=int, required=True)
+    argsParser.add_argument("-n", dest="name", type=str, required=True)
+    argsParser.add_argument("-h", dest="machine", type=str, required=False, default="localhost")
+    validArgs = argsParser.parse_args()
+
+    try:
+        ip = getIPFromHostname(validArgs.machine)
+    except:
+        print("There isn't a corresponding IP for the machine name", file=sys.stderr)
+        return 84
+
+    newClient : ClientCore = ClientCore(validArgs.name, ip, validArgs.port)
+    newClient.run()
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        exit(main())
+    except KeyboardInterrupt:
+        print("The AI has been manually stopped.")
+        exit(0)

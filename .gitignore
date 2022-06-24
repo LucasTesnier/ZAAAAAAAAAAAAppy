@@ -1,0 +1,90 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+zappy_gui
+zappy_gui_test
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+graph
+vgcore*
+zappy_server
+zappy_ai
+zappy_gui
+zappy_gui_test
+
+# Clion config
+.idea/
+cmake-build-debug/
+IDEA
+
+# Python Cache
+__pycache__
+
+# Folders
+build
+.vscode
+build
+graph
+vgcore*
+libTemporary
+src/zappy_ai_src/ai_tile_switch.py
+
+# CMake garbage
+CMakeFiles
+cmake_install.cmake
+Makefile
+CMakeCache.txt
+
+# Tests Files
+*_test
+
+# Gimp image
+*.xcf
