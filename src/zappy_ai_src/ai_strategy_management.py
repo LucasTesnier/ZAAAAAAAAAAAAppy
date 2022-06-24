@@ -474,7 +474,7 @@ class Ai:
         else:
             self.__farming()
 
-    def __waitForAction(self) -> bool:
+    def __waitForAction(self) -> int:
         """
         Wait for a launched action and handle the possible unexpected responses
         Return true if the Client is running
@@ -618,7 +618,7 @@ class Ai:
         while True:
             value = self.__waitForAction()
             if value == STOPPED:
-                return
+                return False
             if value == EXPECTED:
                 break
         if not self.__lib.GetRepIncantation():
@@ -657,7 +657,7 @@ class Ai:
         while True:
             value = self.__waitForAction()
             if value == STOPPED:
-                return
+                return False
             if value == EXPECTED:
                 break
         if not self.__lib.GetRepFork():
