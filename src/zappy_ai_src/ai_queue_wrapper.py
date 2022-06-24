@@ -62,7 +62,7 @@ class AIQueues:
             added += 1
         return added
 
-    def emptyServerQueue(self):
+    def popFctPtr(self):
         """
         Empty the server Queue of one element
         Return the poped object
