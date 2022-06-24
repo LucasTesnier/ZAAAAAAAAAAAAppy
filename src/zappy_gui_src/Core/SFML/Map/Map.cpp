@@ -54,6 +54,17 @@ void Map::_initRessourcesPaths()
 
 }
 
+void Map::_SetDefaultMapOrigin()
+{
+    sf::Vector2f origin;
+
+    origin.x = -(int(_window.get()->getSize().x) / 2);
+    origin.y = (((_tile.back().get()->getGlobalBound().top + _tile.back().get()->getGlobalBound().height) - _tile.front().get()->getGlobalBound().top) / 2 - _window.get()->getSize().y / 2);
+    for (auto &it : _tile) {
+        it.get()->setOrigin(origin);
+    }
+}
+
 void Map::_updateTileVectorSize()
 {
     while (_mapSize.x * _mapSize.y < _tile.size())
@@ -66,7 +77,7 @@ void Map::_updateTileVectorSize()
     while (_mapSize.x * _mapSize.y > _tile.size()) {
         _tile.push_back(std::make_unique<Tile>());
         _tile.back()->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
-        _tile.back()->setSize(sf::Vector2f(100, 100));
+        _tile.back()->setSize(sf::Vector2f(150, 150));
         if (_tile.size() == 1)
             _tile.back()->setTexture("assets/ground1.png");
         else
@@ -184,10 +195,10 @@ sf::Color Map::_findTeamColor(const std::string &teamName)
 void Map::_displayPlayers(Tile &tile)
 {
     if (tile.getPlayers().size()) {
-        _playerAnimation.setSize(sf::Vector2f(58, 58));
+        _playerAnimation.setSize(sf::Vector2f(100, 100));
         _playerAnimation.setDuration(100);
         _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(0).getTeamName()));
-        _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 25});
+        _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
         _playerAnimation.update();
         _window->draw(_playerAnimation.getShape());
         if (tile.getPlayers().size() >= 2) {
@@ -225,7 +236,7 @@ void Map::_displayResources(Tile &tile)
         else
             multiplier = multiplierStone;
         if (it) {
-            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(18, 18));
+            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(30, 30));
             _ressourcesAnim.at(index - 1).setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9 - 10, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - _ressourcesAnim.at(index - 1).getGlobalBounds().height / 2 - 10});
             _ressourcesAnim.at(index - 1).update();
             _window->draw(_ressourcesAnim.at(index - 1).getShape());
@@ -252,7 +263,7 @@ void Map::_displayResources(Tile &tile)
 void Map::_displayEggs(Tile &tile)
 {
     if (tile.getEggs().size()) {
-        _eggAnimation.setSize(sf::Vector2f(28, 28));
+        _eggAnimation.setSize(sf::Vector2f(40, 40));
         _eggAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _eggAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top + 20});
         _eggAnimation.update();
         _window->draw(_eggAnimation.getShape());
