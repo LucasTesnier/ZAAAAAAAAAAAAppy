@@ -427,14 +427,22 @@ class Ai:
         if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskInventory()
             self.__resetInventoryTicksCpt()
-            if self.__waitForAction():
-                return
+            while True:
+                value = self.__waitForAction()
+                if value == STOPPED:
+                    return
+                if value == EXPECTED:
+                    break
             self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskLook()
             self.__resetMapVisionTicksCpt()
-            if self.__waitForAction():
-                return
+            while True:
+                value = self.__waitForAction()
+                if value == STOPPED:
+                    return
+                if value == EXPECTED:
+                    break
             self.__inventory.fillInventory(self.__lib.GetRepLook())
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
@@ -527,16 +535,16 @@ class Ai:
             return
         if component == "nothing":
             self.__tryElevation()
-        else:
-            if not self.__lib.AskTakeObject(component):
-                safeExitError()
-            while True:
-                value = self.__waitForAction()
-                if value == STOPPED:
-                    return
-                if value == EXPECTED:
-                    break
-            self.__lib.GetRepTakeObject()
+            return
+        if not self.__lib.AskTakeObject(component):
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
+        self.__lib.GetRepTakeObject()
         if not self.__lib.AskForward():
             safeExitError()
         while True:
