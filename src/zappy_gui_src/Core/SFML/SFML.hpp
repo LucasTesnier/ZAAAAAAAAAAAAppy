@@ -62,6 +62,8 @@ namespace gui {
                 _interface.addEgg(egg);
             }
 
+            /// \brief add a status object to the map
+            /// \param status the status object to add
             inline void addStatus(gui::entity::Status &status) {
                 _map.addStatus(status);
             }
