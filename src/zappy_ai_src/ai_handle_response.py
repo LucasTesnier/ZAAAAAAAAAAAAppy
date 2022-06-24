@@ -110,6 +110,8 @@ class Tile:
     phiras : int
     thystame : int
 
+    def __getitem__(self, item):
+        return getattr(self, item)
 
 class Map:
     def __init__(self, lookResponse : str):

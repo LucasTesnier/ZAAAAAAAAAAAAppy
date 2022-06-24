@@ -428,12 +428,13 @@ class Ai:
         if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskInventory()
             self.__resetInventoryTicksCpt()
-            while True:
-                value = self.__waitForAction()
-                if value == STOPPED:
-                    return
-                if value == EXPECTED:
-                    break
+            # while True:
+            #     value = self.__waitForAction()
+            #     if value == STOPPED:
+            #         return
+            #     if value == EXPECTED:
+            #         break
+
             self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
             self.__lib.AskLook()
@@ -478,16 +479,6 @@ class Ai:
         else:
             return EXPECTED
 
-    def __setAnotherTargetTile(self, component: str):
-        """"This is used to set another target as a tile if the first one got reached by the player"""
-        if component == "nothing":
-            return
-        for i in range(0, self.__getPlayerMaxRange()):
-            if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
-                self.__setTargetTile(i)
-                break
-        self.__setTargetTileReached(False)
-
     def __handleQueuesResponses(self) -> None:
         """
         From the response object given by self.__Queues.popFctPtr()
@@ -528,11 +519,8 @@ class Ai:
             if not self.__lib.AskTakeObject(component):
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepTakeObject)
-            self.__setAnotherTargetTile(component)
-            return
-        if self.__Queues.isServerQueueFull():
-            self.__handleQueuesResponses()
-        self.__Queues.addInServerQueue()
+            self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
+            self.__setTargetTileReached(False)
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
         """This is used by AI to know if the specific component is present on the specific tile
@@ -606,6 +594,7 @@ class Ai:
             return :    True if the request successfully send to the server
                         False Otherwise
         """
+        #AZE
         if not self.__isThisActionRealisable("fork"):
             return False
         if self.__getAvailableSlots() == 0:
@@ -630,6 +619,8 @@ class Ai:
             This function will set the move queue with getMethods after calling asking methods of the API
             Param :     index: int, representing the index of the tile you want to reach
         """
+        if index == -1:
+            return
         nbForwardSteps = 0
         frontTileIndex = 0
         for vector in reversed(PATH_REFERENCES[1:]):
@@ -755,7 +746,10 @@ class Ai:
             param   : component: str, representing the required component
             return  : int, representing the index of the closest tile including the component (ref: map Class)
         """
-        pass
+        for i in range(self.__visionOfTheMap.GetMapSize()):
+            if self.__visionOfTheMap.GetTile(i)[component] > 0:
+                return i
+        return -1
 
     def __getRequiredComponent(self) -> str:
         """This is used by the AI to know what is the required component missing for elevation
