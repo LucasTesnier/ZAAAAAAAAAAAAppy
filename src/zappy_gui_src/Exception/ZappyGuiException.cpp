@@ -40,3 +40,7 @@ TileException::TileException(std::string title, std::string description) : Zappy
 AnimationException::AnimationException(std::string title, std::string description) : ZappyGuiException(title, description)
 {
 }
+
+MapException::MapException(std::string title, std::string description) : ZappyGuiException(title, description)
+{
+}

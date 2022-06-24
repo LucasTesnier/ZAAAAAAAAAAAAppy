@@ -76,6 +76,15 @@ namespace gui {
             /// \param description The description of the exception. `Unknown error` is set by default.
             AnimationException(std::string title = "Animation Exception", std::string description = "Unknown error");
     };
+
+    /// \brief Class for the Map exception. Use it only if an error occurs in the Map class.
+    class MapException : public ZappyGuiException {
+        public:
+            /// \brief The constructor of the Map exception.
+            /// \param title The title of the exception. `Map Exception` is set by default.
+            /// \param description The description of the exception. `Unknown error` is set by default.
+            MapException(std::string title = "Map Exception", std::string description = "Unknown error");
+    };
 } //namespace gui
 
 #endif /* !ZAPPYGUIEXCEPTION_HPP_ */
