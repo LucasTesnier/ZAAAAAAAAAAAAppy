@@ -10,7 +10,6 @@
 #include "Inventory.hpp"
 #include "ZappyGuiException.hpp"
 #include <string>
-#include <iostream>
 
 using namespace gui;
 

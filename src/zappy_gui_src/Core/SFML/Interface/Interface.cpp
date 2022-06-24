@@ -40,5 +40,4 @@ void Interface::updateAndDisplay()
     }
     _inventory.scroll(_event.get()->getMouseScrollValue());
     _server.scroll(_event.get()->getMouseScrollValue());
-    /// This function will call class which should display something, like minimap class.
 }

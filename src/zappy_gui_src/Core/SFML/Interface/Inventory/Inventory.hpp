@@ -109,6 +109,8 @@ namespace gui {
             inline void setEggs(const std::vector<gui::entity::Egg> &eggs) {
                 _eggs = eggs;
             }
+            /// \brief It updates the index of the player's vector and the egg's vector.
+            /// \param scroll The value of the mouseWheel's scroll.
             void scroll(const float &scroll);
         private:
             /// \brief resize the body and all the shapes on it
@@ -151,7 +153,9 @@ namespace gui {
             std::vector<gui::entity::Player> _players;
             /// \brief the eggs on the selected tile
             std::vector<gui::entity::Egg> _eggs;
+            /// \brief The index where the player's vector need to start.
             std::size_t _startPlayerText;
+            /// \brief The index where the egg's vector need to start.
             std::size_t _startEggText;
     };
 }
