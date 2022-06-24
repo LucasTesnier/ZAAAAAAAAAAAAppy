@@ -1,3 +1,4 @@
+[![Build](https://github.com/LucasTesnier/ZAAAAAAAAAAAAppy/actions/workflows/cmake.yml/badge.svg)](https://github.com/LucasTesnier/ZAAAAAAAAAAAAppy/actions/workflows/cmake.yml)
 # Zaaaaaaaaaaaappy
 
 The Zappy project consists of the realization of a simulation of a "Spore Like".
