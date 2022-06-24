@@ -130,10 +130,14 @@ class Event {
             return _button;
         };
 
+        /// \brief Set the mouseWheel's value as a float.
+        /// \param value The value to set.
         inline void setMouseScrollValue(float value) {
             _scrollValue = value;
         };
 
+        /// \brief Get the mouseWheel's value as a float.
+        /// \return The value previously set, or 0 otherwise.
         inline const float &getMouseScrollValue() const {
             return _scrollValue;
         };
