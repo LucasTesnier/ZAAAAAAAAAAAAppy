@@ -26,7 +26,7 @@ entity_wrapper_t *create_entity_wrapper(void)
     return wrapper;
 }
 
-static void delete_entities_list(struct entities_list_s* entity_list)
+static void delete_entities_list(struct entities_list_s *entity_list)
 {
     entity_t *entity = NULL;
     entity_t *tmp = NULL;
@@ -43,10 +43,10 @@ void delete_entity_wrapper(entity_wrapper_t *wrapper)
 {
     if (!wrapper)
         return;
-    printf("=============Deleting all entities=============\n");
+    dprintf(2, "=============Deleting all entities=============\n");
     delete_entities_list(&wrapper->players);
     delete_entities_list(&wrapper->eggs);
     delete_entities_list(&wrapper->tiles);
     free(wrapper);
-    printf("===============================================\n");
+    dprintf(2, "===============================================\n");
 }

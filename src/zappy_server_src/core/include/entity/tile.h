@@ -46,6 +46,11 @@ typedef struct incantation_level_s {
     unsigned int thystame;
 } incantation_level_t;
 
+/// \brief Check if a container is suffisant compared to a other container
+/// \param inc The container to obtained
+/// \param cont The container to check
+/// \return true If the container are suffisant for the level up
+/// \return false If the container are not suffisant for the level up
 static inline bool comp_inc_lvl_cont(incantation_level_t inc, container_t cont)
 {
     if (inc.linemate > cont.linemate)
@@ -64,6 +69,7 @@ static inline bool comp_inc_lvl_cont(incantation_level_t inc, container_t cont)
 }
 
 /// \brief Create a new tile data
+/// \return tile_t * The newly created tile
 tile_t *create_new_tile(void);
 
 /// \brief Destroy a tile

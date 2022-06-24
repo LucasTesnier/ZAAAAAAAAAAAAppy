@@ -356,7 +356,7 @@ void defeat_detection(server_data_t *serv, char *team_name);
 /// \return false When operation failed
 bool remove_player_from_team(player_t *player, server_data_t *serv);
 
-/// List of AI command end
+/// \brief List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
     {"/forward", NULL, &command_forward_end},
