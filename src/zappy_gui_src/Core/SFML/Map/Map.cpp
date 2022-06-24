@@ -330,6 +330,4 @@ void Map::display()
     }
     _displaySelectedTile();
     _displayHoveredTile();
-    // if (_sounds.at(0)->getStatus() != sf::Sound::Playing)
-    //     _sounds.at(0)->play();
 }
