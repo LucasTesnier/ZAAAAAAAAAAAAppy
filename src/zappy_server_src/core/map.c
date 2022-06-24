@@ -84,7 +84,7 @@ entity_t* get_tile(map_t *map, int x, int y)
     if (!map)
         return NULL;
     if (x < 0 || x >= map->width || y < 0 || y >= map->height)
-        return NULL;
+        return map->tiles[0];
     return map->tiles[y * map->width + x];
 }
 

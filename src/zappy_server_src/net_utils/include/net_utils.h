@@ -23,7 +23,7 @@
     #include <errno.h>
 
     /// Defines the maximum size of a message
-    #define MAX_MSG 10000000
+    #define MAX_MSG 100000
 
 /// \brief Represents a client connection
 typedef struct peer_s {
@@ -48,13 +48,13 @@ typedef struct peer_s {
     /// true if the transaction as been started but not finished
     /// false if the transaction has been finished or not started
     /// defaulted to false
-    bool pending_write;
+    int pending_write;
 
     /// The buffer for the incoming message
     char input_buffer[10][MAX_MSG];
 
     /// The buffer for the outcoming message
-    char output_buffer[MAX_MSG];
+    char output_buffer[20][MAX_MSG];
 
     /// A pointer to the next/prev peer
     CIRCLEQ_ENTRY(peer_s) peers;

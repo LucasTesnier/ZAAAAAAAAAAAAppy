@@ -13,11 +13,26 @@ bool client_set_output_buffer(peer_t *tmp, char const *message)
 {
     if (!tmp || !message)
         return (false);
-    if (strlen(message) > MAX_MSG)
+    if (strlen(message) > MAX_MSG || tmp->pending_write >= 20)
         return (false);
-    strcpy(tmp->output_buffer, message);
-    tmp->pending_write = true;
+    strcpy(tmp->output_buffer[tmp->pending_write], message);
+    tmp->pending_write += 1;
     return (true);
+}
+
+/// \brief Remove a write from the stack
+/// \param peer The user peer
+static void pop_write(peer_t *peer)
+{
+    if (!peer)
+        return;
+    if (!peer->pending_write)
+        return;
+    for (int i = 0; i < peer->pending_write - 1; i++) {
+        peer->output_buffer[i][0] = '\0';
+        strcat(peer->output_buffer[i], peer->output_buffer[i + 1]);
+    }
+    peer->pending_write -= 1;
 }
 
 bool server_write_client(tcp_server_t *srv, peer_t *tmp)
@@ -27,11 +42,12 @@ bool server_write_client(tcp_server_t *srv, peer_t *tmp)
 
     if (!srv || !tmp)
         return (false);
-    if ((msg_size = strlen(tmp->output_buffer)) <= 0) {
+    if ((msg_size = strlen(tmp->output_buffer[0])) <= 0) {
         ZAPPY_LOG("Internal Error: empty output buffer.\n");
         return (false);
     }
-    if ((write_size = write(tmp->sock_fd, tmp->output_buffer, msg_size)) < 0) {
+    if ((write_size = write(tmp->sock_fd, tmp->output_buffer[0],
+    msg_size)) < 0) {
         ZAPPY_LOG("write\n");
         return (false);
     }
@@ -39,6 +55,6 @@ bool server_write_client(tcp_server_t *srv, peer_t *tmp)
         ZAPPY_LOG("Internal Error: could not write all the message.\n");
         return (false);
     }
-    tmp->pending_write = false;
+    pop_write(tmp);
     return (true);
 }

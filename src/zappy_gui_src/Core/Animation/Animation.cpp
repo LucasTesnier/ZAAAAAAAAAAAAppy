@@ -43,8 +43,13 @@ void Animation::addTexture(const std::string &texturePath, const sf::Vector2f &p
 void Animation::addTexture(const sf::Image &image, const sf::Vector2f &position, const sf::Vector2f &size)
 {
     sf::Texture texture;
-
-    if (!texture.loadFromImage(image, sf::IntRect(position.x, position.y, size.x, size.y)))
+    sf::IntRect texture_rect;
+    
+    texture_rect.left = position.x;
+    texture_rect.top = position.y;
+    texture_rect.width = size.x;
+    texture_rect.height = size.y;
+    if (!texture.loadFromImage(image, texture_rect))
         throw AnimationException("Animation Exception", "Load texture with image failed");
     _textures.push_back(texture);
     _shape.setTexture(&_textures.back());

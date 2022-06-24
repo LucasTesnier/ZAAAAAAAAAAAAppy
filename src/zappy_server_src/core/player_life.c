@@ -12,6 +12,7 @@
 #include "entity/player.h"
 #include "command_hold.h"
 #include "rcodes.h"
+#include "entity/tile.h"
 #include <sys/queue.h>
 #include <stdlib.h>
 #include <math.h>
@@ -46,17 +47,13 @@ static bool remove_player_from_team(player_t *player, server_data_t *serv)
     return false;
 }
 
-/// \brief Remove a player from the game
-/// \param serv The server information's
-/// \param entity The entity to delete
-static void remove_a_player(server_data_t *serv, entity_t *entity)
+/// \brief Remove the died player from the scheduling
+/// \param serv The server informations
+/// \param entity The died entity
+/// \param user The user information
+static void remove_player_scheduling(server_data_t *serv,
+entity_t *entity, player_list_t *user)
 {
-    player_list_t *user = find_player_list_by_uuid(serv,
-    (player_t *)entity->data);
-    bool temp = false;
-
-    send_unexpected_dead(serv, (player_t *)entity->data);
-    user->disconnected = TO_LOGOUT;
     if (user->scheduled_action) {
         free(user->scheduled_action);
         user->scheduled_action = NULL;
@@ -67,6 +64,40 @@ static void remove_a_player(server_data_t *serv, entity_t *entity)
         scheduler_remove_event(serv->scheduler,
         ((player_t *)entity->data)->uuid);
     }
+}
+
+/// \brief Drop the entity inventory on the ground
+/// \param serv The server information
+/// \param entity The died entity
+static void drop_player_inventory(server_data_t *serv, entity_t *entity)
+{
+    tile_t *tile = (tile_t *)get_tile(serv->map, entity->position.x,
+    entity->position.y)->data;
+    container_t *inventory = ((player_t *)entity->data)->inventory;
+
+    if (tile == NULL)
+        return;
+    tile->inventory->linemate += inventory->linemate;
+    tile->inventory->deraumere += inventory->deraumere;
+    tile->inventory->sibur += inventory->sibur;
+    tile->inventory->mendiane += inventory->mendiane;
+    tile->inventory->phiras += inventory->phiras;
+    tile->inventory->thystame += inventory->thystame;
+}
+
+/// \brief Remove a player from the game
+/// \param serv The server informations
+/// \param entity The entity to delete
+static void remove_a_player(server_data_t *serv, entity_t *entity)
+{
+    player_list_t *user = find_player_list_by_uuid(serv,
+    (player_t *)entity->data);
+    bool temp = false;
+
+    send_unexpected_dead(serv, (player_t *)entity->data);
+    user->disconnected = TO_LOGOUT;
+    remove_player_scheduling(serv, entity, user);
+    drop_player_inventory(serv, entity);
     temp = remove_player_from_team((player_t *)entity->data, serv);
     TAILQ_REMOVE(&serv->entities->players, entity, entities);
     if (temp)
