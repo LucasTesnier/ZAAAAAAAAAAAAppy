@@ -631,7 +631,7 @@ class Ai:
         levelOfPlayer = self.__getPlayerCurrentLevel()
         nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "incantation" else 1
         requiredLevel = self.__getPlayerCurrentLevel() if action == "incantation" else 1
-        if not self.__lib.AskBroadcastText(f"Broadcast {self.__getTeamName()}, {action}, {nbPlayer}, {requiredLevel}\n"):
+        if not self.__lib.AskBroadcastText(f"{self.__getTeamName()}, {action}, {nbPlayer}, {requiredLevel}\n"):
             safeExitError()
         return True
 
