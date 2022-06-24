@@ -2,10 +2,10 @@ from collections import namedtuple
 
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
-from sys import stderr
 from ai_safe_error import safeExitError
 from ai_queue_wrapper import AIQueues
 from ai_broadcast_to_object import BroadcastInfo
+from time import time, clock
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -24,6 +24,8 @@ from ai_broadcast_to_object import BroadcastInfo
 """
 
 """---------------------------------------------Static variables-----------------------------------------------------"""
+
+MAX_TEAM_PLAYER = 6
 
 LEVEL_MAX = 8
 
@@ -46,6 +48,9 @@ MAP_VISION_UPDATE_LIMIT = 50
 
 """This is the limit before the next update of the inventory"""
 INVENTORY_UPDATE_LIMIT = 50
+
+"""This is the limit before the AI empties the queue"""
+EMPTY_QUEUE_LIMIT = 7
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
@@ -173,15 +178,6 @@ LEVEL_UP_REQUIREMENTS = [{},
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
 
-""" This is a return value used by waitForAction() when an unexpected response happen """
-UNEXPECTED = 1
-
-""" This is a return value used by waitForAction() when the AI needs to be stopped """
-STOPPED = -1
-
-""" This is a return value used by waitForAction() when an expected response happen """
-EXPECTED = 0
-
 class Ai:
     def __init__(self, availableSlots: int, teamName: str):
         """ Default Constructor of the Core class"""
@@ -250,8 +246,13 @@ class Ai:
         """
         self.__ableToMove = True
 
+        """This private member is used by AI to enqueue all requests to the server
+            This is very useless at the moment because every request is blocking another one in the server
+        """
         self.__Queues : AIQueues = AIQueues(10)
 
+        """This is use by AI to try to schedule the clear of the Queue"""
+        self.__queueTime = time()
 
     def __del__(self):
         """Default Destructor of the AI class"""
@@ -297,6 +298,9 @@ class Ai:
 
     def __resetMapVisionTicksCpt(self):
         self.__mapVisionTicksCpt = 0
+
+    def __resetQueueTime(self):
+        self.__queueTime = time()
 
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
@@ -348,6 +352,9 @@ class Ai:
         playerLevel = self.__playerCurrentLevel + 1
         return playerLevel * playerLevel
 
+    def __getQueueTime(self) -> float:
+        return self.__queueTime
+
     """ -------------------------------------------Public members functions------------------------------------------"""
 
     def start(self) -> int:
@@ -362,6 +369,7 @@ class Ai:
             self.__playerStrategyManagement()
             self.__actionsProceed()
             self.__ticksCptManagement()
+            self.__QueueManagement()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
@@ -383,7 +391,8 @@ class Ai:
                 break
         self.__setVisionOfTheMap(self.__lib.GetRepLook())
         tmpFood = self.__inventory.GetFood()
-        self.__lib.AskInventory()
+        if not self.__lib.AskInventory():
+            safeExitError()
         while not self.__lib.GetResponseState():
             pass
         self.__setInventory(self.__lib.GetRepInventory())
@@ -416,6 +425,13 @@ class Ai:
             if action == "give":
                 return BroadcastInfo(action, teamName, pos, 0, 0, infos[2])
 
+    def __queueManagement(self):
+        """This used by the AI each x of time to empty the queue"""
+        if self.__getQueueTime() >= EMPTY_QUEUE_LIMIT / self.__getFrequency():
+            self.__handleQueuesResponses()
+            self.__resetQueueTime()
+        if not self.__Queues.isServerQueueFull():
+            self.__Queues.addInServerQueue()
 
     def __ticksCptManagement(self):
         """This is used by AI to manage useful ticks counter
@@ -426,26 +442,16 @@ class Ai:
         self.__incrMapVisionTicksCpt()
         self.__incrInventoryTicksCpt()
         if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
-            self.__lib.AskInventory()
+            if not self.__lib.AskInventory():
+                safeExitError()
+            self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
             self.__resetInventoryTicksCpt()
-            # while True:
-            #     value = self.__waitForAction()
-            #     if value == STOPPED:
-            #         return
-            #     if value == EXPECTED:
-            #         break
-
-            self.__inventory.fillInventory(self.__lib.GetRepInventory())
         if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
-            self.__lib.AskLook()
+            if not self.__lib.AskLook():
+                safeExitError()
+            self.__Queues.addInAiQueue(self.__lib.GetRepLook)
             self.__resetMapVisionTicksCpt()
-            while True:
-                value = self.__waitForAction()
-                if value == STOPPED:
-                    return
-                if value == EXPECTED:
-                    break
-            self.__inventory.fillInventory(self.__lib.GetRepLook())
+
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
         These functions are considered as actions
@@ -461,23 +467,6 @@ class Ai:
             self.__deny()
         else:
             self.__farming()
-
-    def __waitForAction(self) -> int:
-        """
-        Wait for a launched action and handle the possible unexpected responses
-        Return true if the Client is running
-        Otherwise return False
-        """
-        while not self.__lib.GetResponseState():
-            pass
-        if self.__lib.GetUnexpectedResponseState():
-            self.__unexpectedResponseManagement()
-            if not self.__getIsRunning():
-                return STOPPED
-            else:
-                return UNEXPECTED
-        else:
-            return EXPECTED
 
     def __handleQueuesResponses(self) -> None:
         """
@@ -499,10 +488,14 @@ class Ai:
                 self.__Queues.decMov() if fctPtr() else self.__setTargetTileReached(True)
             if fctPtr in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
                 fctPtr()
-            if fctPtr == self.__lib.GetRepFork and not self.__lib.GetRepFork():
-                self.__availableSlots += 1
+            if fctPtr == self.__lib.GetRepFork and self.__lib.GetRepFork():
+                self.__decrAvailableSlots()
             if fctPtr == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
                 self.__incrPlayerCurrentLevel()
+            if fctPtr == self.__lib.GetRepInventory:
+                self.__inventory.fillInventory(self.__lib.GetRepInventory())
+            if fctPtr == self.__lib.GetRepLook:
+                self.__visionOfTheMap.fillMap(self.__lib.GetRepLook())
             responseTreated = True
         if not self.__Queues.isMovementLeft():
             self.__setTargetTileReached(True)
@@ -544,8 +537,8 @@ class Ai:
         """This is used by the AI to know if the action is realisable or not depending on its food"""
         return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action)
 
-    def __getNewPlayers(self, neededPlayers : int):
-        playerOnMap = 6 - self.__getAvailableSlots()
+    def __forkManagement(self, neededPlayers : int):
+        playerOnMap = MAX_TEAM_PLAYER - self.__getAvailableSlots()
         if neededPlayers > playerOnMap:
             self.__fork()
         else:
@@ -562,8 +555,8 @@ class Ai:
         if self.__getRequiredComponent() != "nothing":
             return False
         neededPlayers : int = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player")
-        if self.__getVisionOfTheMap().GetTile(0).player != neededPlayers:
-            self.__getNewPlayers(neededPlayers)
+        if self.__getVisionOfTheMap().GetTile(0).player < neededPlayers:
+            self.__forkManagement(neededPlayers)
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
@@ -594,22 +587,13 @@ class Ai:
             return :    True if the request successfully send to the server
                         False Otherwise
         """
-        #AZE
         if not self.__isThisActionRealisable("fork"):
             return False
         if self.__getAvailableSlots() == 0:
             return False
         if not self.__lib.AskFork():
             safeExitError()
-        while True:
-            value = self.__waitForAction()
-            if value == STOPPED:
-                return False
-            if value == EXPECTED:
-                break
-        if not self.__lib.GetRepFork():
-            return False
-        self.__decrAvailableSlots()
+        self.__Queues.addInAiQueue(self.__lib.GetRepFork)
         return True
 
     def __reachSpecificTile(self, index: int):
@@ -628,23 +612,27 @@ class Ai:
                 frontTileIndex = vector.frontTileIndex
                 nbForwardSteps = PATH_REFERENCES.index(vector)
         for _ in range(0, nbForwardSteps):
-            self.__lib.AskForward()
+            if not self.__lib.AskForward():
+                safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
             self.__Queues.incrMov()
         nbForwardSteps = index - frontTileIndex
         if nbForwardSteps < 0:
-            self.__lib.AskTurnLeft()
+            if not self.__lib.AskTurnLeft():
+                safeExitError()
             nbForwardSteps *= -1
             self.__Queues.addInAiQueue(self.__lib.GetRepTurnLeft)
             self.__Queues.incrMov()
         elif nbForwardSteps == 0:
             return
         else:
-            self.__lib.AskTurnRight()
+            if not self.__lib.AskTurnRight():
+                safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepTurnRight)
             self.__Queues.incrMov()
         for _ in range(0, nbForwardSteps):
-            self.__lib.AskForward()
+            if not self.__lib.AskForward():
+                safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
             self.__Queues.incrMov()
 
