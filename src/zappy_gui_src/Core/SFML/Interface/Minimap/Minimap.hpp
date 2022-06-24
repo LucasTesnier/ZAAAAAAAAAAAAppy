@@ -96,6 +96,7 @@ namespace gui {
             /// \brief The state of the switch function.
             bool isSwitch;
 
+            /// \brief position of the inventory menu
             sf::Vector2f _bottomMenuPosition;
     };
 } // namepsace gui

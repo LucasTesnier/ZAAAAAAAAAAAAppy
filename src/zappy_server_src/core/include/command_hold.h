@@ -334,6 +334,28 @@ int level, enum player_orientation_e orientation);
 /// \return int The direction where the ejection from
 int get_eject_dir(server_data_t *serv, entity_t *entity, position_t old);
 
+/// \brief Get the total size needed for a case in the look command
+/// \param cases The case content of ressources
+/// \return int The total size for look command
+int get_look_case_total_size(container_t *cases);
+
+/// \brief Detect if a team has win the game !
+/// \param serv The server informations
+/// \param team_name The team name to detect
+void victory_detection(server_data_t *serv, char *team_name);
+
+/// \brief Check if a team have lose :(
+/// \param serv The server information
+/// \param team_name The name of the team to check
+void defeat_detection(server_data_t *serv, char *team_name);
+
+/// \brief Remove a plyer from his team
+/// \param player The player informations
+/// \param serv The server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool remove_player_from_team(player_t *player, server_data_t *serv);
+
 /// List of AI command end
 static const command_data_t ai_command_list_end[] = {
     {"/inventory", NULL, &command_inventory_end},
