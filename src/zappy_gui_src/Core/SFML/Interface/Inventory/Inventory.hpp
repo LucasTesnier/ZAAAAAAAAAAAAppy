@@ -109,7 +109,7 @@ namespace gui {
             inline void setEggs(const std::vector<gui::entity::Egg> &eggs) {
                 _eggs = eggs;
             }
-
+            void scroll(const float &scroll);
         private:
             /// \brief resize the body and all the shapes on it
             void _updateBody();
@@ -151,6 +151,8 @@ namespace gui {
             std::vector<gui::entity::Player> _players;
             /// \brief the eggs on the selected tile
             std::vector<gui::entity::Egg> _eggs;
+            std::size_t _startPlayerText;
+            std::size_t _startEggText;
     };
 }
 

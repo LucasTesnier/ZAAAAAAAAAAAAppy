@@ -34,7 +34,7 @@ void ServerCommunication::_updateBody()
     sf::Vector2u windowSize = _window->getSize();
 
     if (_isOpen) {
-        _body.setSize(sf::Vector2f(windowSize.x / 10, windowSize.y));
+        _body.setSize(sf::Vector2f(windowSize.x / 8, windowSize.y));
         _body.setPosition(sf::Vector2f(0, 0));
         _button.setPosition(sf::Vector2f(_body.getPosition().x + _body.getSize().x - _button.getGlobalBounds().width - 10, _body.getPosition().y + 10));
         _button.setPoint(0, {10, 0});
@@ -78,7 +78,7 @@ void ServerCommunication::initializeShapes()
     sf::Vector2f pos;
 
     _body.setOutlineThickness(1);
-    _body.setSize(sf::Vector2f(window.x / 10, window.y));
+    _body.setSize(sf::Vector2f(window.x / 8, window.y));
     _body.setPosition(sf::Vector2f(0, 0));
     _button.setPointCount(3);
     _button.setPoint(0, {10, 0});

@@ -10,6 +10,7 @@
 #include "Inventory.hpp"
 #include "ZappyGuiException.hpp"
 #include <string>
+#include <iostream>
 
 using namespace gui;
 
@@ -17,6 +18,7 @@ Inventory::Inventory()
 {
     std::vector<int> tmpvec = {-1, -1, -1, -1, -1, -1, -1};
     _tileInventory = tmpvec;
+    _startPlayerText = 0;
 }
 
 Inventory::Inventory(std::shared_ptr<sf::RenderWindow> window)
@@ -126,16 +128,24 @@ void Inventory::setPosTextsInv()
 
 void Inventory::setPosTextsPlayer(int x, int y, int offset)
 {
-    _textsPlayer.at(0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
-    _textsPlayer.at(1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
-    _textsPlayer.at(2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
-    _textsPlayer.at(3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
+    if (_startPlayerText >= _textsPlayer.size())
+        return;
+    _textsPlayer.at(_startPlayerText + 0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
+    _textsPlayer.at(_startPlayerText + 1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
+    if (_startPlayerText + 2 >= _textsPlayer.size())
+        return;
+    _textsPlayer.at(_startPlayerText + 2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
+    _textsPlayer.at(_startPlayerText + 3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
 }
 
 void Inventory::setPosTextsEgg(int x, int y, int offset)
 {
+    if (_startPlayerText >= _textsPlayer.size())
+        return;
     _textsEgg.at(0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
     _textsEgg.at(1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
+    if (_startPlayerText + 2 >= _textsPlayer.size())
+        return;
     _textsEgg.at(2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
     _textsEgg.at(3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
 }
@@ -174,19 +184,19 @@ void Inventory::_updateBody()
     }
     std::size_t j = 0;
     for (auto &t : _textsPlayer) {
-        if (_players.empty())
+        if (_startPlayerText + j < _players.size())
+            t.setString("Team: " + _players.at(_startPlayerText + j).getTeamName() +
+                        "\nLevel: " + std::to_string(_players.at(_startPlayerText + j).getLevel()));
+        else
             t.setString("Player");
-        else if (j < _players.size())
-            t.setString("Team: " + _players.at(j).getTeamName() +
-                        "\nLevel: " + std::to_string(_players.at(j).getLevel()));
         j++;
     }
     std::size_t k = 0;
     for (auto &t : _textsEgg) {
-        if (_eggs.empty())
+        if (_startEggText + k < _eggs.size())
+            t.setString("Team: " + _eggs.at(_startEggText + k).getTeamName());
+        else
             t.setString("Egg");
-        else if (k < _eggs.size())
-            t.setString("Team: " + _eggs.at(k).getTeamName());
         k++;
     }
     setPosTextsInv();
@@ -221,3 +231,26 @@ void Inventory::update(bool forceUpdate)
     }
 }
 
+void Inventory::scroll(const float &scroll)
+{
+    sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
+
+    if (mouse.x >= _textsPlayer.at(0).getPosition().x && mouse.x <= _textsPlayer.at(2).getPosition().x + _textsPlayer.at(2).getGlobalBounds().width) {
+        if (scroll >= 1) {
+            _startPlayerText += 2;
+        }
+        if (scroll <= 1) {
+            _startPlayerText -= 2;
+        }
+        if (_startPlayerText > _players.size())
+            _startPlayerText = _players.size() - 1;
+    }
+    if (mouse.x >= _textsEgg.at(0).getPosition().x && mouse.x <= _textsEgg.at(2).getPosition().x + _textsEgg.at(2).getGlobalBounds().width) {
+        if (scroll >= 1)
+            _startEggText += 2;
+        else
+            _startEggText -= 2;
+        if (_startEggText > _eggs.size())
+            _startEggText = _eggs.size() - 1;
+    }
+}
