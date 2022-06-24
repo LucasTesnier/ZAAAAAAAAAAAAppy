@@ -254,6 +254,9 @@ class Ai:
         """This is use by AI to try to schedule the clear of the Queue"""
         self.__queueTime = time()
 
+        """This is used by AI to know if it asked elevation to the server"""
+        self.__askedElevation = False
+
     def __del__(self):
         """Default Destructor of the AI class"""
         self.running = False
@@ -299,6 +302,9 @@ class Ai:
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
 
+    def __setAskedElevation(self, askedElevation: bool):
+        self.__askedElevation = askedElevation
+
     def __getAvailableSlots(self):
         return self.__availableSlots
 
@@ -337,6 +343,9 @@ class Ai:
 
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
+
+    def __getAskedIncantation(self) -> bool:
+        return self.__askedElevation
 
     def __getPlayerMaxRange(self) -> int:
         """This is used to know the maximal range of the player's vision depending on his level
@@ -486,23 +495,18 @@ class Ai:
                 self.__unexpectedResponseManagement()
                 continue
             if fctPtr in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
-                print("Pop Mov")
                 self.__Queues.decMov() if fctPtr() else self.__setTargetTileReached(True)
             if fctPtr in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
-                print("Pop useless")
                 fctPtr()
             if fctPtr == self.__lib.GetRepFork and self.__lib.GetRepFork():
-                print("Pop fork")
                 self.__decrAvailableSlots()
             if fctPtr == self.__lib.GetRepIncantation:
-                print("Pop incantation")
-                self.__incrPlayerCurrentLevel()
-                exit()
+                if self.__lib.GetRepIncantation() > 0:
+                    self.__incrPlayerCurrentLevel()
+                    self.__setAskedElevation(False)
             if fctPtr == self.__lib.GetRepInventory:
-                print("Pop inventory")
                 self.__inventory.fillInventory(self.__lib.GetRepInventory())
             if fctPtr == self.__lib.GetRepLook:
-                print("Pop Look")
                 self.__visionOfTheMap.fillMap(self.__lib.GetRepLook())
             responseTreated = True
         if not self.__Queues.isMovementLeft():
@@ -568,9 +572,11 @@ class Ai:
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
-        if not self.__lib.AskIncantation():
-            safeExitError()
-        self.__Queues.addInAiQueue(self.__lib.GetRepIncantation)
+        if not self.__getAskedIncantation():
+            if not self.__lib.AskIncantation():
+                safeExitError()
+            self.__Queues.addInAiQueue(self.__lib.GetRepIncantation)
+            self.__setAskedElevation(True)
         return True
 
     def __teamCall(self, action: str) -> bool:
