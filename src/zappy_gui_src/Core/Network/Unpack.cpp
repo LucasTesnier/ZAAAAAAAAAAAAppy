@@ -89,8 +89,9 @@ gui::entity::Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
     try {
         auto egg = stov(unpacked[1], ';');
         e._position = std::make_pair(std::stoi(egg[0]), std::stoi(egg[1]));
-        egg[2].pop_back();
-        e._team_name = egg[2];
+        std::size_t pos = egg[2].find("}");
+        std::string team_name = egg[2].substr(0, pos);
+        e._team_name = team_name;
     } catch(...) {
         throw (std::invalid_argument("Egg invalid parsing"));
     }
