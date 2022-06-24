@@ -29,7 +29,7 @@ enum player_orientation_e {
     WEST
 };
 
-/// Reprensents a player
+/// Represents a player
 typedef struct player_s {
     /// Unique player id
     uuid_t uuid;
@@ -40,6 +40,9 @@ typedef struct player_s {
     /// The player level
     unsigned int level;
 
+    /// The player status, alive (1) or dead (0)
+    bool status;
+
     /// The player inventory
     container_t *inventory;
 
@@ -49,7 +52,7 @@ typedef struct player_s {
 
 /// \brief Creates a new player and associate it with the given team name
 /// \param team_name the team name
-/// \return the new player or NULL if an error occured
+/// \return the new player or NULL if an error occurred
 player_t *create_player(const char *team_name);
 
 /// \brief Level up the player

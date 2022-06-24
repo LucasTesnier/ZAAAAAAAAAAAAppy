@@ -51,6 +51,18 @@ typedef struct entity_wrapper_s {
     struct entities_list_s tiles;
 } entity_wrapper_t;
 
+/// \brief Wrapper around entity diffs between two server actions
+typedef struct entity_diff_s {
+    /// The modified entities since the last action
+    entity_t **entities;
+    /// The current size of the entities array
+    size_t diff_size;
+    /// The offset of the entities array used in various methods to
+    /// keep track of the current index inside entities
+    size_t offset;
+} entity_diff_t;
+
+
 /// \brief Create a new entity
 /// \param type the entity typ
 /// \param position the entity position
@@ -110,5 +122,24 @@ void entity_wrapper_create_tile(entity_wrapper_t *wrapper, position_t pos);
 /// \param wrapper the entity wrapper to remove the entity from
 /// \param entity the entity to remove
 void entity_wrapper_remove_entity(entity_wrapper_t *wrapper, entity_t *entity);
+
+/// \brief Create a new entity diff with an initial size
+entity_diff_t *create_entity_diff(size_t initial_size);
+
+/// \brief Expand the entities diff array with realloc, thus updating diff_size
+/// \param diff the entity diff to expand
+/// \param offset the offset to add to the diff_size (can be neg)
+/// \warning If diff->diff_size + offset < 0, the diff_size will be set to 0
+bool entity_diff_expand_size(entity_diff_t *diff, size_t offset);
+
+/// \brief Add an entity to the diff
+void entity_diff_add_entity(entity_diff_t *diff, entity_t *entity);
+
+/// \brief Reset the diff->offset to 0
+void entity_diff_reset(entity_diff_t *diff);
+
+/// \brief Destroy the entity diff and sets the pointer to NULL
+/// \note This function does not delete the entities
+void destroy_entity_diff(entity_diff_t **diff);
 
 #endif /* ENTITY_H */
