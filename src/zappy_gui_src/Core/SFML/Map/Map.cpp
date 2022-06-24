@@ -143,6 +143,33 @@ void Map::_displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation)
     }
 }
 
+void Map::addPlayer(gui::entity::Player &player)
+{
+    for (auto &it : _players) {
+        if (it._uuid == player._uuid) {
+            _tile[itop(sf::Vector2f(it.getPosition().first, it.getPosition().second))]->removePlayer(it);
+            it = player;
+            _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+            return;
+        }
+    }
+    _players.emplace_back(player);
+    _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+}
+
+void Map::addTilesInfo(gui::entity::Tile &tileInfo)
+{
+    for (auto &it : _tilesInfo) {
+        if (it._position == tileInfo._position) {
+            it = tileInfo;
+            _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
+            return;
+        }
+    }
+    _tilesInfo.emplace_back(tileInfo);
+    _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
+}
+
 void Map::_displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation)
 {
     std::size_t index = 1;

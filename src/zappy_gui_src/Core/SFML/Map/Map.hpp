@@ -59,10 +59,7 @@ namespace gui {
 
             /// \brief add a player object to the vector
             /// \param player the player object to add
-            inline void addPlayer(gui::entity::Player &player) {
-                _players.emplace_back(player);
-                _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
-            }
+            void addPlayer(gui::entity::Player &player);
 
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
@@ -72,10 +69,7 @@ namespace gui {
 
             /// \brief add a tile object to the vector
             /// \param tileInfo the tile object to set
-            inline void addTilesInfo(gui::entity::Tile &tileInfo) {
-                _tilesInfo.emplace_back(tileInfo);
-                _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
-            }
+            void addTilesInfo(gui::entity::Tile &tileInfo);
 
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
