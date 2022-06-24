@@ -1,0 +1,18 @@
+<map id="src/zappy_gui_src/Core/SFML/Interface" name="src/zappy_gui_src/Core/SFML/Interface">
+<area shape="rect" id="node2" href="dir_823f81049b07006276e78ae66e4f292c.html" title="Inventory" alt="" coords="229,159,313,207"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000021_000022.html" title="1" alt="" coords="295,139,304,154"/>
+<area shape="rect" id="node3" href="dir_50e25cd3bda889d421246f2c4aa9a111.html" title="Minimap" alt="" coords="337,159,415,207"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000021_000023.html" title="1" alt="" coords="357,131,366,146"/>
+<area shape="rect" id="node4" href="dir_7a822d1ebfc36ec5a257094612fea9c2.html" title="ServerCommunication" alt="" coords="38,159,205,207"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000021_000024.html" title="1" alt="" coords="186,151,195,166"/>
+<area shape="rect" id="node7" href="dir_08e7a0a89fb69fd6a5efedc92db4bb1b.html" title="WrapperSFML" alt="" coords="448,159,560,207"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000021_000026.html" title="1" alt="" coords="443,135,452,150"/>
+<area shape="rect" id="node5" href="dir_cb3ff3b97dd445c2dea16edd4a0c2c18.html" title="Exception" alt="" coords="101,255,187,303"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000022_000027.html" title="1" alt="" coords="195,244,204,259"/>
+<area shape="rect" id="node6" href="dir_49da5d4f626052a1f37095534529e39b.html" title="Entity" alt="" coords="223,255,295,303"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000022_000018.html" title="1" alt="" coords="268,230,277,245"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000024_000027.html" title="1" alt="" coords="138,228,147,242"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000024_000018.html" title="1" alt="" coords="210,230,219,245"/>
+<area shape="rect" id="clust2" href="dir_8c4cd10a1423d4d07f6ca7e87b7bd0ea.html" alt="" coords="27,52,427,217"/>
+<area shape="rect" id="clust1" href="dir_ed447b12387ed70b3887e1062be1bc8e.html" title="SFML" alt="" coords="16,16,437,228"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="entity_s" name="entity_s">
+<area shape="rect" id="node1" title="Represents a generic entity." alt="" coords="12,95,87,121"/>
+<area shape="rect" id="node2" href="$structposition__s.html" title="Represents a generic position in the game." alt="" coords="5,5,93,32"/>
+</map>

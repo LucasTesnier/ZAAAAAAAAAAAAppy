@@ -1,0 +1,4 @@
+<map id="broadcast_data_s" name="broadcast_data_s">
+<area shape="rect" id="node1" title="All usefull data for broadcast compute." alt="" coords="5,95,141,121"/>
+<area shape="rect" id="node2" href="$structposition__s.html" title="Represents a generic position in the game." alt="" coords="29,5,117,32"/>
+</map>

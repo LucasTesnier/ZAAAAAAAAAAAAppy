@@ -1,0 +1,5 @@
+<map id="map_s" name="map_s">
+<area shape="rect" id="node1" title="Represents the zappy map." alt="" coords="17,184,82,211"/>
+<area shape="rect" id="node2" href="$structentity__s.html" title="Represents a generic entity." alt="" coords="12,95,87,121"/>
+<area shape="rect" id="node3" href="$structposition__s.html" title="Represents a generic position in the game." alt="" coords="5,5,93,32"/>
+</map>

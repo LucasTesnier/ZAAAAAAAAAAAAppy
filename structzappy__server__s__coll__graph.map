@@ -1,0 +1,4 @@
+<map id="zappy_server_s" name="zappy_server_s">
+<area shape="rect" id="node1" title="Wraps the application and network side of the zappy srever." alt="" coords="5,95,128,121"/>
+<area shape="rect" id="node2" href="$structtcp__server__s.html" title="Represents a basic tcp server." alt="" coords="15,5,119,32"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="server_data_s" name="server_data_s">
+<area shape="rect" id="node1" title="Major data for the server." alt="" coords="423,273,537,300"/>
+<area shape="rect" id="node2" href="$structscheduler__s.html" title=" " alt="" coords="117,184,216,211"/>
+<area shape="rect" id="node3" href="$structargument__s.html" title="Different settings of the game." alt="" coords="240,184,339,211"/>
+<area shape="rect" id="node4" href="$structplayer__list__s.html" title="Node of a player list." alt="" coords="363,184,467,211"/>
+<area shape="rect" id="node5" href="$structentity__s.html" title="Represents a generic entity." alt="" coords="469,95,544,121"/>
+<area shape="rect" id="node9" href="$structmap__s.html" title="Represents the zappy map." alt="" coords="513,184,578,211"/>
+<area shape="rect" id="node6" href="$structposition__s.html" title="Represents a generic position in the game." alt="" coords="5,5,93,32"/>
+<area shape="rect" id="node7" href="$structcommand__data__s.html" title="Command informations and data." alt="" coords="190,95,327,121"/>
+<area shape="rect" id="node8" href="$structpeer__s.html" title="Represents a client connection." alt="" coords="362,95,427,121"/>
+<area shape="rect" id="node10" href="$structzappy__server__s.html" title="Wraps the application and network side of the zappy srever." alt="" coords="603,184,725,211"/>
+<area shape="rect" id="node11" href="$structtcp__server__s.html" title="Represents a basic tcp server." alt="" coords="631,95,735,121"/>
+<area shape="rect" id="node12" href="$structentity__wrapper__s.html" title="Entity wrapper used at the top level." alt="" coords="750,184,885,211"/>
+</map>

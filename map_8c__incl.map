@@ -1,0 +1,14 @@
+<map id="src/zappy_server_src/core/map.c" name="src/zappy_server_src/core/map.c">
+<area shape="rect" id="node1" title=" " alt="" coords="259,5,418,47"/>
+<area shape="rect" id="node2" href="$map_8h.html" title=" " alt="" coords="255,95,318,121"/>
+<area shape="rect" id="node3" href="$entity_8h.html" title=" " alt="" coords="161,169,273,196"/>
+<area shape="rect" id="node4" href="$entity__types_8h.html" title="The entity type, defined in." alt="" coords="5,244,120,271"/>
+<area shape="rect" id="node8" href="$tile_8h.html" title=" " alt="" coords="342,95,439,121"/>
+<area shape="rect" id="node10" title=" " alt="" coords="589,244,659,271"/>
+<area shape="rect" id="node12" title=" " alt="" coords="671,95,737,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="145,244,245,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="268,244,351,271"/>
+<area shape="rect" id="node7" title=" " alt="" coords="375,244,470,271"/>
+<area shape="rect" id="node9" href="$container_8h.html" title=" " alt="" coords="450,169,545,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="494,244,565,271"/>
+</map>

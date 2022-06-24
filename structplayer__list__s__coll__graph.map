@@ -1,0 +1,7 @@
+<map id="player_list_s" name="player_list_s">
+<area shape="rect" id="node1" title="Node of a player list." alt="" coords="235,184,339,211"/>
+<area shape="rect" id="node2" href="$structentity__s.html" title="Represents a generic entity." alt="" coords="189,95,264,121"/>
+<area shape="rect" id="node3" href="$structposition__s.html" title="Represents a generic position in the game." alt="" coords="5,5,93,32"/>
+<area shape="rect" id="node4" href="$structcommand__data__s.html" title="Command informations and data." alt="" coords="289,95,426,121"/>
+<area shape="rect" id="node5" href="$structpeer__s.html" title="Represents a client connection." alt="" coords="467,95,533,121"/>
+</map>
