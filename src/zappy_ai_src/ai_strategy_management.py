@@ -488,27 +488,29 @@ class Ai:
                 break
         self.__setTargetTileReached(False)
 
-    def __handleQueuesResponses(self, response) -> None:
+    def __handleQueuesResponses(self) -> None:
         """
-        From the response object given by self.__Queues.emptyServerQueue()
+        From the response object given by self.__Queues.popFctPtr()
         Find the correct way to get the response and process it
         Only the getter of Forwarf, Right, Left, Take/Place Object, Eject, Fork and Incantation are handled
         """
         responseTreated : bool = False
 
+        if not self.__lib.GetResponseState():
+            return
+        fctPtr = self.__Queues.popFctPtr()
         while not responseTreated and self.__getIsRunning():
-            if not self.__lib.GetResponseState():
-                continue
+
             if self.__lib.GetUnexpectedResponseState():
                 self.__unexpectedResponseManagement()
                 continue
-            if response in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
-                self.__Queues.decMov() if response() else self.__setTargetTileReached(True)
-            if response in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
-                response()
-            if response == self.__lib.GetRepFork and not self.__lib.GetRepFork():
+            if fctPtr in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
+                self.__Queues.decMov() if fctPtr() else self.__setTargetTileReached(True)
+            if fctPtr in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
+                fctPtr()
+            if fctPtr == self.__lib.GetRepFork and not self.__lib.GetRepFork():
                 self.__availableSlots += 1
-            if response == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
+            if fctPtr == self.__lib.GetRepIncantation and self.__lib.GetRepIncantation() > 0:
                 self.__incrPlayerCurrentLevel()
             responseTreated = True
         if not self.__Queues.isMovementLeft():
@@ -529,8 +531,7 @@ class Ai:
             self.__setAnotherTargetTile(component)
             return
         if self.__Queues.isServerQueueFull():
-            response = self.__Queues.emptyServerQueue()
-            self.__handleQueuesResponses(response)
+            self.__handleQueuesResponses()
         self.__Queues.addInServerQueue()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
