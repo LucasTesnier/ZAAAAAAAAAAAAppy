@@ -56,8 +56,6 @@ static void parse_read_for_stack(char *read, peer_t *tmp)
     char *buffer = read;
     int count = 0;
 
-    if (buffer == NULL)
-        return;
     for (; buffer && *buffer != '\0';) {
         if (tmp->pending_read >= 10)
             break;
@@ -68,6 +66,8 @@ static void parse_read_for_stack(char *read, peer_t *tmp)
         tmp->input_buffer[tmp->pending_read][count + 1] = '\0';
         tmp->pending_read++;
         buffer += count + 1;
+        if (*buffer == '\n')
+            buffer += 1;
     }
 }
 
