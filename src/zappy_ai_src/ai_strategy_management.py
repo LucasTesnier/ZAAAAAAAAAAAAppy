@@ -5,7 +5,7 @@ from ai_handle_response import Inventory, Map, Tile
 from ai_safe_error import safeExitError
 from ai_queue_wrapper import AIQueues
 from ai_broadcast_to_object import BroadcastInfo
-from time import time, clock
+from time import time
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -44,10 +44,10 @@ SAFETY_MARGIN = 300
 FOOD_LIMIT = 300
 
 """This is the limit before the next update of the mapVision"""
-MAP_VISION_UPDATE_LIMIT = 50
+MAP_VISION_UPDATE_LIMIT = 70
 
 """This is the limit before the next update of the inventory"""
-INVENTORY_UPDATE_LIMIT = 50
+INVENTORY_UPDATE_LIMIT = 35
 
 """This is the limit before the AI empties the queue"""
 EMPTY_QUEUE_LIMIT = 7
@@ -235,11 +235,11 @@ class Ai:
         """This private member represents the frequency of time units used in scheduling management on server"""
         self.__frequency = 0
 
-        """This private member represents the counter of ticks to know when the temporary inventory should be updated"""
-        self.__inventoryTicksCpt = 0
+        """This private member represents the time to know when the temporary inventory should be updated"""
+        self.__inventoryTime = 0
 
-        """This private member represents the counter of ticks to know when the temporary mapVision should be updated"""
-        self.__mapVisionTicksCpt = 0
+        """This private member represents the time to know when the temporary mapVision should be updated"""
+        self.__mapVisionTime = 0
 
         """This private member informs if the player is able
             to move or not, to participate of teamCall of something else
@@ -249,7 +249,7 @@ class Ai:
         """This private member is used by AI to enqueue all requests to the server
             This is very useless at the moment because every request is blocking another one in the server
         """
-        self.__Queues : AIQueues = AIQueues(10)
+        self.__Queues: AIQueues = AIQueues(10)
 
         """This is use by AI to try to schedule the clear of the Queue"""
         self.__queueTime = time()
@@ -287,17 +287,11 @@ class Ai:
     def __incrPlayerCurrentLevel(self):
         self.__playerCurrentLevel += 1
 
-    def __incrInventoryTicksCpt(self):
-        self.__inventoryTicksCpt += 1
+    def __resetInventoryTime(self):
+        self.__inventoryTime = time()
 
-    def __resetInventoryTicksCpt(self):
-        self.__inventoryTicksCpt = 0
-
-    def __incrMapVisionTicksCpt(self):
-        self.__mapVisionTicksCpt += 1
-
-    def __resetMapVisionTicksCpt(self):
-        self.__mapVisionTicksCpt = 0
+    def __resetMapVisionTime(self):
+        self.__mapVisionTime = time()
 
     def __resetQueueTime(self):
         self.__queueTime = time()
@@ -335,11 +329,11 @@ class Ai:
     def __getFrequency(self) -> int:
         return self.__frequency
 
-    def __getInventoryTicksCpt(self) -> int:
-        return self.__inventoryTicksCpt
+    def __getInventoryTime(self) -> int:
+        return self.__inventoryTime
 
-    def __getMapVisionTicksCpt(self) -> int:
-        return self.__mapVisionTicksCpt
+    def __getMapVisionTime(self) -> int:
+        return self.__mapVisionTime
 
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
@@ -368,8 +362,7 @@ class Ai:
         while self.__getIsRunning():
             self.__playerStrategyManagement()
             self.__actionsProceed()
-            self.__ticksCptManagement()
-            self.__queueManagement()
+            self.__timeManagement()
         return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
@@ -433,24 +426,29 @@ class Ai:
         if not self.__Queues.isServerQueueFull():
             self.__Queues.addInServerQueue()
 
-    def __ticksCptManagement(self):
-        """This is used by AI to manage useful ticks counter
-            at each turn of the loop, Ai increments mapVisionTicksCpt & inventoryTicksCpt
-            and when (limit * f) is reached, it triggers the update action
-                where f is the frequency
-        """
-        self.__incrMapVisionTicksCpt()
-        self.__incrInventoryTicksCpt()
-        if self.__getInventoryTicksCpt() >= INVENTORY_UPDATE_LIMIT * self.__getFrequency():
-            if not self.__lib.AskInventory():
-                safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
-            self.__resetInventoryTicksCpt()
-        if self.__getMapVisionTicksCpt() >= MAP_VISION_UPDATE_LIMIT * self.__getFrequency():
+    def __mapVisionTimeManagement(self):
+        if self.__getMapVisionTime() >= MAP_VISION_UPDATE_LIMIT / self.__getFrequency():
             if not self.__lib.AskLook():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepLook)
-            self.__resetMapVisionTicksCpt()
+            self.__resetMapVisionTime()
+
+    def __inventoryTimeManagement(self):
+        if self.__getInventoryTime() >= INVENTORY_UPDATE_LIMIT / self.__getFrequency():
+            if not self.__lib.AskInventory():
+                safeExitError()
+            self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
+            self.__resetInventoryTime()
+
+    def __timeManagement(self):
+        """This is used by AI to manage useful time recorder
+            at each turn of the loop, Ai increments mapVisionTime & inventoryTime
+            and when (limit * f) is reached, it triggers the update action
+                where f is the frequency
+        """
+        self.__inventoryTimeManagement()
+        self.__mapVisionTimeManagement()
+        self.__queueManagement()
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
@@ -677,6 +675,7 @@ class Ai:
         if tileIndex == east.index(1):
             #Turn right, forward, forward
             pass
+
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
         These functions are considered as decisions
