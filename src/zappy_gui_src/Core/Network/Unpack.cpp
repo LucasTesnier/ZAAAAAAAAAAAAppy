@@ -122,9 +122,11 @@ gui::entity::Status Unpack::UnpackStatus(std::vector<std::string> &unpacked)
 
     try
     {
-        auto data = stov(unpacked[1], ';');
+        auto data = stov(unpacked[1], ':');
         status._status = data[0];
-        status._team_name = data[1];
+        std::size_t pos = data[1].find("}");
+        std::string team_name = data[1].substr(0, pos);
+        status._team_name = team_name;
     } catch(...) {
         throw (std::invalid_argument("Status invalid parsing"));
     }
@@ -171,7 +173,7 @@ void Unpack::UnpackEntity(Start &e, std::string &packed)
 void Unpack::UnpackEntity(gui::entity::Status &s, std::string &packed)
 {
     auto unpacked = stov(packed, '{');
-    if (unpacked[0] == "start") {
+    if (unpacked[0] == "status") {
         s = UnpackStatus(unpacked);
     } else
         throw (std::invalid_argument("Start entity invalid parsing"));

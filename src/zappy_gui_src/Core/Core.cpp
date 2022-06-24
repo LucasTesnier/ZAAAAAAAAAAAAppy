@@ -157,7 +157,7 @@ void Core::_updateEntities(std::string &type, std::string &response)
                 _sfml->addTilesInfo(t);
             } catch (...) {}
         }
-        if (type == "satus") {
+        if (type == "status") {
             entity::Status s;
             try {
                 _unpackObject->UnpackEntity(s, it);

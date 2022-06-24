@@ -117,7 +117,6 @@ namespace gui {
 
             inline void addStatus(gui::entity::Status &status) {
                 _statusGame = status;
-                std::cout << "team : " << status.getTeamName() << "status: " << status.getStatus() << std::endl;
             }
 
             /// \brief remove entities depending on the type given
