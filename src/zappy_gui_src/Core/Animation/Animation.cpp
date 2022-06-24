@@ -20,7 +20,7 @@ Animation::Animation()
     _textureUsed = 0;
 }
 
-void Animation::udpate()
+void Animation::update()
 {
     if (std::size_t(_clock.getElapsedTime().asMilliseconds()) > _duration) {
         _textureUsed++;
@@ -44,7 +44,7 @@ void Animation::addTexture(const sf::Image &image, const sf::Vector2f &position,
 {
     sf::Texture texture;
     sf::IntRect texture_rect;
-    
+
     texture_rect.left = position.x;
     texture_rect.top = position.y;
     texture_rect.width = size.x;
@@ -55,12 +55,17 @@ void Animation::addTexture(const sf::Image &image, const sf::Vector2f &position,
     _shape.setTexture(&_textures.back());
 }
 
+void Animation::moveShape(const sf::Vector2f &offset)
+{
+    _shape.move(offset);
+}
+
 const sf::RectangleShape &Animation::getShape() const
 {
     return _shape;
 }
 
-void Animation::setDuration(std::size_t duration)
+void Animation::setDuration(const std::size_t &duration)
 {
     _duration = duration;
 }
@@ -88,4 +93,19 @@ void Animation::setSize(const sf::Vector2f &size)
 const sf::Vector2f &Animation::getSize() const
 {
     return _shape.getSize();
+}
+
+const sf::FloatRect Animation::getGlobalBounds()
+{
+    return _shape.getGlobalBounds();
+}
+
+void Animation::setColor(const sf::Color &color)
+{
+    _shape.setFillColor(color);
+}
+
+const sf::Color &Animation::getColor() const
+{
+    return _shape.getFillColor();
 }

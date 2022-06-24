@@ -57,7 +57,6 @@ void Core::run()
 
 void Core::_removeEntities(std::string &type)
 {
-    std::cout << "remove type " << type << std::endl;
     _sfml->removeEntities(type);
 }
 
