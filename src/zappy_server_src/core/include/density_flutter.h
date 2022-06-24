@@ -10,6 +10,13 @@
 #ifndef DENSITY_FLUTTER_H_
     #define DENSITY_FLUTTER_H_
 
+    #include "command_hold.h"
+    #include "rcodes.h"
+    #include "team.h"
+    #include "entity/entity.h"
+    #include "entity/player.h"
+    #include <stdlib.h>
+
 /// \brief Get the default density array
 /// \return float* The newly created density array
 float *get_default_density_value(void)
@@ -26,6 +33,22 @@ float *get_default_density_value(void)
     density[5] = 0.08;
     density[6] = 0.05;
     return density;
+}
+
+bool command_get_density(char *arg __attribute__((unused)),
+player_list_t *player, server_data_t *serv)
+{
+    (void) serv;
+    pop_message(player->player_peer);
+    return print_retcode(801, "[...]", player->player_peer, true);
+}
+
+bool command_push_density(char *arg __attribute__((unused)),
+player_list_t *player, server_data_t *serv)
+{
+    (void) serv;
+    pop_message(player->player_peer);
+    return print_retcode(802, "[...]", player->player_peer, true);
 }
 
 #endif /* !DENSITY_FLUTTER_H_ */

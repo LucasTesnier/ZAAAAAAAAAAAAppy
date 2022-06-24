@@ -143,6 +143,15 @@ static const retcodes_t retcodes[] = {
     {.repr = "710 Restart the game : %s\n",
     .code = 710,
     .params = NULL},
+    {.repr = "801 Density value : %s\n",
+    .code = 801,
+    .params = NULL},
+    {.repr = "802 The density have been updated.\n",
+    .code = 802,
+    .params = NULL},
+    {.repr = "803 The density have not been updated.\n",
+    .code = 803,
+    .params = NULL},
     {0, 0, 0}
 };
 
