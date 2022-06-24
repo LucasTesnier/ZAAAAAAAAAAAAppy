@@ -108,16 +108,16 @@ player_t *player, position_t player_pos, position_t start_pos)
         return NULL;
     remove_ressource_randomly(serv->entities, player_pos,
     (container_t) {0, inc_lvl[player->level - 1].linemate,
-        inc_lvl[player->level - 1].deraumere,
-        inc_lvl[player->level - 1].sibur,
+        inc_lvl[player->level - 1].deraumere, inc_lvl[player->level - 1].sibur,
         inc_lvl[player->level - 1].mendiane,
         inc_lvl[player->level - 1].phiras,
         inc_lvl[player->level - 1].thystame},
     player->level);
-    player->level += 1;
+    player->level += 7;
     res[0] = '\0';
     sprintf(res, "%i", player->level);
     send_entities_list_info(serv);
+    victory_detection(serv, player->team);
     return res;
 }
 
