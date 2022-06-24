@@ -22,7 +22,8 @@ char *pack_container(container_t *cont)
 {
     char *tmp = NULL;
 
-    if ((tmp = (char*)malloc(sizeof(char) * (get_len_container(cont) + CONT_SIZE))) == NULL)
+    if ((tmp = (char *)malloc(sizeof(char) *
+        (get_len_container(cont) + CONT_SIZE))) == NULL)
         return NULL;
     sprintf(tmp, "inventory{%d;%d;%d;%d;%d;%d;%d}",
             cont->food,
@@ -42,7 +43,7 @@ char *pack_player(entity_t *entity)
     char *container = NULL;
 
     player = (player_t*)entity->data;
-    if ((tmp = (char*)malloc(sizeof(char) *
+    if ((tmp = (char *)malloc(sizeof(char) *
         (get_len_player(entity, player) + PLAYER_SIZE))) == NULL)
         return NULL;
     container = pack_container(player->inventory);
@@ -63,8 +64,8 @@ char *pack_tile(entity_t *entity)
     char *container = NULL;
     tile_t *tile = NULL;
 
-    tile = (tile_t*)entity->data;
-    if ((tmp = (char*)malloc(sizeof(char) *
+    tile = (tile_t *)entity->data;
+    if ((tmp = (char *)malloc(sizeof(char) *
         (get_len_tile(entity, tile) + TILE_SIZE))) == NULL)
         return NULL;
     container = pack_container(tile->inventory);
@@ -81,7 +82,7 @@ char *pack_egg(entity_t *entity)
     char *tmp = NULL;
     egg_t *egg = NULL;
 
-    egg = (egg_t*)entity->data;
+    egg = (egg_t *)entity->data;
     if ((tmp = malloc(sizeof(char) *
         (get_len_egg(entity, egg) + EGG_SIZE))) == NULL)
         return NULL;
@@ -92,7 +93,6 @@ char *pack_egg(entity_t *entity)
     return tmp;
 }
 
-//TODO subject of the pack (entity_pack?)
 char *pack(entity_t *entity)
 {
     char *packed = NULL;

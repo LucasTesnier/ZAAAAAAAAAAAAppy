@@ -95,8 +95,7 @@ position_t position, position_t map)
     res[1] = '\0';
     for (int i = 0; looked[i].x != -1; i++) {
         temp = get_tile_content(
-        get_tile(serv->map, looked[i].x, looked[i].y)
-        ,serv->entities);
+        get_tile(serv->map, looked[i].x, looked[i].y), serv->entities);
         res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 3));
         strcat(res, temp);
         free(temp);

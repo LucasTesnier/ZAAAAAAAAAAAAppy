@@ -5,12 +5,12 @@
 ** incantation
 */
 
+/// \file src/zappy_server_src/core/include/incantation.h
+
 #ifndef INCANTATION_H_
     #define INCANTATION_H_
 
     #include "remove_inventory.h"
-
-/// \file src/zappy_server_src/core/include/incantation.h
 
 /// \brief Check if th given inventory is empty
 /// \param inventory The inventory to inspect

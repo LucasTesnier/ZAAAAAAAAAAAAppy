@@ -22,7 +22,8 @@ static const incantation_level_t inc_lvl[] = {
     {4, 1, 1, 2, 0, 1, 0},
     {4, 1, 2, 1, 3, 0, 0},
     {6, 1, 2, 3, 0, 1, 0},
-    {6, 2, 2, 2, 2, 2, 1}
+    {6, 2, 2, 2, 2, 2, 1},
+    {10, 99, 99, 99, 99, 99, 99}
 };
 
 /// \brief Add the inventory content to the global container
@@ -90,7 +91,7 @@ server_data_t *serv)
     return true;
 }
 
-/// \brief Process 
+/// \brief Process
 /// \param serv The server informations
 /// \param player The player informations
 /// \param tile The current tile
@@ -113,7 +114,7 @@ player_t *player, position_t player_pos, position_t start_pos)
         inc_lvl[player->level - 1].phiras,
         inc_lvl[player->level - 1].thystame},
     player->level);
-    player->level += 7;
+    player->level += 1;
     res[0] = '\0';
     sprintf(res, "%i", player->level);
     send_entities_list_info(serv);
