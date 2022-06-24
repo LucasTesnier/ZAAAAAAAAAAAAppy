@@ -420,21 +420,24 @@ class Ai:
 
     def __queueManagement(self):
         """This used by the AI each x of time to empty the queue"""
-        if self.__getQueueTime() >= EMPTY_QUEUE_LIMIT / self.__getFrequency():
+        deltaTime = time() - self.__getQueueTime()
+        if deltaTime >= EMPTY_QUEUE_LIMIT / self.__getFrequency():
             self.__handleQueuesResponses()
             self.__resetQueueTime()
         if not self.__Queues.isServerQueueFull():
             self.__Queues.addInServerQueue()
 
     def __mapVisionTimeManagement(self):
-        if self.__getMapVisionTime() >= MAP_VISION_UPDATE_LIMIT / self.__getFrequency():
+        deltaTime = time() - self.__getMapVisionTime()
+        if deltaTime >= MAP_VISION_UPDATE_LIMIT / self.__getFrequency():
             if not self.__lib.AskLook():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepLook)
             self.__resetMapVisionTime()
 
     def __inventoryTimeManagement(self):
-        if self.__getInventoryTime() >= INVENTORY_UPDATE_LIMIT / self.__getFrequency():
+        deltaTime = time() - self.__getInventoryTime()
+        if deltaTime >= INVENTORY_UPDATE_LIMIT / self.__getFrequency():
             if not self.__lib.AskInventory():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
