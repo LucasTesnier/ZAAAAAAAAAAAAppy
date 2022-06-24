@@ -95,7 +95,6 @@ static const retcodes_t retcodes[] = {
     {.repr = "317 Eggs Hatching failed : ko.\n",
     .code = 317,
     .params = NULL},
-    /// ADD HERE RETCODE FOR ERROR
     {.repr = "401 Please login.\n",
     .code = 401,
     .params = NULL},

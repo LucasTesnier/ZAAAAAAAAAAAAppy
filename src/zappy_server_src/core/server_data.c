@@ -8,8 +8,10 @@
 /// \file src/zappy_server_src/core/server_data.c
 
 #include "server.h"
+#include "command_hold.h"
 #include "argument_handling.h"
 #include "entity/tile.h"
+#include "entity/player.h"
 #include <stdlib.h>
 
 bool server_add_player(server_data_t *server_data)
@@ -60,6 +62,13 @@ player_state_t comp)
     for (size_t i = 0; i < server_data->active_player_n; i++) {
         if (server_data->active_players[i]->disconnected == comp)
             server_remove_player(server_data, server_data->active_players[i]);
+        if (server_data->active_players[i]->player_peer != NULL &&
+            server_data->active_players[i]->player_peer->connected == false
+            && server_data->active_players[i]->type == AI &&
+            server_data->active_players[i]->player_data)
+            remove_player_from_team(
+            (player_t *)server_data->active_players[i]->player_data->data,
+            server_data);
         if (server_data->active_players[i]->player_peer != NULL &&
             server_data->active_players[i]->player_peer->connected == false)
             server_remove_player(server_data, server_data->active_players[i]);

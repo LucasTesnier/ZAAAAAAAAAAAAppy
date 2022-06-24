@@ -13,30 +13,30 @@
     #include <stdlib.h>
     #include <string.h>
 
-/// Generic type for items storage
+/// \brief Generic type for items storage
 typedef struct container_s {
-    /// The amount of food inside the container
+    /// \brief The amount of food inside the container
     int food;
-    /// The amount of linemate inside the container
+    /// \brief The amount of linemate inside the container
     unsigned int linemate;
-    /// The amount of deraumere inside the container
+    /// \brief The amount of deraumere inside the container
     unsigned int deraumere;
-    /// The amount of sibur inside the container
+    /// \brief The amount of sibur inside the container
     unsigned int sibur;
-    /// The amount of mendiane inside the container
+    /// \brief The amount of mendiane inside the container
     unsigned int mendiane;
-    /// The amount of phiras inside the container
+    /// \brief The amount of phiras inside the container
     unsigned int phiras;
-    /// The amount of thystame inside the container
+    /// \brief The amount of thystame inside the container
     unsigned int thystame;
 } container_t;
 
-/// Generate data
+/// \brief Generate data
 typedef struct generate_s {
-    /// Name of the ressource
+    /// \brief Name of the ressource
     char *name;
 
-    /// Density of the ressource
+    /// \brief Density of the ressource
     float density;
 } generate_t;
 

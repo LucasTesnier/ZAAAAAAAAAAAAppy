@@ -39,7 +39,7 @@ char *pack_inventory(container_t *inv)
 {
     char *tmp;
 
-    if ((tmp = (char*)malloc(sizeof(char) *
+    if ((tmp = (char *)malloc(sizeof(char) *
         (get_len_container(inv) + 88))) == NULL)
         return NULL;
     sprintf(tmp, "[food %d, linemate %d, deraumere %d, sibur %d, mendiane %d, \
@@ -63,7 +63,7 @@ void delete_container(container_t *container)
 
 container_t *new_container(void)
 {
-    container_t *container = (container_t*)malloc(sizeof(container_t));
+    container_t *container = (container_t *)malloc(sizeof(container_t));
 
     if (!container)
         return NULL;

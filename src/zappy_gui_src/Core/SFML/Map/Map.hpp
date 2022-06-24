@@ -10,13 +10,27 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include "Tile.hpp"
-#include <memory>
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include <vector>
+#include "Tile.hpp"
 #include "Event.hpp"
 #include "Entity.hpp"
-#include <iostream>
+#include "Animation.hpp"
+
+#define FOOD_PATH "./assets/food.png"
+#define LINEMATE_PATH "assets/linemate.png"
+#define MENDIANE_PATH "assets/mendiane.png"
+#define PHIRAS_PATH "assets/phiras.png"
+#define DERAUMERE_PATH "assets/deraumere.png"
+#define SIBUR_PATH "assets/sibur.png"
+#define THYSTAME_PATH "assets/thystame.png"
+
+#define PLAYER1_PATH "assets/player1.png"
+#define PLAYER2_PATH "assets/player2.png"
+#define PLAYER3_PATH "assets/player3.png"
+
+#define EGG_PATH "assets/egg.png"
 
 namespace gui {
     /// \brief Class for the map of the zappy. It contain all informations that will be display.
@@ -27,7 +41,7 @@ namespace gui {
             Map();
 
             /// \brief Destructor of the Map.
-            ~Map();
+            ~Map() = default;
 
             /// \brief Set the render window to display on.
             /// \param window The window to be set.
@@ -65,6 +79,14 @@ namespace gui {
                 _players.emplace_back(player);
                 if (tmp < _tile.size())
                     _tile[tmp]->addPlayer(player);
+                // auto it = std::find_if(_teamsColor.begin(), _teamsColor.end(),
+                // [&teamname](const std::pair<std::string, sf::Color>& element){ return element.first == teamname.name;} );
+                for (auto &team : _teams) {
+                    if (team == player.getTeamName())
+                        return;
+                }
+                _teams.emplace_back(player.getTeamName());
+                _teamsColor.emplace_back(sf::Color(rand() % 255, rand() % 255, rand() % 255));
             }
 
             /// \brief Get the vector of players of the tile.
@@ -132,11 +154,11 @@ namespace gui {
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
-            void _displaySelectedTile(sf::RectangleShape &entityRepresentation);
+            void _displaySelectedTile();
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
-            void _displayHoveredTile(sf::RectangleShape &entityRepresentation);
+            void _displayHoveredTile();
 
             /// \brief Find if the selected or hover tile must be update.
             /// \param i The actual index of the tile to find if it need to be update.
@@ -175,17 +197,28 @@ namespace gui {
             /// \brief Display players that are in the tile, if there is at least one player.
             /// \param tile The tile to get information from.
             /// \param playerRepresentation The representation of a player as a green circle shape.
-            void _displayPlayers(Tile &tile, sf::RectangleShape &playerRepresentation);
+            void _displayPlayers(Tile &tile);
 
             /// \brief Display resources that are in the tile, if there is at least one resource.
             /// \param tile The tile to get information from.
             /// \param resourcesRepresentation The representation of a resource as a grey circle shape.
-            void _displayResources(Tile &tile, sf::RectangleShape &resourcesRepresentation);
+            void _displayResources(Tile &tile);
 
             /// \brief Display eggs that are in the tile, if there is at least one egg.
             /// \param tile The tile to get information from.
             /// \param eggRepresentation The representation of an egg as a yellow circle shape.
-            void _displayEggs(Tile &tile, sf::RectangleShape &eggRpresentation);
+            void _displayEggs(Tile &tile);
+
+            /// \brief initialize all the paths vector for ressources
+            void _initRessourcesPaths();
+
+            /// \brief initialize all animations for entities
+            void _initAnimationEntities();
+
+            /// \brief find the color of a team
+            /// \param teamName the team
+            /// \return the color of the team
+            sf::Color _findTeamColor(const std::string &teamName);
 
             /// \brief The window to display on.
             std::shared_ptr<sf::RenderWindow> _window;
@@ -228,6 +261,24 @@ namespace gui {
 
             /// \brief vector of eggs to be displayed on the tile
             std::vector<gui::entity::Egg> _eggs;
+
+            /// \brief vector of paths for ressources
+            std::vector<std::string> _ressourcesPaths;
+
+            /// \brief object animation for the ressources
+            std::vector<Animation> _ressourcesAnim;
+
+            /// \brief object animation for the player
+            Animation _playerAnimation;
+
+            /// \brief object animation for the player
+            Animation _eggAnimation;
+
+            /// \brief vector of all the teams
+            std::vector<std::string> _teams;
+
+            /// \brief vector of team linked to a color
+            std::vector<sf::Color> _teamsColor;
     };
 } // namespace gui
 

@@ -51,21 +51,21 @@ int get_len_container(container_t *cont);
 
 /// \brief get the len of a player
 /// \param ent entity to get len
-/// \param p player to get len
+/// \param player player to get len
 /// \return the len of the string representing a player
-int get_len_player(entity_t *ent, player_t *p);
+int get_len_player(entity_t *ent, player_t *player);
 
 /// \brief get the len of a tile
 /// \param ent entity to get len
-/// \param t tile to get len
+/// \param tile tile to get len
 /// \return the len of the string representing a tile
-int get_len_tile(entity_t *ent, tile_t *t);
+int get_len_tile(entity_t *ent, tile_t *tile);
 
 /// \brief get the len of a egg
 /// \param ent entity to get len
-/// \param t egg to get len
+/// \param egg egg to get len
 /// \return the len of the string representing a egg
-int get_len_egg(entity_t *ent, egg_t *t);
+int get_len_egg(entity_t *ent, egg_t *egg);
 
 /// \brief pack a generic container for an inventory or the content of a tile
 /// \param cont container to pack

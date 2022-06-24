@@ -22,7 +22,7 @@ static void display_tile(tile_t *tile, int x, int y)
     char *uuid_repr = malloc(sizeof(char) * 37);
 
     printf("============Printing tile at %d %d==============\n",
-        x, y);
+    x, y);
     printf("||\t Food : %d\t||\n", tile->inventory->food);
     printf("||\t Linemate : %d\t||\n", tile->inventory->linemate);
     printf("||\t Deraumere : %d\t||\n", tile->inventory->deraumere);
