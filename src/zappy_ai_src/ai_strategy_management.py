@@ -360,6 +360,7 @@ class Ai:
         self.__initAI()
         while self.__getIsRunning():
             self.__playerStrategyManagement()
+            self.__actionsProceed()
             self.__ticksCptManagement()
         return 0
 
@@ -453,20 +454,6 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
-        if not self.__lib.AskInventory():
-            safeExitError()
-        while True:
-            value = self.__waitForAction()
-            if value == STOPPED:
-                return
-            if value == EXPECTED:
-                break
-        self.__inventory.fillInventory(self.__lib.GetRepInventory())
-        self.__setStrategy()
-        self.__actionsProceed()
-
-    def __setStrategy(self):
-        """This is used by Ai on each tick of loop to define the best strategy applied"""
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() > 7:
@@ -493,6 +480,8 @@ class Ai:
 
     def __setAnotherTargetTile(self, component: str):
         """"This is used to set another target as a tile if the first one got reached by the player"""
+        if component == "nothing":
+            return
         for i in range(0, self.__getPlayerMaxRange()):
             if self.__isThereComponentOnThisTile(component, self.__visionOfTheMap.GetTile(i)):
                 self.__setTargetTile(i)
@@ -533,13 +522,14 @@ class Ai:
         """
         component = self.__getTargetComponent()
         if self.__getTargetTileReached():
+            if not self.__lib.AskTakeObject(component):
+                safeExitError()
+            self.__Queues.addInAiQueue(self.__lib.GetRepTakeObject)
             self.__setAnotherTargetTile(component)
             return
         if component == "nothing":
             self.__tryElevation()
             return
-        if not self.__lib.AskTakeObject(component):
-            safeExitError()
         while True:
             value = self.__waitForAction()
             if value == STOPPED:
@@ -616,15 +606,7 @@ class Ai:
             return False
         if not self.__lib.AskIncantation():
             safeExitError()
-        while True:
-            value = self.__waitForAction()
-            if value == STOPPED:
-                return False
-            if value == EXPECTED:
-                break
-        if not self.__lib.GetRepIncantation():
-            return False
-        self.__incrPlayerCurrentLevel()
+        self.__Queues.addInAiQueue(self.__lib.GetRepIncantation)
         return True
 
     def __teamCall(self, action: str) -> bool:
