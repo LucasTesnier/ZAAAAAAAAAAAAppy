@@ -83,6 +83,13 @@ namespace gui {
             /// \brief Add a tile at the end of a vector of tiles. It updates also the text on the left menu.
             /// \param tile The tile to be added.
             inline void addTilesInfo(gui::entity::Tile &tile) {
+                for (auto &it : _tiles) {
+                    if (it._position == tile._position) {
+                        it = tile;
+                        _updateText();
+                        return;
+                    }
+                }
                 _tiles.push_back(tile);
                 _updateText();
             };
