@@ -60,6 +60,8 @@ static void process_command_inspection(server_data_t *server_data)
     player_list_t *player_info = NULL;
 
     CIRCLEQ_FOREACH(tmp, &srv->peers_head, peers) {
+        if (!tmp)
+            break;
         player_info = get_player_list_by_peer(server_data, tmp);
         if (player_info->scheduled_action &&
         !scheduler_has_event(server_data->scheduler,
@@ -86,12 +88,13 @@ void server_loop(server_data_t *server_data)
             break;
         if (server_manage_fd_update(network_server))
             server_add_player(server_data);
-        scheduler_update_ressource(server_data->scheduler, server_data);
+        scheduler_update_resource(server_data->scheduler, server_data);
         scheduler_update_life(server_data->scheduler, server_data);
         scheduler_update(server_data->scheduler);
         process_eggs_inspection(server_data);
         process_command_inspection(server_data);
         remove_disconnected_player(server_data, TO_LOGOUT);
+        send_map_info(server_data);
         server_fill_fd_sets(network_server);
     }
 }
