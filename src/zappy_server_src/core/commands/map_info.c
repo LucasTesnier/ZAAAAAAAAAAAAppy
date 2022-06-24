@@ -67,6 +67,8 @@ bool send_map_info(server_data_t *serv)
         dprintf(2, "No GUI client found.\n");
         return false;
     }
+    if (serv->modified_entities->offset == 0)
+        return true;
     temp = pack_modified_entities(serv->modified_entities);
     entity_diff_reset(serv->modified_entities);
     print_retcode(708, temp, peer, true);
