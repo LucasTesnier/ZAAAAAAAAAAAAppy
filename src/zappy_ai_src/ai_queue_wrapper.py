@@ -1,6 +1,8 @@
 from hmac import new
 from queue import Queue
 
+MAX_COMMAND = 10
+
 class AIQueues:
     def __init__(self, queueSize : int = 10):
         """
@@ -12,6 +14,7 @@ class AIQueues:
         self.__serverQueue : Queue = Queue(queueSize)
         self.__aiQueue : Queue = Queue(-1)
         self.__movement : int = 0
+        self.__nbCommand : int = 0
 
     def isServerQueueFull(self) -> bool:
         """ If the server Queue cannot accept any more object, return True """
@@ -34,6 +37,7 @@ class AIQueues:
             self.__addInServerQueue(newObj)
         else:
             self.__aiQueue.put(newObj)
+        self.incrNbCommand()
 
     def __popFromAiQueue(self):
         """ Return the front element of the infinite Queue """
@@ -83,3 +87,12 @@ class AIQueues:
         Return True if there is movement(s) left to do
         """
         return self.__movement != 0
+
+    def incrNbCommand(self) -> None:
+        self.__nbCommand += 1
+
+    def decrNbCommand(self) -> None:
+        self.__nbCommand -= 1
+
+    def getNbCommand(self) -> int:
+        return self.__nbCommand

@@ -337,8 +337,6 @@ class ServerWrapper:
             safeExitError()
         self.__GetRepInventory.restype = ctypes.c_char_p
         c_value = self.__GetRepInventory()
-        if c_value:
-            self.__Flush()
         return c_value.decode("UTF-8")
 
     def GetRepBroadcastText(self) -> bool:

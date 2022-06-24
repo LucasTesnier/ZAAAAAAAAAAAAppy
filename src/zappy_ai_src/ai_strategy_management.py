@@ -3,7 +3,7 @@ from collections import namedtuple
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from ai_safe_error import safeExitError
-from ai_queue_wrapper import AIQueues
+from ai_queue_wrapper import AIQueues, MAX_COMMAND
 from ai_broadcast_to_object import BroadcastInfo
 from time import time
 
@@ -439,6 +439,9 @@ class Ai:
     def __mapVisionTimeManagement(self):
         deltaTime = time() - self.__getMapVisionTime()
         if deltaTime >= MAP_VISION_UPDATE_LIMIT / self.__getFrequency():
+            if self.__Queues.getNbCommand() == MAX_COMMAND:
+                while not self.__handleQueuesResponses():
+                    continue
             if not self.__lib.AskLook():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepLook)
@@ -447,6 +450,9 @@ class Ai:
     def __inventoryTimeManagement(self):
         deltaTime = time() - self.__getInventoryTime()
         if deltaTime >= INVENTORY_UPDATE_LIMIT / self.__getFrequency():
+            if self.__Queues.getNbCommand() == MAX_COMMAND:
+                while not self.__handleQueuesResponses():
+                    continue
             if not self.__lib.AskInventory():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
@@ -478,7 +484,7 @@ class Ai:
         else:
             self.__farming()
 
-    def __handleQueuesResponses(self) -> None:
+    def __handleQueuesResponses(self) -> bool:
         """
         From the response object given by self.__Queues.popFctPtr()
         Find the correct way to get the response and process it
@@ -487,7 +493,7 @@ class Ai:
         responseTreated : bool = False
 
         if not self.__lib.GetResponseState():
-            return
+            return False
         fctPtr = self.__Queues.popFctPtr()
         while not responseTreated and self.__getIsRunning():
 
@@ -511,6 +517,9 @@ class Ai:
             responseTreated = True
         if not self.__Queues.isMovementLeft():
             self.__setTargetTileReached(True)
+        self.__Queues.decMov()
+        return True
+
 
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
@@ -521,6 +530,9 @@ class Ai:
             self.__tryElevation()
             return
         if self.__getTargetTileReached():
+            if self.__Queues.getNbCommand() == MAX_COMMAND:
+                while not self.__handleQueuesResponses():
+                    continue
             if not self.__lib.AskTakeObject(component):
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepTakeObject)
@@ -572,6 +584,9 @@ class Ai:
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
+        if self.__Queues.getNbCommand() == MAX_COMMAND:
+            while not self.__handleQueuesResponses():
+                continue
         if not self.__getAskedIncantation():
             if not self.__lib.AskIncantation():
                 safeExitError()
@@ -592,6 +607,9 @@ class Ai:
         levelOfPlayer = self.__getPlayerCurrentLevel()
         nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "incantation" else 1
         requiredLevel = self.__getPlayerCurrentLevel() if action == "incantation" else 1
+        if self.__Queues.getNbCommand() == MAX_COMMAND:
+            while not self.__handleQueuesResponses():
+                continue
         if not self.__lib.AskBroadcastText(f"{self.__getTeamName()}, {action}, {nbPlayer}, {requiredLevel}\n"):
             safeExitError()
         return True
@@ -605,6 +623,9 @@ class Ai:
             return False
         if self.__getAvailableSlots() == 0:
             return False
+        if self.__Queues.getNbCommand() == MAX_COMMAND:
+            while not self.__handleQueuesResponses():
+                continue
         if not self.__lib.AskFork():
             safeExitError()
         self.__Queues.addInAiQueue(self.__lib.GetRepFork)
@@ -626,12 +647,18 @@ class Ai:
                 frontTileIndex = vector.frontTileIndex
                 nbForwardSteps = PATH_REFERENCES.index(vector)
         for _ in range(0, nbForwardSteps):
+            if self.__Queues.getNbCommand() == MAX_COMMAND:
+                while not self.__handleQueuesResponses():
+                    continue
             if not self.__lib.AskForward():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
             self.__Queues.incrMov()
         nbForwardSteps = index - frontTileIndex
         if nbForwardSteps < 0:
+            if self.__Queues.getNbCommand() == MAX_COMMAND:
+                while not self.__handleQueuesResponses():
+                    continue
             if not self.__lib.AskTurnLeft():
                 safeExitError()
             nbForwardSteps *= -1
@@ -640,11 +667,17 @@ class Ai:
         elif nbForwardSteps == 0:
             return
         else:
+            if self.__Queues.getNbCommand() == MAX_COMMAND:
+                while not self.__handleQueuesResponses():
+                    continue
             if not self.__lib.AskTurnRight():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepTurnRight)
             self.__Queues.incrMov()
         for _ in range(0, nbForwardSteps):
+            if self.__Queues.getNbCommand() == MAX_COMMAND:
+                while not self.__handleQueuesResponses():
+                    continue
             if not self.__lib.AskForward():
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepForward)
