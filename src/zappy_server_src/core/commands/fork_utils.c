@@ -22,5 +22,6 @@ void manage_forked_egg(entity_t *player_entity, server_data_t *serv)
     egg_entity = entity_wrapper_create_egg(serv->entities,
         player_entity->position, player_data->team);
     egg_data = (egg_t*)egg_entity->data;
+    entity_diff_add_entity(serv->modified_entities, egg_entity);
     scheduler_schedule_event(serv->scheduler, egg_data->id, 20);
 }

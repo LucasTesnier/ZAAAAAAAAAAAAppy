@@ -29,9 +29,9 @@ bool command_fork(char *arg, player_list_t *player, server_data_t *serv)
     return true;
 }
 
-/// \brief Handle the verification process for the fork hability
-/// \param serv The server informations
-/// \param player The player informations
+/// \brief Handle the verification process for the fork ability
+/// \param serv The server information's
+/// \param player The player information's
 /// \return true When operation succeed
 /// \return false When operation failed
 static bool fork_verification(server_data_t *serv, player_t *player)

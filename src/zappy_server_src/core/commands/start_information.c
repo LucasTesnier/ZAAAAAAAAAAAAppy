@@ -52,7 +52,7 @@ static char *pack_all_arg(argument_t *args)
 }
 
 /// \brief Pack all the data
-/// \param serv The server informations
+/// \param serv The server information's
 /// \return char* The packed data
 static char *pack_all_data(server_data_t *serv)
 {

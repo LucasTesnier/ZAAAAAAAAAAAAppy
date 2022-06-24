@@ -33,8 +33,8 @@ static char *join_resp(server_data_t *serv, team_t *team)
 
 /// \brief Create a new player entity
 /// \param arg The function argument
-/// \param player_entity The entity informations
-/// \param serv The server informations
+/// \param player_entity The entity information's
+/// \param serv The server information's
 /// \return true When operation succeed
 /// \return false When operation failed
 static bool command_join_create_player_data(char *arg,
@@ -51,6 +51,7 @@ entity_t **player_entity, server_data_t *serv)
     if (!(player_data = create_player(arg)))
         return false;
     entity_set_data(*player_entity, player_data);
+    entity_diff_add_entity(serv->modified_entities, *player_entity);
     return true;
 }
 

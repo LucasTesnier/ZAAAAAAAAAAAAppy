@@ -102,7 +102,7 @@ player_t *player, position_t player_pos)
         return NULL;
     if (!incantation_verif(serv->entities, player->level, player_pos))
         return NULL;
-    player->level += 1;
+    player_level_up(player);
     res[0] = '\0';
     sprintf(res, "%i", player->level);
     player->inventory->linemate -= inc_lvl[player->level - 2].linemate;
