@@ -157,6 +157,13 @@ void Core::_updateEntities(std::string &type, std::string &response)
                 _sfml->addTilesInfo(t);
             } catch (...) {}
         }
+        if (type == "satus") {
+            entity::Status s;
+            try {
+                _unpackObject->UnpackEntity(s, it);
+                _sfml->addStatus(s);
+            } catch (...) {}
+        }
     }
     entityAsString.clear();
 }
@@ -169,12 +176,14 @@ void Core::_updateEntities(std::string &response)
     std::string tilestr = std::string("tile");
     std::string playerstr = std::string("player");
     std::string eggstr = std::string("egg");
+    std::string statusstr = std::string("status");
 
     if (response.empty()) {
         _removeEntities(playerstr);
         _removeEntities(eggstr);
         return;
     }
+    _updateEntities(statusstr, response);
     _updateEntities(tilestr, response);
     _updateEntities(playerstr, response);
     _updateEntities(eggstr, response);

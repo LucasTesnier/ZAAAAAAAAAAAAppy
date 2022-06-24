@@ -61,6 +61,11 @@ namespace gui {
                 _map.addEgg(egg);
                 _interface.addEgg(egg);
             }
+
+            inline void addStatus(gui::entity::Status &status) {
+                _map.addStatus(status);
+            }
+
             /// \brief remove entities depending on the type given
             /// \param type string representating the type of entities to remove
             void removeEntities(std::string &type);
