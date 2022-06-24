@@ -329,10 +329,10 @@ class Ai:
     def __getFrequency(self) -> int:
         return self.__frequency
 
-    def __getInventoryTime(self) -> int:
+    def __getInventoryTime(self) -> float:
         return self.__inventoryTime
 
-    def __getMapVisionTime(self) -> int:
+    def __getMapVisionTime(self) -> float:
         return self.__mapVisionTime
 
     def __getAbleToMove(self) -> bool:
