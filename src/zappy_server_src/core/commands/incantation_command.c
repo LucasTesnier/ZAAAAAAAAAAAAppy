@@ -12,6 +12,7 @@
 #include "team.h"
 #include "entity/player.h"
 #include "entity/tile.h"
+#include "incantation.h"
 
 /// \brief List of all the incantation data
 static const incantation_level_t inc_lvl[] = {
@@ -21,7 +22,8 @@ static const incantation_level_t inc_lvl[] = {
     {4, 1, 1, 2, 0, 1, 0},
     {4, 1, 2, 1, 3, 0, 0},
     {6, 1, 2, 3, 0, 1, 0},
-    {6, 2, 2, 2, 2, 2, 1}
+    {6, 2, 2, 2, 2, 2, 1},
+    {10, 99, 99, 99, 99, 99, 99}
 };
 
 /// \brief Add the inventory content to the global container
@@ -85,32 +87,37 @@ server_data_t *serv)
     player->scheduled_action = find_ai_command_end("/incantation", NULL);
     if (player->scheduled_action == NULL)
         return false;
+    player->incantation_position = player_entity->position;
     return true;
 }
 
-/// \brief Process 
+/// \brief Process
 /// \param serv The server informations
 /// \param player The player informations
 /// \param tile The current tile
+/// \param start_pos The starting position of the incatation
 /// \return char* The newly level
 static char *incantation_action(server_data_t *serv,
-player_t *player, position_t player_pos)
+player_t *player, position_t player_pos, position_t start_pos)
 {
     char *res = malloc(sizeof(char) * 2);
 
     if (res == NULL)
         return NULL;
-    if (!incantation_verif(serv->entities, player->level, player_pos))
+    if (!incantation_verif(serv->entities, player->level, player_pos) ||
+    start_pos.x != player_pos.x || start_pos.y != player_pos.y)
         return NULL;
-    player_level_up(player);
+    remove_ressource_randomly(serv->entities, player_pos,
+    (container_t) {0, inc_lvl[player->level - 1].linemate,
+        inc_lvl[player->level - 1].deraumere, inc_lvl[player->level - 1].sibur,
+        inc_lvl[player->level - 1].mendiane,
+        inc_lvl[player->level - 1].phiras,
+        inc_lvl[player->level - 1].thystame},
+    player->level);
+    player->level += 1;
     res[0] = '\0';
     sprintf(res, "%i", player->level);
-    player->inventory->linemate -= inc_lvl[player->level - 2].linemate;
-    player->inventory->deraumere -= inc_lvl[player->level - 2].deraumere;
-    player->inventory->sibur -= inc_lvl[player->level - 2].sibur;
-    player->inventory->mendiane -= inc_lvl[player->level - 2].mendiane;
-    player->inventory->phiras -= inc_lvl[player->level - 2].phiras;
-    player->inventory->thystame -= inc_lvl[player->level - 2].thystame;
+    victory_detection(serv, player->team);
     return res;
 }
 
@@ -125,7 +132,8 @@ server_data_t *serv)
         return print_retcode(401, arg, player->player_peer, false);
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
-    res = incantation_action(serv, player_data, player_entity->position);
+    res = incantation_action(serv, player_data, player_entity->position,
+    player->incantation_position);
     pop_message(player->player_peer);
     if (res != NULL)
         print_retcode(222, res, player->player_peer, true);

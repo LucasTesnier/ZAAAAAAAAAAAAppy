@@ -5,8 +5,6 @@
 ** entrpypoint
 */
 
-/// THIS FILE IS GOING TO BE DELETED. USE IT ONLY FOR DEVELOPMENT
-
 #include "api.h"
 #include <stdlib.h>
 #include <signal.h>
@@ -131,6 +129,7 @@ int main(int ac, char **av)
     if (tmp == 0)
         return 84;
     printf("Level up to : %i\n", tmp);
+    while(1);
     c_interface_try_to_disconnect_to_server();
     return 0;
 }

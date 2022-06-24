@@ -13,13 +13,13 @@
     #include "entity/entity.h"
 
 
-/// Represents the zappy map
+/// \brief Represents the zappy map
 typedef struct map_s {
-    /// The collection of tiles
+    /// \brief The collection of tiles
     entity_t **tiles;
-    /// The width of the map
+    /// \brief The width of the map
     int width;
-    /// The height of the map
+    /// \brief The height of the map
     int height;
 } map_t;
 

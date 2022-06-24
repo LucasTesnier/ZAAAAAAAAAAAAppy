@@ -22,10 +22,10 @@ position_t map_size);
 /// \param map_size the map size
 /// \param looked_cases the collection of cases visited by the look cmd
 static void look_north(position_t player,
-position_t map_size, int lvl, position_t* looked_cases)
+position_t map_size, int lvl, position_t *looked_cases)
 {
-    position_t left = (position_t){player.x - 1, player.y - 1};
-    position_t right = (position_t){player.x + 1, player.y - 1};
+    position_t left = (position_t) {player.x - 1, player.y - 1};
+    position_t right = (position_t) {player.x + 1, player.y - 1};
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
@@ -45,7 +45,7 @@ position_t map_size, int lvl, position_t* looked_cases)
 /// \param map_size the map size
 /// \param looked_cases the collection of cases visited by the look cmd
 static void look_south(position_t player,
-position_t map_size, int lvl, position_t* looked_cases)
+position_t map_size, int lvl, position_t *looked_cases)
 {
     position_t left = (position_t) {player.x - 1, player.y + 1};
     position_t right = (position_t) {player.x + 1, player.y + 1};
@@ -68,7 +68,7 @@ position_t map_size, int lvl, position_t* looked_cases)
 /// \param map_size the map size
 /// \param looked_cases the collection of cases visited by the look cmd
 static void look_west(position_t player,
-position_t map_size, int lvl, position_t* looked_cases)
+position_t map_size, int lvl, position_t *looked_cases)
 {
     position_t left = (position_t) {player.x - 1, player.y - 1};
     position_t right = (position_t) {player.x - 1, player.y + 1};
@@ -91,7 +91,7 @@ position_t map_size, int lvl, position_t* looked_cases)
 /// \param map_size the map size
 /// \param looked_cases the collection of cases visited by the look cmd
 static void look_east(position_t player,
-position_t map_size, int lvl, position_t* looked_cases)
+position_t map_size, int lvl, position_t *looked_cases)
 {
     position_t left = (position_t) {player.x + 1, player.y - 1};
     position_t right = (position_t) {player.x + 1, player.y + 1};
@@ -114,9 +114,10 @@ int level, enum player_orientation_e orientation)
 {
     position_t *looked_cases = NULL;
     size_t looked_cases_size = 1;
-    void (*look[])(position_t, position_t, int, position_t*) = {
+    void (*look[])(position_t, position_t, int, position_t *) = {
         look_north, look_south, look_east, look_west
     };
+
     for (int i = 1; i <= level; i++)
         looked_cases_size += 3 + ((i - 1) * 2);
     looked_cases_size++;
@@ -124,7 +125,7 @@ int level, enum player_orientation_e orientation)
     if (!looked_cases)
         return NULL;
     looked_cases[0] = player;
-    looked_cases[looked_cases_size - 1] = (position_t){-1, -1};
+    looked_cases[looked_cases_size - 1] = (position_t) {-1, -1};
     look[orientation](player, map_size, level, looked_cases);
     return looked_cases;
 }

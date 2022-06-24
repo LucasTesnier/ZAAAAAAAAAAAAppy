@@ -16,8 +16,6 @@ set (SRC
 
 add_library(${TARGET_NAME} ${SRC})
 
-#target_link_libraries(${TARGET_NAME} ${TARGET_NAME}_auth)
-
 target_include_directories(${TARGET_NAME}
      PUBLIC ${INCLUDE_ROOT}
      PRIVATE ${SRC_ROOT}
@@ -27,5 +25,3 @@ target_include_directories(${TARGET_NAME}
 set_property(
      TARGET ${TARGET_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON
 )
-
-#add_subdirectory(auth)

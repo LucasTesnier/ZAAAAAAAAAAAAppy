@@ -22,7 +22,7 @@ typedef struct zappy_client_s {
     char *current_response;
 } zappy_client_t;
 
-/// \brief Diferent type of retcode 
+/// \brief Diferent type of retcode
 typedef enum retcode_type_s {
     /// When the retcode is from an expected response
     EXPECTED,

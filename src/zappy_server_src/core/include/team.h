@@ -15,7 +15,7 @@
     #include <sys/queue.h>
     #include <stdbool.h>
 
-/// Represents a team in the server
+/// \brief Represents a team in the server
 typedef struct team_s {
     /// Team name
     char *name;

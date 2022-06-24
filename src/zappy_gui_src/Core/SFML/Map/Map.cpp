@@ -8,6 +8,7 @@
 /// \file src/zappy_gui_src/Core/SFML/Map/Map.cpp
 
 #include "Map.hpp"
+#include "ZappyGuiException.hpp"
 
 using namespace gui;
 
@@ -17,6 +18,40 @@ Map::Map()
     _tileHover = -1;
     _mapSize = {10, 10};
     _zoom = 1;
+    _noTileSelected = {-1, -1};
+    std::vector<int> tmpVec{0, 0, 0, 0, 0, 0, 0,};
+    _noTileSelectedInv = tmpVec;
+    _initAnimationEntities();
+}
+
+void Map::_initAnimationEntities()
+{
+    try {
+        _initRessourcesPaths();
+        for (size_t i = 0; i < _ressourcesPaths.size(); i++) {
+            Animation tmpAnim;
+            tmpAnim.addTexture(_ressourcesPaths.at(i), sf::Vector2f(), sf::Vector2f());
+            _ressourcesAnim.emplace_back(tmpAnim);
+        }
+        _playerAnimation.addTexture(PLAYER1_PATH,sf::Vector2f(), sf::Vector2f());
+        _playerAnimation.addTexture(PLAYER2_PATH,sf::Vector2f(), sf::Vector2f());
+        _playerAnimation.addTexture(PLAYER3_PATH,sf::Vector2f(), sf::Vector2f());
+        _eggAnimation.addTexture(EGG_PATH, sf::Vector2f(), sf::Vector2f());
+    } catch (AnimationException &e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
+
+void Map::_initRessourcesPaths()
+{
+    _ressourcesPaths.emplace_back(FOOD_PATH);
+    _ressourcesPaths.emplace_back(LINEMATE_PATH);
+    _ressourcesPaths.emplace_back(DERAUMERE_PATH);
+    _ressourcesPaths.emplace_back(SIBUR_PATH);
+    _ressourcesPaths.emplace_back(MENDIANE_PATH);
+    _ressourcesPaths.emplace_back(PHIRAS_PATH);
+    _ressourcesPaths.emplace_back(THYSTAME_PATH);
+
 }
 
 void Map::_updateTileVectorSize()
@@ -33,7 +68,7 @@ void Map::_updateTileVectorSize()
         _tile.back()->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
         _tile.back()->setSize(sf::Vector2f(100, 100));
         if (_tile.size() == 1)
-            _tile.back()->setTexture("assets/season1_ground1.png");
+            _tile.back()->setTexture("assets/ground1.png");
         else
             _tile.back()->setTexture(_tile[0]->getTexture());
     }
@@ -110,62 +145,132 @@ void Map::_findSelectedAndHoverTiles(std::size_t &i, const sf::Vector2i &mouse)
     }
 }
 
-void Map::_displaySelectedTile(sf::CircleShape &entityRepresentation)
+void Map::_displaySelectedTile()
 {
     if (_tileSelected < _mapSize.x * _mapSize.y) {
         _tile[_tileSelected]->setColor(sf::Color(100, 100, 100, 100));
         _window->draw(_tile[_tileSelected]->getShape());
         _tile[_tileSelected]->setColor(sf::Color(255, 255, 255));
-        _displayPlayers(*_tile[_tileSelected], entityRepresentation);
-        _displayResources(*_tile[_tileSelected], entityRepresentation);
-        _displayEggs(*_tile[_tileSelected], entityRepresentation);
+        _displayPlayers(*_tile[_tileSelected]);
+        _displayResources(*_tile[_tileSelected]);
+        _displayEggs(*_tile[_tileSelected]);
     }
 }
 
-void Map::_displayHoveredTile(sf::CircleShape &entityRepresentation)
+void Map::_displayHoveredTile()
 {
     if (_tileHover < _mapSize.x * _mapSize.y) {
         _tile[_tileHover]->setColor(sf::Color(200, 200, 200, 200));
         _window->draw(_tile[_tileHover]->getShape());
         _tile[_tileHover]->setColor(sf::Color(255, 255, 255));
-        _displayPlayers(*_tile[_tileHover], entityRepresentation);
-        _displayResources(*_tile[_tileHover], entityRepresentation);
-        _displayEggs(*_tile[_tileHover], entityRepresentation);
-    }
-}
-void Map::_displayPlayers(Tile &tile, sf::CircleShape &playerRepresentation)
-{
-    playerRepresentation.setFillColor(sf::Color::Green);
-    playerRepresentation.setRadius(10);
-    if (tile.getPlayers().size()) {
-        playerRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - playerRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top});
-        _window->draw(playerRepresentation);
+        _displayPlayers(*_tile[_tileHover]);
+        _displayResources(*_tile[_tileHover]);
+        _displayEggs(*_tile[_tileHover]);
     }
 }
 
-void Map::_displayResources(Tile &tile, sf::CircleShape &resourcesRepresentation)
+sf::Color Map::_findTeamColor(const std::string &teamName)
+{
+    int i = 0;
+
+    for (auto &team : _teams) {
+        if (team == teamName)
+            return _teamsColor.at(i);
+        i++;
+    }
+    return sf::Color::Transparent;
+}
+
+void Map::_displayPlayers(Tile &tile)
+{
+    if (tile.getPlayers().size()) {
+        _playerAnimation.setSize(sf::Vector2f(58, 58));
+        _playerAnimation.setDuration(100);
+        _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(0).getTeamName()));
+        _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 25});
+        _playerAnimation.update();
+        _window->draw(_playerAnimation.getShape());
+        if (tile.getPlayers().size() >= 2) {
+            _playerAnimation.moveShape({-6, 6});
+            _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(1).getTeamName()));
+            _playerAnimation.update();
+            _window->draw(_playerAnimation.getShape());
+        }
+        if (tile.getPlayers().size() >= 3) {
+            _playerAnimation.moveShape({12, 0});
+            _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(2).getTeamName()));
+            _playerAnimation.update();
+            _window->draw(_playerAnimation.getShape());
+        }
+        if (tile.getPlayers().size() >= 4) {
+            _playerAnimation.moveShape({-6, 6});
+            _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(3).getTeamName()));
+            _playerAnimation.update();
+            _window->draw(_playerAnimation.getShape());
+        }
+    }
+}
+
+void Map::_displayResources(Tile &tile)
 {
     std::size_t index = 1;
+    std::size_t multiplier = 1;
+    int multiplierFood = 10;
+    int multiplierStone = 5;
+    sf::Vector2f temp;
 
-    resourcesRepresentation.setRadius(5);
-    resourcesRepresentation.setFillColor(sf::Color(0, 0, 0));
-    for (auto &it : tile.getTileInfo()._inventory) {
+    for (auto &it : tile.getTileInfo().getInventory()) {
+        if (index == 1)
+            multiplier = multiplierFood;
+        else
+            multiplier = multiplierStone;
         if (it) {
-            resourcesRepresentation.setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - resourcesRepresentation.getGlobalBounds().height / 2});
-            _window->draw(resourcesRepresentation);
+            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(18, 18));
+            _ressourcesAnim.at(index - 1).setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9 - 10, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - _ressourcesAnim.at(index - 1).getGlobalBounds().height / 2 - 10});
+            _ressourcesAnim.at(index - 1).update();
+            _window->draw(_ressourcesAnim.at(index - 1).getShape());
+            if (it >= int(2 * multiplier)) {
+                _ressourcesAnim.at(index - 1).moveShape({-6, 6});
+                _ressourcesAnim.at(index - 1).update();
+                _window->draw(_ressourcesAnim.at(index - 1).getShape());
+            }
+            if (it >= int(3 * multiplier)) {
+                _ressourcesAnim.at(index - 1).moveShape({12, 0});
+                _ressourcesAnim.at(index - 1).update();
+                _window->draw(_ressourcesAnim.at(index - 1).getShape());
+            }
+            if (it >= int(4 * multiplier)) {
+                _ressourcesAnim.at(index - 1).moveShape({-6, 6});
+                _ressourcesAnim.at(index - 1).update();
+                _window->draw(_ressourcesAnim.at(index - 1).getShape());
+            }
         }
-        resourcesRepresentation.setFillColor(resourcesRepresentation.getFillColor() + sf::Color(30, 30, 30));
         index++;
     }
 }
 
-void Map::_displayEggs(Tile &tile, sf::CircleShape &eggRepresentation)
+void Map::_displayEggs(Tile &tile)
 {
-    eggRepresentation.setFillColor(sf::Color::Yellow);
-    eggRepresentation.setRadius(8);
     if (tile.getEggs().size()) {
-        eggRepresentation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - eggRepresentation.getGlobalBounds().width / 2, tile.getGlobalBound().top + tile.getGlobalBound().height - eggRepresentation.getGlobalBounds().height});
-        _window->draw(eggRepresentation);
+        _eggAnimation.setSize(sf::Vector2f(28, 28));
+        _eggAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _eggAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top + 20});
+        _eggAnimation.update();
+        _window->draw(_eggAnimation.getShape());
+        if (tile.getEggs().size() >= 2) {
+            _eggAnimation.moveShape({-6, 6});
+            _eggAnimation.update();
+            _window->draw(_eggAnimation.getShape());
+        }
+        if (tile.getEggs().size() >= 3) {
+            _eggAnimation.moveShape({12, 0});
+            _eggAnimation.update();
+            _window->draw(_eggAnimation.getShape());
+        }
+        if (tile.getEggs().size() >= 4) {
+            _eggAnimation.moveShape({-6, 6});
+            _eggAnimation.update();
+            _window->draw(_eggAnimation.getShape());
+        }
     }
 }
 
@@ -174,7 +279,6 @@ void Map::display()
     sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());
     sf::FloatRect area;
     std::size_t tmp = 0;
-    sf::CircleShape _entityReprensentation;
 
     _updateMoveMap();
     for (std::size_t i = 0; i < _tile.size(); i++) {
@@ -187,15 +291,10 @@ void Map::display()
             tmp = i;
         _findSelectedAndHoverTiles(i, mouse);
         _window->draw(_tile[i]->getShape());
-        _displayPlayers(*_tile[i], _entityReprensentation);
-        _displayResources(*_tile[i], _entityReprensentation);
-        _displayEggs(*_tile[i], _entityReprensentation);
+        _displayResources(*_tile[i]);
+        _displayEggs(*_tile[i]);
+        _displayPlayers(*_tile[i]);
     }
-    _displaySelectedTile(_entityReprensentation);
-    _displayHoveredTile(_entityReprensentation);
-}
-
-Map::~Map()
-{
-
+    _displaySelectedTile();
+    _displayHoveredTile();
 }
