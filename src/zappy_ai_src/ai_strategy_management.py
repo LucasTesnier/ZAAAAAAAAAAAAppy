@@ -5,6 +5,7 @@ from ai_handle_response import Inventory, Map, Tile
 from sys import stderr
 from ai_safe_error import safeExitError
 from ai_queue_wrapper import AIQueues
+from ai_broadcast_to_object import BroadcastInfo
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -171,6 +172,15 @@ LEVEL_UP_REQUIREMENTS = [{},
                          ]
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
+
+""" This is a return value used by waitForAction() when an unexpected response happen """
+UNEXPECTED = 1
+
+""" This is a return value used by waitForAction() when the AI needs to be stopped """
+STOPPED = -1
+
+""" This is a return value used by waitForAction() when an expected response happen """
+EXPECTED = 0
 
 class Ai:
     def __init__(self, availableSlots: int, teamName: str):
@@ -384,9 +394,27 @@ class Ai:
                 - Eject from another player (not implemented at the moment)
                 - Broadcast, sending message from another player (not implemented at the moment)
         """
-        response = self.__lib.GetUnexpectedResponse()
+        pos = 0
+        response : str = self.__lib.GetUnexpectedResponse()
         if response == "dead":
             self.__setIsRunning(False)
+            return
+        if response.startswith("message"):
+            infos = response.split(", ")
+            teamName = infos[1]
+            if teamName != self.__teamName:
+                ## DENY ## TO IMPLEMENT ##
+                return
+            try:
+                pos = int(infos[0].split(" ")[1])
+            except ValueError as e:
+                print(e)
+            action = infos[2]
+            if action == "incantation":
+                return BroadcastInfo(action, teamName, pos, int(infos[3]), int (infos[4]), "")
+            if action == "give":
+                return BroadcastInfo(action, teamName, pos, 0, 0, infos[2])
+
 
     def __ticksCptManagement(self):
         """This is used by AI to manage useful ticks counter
@@ -417,6 +445,15 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
+        if not self.__lib.AskInventory():
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
+        self.__inventory.fillInventory(self.__lib.GetRepInventory())
         self.__setStrategy()
         self.__actionsProceed()
 
@@ -439,9 +476,12 @@ class Ai:
             pass
         if self.__lib.GetUnexpectedResponseState():
             self.__unexpectedResponseManagement()
-            return self.__getIsRunning()
+            if not self.__getIsRunning():
+                return STOPPED
+            else:
+                return UNEXPECTED
         else:
-            return True
+            return EXPECTED
 
     def __setAnotherTargetTile(self, component: str):
         """"This is used to set another target as a tile if the first one got reached by the player"""
@@ -487,10 +527,31 @@ class Ai:
         else:
             if not self.__lib.AskTakeObject(component):
                 safeExitError()
-            if not self.__waitForAction():
-                return
+            while True:
+                value = self.__waitForAction()
+                if value == STOPPED:
+                    return
+                if value == EXPECTED:
+                    break
             self.__lib.GetRepTakeObject()
-        self.__reachSpecificTile(self.__getTargetTileIndex())
+        if not self.__lib.AskForward():
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
+        self.__lib.GetRepForward()
+        if not self.__lib.AskLook():
+            safeExitError()
+        while True:
+            value = self.__waitForAction()
+            if value == STOPPED:
+                return
+            if value == EXPECTED:
+                break
+        self.__setVisionOfTheMap(self.__lib.GetRepLook())
         if self.__Queues.isServerQueueFull():
             response = self.__Queues.emptyServerQueue()
             self.__handleQueuesResponses(response)
@@ -554,7 +615,7 @@ class Ai:
             return False
         levelOfPlayer = self.__getPlayerCurrentLevel()
         nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "elevation" else 1
-        if not self.__lib.AskBroadcastText(f"Broadcast {self.__getTeamName()};{nbPlayer};{action}\n"):
+        if not self.__lib.AskBroadcastText(f"Broadcast {self.__getTeamName()}, {action}, {nbPlayer}\n"):
             safeExitError()
         return True
 
