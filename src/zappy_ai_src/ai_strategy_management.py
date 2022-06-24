@@ -519,40 +519,15 @@ class Ai:
             Like getting the most required component at a time T
         """
         component = self.__getTargetComponent()
+        if component == "nothing":
+            self.__tryElevation()
+            return
         if self.__getTargetTileReached():
             if not self.__lib.AskTakeObject(component):
                 safeExitError()
             self.__Queues.addInAiQueue(self.__lib.GetRepTakeObject)
             self.__setAnotherTargetTile(component)
             return
-        if component == "nothing":
-            self.__tryElevation()
-            return
-        while True:
-            value = self.__waitForAction()
-            if value == STOPPED:
-                return
-            if value == EXPECTED:
-                break
-        self.__lib.GetRepTakeObject()
-        if not self.__lib.AskForward():
-            safeExitError()
-        while True:
-            value = self.__waitForAction()
-            if value == STOPPED:
-                return
-            if value == EXPECTED:
-                break
-        self.__lib.GetRepForward()
-        if not self.__lib.AskLook():
-            safeExitError()
-        while True:
-            value = self.__waitForAction()
-            if value == STOPPED:
-                return
-            if value == EXPECTED:
-                break
-        self.__setVisionOfTheMap(self.__lib.GetRepLook())
         if self.__Queues.isServerQueueFull():
             response = self.__Queues.emptyServerQueue()
             self.__handleQueuesResponses(response)
