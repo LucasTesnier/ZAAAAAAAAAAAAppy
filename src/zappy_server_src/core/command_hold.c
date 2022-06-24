@@ -39,7 +39,7 @@ static const command_data_t gui_command_list[] = {
 static const command_data_t flutter_command_list[] = {
     {"/logout", NULL, &command_logout},
     {"/get_density", NULL, &command_get_density},
-    {"/push_density", NULL, &command_push_density},
+    {"/push_density", "Args", &command_push_density},
     {NULL, NULL, NULL}
 };
 

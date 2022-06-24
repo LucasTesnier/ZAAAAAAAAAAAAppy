@@ -38,17 +38,28 @@ float *get_default_density_value(void)
 bool command_get_density(char *arg __attribute__((unused)),
 player_list_t *player, server_data_t *serv)
 {
-    (void) serv;
+    char *res = malloc(sizeof(char) * 1000);
+    float *temp = serv->arguments->generation_density;
+
+    if (res == NULL)
+        return false;
+    res[0] = '\0';
+    sprintf(res, "[%f,%f,%f,%f,%f,%f,%f]", temp[0], temp[1], temp[2],
+    temp[3], temp[4], temp[5], temp[6]);
     pop_message(player->player_peer);
-    return print_retcode(801, "[...]", player->player_peer, true);
+    print_retcode(801, res, player->player_peer, true);
+    free(res);
+    return true;
 }
 
-bool command_push_density(char *arg __attribute__((unused)),
+bool command_push_density(char *arg,
 player_list_t *player, server_data_t *serv)
 {
     (void) serv;
+    (void) arg;
+    dprintf(2, "Change the generation density to\n");
     pop_message(player->player_peer);
-    return print_retcode(802, "[...]", player->player_peer, true);
+    return print_retcode(802, NULL, player->player_peer, true);
 }
 
 #endif /* !DENSITY_FLUTTER_H_ */
