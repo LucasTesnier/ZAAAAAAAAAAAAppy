@@ -25,7 +25,8 @@ void delete_entity(entity_t *entity)
 {
     if (!entity)
         return;
-    printf("||\tDeleting entity at pos: {%d, %d}\n", entity->position.x, entity->position.y);
+    dprintf(2, "||\tDeleting entity at pos: {%d, %d}\n",
+    entity->position.x, entity->position.y);
     entity_delete_funcs[entity->type](entity->data);
     free(entity);
 }

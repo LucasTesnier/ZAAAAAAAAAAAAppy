@@ -22,24 +22,3 @@ target_link_libraries(${TARGET}_unpack
     PUBLIC zappy_gui_exception
     PUBLIC zappy_gui_entity
 )
-
-set (TARGET_TEST ${PROJECT_NAME}_gui_test)
-
-set (SRC_TEST
-    ${SRC_ROOT}/entrypoint.c
-)
-
-add_executable(${TARGET_TEST} ${SRC_TEST})
-
-target_include_directories(${TARGET_TEST}
-    PUBLIC ${INCLUDE_ROOT}
-    PRIVATE ${SRC_ROOT}
-)
-
-target_link_libraries(${TARGET_TEST}
-    PUBLIC ${PROJECT_NAME}_gui_api
-)
-
-set_target_properties(${TARGET_TEST} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
-)

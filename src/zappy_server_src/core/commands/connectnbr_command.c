@@ -19,7 +19,7 @@
 static char *get_connectnbr_resp(player_t *player, server_data_t *serv)
 {
     team_t *team = get_team_by_name(player->team, &serv->teams);
-    char *res = malloc(sizeof(char *) * 3);
+    char *res = malloc(sizeof(char) * 3);
 
     if (team == NULL || res == NULL)
         return NULL;
