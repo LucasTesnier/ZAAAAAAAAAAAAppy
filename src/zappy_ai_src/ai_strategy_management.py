@@ -3,7 +3,6 @@ from collections import namedtuple
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from ai_safe_error import safeExitError
-from ai_queue_wrapper import AIQueues, MAX_COMMAND
 from ai_broadcast_to_object import BroadcastInfo
 from time import time
 
@@ -48,9 +47,6 @@ MAP_VISION_UPDATE_LIMIT = 70
 
 """This is the limit before the next update of the inventory"""
 INVENTORY_UPDATE_LIMIT = 35
-
-"""This is the limit before the AI empties the queue"""
-EMPTY_QUEUE_LIMIT = 7
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
@@ -246,17 +242,6 @@ class Ai:
         """
         self.__ableToMove = True
 
-        """This private member is used by AI to enqueue all requests to the server
-            This is very useless at the moment because every request is blocking another one in the server
-        """
-        self.__Queues: AIQueues = AIQueues(10)
-
-        """This is use by AI to try to schedule the clear of the Queue"""
-        self.__queueTime = time()
-
-        """This is used by AI to know if it asked elevation to the server"""
-        self.__askedElevation = False
-
     def __del__(self):
         """Default Destructor of the AI class"""
         self.running = False
@@ -266,14 +251,14 @@ class Ai:
     def __decrAvailableSlots(self):
         self.__availableSlots -= 1
 
-    def __setIsRunning(self, isRunning: bool):
-        self.__isRunning = isRunning
+    def __setIsRunning(self, is_running: bool):
+        self.__isRunning = is_running
 
-    def __setInventory(self, inventoryResponse: str):
-        self.__inventory.fillInventory(inventoryResponse)
+    def __setInventory(self, inventory_response: str):
+        self.__inventory.fillInventory(inventory_response)
 
-    def __setVisionOfTheMap(self, lookResponse: str):
-        self.__visionOfTheMap.fillMap(lookResponse)
+    def __setVisionOfTheMap(self, look_response: str):
+        self.__visionOfTheMap.fillMap(look_response)
 
     def __setTargetTile(self, index: int):
         self.__targetTileIndex = index
@@ -281,8 +266,8 @@ class Ai:
     def __setTargetTileReached(self, status: bool):
         self.__targetTileReached = status
 
-    def __setTargetComponent(self, targetComponent: str):
-        self.__targetComponent = targetComponent
+    def __setTargetComponent(self, target_component: str):
+        self.__targetComponent = target_component
 
     def __setAbleToMove(self, ability: bool):
         self.__ableToMove = ability
@@ -296,14 +281,8 @@ class Ai:
     def __resetMapVisionTime(self):
         self.__mapVisionTime = time()
 
-    def __resetQueueTime(self):
-        self.__queueTime = time()
-
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
-
-    def __setAskedElevation(self, askedElevation: bool):
-        self.__askedElevation = askedElevation
 
     def __getAvailableSlots(self):
         return self.__availableSlots
@@ -344,9 +323,6 @@ class Ai:
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
 
-    def __getAskedIncantation(self) -> bool:
-        return self.__askedElevation
-
     def __getPlayerMaxRange(self) -> int:
         """This is used to know the maximal range of the player's vision depending on his level
                 The player range could be calculate as follow : maxRange = (x+1)²
@@ -355,24 +331,19 @@ class Ai:
         playerLevel = self.__playerCurrentLevel + 1
         return playerLevel * playerLevel
 
-    def __getQueueTime(self) -> float:
-        return self.__queueTime
-
     """ -------------------------------------------Public members functions------------------------------------------"""
 
-    def start(self) -> int:
+    def start(self):
         """Starting the main loop of the AI
             This is infinity loop while :
                 - player is alive
                 - client is connected
         """
-        self.__setIsRunning(True)
         self.__initAI()
-        while self.__getIsRunning():
+        while True:
             self.__playerStrategyManagement()
             self.__actionsProceed()
             self.__timeManagement()
-        return 0
 
     """ -------------------------------------------Private members functions---------------------------------------- """
 
@@ -386,19 +357,24 @@ class Ai:
 
     def __initFrequency(self):
         """This is used by Ai to initialize the frequency which is very useful in decision-making"""
-        if not self.__lib.AskLook():
+        if not self.__lib.askLook():
             safeExitError()
-        while 1:
-            if self.__lib.GetResponseState():
-                break
-        self.__setVisionOfTheMap(self.__lib.GetRepLook())
-        tmpFood = self.__inventory.GetFood()
-        if not self.__lib.AskInventory():
+        self.__waitServerResponse()
+        self.__setVisionOfTheMap(self.__lib.getRepLook())
+        tmp_food = self.__inventory.GetFood()
+        if not self.__lib.askInventory():
             safeExitError()
-        while not self.__lib.GetResponseState():
+        while not self.__lib.getResponseState():
             pass
-        self.__setInventory(self.__lib.GetRepInventory())
-        self.__setFrequency(int((tmpFood - self.__inventory.GetFood()) / 2))
+        self.__setInventory(self.__lib.getRepInventory())
+        self.__setFrequency(int((tmp_food - self.__inventory.GetFood()) / 2))
+
+    def __waitServerResponse(self):
+        """This is used by AI to wait until the server's response, managing unexpected responses in the same time"""
+        while not self.__lib.getResponseState():
+            pass
+        if self.__lib.getUnexpectedResponseState():
+            self.__unexpectedResponseManagement()
 
     def __unexpectedResponseManagement(self):
         """This is used by AI to manage every unexpected response send by the server like :
@@ -407,14 +383,13 @@ class Ai:
                 - Broadcast, sending message from another player (not implemented at the moment)
         """
         pos = 0
-        response : str = self.__lib.GetUnexpectedResponse()
+        response: str = self.__lib.getUnexpectedResponse()
         if response == "dead":
-            self.__setIsRunning(False)
-            return
+            safeExitError(84, "Player is dead, disconnected.")
         if response.startswith("message"):
             infos = response.split(", ")
-            teamName = infos[1]
-            if teamName != self.__teamName:
+            team_name = infos[1]
+            if team_name != self.__teamName:
                 ## DENY ## TO IMPLEMENT ##
                 return
             try:
@@ -423,39 +398,26 @@ class Ai:
                 print(e)
             action = infos[2]
             if action == "incantation":
-                return BroadcastInfo(action, teamName, pos, int(infos[3]), int (infos[4]), "")
+                return BroadcastInfo(action, team_name, pos, int(infos[3]), int (infos[4]), "")
             if action == "give":
-                return BroadcastInfo(action, teamName, pos, 0, 0, infos[2])
-
-    def __queueManagement(self):
-        """This used by the AI each x of time to empty the queue"""
-        deltaTime = time() - self.__getQueueTime()
-        if deltaTime >= EMPTY_QUEUE_LIMIT / self.__getFrequency():
-            self.__handleQueuesResponses()
-            self.__resetQueueTime()
-        if not self.__Queues.isServerQueueFull():
-            self.__Queues.addInServerQueue()
+                return BroadcastInfo(action, team_name, pos, 0, 0, infos[2])
 
     def __mapVisionTimeManagement(self):
-        deltaTime = time() - self.__getMapVisionTime()
-        if deltaTime >= MAP_VISION_UPDATE_LIMIT / self.__getFrequency():
-            if self.__Queues.getNbCommand() == MAX_COMMAND:
-                while not self.__handleQueuesResponses():
-                    continue
-            if not self.__lib.AskLook():
+        delta_time = time() - self.__getMapVisionTime()
+        if delta_time >= MAP_VISION_UPDATE_LIMIT / self.__getFrequency():
+            if not self.__lib.askLook():
                 safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepLook)
+            self.__waitServerResponse()
+            self.__visionOfTheMap.fillMap(self.__lib.getRepLook())
             self.__resetMapVisionTime()
 
     def __inventoryTimeManagement(self):
-        deltaTime = time() - self.__getInventoryTime()
-        if deltaTime >= INVENTORY_UPDATE_LIMIT / self.__getFrequency():
-            if self.__Queues.getNbCommand() == MAX_COMMAND:
-                while not self.__handleQueuesResponses():
-                    continue
-            if not self.__lib.AskInventory():
+        delta_time = time() - self.__getInventoryTime()
+        if delta_time >= INVENTORY_UPDATE_LIMIT / self.__getFrequency():
+            if not self.__lib.askInventory():
                 safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepInventory)
+            self.__waitServerResponse()
+            self.__inventory.fillInventory(self.__lib.getRepInventory())
             self.__resetInventoryTime()
 
     def __timeManagement(self):
@@ -466,7 +428,6 @@ class Ai:
         """
         self.__inventoryTimeManagement()
         self.__mapVisionTimeManagement()
-        self.__queueManagement()
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
@@ -484,47 +445,6 @@ class Ai:
         else:
             self.__farming()
 
-    def __handleQueuesResponses(self) -> bool:
-        """
-        From the response object given by self.__Queues.popFctPtr()
-        Find the correct way to get the response and process it
-        Only the getter of Forward, Right, Left, Take/Place Object, Eject, Fork and Incantation are handled
-        """
-        responseTreated : bool = False
-
-        if not self.__lib.GetResponseState():
-            return False
-        fctPtr = self.__Queues.popFctPtr()
-        while not responseTreated and self.__getIsRunning():
-            if self.__lib.GetUnexpectedResponseState():
-                self.__unexpectedResponseManagement()
-                continue
-            if fctPtr in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
-                self.__Queues.decMov() if fctPtr() else self.__setTargetTileReached(True)
-                print("Pop mov")
-            elif fctPtr in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
-                fctPtr()
-                print("Pop object")
-            elif fctPtr == self.__lib.GetRepFork and self.__lib.GetRepFork():
-                self.__decrAvailableSlots()
-                print("Pop fork")
-            elif fctPtr == self.__lib.GetRepIncantation:
-                if self.__lib.GetRepIncantation() > 0:
-                    self.__incrPlayerCurrentLevel()
-                    self.__setAskedElevation(False)
-                print("pop Elevation")
-            elif fctPtr == self.__lib.GetRepInventory:
-                self.__inventory.fillInventory(self.__lib.GetRepInventory())
-                print("Pop inventory")
-            elif fctPtr == self.__lib.GetRepLook:
-                self.__visionOfTheMap.fillMap(self.__lib.GetRepLook())
-                print("Pop vision")
-            responseTreated = True
-        if not self.__Queues.isMovementLeft():
-            self.__setTargetTileReached(True)
-        return True
-
-
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
@@ -533,15 +453,11 @@ class Ai:
         if component == "nothing":
             self.__tryElevation()
             return
-        if self.__getTargetTileReached():
-            if self.__Queues.getNbCommand() == MAX_COMMAND:
-                while not self.__handleQueuesResponses():
-                    continue
-            if not self.__lib.AskTakeObject(component):
-                safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepTakeObject)
-            self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
-            self.__setTargetTileReached(False)
+        self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
+        if not self.__lib.askTakeObject(component):
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepTakeObject()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
         """This is used by AI to know if the specific component is present on the specific tile
@@ -550,7 +466,7 @@ class Ai:
             return  :     True if component is present
                           False otherwise
         """
-        componentTemplate = {
+        component_template = {
             'food': tile.food,
             'sibur': tile.sibur,
             'phiras': tile.phiras,
@@ -559,15 +475,15 @@ class Ai:
             'mendiane': tile.mendiane,
             'thystame': tile.thystame
         }
-        return componentTemplate[component] != 0
+        return component_template[component] != 0
 
     def __isThisActionRealisable(self, action: str) -> bool:
         """This is used by the AI to know if the action is realisable or not depending on its food"""
-        return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action)
+        return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action) / self.__getFrequency()
 
-    def __forkManagement(self, neededPlayers : int):
-        playerOnMap = MAX_TEAM_PLAYER - self.__getAvailableSlots()
-        if neededPlayers > playerOnMap:
+    def __forkManagement(self, needed_players : int):
+        player_on_map = MAX_TEAM_PLAYER - self.__getAvailableSlots()
+        if needed_players > player_on_map:
             self.__fork()
         else:
             self.__teamCall("incantation")
@@ -577,25 +493,22 @@ class Ai:
             return :    True if successfully asked the server
                         False otherwise
         """
-        levelOfPlayer = self.__getPlayerCurrentLevel()
-        if self.__getInventory().GetFood() < TIME_LIMIT.get("incantation"):
+        level_of_player = self.__getPlayerCurrentLevel()
+        if self.__getInventory().GetFood() < TIME_LIMIT.get("incantation") / self.__getFrequency():
             return False
         if self.__getRequiredComponent() != "nothing":
             return False
-        neededPlayers : int = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get("player")
-        if self.__getVisionOfTheMap().GetTile(0).player < neededPlayers:
-            self.__forkManagement(neededPlayers)
+        required_player: int = LEVEL_UP_REQUIREMENTS[level_of_player].get("player")
+        print(f"required_player : {required_player} and we get : {self.__getVisionOfTheMap().GetTile(0).player} players !")
+        if self.__getVisionOfTheMap().GetTile(0).player < required_player:
             return False
         if not self.__isThisActionRealisable("incantation"):
             return False
-        if self.__Queues.getNbCommand() == MAX_COMMAND:
-            while not self.__handleQueuesResponses():
-                continue
-        if not self.__getAskedIncantation():
-            if not self.__lib.AskIncantation():
-                safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepIncantation)
-            self.__setAskedElevation(True)
+        if not self.__lib.askIncantation():
+            safeExitError()
+        self.__waitServerResponse()
+        if self.__lib.getRepIncantation() > 0:
+            self.__incrPlayerCurrentLevel()
         return True
 
     def __teamCall(self, action: str) -> bool:
@@ -608,14 +521,13 @@ class Ai:
         """
         if not self.__isThisActionRealisable("broadcast"):
             return False
-        levelOfPlayer = self.__getPlayerCurrentLevel()
-        nbPlayer = LEVEL_UP_REQUIREMENTS[levelOfPlayer].get('player') if action == "incantation" else 1
-        requiredLevel = self.__getPlayerCurrentLevel() if action == "incantation" else 1
-        if self.__Queues.getNbCommand() == MAX_COMMAND:
-            while not self.__handleQueuesResponses():
-                continue
-        if not self.__lib.AskBroadcastText(f"{self.__getTeamName()}, {action}, {nbPlayer}, {requiredLevel}\n"):
+        level_of_player = self.__getPlayerCurrentLevel()
+        nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action == "incantation" else 1
+        required_level = self.__getPlayerCurrentLevel() if action == "incantation" else 1
+        if not self.__lib.askBroadcastText(f"{self.__getTeamName()}, {action}, {nb_player}, {required_level}\n"):
             safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepBroadcastText()
         return True
 
     def __fork(self) -> bool:
@@ -627,67 +539,53 @@ class Ai:
             return False
         if self.__getAvailableSlots() == 0:
             return False
-        if self.__Queues.getNbCommand() == MAX_COMMAND:
-            while not self.__handleQueuesResponses():
-                continue
-        if not self.__lib.AskFork():
+        if not self.__lib.askFork():
             safeExitError()
-        self.__Queues.addInAiQueue(self.__lib.GetRepFork)
+        self.__waitServerResponse()
+        self.__lib.getRepFork()
         return True
 
     def __reachSpecificTile(self, index: int):
         """This is used by AI to reach a specific tile depending on the index given as argument
             This function can be very useful in many cases like get a specific component for elevation
             or maybe to join teamMates to help them for elevation
-            This function will set the move queue with getMethods after calling asking methods of the API
+            This function will request ask methods of the API and then wait the response to proceed
             Param :     index: int, representing the index of the tile you want to reach
         """
         if index == -1:
             return
-        nbForwardSteps = 0
-        frontTileIndex = 0
+        nb_forward_steps = 0
+        front_tile_index = 0
         for vector in reversed(PATH_REFERENCES[1:]):
             if index <= vector.maxIndexInLine:
-                frontTileIndex = vector.frontTileIndex
-                nbForwardSteps = PATH_REFERENCES.index(vector)
-        for _ in range(0, nbForwardSteps):
-            if self.__Queues.getNbCommand() == MAX_COMMAND:
-                while not self.__handleQueuesResponses():
-                    continue
-            if not self.__lib.AskForward():
+                front_tile_index = vector.frontTileIndex
+                nb_forward_steps = PATH_REFERENCES.index(vector)
+        for _ in range(0, nb_forward_steps):
+            if not self.__lib.askForward():
                 safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepForward)
-            self.__Queues.incrMov()
-        nbForwardSteps = index - frontTileIndex
-        if nbForwardSteps < 0:
-            if self.__Queues.getNbCommand() == MAX_COMMAND:
-                while not self.__handleQueuesResponses():
-                    continue
-            if not self.__lib.AskTurnLeft():
+            self.__waitServerResponse()
+            self.__lib.getRepForward()
+        nb_forward_steps = index - front_tile_index
+        if nb_forward_steps < 0:
+            if not self.__lib.askTurnLeft():
                 safeExitError()
-            nbForwardSteps *= -1
-            self.__Queues.addInAiQueue(self.__lib.GetRepTurnLeft)
-            self.__Queues.incrMov()
-        elif nbForwardSteps == 0:
+            self.__waitServerResponse()
+            self.__lib.getRepTurnLeft()
+            nb_forward_steps *= -1
+        elif nb_forward_steps == 0:
             return
         else:
-            if self.__Queues.getNbCommand() == MAX_COMMAND:
-                while not self.__handleQueuesResponses():
-                    continue
-            if not self.__lib.AskTurnRight():
+            if not self.__lib.askTurnRight():
                 safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepTurnRight)
-            self.__Queues.incrMov()
-        for _ in range(0, nbForwardSteps):
-            if self.__Queues.getNbCommand() == MAX_COMMAND:
-                while not self.__handleQueuesResponses():
-                    continue
-            if not self.__lib.AskForward():
+            self.__waitServerResponse()
+            self.__lib.getRepTurnRight()
+        for _ in range(0, nb_forward_steps):
+            if not self.__lib.askForward():
                 safeExitError()
-            self.__Queues.addInAiQueue(self.__lib.GetRepForward)
-            self.__Queues.incrMov()
+            self.__waitServerResponse()
+            self.__lib.getRepForward()
 
-    def __reachBroadCastTile(self, tileIndex: int):
+    def __reachBroadCastTile(self, tile_index: int):
         """This is used by AI after a broadcast call from other member of the team
             In this case, if AI is able to move, with enough food, it tries to reach the tile asked in the broadcast
         """
@@ -695,37 +593,37 @@ class Ai:
         west = (3, 14)
         south = (5, 18)
         east = (7, 22)
-        northDelta = north.index(1) - north.index(1)
-        westDelta = west.index(1) - west.index(1)
-        southDelta = south.index(1) - south.index(1)
-        eastDelta = east.index(1) - east.index(1)
+        north_delta = north.index(1) - north.index(1)
+        west_delta = west.index(1) - west.index(1)
+        south_delta = south.index(1) - south.index(1)
+        east_delta = east.index(1) - east.index(1)
 
-        if tileIndex == 0:
+        if tile_index == 0:
             #don't move
             pass
-        if tileIndex == north.index(0):
+        if tile_index == north.index(0):
             #forward
             pass
-        if tileIndex == west.index(0):
+        if tile_index == west.index(0):
             #Turn left, forward
             pass
-        if tileIndex == south.index(0):
+        if tile_index == south.index(0):
             # Turn left, turn left, forward
             pass
-        if tileIndex == east.index(0):
+        if tile_index == east.index(0):
             #Turn right, forward
             pass
 
-        if tileIndex == north.index(1):
+        if tile_index == north.index(1):
             #forward, forward
             pass
-        if tileIndex == west.index(1):
+        if tile_index == west.index(1):
             #Turn left, forward, forward
             pass
-        if tileIndex == south.index(1):
+        if tile_index == south.index(1):
             # Turn left, turn left, forward, forward
             pass
-        if tileIndex == east.index(1):
+        if tile_index == east.index(1):
             #Turn right, forward, forward
             pass
 
