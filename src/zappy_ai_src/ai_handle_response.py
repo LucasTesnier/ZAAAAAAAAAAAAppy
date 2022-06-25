@@ -15,16 +15,7 @@ class Inventory:
             print("The given string cannot be used to create an inventory", file=stderr)
 
     def __getitem__(self, item):
-        stringEquivalent = {
-            'food': self.__food,
-            'linemate': self.__linemate,
-            'deraumere': self.__deraumere,
-            'sibur': self.__sibur,
-            'mendiane': self.__mendiane,
-            'phiras': self.__phiras,
-            'thystame': self.__thystame
-        }
-        return stringEquivalent[item]
+        return getattr(self, item)
 
     def fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
@@ -103,22 +94,22 @@ class Inventory:
 @dataclass
 class Tile:
     """ Dataclass for the Map Class """
-    player : int
-    food : int
-    linemate : int
-    deraumere : int
-    sibur : int
-    mendiane : int
-    phiras : int
-    thystame : int
+    player: int
+    food: int
+    linemate: int
+    deraumere: int
+    sibur: int
+    mendiane: int
+    phiras: int
+    thystame: int
 
     def __getitem__(self, item):
         return getattr(self, item)
 
 class Map:
-    def __init__(self, lookResponse : str):
+    def __init__(self, lookResponse: str):
         """ Constructor of the Tile Class """
-        self.__map = [] ## Map of Tile ##
+        self.__map = []
         self.fillMap(lookResponse)
 
     def fillMap(self, lookStr : str) -> None:
