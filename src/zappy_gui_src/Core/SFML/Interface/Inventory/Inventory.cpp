@@ -13,10 +13,20 @@
 
 using namespace gui;
 
+const std::vector<std::string> RESSOURCE_PATH = {
+    "assets/food.png",
+    "assets/linemate.png",
+    "assets/deraumere.png",
+    "assets/mendiane.png",
+    "assets/sibur.png",
+    "assets/phiras.png",
+    "assets/thystame.png"};
+
 Inventory::Inventory()
 {
     std::vector<int> tmpvec = {-1, -1, -1, -1, -1, -1, -1};
     _tileInventory = tmpvec;
+    _startPlayerText = 0;
 }
 
 Inventory::Inventory(std::shared_ptr<sf::RenderWindow> window)
@@ -54,8 +64,10 @@ void Inventory::display()
         return;
     _window->draw(_title);
     _window->draw(_textPos);
-    for (auto &t : _textsInv)
-        _window->draw(t);
+    for (auto &t : _textsInv) {
+        _window->draw(t.second.first);
+        _window->draw(t.first);
+    }
     for (auto &t : _textsPlayer)
         _window->draw(t);
     for (auto &t : _textsEgg)
@@ -71,16 +83,22 @@ void Inventory::initTextTilePosition()
 
 void Inventory::initTextTileInventory()
 {
-    sf::Text text;
+    std::pair<sf::Text, std::pair<sf::RectangleShape, sf::Texture>> text;
 
     for (auto &val : _tileInventory) {
-        text.setString(std::to_string(val));
+        text.first.setString(std::to_string(val));
+        text.second.first.setSize(sf::Vector2f(30, 30));
         _textsInv.push_back(text);
     }
+    std::size_t i = 0;
     for (auto &t : _textsInv) {
-        t.setFont(_font);
-        t.setFillColor(sf::Color::Black);
-        t.setCharacterSize(20);
+        if (!t.second.second.loadFromFile(RESSOURCE_PATH[i]))
+            return;
+        t.second.first.setTexture(&t.second.second);
+        t.first.setFont(_font);
+        t.first.setFillColor(sf::Color::Black);
+        t.first.setCharacterSize(20);
+        i++;
     }
     setPosTextsInv();
 }
@@ -113,27 +131,38 @@ std::vector<sf::Text> Inventory::initTextEntities(std::string string)
 
 void Inventory::setPosTextsInv()
 {
-    _textsInv.at(0).setPosition(sf::Vector2f(_body.getPosition().x + 230, _body.getPosition().y + 80));
-    _textsInv.at(1).setPosition(sf::Vector2f(_body.getPosition().x + 430, _body.getPosition().y + 60));
-    _textsInv.at(2).setPosition(sf::Vector2f(_body.getPosition().x + 430, _body.getPosition().y + 120));
-    _textsInv.at(3).setPosition(sf::Vector2f(_body.getPosition().x + 630, _body.getPosition().y + 60));
-    _textsInv.at(4).setPosition(sf::Vector2f(_body.getPosition().x + 630, _body.getPosition().y + 120));
-    _textsInv.at(5).setPosition(sf::Vector2f(_body.getPosition().x + 830, _body.getPosition().y + 60));
-    _textsInv.at(6).setPosition(sf::Vector2f(_body.getPosition().x + 830, _body.getPosition().y + 120));
+    _textsInv.at(0).first.setPosition(sf::Vector2f(_body.getPosition().x + 230, _body.getPosition().y + 80));
+    _textsInv.at(1).first.setPosition(sf::Vector2f(_body.getPosition().x + 430, _body.getPosition().y + 60));
+    _textsInv.at(2).first.setPosition(sf::Vector2f(_body.getPosition().x + 430, _body.getPosition().y + 120));
+    _textsInv.at(3).first.setPosition(sf::Vector2f(_body.getPosition().x + 630, _body.getPosition().y + 60));
+    _textsInv.at(4).first.setPosition(sf::Vector2f(_body.getPosition().x + 630, _body.getPosition().y + 120));
+    _textsInv.at(5).first.setPosition(sf::Vector2f(_body.getPosition().x + 830, _body.getPosition().y + 60));
+    _textsInv.at(6).first.setPosition(sf::Vector2f(_body.getPosition().x + 830, _body.getPosition().y + 120));
+    for (std::size_t i = 0; i < _textsInv.size(); i++) {
+        _textsInv.at(i).second.first.setPosition(_textsInv.at(i).first.getPosition() - sf::Vector2f(50, 0));
+    }
 }
 
 void Inventory::setPosTextsPlayer(int x, int y, int offset)
 {
-    _textsPlayer.at(0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
-    _textsPlayer.at(1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
-    _textsPlayer.at(2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
-    _textsPlayer.at(3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
+    if (_startPlayerText >= _textsPlayer.size())
+        return;
+    _textsPlayer.at(_startPlayerText + 0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
+    _textsPlayer.at(_startPlayerText + 1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
+    if (_startPlayerText + 2 >= _textsPlayer.size())
+        return;
+    _textsPlayer.at(_startPlayerText + 2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
+    _textsPlayer.at(_startPlayerText + 3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
 }
 
 void Inventory::setPosTextsEgg(int x, int y, int offset)
 {
+    if (_startPlayerText >= _textsPlayer.size())
+        return;
     _textsEgg.at(0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
     _textsEgg.at(1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
+    if (_startPlayerText + 2 >= _textsPlayer.size())
+        return;
     _textsEgg.at(2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
     _textsEgg.at(3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
 }
@@ -170,24 +199,24 @@ void Inventory::_updateBody()
     _textPos.setPosition(sf::Vector2f(_body.getPosition().x + 50, _body.getPosition().y + 60));
     int i = 0;
     for (auto &t : _textsInv) {
-        t.setString(std::to_string(_tileInventory.at(i)));
+        t.first.setString(std::to_string(_tileInventory.at(i)));
         i++;
     }
     std::size_t j = 0;
     for (auto &t : _textsPlayer) {
-        if (_players.empty())
+        if (_startPlayerText + j < _players.size())
+            t.setString("Team: " + _players.at(_startPlayerText + j).getTeamName() +
+                        "\nLevel: " + std::to_string(_players.at(_startPlayerText + j).getLevel()));
+        else
             t.setString("Player");
-        else if (j < _players.size())
-            t.setString("Team: " + _players.at(j).getTeamName() +
-                        "\nLevel: " + std::to_string(_players.at(j).getLevel()));
         j++;
     }
     std::size_t k = 0;
     for (auto &t : _textsEgg) {
-        if (_eggs.empty())
+        if (_startEggText + k < _eggs.size())
+            t.setString("Team: " + _eggs.at(_startEggText + k).getTeamName());
+        else
             t.setString("Egg");
-        else if (k < _eggs.size())
-            t.setString("Team: " + _eggs.at(k).getTeamName());
         k++;
     }
     setPosTextsInv();
@@ -222,3 +251,26 @@ void Inventory::update(bool forceUpdate)
     }
 }
 
+void Inventory::scroll(const float &scroll)
+{
+    sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
+
+    if (mouse.x >= _textsPlayer.at(0).getPosition().x && mouse.x <= _textsPlayer.at(2).getPosition().x + _textsPlayer.at(2).getGlobalBounds().width) {
+        if (scroll >= 1) {
+            _startPlayerText += 2;
+        }
+        if (scroll <= 1) {
+            _startPlayerText -= 2;
+        }
+        if (_startPlayerText > _players.size())
+            _startPlayerText = _players.size() - 1;
+    }
+    if (mouse.x >= _textsEgg.at(0).getPosition().x && mouse.x <= _textsEgg.at(2).getPosition().x + _textsEgg.at(2).getGlobalBounds().width) {
+        if (scroll >= 1)
+            _startEggText += 2;
+        else
+            _startEggText -= 2;
+        if (_startEggText > _eggs.size())
+            _startEggText = _eggs.size() - 1;
+    }
+}
