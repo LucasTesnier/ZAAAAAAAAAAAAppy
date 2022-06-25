@@ -22,23 +22,20 @@ class ClientCore:
         """
         if not self.serverInterface.getNecessaryFunctions():
             return False
-
         if not self.serverInterface.connectToServer(self.__ip, self.__port):
             print(f"There is no server at this ip {self.__ip} / port {self.__port}", file=stderr)
             return False
-
         while not self.serverInterface.getResponseState():
             pass
         if not self.serverInterface.getRepConnectToServer():
             print("Failed to connect to server", file=stderr)
             return False
-
         if not self.serverInterface.askJoinTeam(self.__teamName):
             safeExitError()
         while not self.serverInterface.getResponseState():
             pass
         info: str = self.serverInterface.getRepJoinTeam()
-        if info == None:
+        if info is None:
             print(f"The team name {self.__teamName} doesn't exist.", file=stderr)
             return False
         infos = info.split(",")
