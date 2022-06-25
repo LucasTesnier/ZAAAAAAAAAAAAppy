@@ -35,6 +35,7 @@ static void get_tile_content_entities(container_t *cases, char *res,
 entity_wrapper_t *wrapper, position_t curr_pos)
 {
     entity_t *tmp;
+    int count = 0;
 
     for (unsigned int i = 0; i < cases->phiras; i++)
         strcat(res, "phiras ");
@@ -42,7 +43,9 @@ entity_wrapper_t *wrapper, position_t curr_pos)
         strcat(res, "thystame ");
     TAILQ_FOREACH(tmp, &wrapper->players, entities)
         if (tmp->position.x == curr_pos.x && tmp->position.y == curr_pos.y)
-            strcat(res, "player ");
+            count++;
+    for (int i = 1; i < count; i++)
+        strcat(res, "player ");
     TAILQ_FOREACH(tmp, &wrapper->eggs, entities)
         if (tmp->position.x == curr_pos.x && tmp->position.y == curr_pos.y)
             strcat(res, "eggs ");
