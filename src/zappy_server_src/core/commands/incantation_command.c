@@ -135,7 +135,7 @@ server_data_t *serv)
     res = incantation_action(serv, player_data, player_entity->position,
     player->incantation_position);
     pop_message(player->player_peer);
-    if (res != NULL){
+    if (res != NULL) {
         print_retcode(222, res, player->player_peer, true);
         entity_diff_add_entity(serv->modified_entities, player_entity);
     } else

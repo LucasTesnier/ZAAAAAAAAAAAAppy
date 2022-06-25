@@ -24,5 +24,5 @@ void manage_forked_egg(entity_t *player_entity, server_data_t *serv)
     egg_data = (egg_t *)egg_entity->data;
     egg_data->hatched = false;
     entity_diff_add_entity(serv->modified_entities, egg_entity);
-    scheduler_schedule_event(serv->scheduler, egg_data->id, 20);
+    scheduler_schedule_event(serv->scheduler, egg_data->id, 600);
 }
