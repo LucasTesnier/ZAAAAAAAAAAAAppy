@@ -48,6 +48,8 @@ namespace gui::entity {
         std::string _team_name;
         /// \brief string representating the uuid
         std::string _uuid;
+        /// \brief bool representating the status of the player
+        bool _statusPlayer;
         /// \brief level of the player
         int _level;
         /// \brief orientation of the player
@@ -71,6 +73,11 @@ namespace gui::entity {
         /// \return a string containing the uuid of the player
         const std::string &getUuid() const {
             return _uuid;
+        }
+        /// \brief get the status of the player
+        /// \return true if the player is alive, false otherwise
+        const bool &getStatusPlayer() const {
+            return _statusPlayer;
         }
         /// \brief get the level
         /// \return an int containing the level of the player

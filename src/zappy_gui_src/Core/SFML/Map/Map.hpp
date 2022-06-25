@@ -96,6 +96,10 @@ namespace gui {
             /// \param player the player object to add
             void addPlayer(gui::entity::Player &player);
 
+            /// \brief remove a player from the vector of players
+            /// \param player the player object to remove
+            void removePlayer(gui::entity::Player &player);
+
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
             inline const std::vector<gui::entity::Tile> &getTilesInfo() const {

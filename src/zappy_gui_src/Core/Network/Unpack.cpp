@@ -56,6 +56,7 @@ gui::entity::Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
         auto player = stov(unpacked[1], ';');
         p._position = std::make_pair(std::stoi(player[0]), std::stoi(player[1]));
         p._uuid = player[2];
+        p._statusPlayer = std::stoi(player[3]);
         player.clear();
         player = stov(unpacked[2], '}');
         p._inventory = UnpackInventory(player[0]);

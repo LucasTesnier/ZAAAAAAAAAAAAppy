@@ -80,6 +80,19 @@ namespace gui {
                 _updateText();
             };
 
+            /// \brief Remove a player from a vector of players. It updates also the text on the left menu.
+            /// \param player The player to be removed.
+            inline void removePlayer(gui::entity::Player &player) {
+                // _players.erase(std::remove(_players.begin(), _players.end(), player), _players.end());
+                for (auto it = _players.begin(); it != _players.end(); ++it) {
+                    if (it.base()->_uuid == player._uuid) {
+                        _players.erase(it);
+                        break;
+                    }
+                }
+                _updateText();
+            };
+
             /// \brief Add a tile at the end of a vector of tiles. It updates also the text on the left menu.
             /// \param tile The tile to be added.
             inline void addTilesInfo(gui::entity::Tile &tile) {

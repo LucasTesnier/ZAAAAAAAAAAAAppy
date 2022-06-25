@@ -140,7 +140,10 @@ void Core::_updateEntities(std::string &type, std::string &response)
             entity::Player p;
             try {
                 _unpackObject->UnpackEntity(p, it);
-                _sfml->addPlayer(p);
+                if (!p.getStatusPlayer())
+                    _sfml->removePlayer(p);
+                else
+                    _sfml->addPlayer(p);
             } catch (...) {}
         }
         if (type == "egg") {

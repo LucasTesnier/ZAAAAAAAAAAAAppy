@@ -48,6 +48,11 @@ namespace gui {
                 _interface.addPlayer(player);
             }
 
+            inline void removePlayer(gui::entity::Player &player) {
+                _map.removePlayer(player);
+                _interface.removePlayer(player);
+            }
+
             /// \brief add a tileInfo object to the map
             /// \param tileInfo the tileInfo object to add
             inline void addTilesInfo(gui::entity::Tile &tileInfo) {
