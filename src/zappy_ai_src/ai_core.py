@@ -35,7 +35,7 @@ class ClientCore:
         while not self.serverInterface.getResponseState():
             pass
         info: str = self.serverInterface.getRepJoinTeam()
-        if info is "":
+        if info == "":
             print(f"The team name {self.__teamName} doesn't exist.", file=stderr)
             return False
         infos = info.split(",")

@@ -261,12 +261,12 @@ class Ai:
         self.__isRunning = is_running
 
     def __setInventory(self, inventory_response: str):
-        if inventory_response is "":
+        if inventory_response == "":
             return
         self.__inventory.fillInventory(inventory_response)
 
     def __setVisionOfTheMap(self, look_response: str):
-        if look_response is "":
+        if look_response == "":
             return
         self.__visionOfTheMap.fillMap(look_response)
 
@@ -404,29 +404,32 @@ class Ai:
                 - Broadcast, sending message from another player (not implemented at the moment)
         """
         response: str = self.__lib.getUnexpectedResponse()
-        if response is "":
+        if response == "":
             return
-        if response is "dead":
+        if response == "dead":
             safeExitError(84, "Player is dead, disconnected.")
         self.__broadCastResponseManagement(response)
 
     def __broadCastResponseManagement(self, response: str):
-        """This is used to parse the response of"""
+        """This is used to parse the response of the broadcast
+            Notice that all players receiving every broadcast, so it could be possible to intercept enemies'
+            broadcast and try to deny their actions
+        """
         pos = 0
         if response.startswith("message"):
             infos = response.split(", ")
             team_name = infos[1]
             if team_name != self.__teamName:
-                ## DENY ## TO IMPLEMENT ##
+                #NEED TO IMPLEMENT SAVONSTAVANT
                 return
             try:
                 pos = int(infos[0].split(" ")[1])
             except ValueError as e:
                 print(e)
             action = infos[2]
-            if action is "incantation":
+            if action == "incantation":
                 return BroadcastInfo(action, team_name, pos, int(infos[3]), int(infos[4]), "")
-            if action is "give":
+            if action == "give":
                 return BroadcastInfo(action, team_name, pos, 0, 0, infos[2])
 
     def __mapVisionTimeManagement(self):
@@ -485,7 +488,7 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        component = "sibur" if self.__getTargetComponent() is "nothing" else self.__getTargetComponent()
+        component = "sibur" if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
         self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if not self.__lib.askTakeObject(component):
             safeExitError()
@@ -552,8 +555,8 @@ class Ai:
         if not self.__isThisActionRealisable("broadcast"):
             return False
         level_of_player = self.__getPlayerCurrentLevel()
-        nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action is "incantation" else 1
-        required_level = self.__getPlayerCurrentLevel() if action is "incantation" else 1
+        nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action == "incantation" else 1
+        required_level = self.__getPlayerCurrentLevel() if action == "incantation" else 1
         if not self.__lib.askBroadcastText(f"{self.__getTeamName()}, {action}, {nb_player}, {required_level}\n"):
             safeExitError()
         self.__waitServerResponse()
@@ -570,7 +573,7 @@ class Ai:
         self.__setAvailableSlots(self.__lib.getRepConnectNbr())
         if not self.__isThisActionRealisable("fork"):
             return False
-        if self.__getAvailableSlots() is 0:
+        if self.__getAvailableSlots() == 0:
             return False
         if not self.__lib.askFork():
             safeExitError()
@@ -667,7 +670,10 @@ class Ai:
 
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
-        self.__setTargetComponent("food")
+        if not self.__lib.askTakeObject("food"):
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepTakeObject()
         self.__setAbleToMove(False)
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
