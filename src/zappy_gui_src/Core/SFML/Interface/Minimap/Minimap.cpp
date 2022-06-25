@@ -16,22 +16,10 @@ const sf::Vector2f VIEW_ANGLE = sf::Vector2f(45, 45);
 
 Minimap::Minimap()
 {
-    const std::size_t tileNbrPoint = 4;
-    const sf::Vector2f minimapPosition = {500, 500};
     const sf::Vector2f minimapSize = {200, 200};
-    const sf::Vector2f tilePointPosition[tileNbrPoint] = {{0, 0}, {0, minimapSize.y}, minimapSize, {minimapSize.x, 0}};
 
     _playerList.clear();
-    _minimap.setPosition(minimapPosition);
-    _minimap.setSize(sf::Vector2f(100, 100));
     _minimap.setFillColor(sf::Color(100, 100, 100));
-    _map.setPosition(_minimap.getPosition());
-    _map.setFillColor(sf::Color::Green);
-    _map.setPointCount(4);
-    _map.setPoint(0, _toIsometric(tilePointPosition[0], VIEW_ANGLE));
-    _map.setPoint(1, _toIsometric(tilePointPosition[1], VIEW_ANGLE));
-    _map.setPoint(2, _toIsometric(tilePointPosition[2], VIEW_ANGLE));
-    _map.setPoint(3, _toIsometric(tilePointPosition[3], VIEW_ANGLE));
     _minimapSize = minimapSize;
     isSwitch = false;
     _player.setRadius(3);
@@ -39,16 +27,14 @@ Minimap::Minimap()
 
 void Minimap::display()
 {
-
     _window->draw(_minimap);
-    // _window->draw(_map);
-    for (std::tuple<std::string, sf::Vector2f> &it __attribute__((unused)): _playerList) {
+    for (std::tuple<std::string, sf::Vector2f> &it: _playerList) {
         _player.setPosition(_minimap.getPosition() + sf::Vector2f(std::get<1>(it).x * _minimapSize.x / _mapSize.x, std::get<1>(it).y * _minimapSize.y / _mapSize.y));
         _window->draw(_player);
     }
 }
 
-void Minimap::removePlayer(const std::string &name __attribute__((unused)))
+void Minimap::removePlayer(const std::string &name)
 {
     for (auto it = _playerList.begin(); it != _playerList.end(); ++it) {
         if (std::get<0>((*it.base())) == name) {

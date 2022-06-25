@@ -61,7 +61,7 @@ namespace gui {
             /// \param player The player to be added.
             inline void addPlayer(gui::entity::Player &player) {
                 _server.addPlayer(player);
-                _minimap.addPlayer(player._team_name, sf::Vector2f(player._position.first, player._position.second));
+                _minimap.addPlayer(player._uuid, sf::Vector2f(player._position.first, player._position.second));
             };
 
             /// \brief Remove the player passed as parameter from the server menu.
