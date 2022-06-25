@@ -65,10 +65,14 @@ player_state_t comp)
         if (server_data->active_players[i]->player_peer != NULL &&
             server_data->active_players[i]->player_peer->connected == false
             && server_data->active_players[i]->type == AI &&
-            server_data->active_players[i]->player_data)
+            server_data->active_players[i]->player_data) {
+            ((player_t *)
+            server_data->active_players[i]->player_data->data)->status = 0;
+            send_entities_list_info(server_data);
             remove_player_from_team(
             (player_t *)server_data->active_players[i]->player_data->data,
             server_data);
+        }
         if (server_data->active_players[i]->player_peer != NULL &&
             server_data->active_players[i]->player_peer->connected == false)
             server_remove_player(server_data, server_data->active_players[i]);
