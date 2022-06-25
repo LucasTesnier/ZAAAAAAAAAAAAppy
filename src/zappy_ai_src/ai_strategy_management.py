@@ -40,7 +40,7 @@ FOOD_START = 1260
 SAFETY_MARGIN = 600
 
 """This is indication for the AI to switch to survival strategy under or equal to 300 units of time"""
-FOOD_LIMIT = 600
+FOOD_LIMIT = 800
 
 """This is the limit before the next try of elevation"""
 ELEVATION_LIMIT = 500
@@ -49,7 +49,7 @@ ELEVATION_LIMIT = 500
 MAP_VISION_UPDATE_LIMIT = 70
 
 """This is the limit before the next update of the inventory"""
-INVENTORY_UPDATE_LIMIT = 25
+INVENTORY_UPDATE_LIMIT = 15
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
