@@ -120,6 +120,24 @@ namespace gui::entity {
             return _team_name;
         }
     };
+
+    struct Status {
+        public:
+        /// \brief The status of the game win or loose
+        std::string _status;
+        /// \brief the name of the team who won or lost
+        std::string _team_name;
+        /// \brief get the status
+        /// \return a string containing the status win or lost
+        inline const std::string &getStatus() const {
+            return _status;
+        }
+        /// \brief get the team name
+        /// \return a string containing the name of the team
+        inline const std::string &getTeamName() const {
+            return _team_name;
+        }
+    };
 }  // namespace gui::entity
 
 #endif /* !ENTITY_HPP_ */
