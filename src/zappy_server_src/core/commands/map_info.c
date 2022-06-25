@@ -51,18 +51,26 @@ char *pack_modified_entities(entity_diff_t *entity_diff)
     return res;
 }
 
+/// \brief Find the gui peer
+/// \param serv The server informations
+/// \return peer_t* The founded gui peer
+static peer_t *find_gui_peer(server_data_t *serv)
+{
+    for (size_t i = 0; i < serv->active_player_n; i++) {
+        if (serv->active_players[i]->disconnected == CONNECTED &&
+        serv->active_players[i]->type == GUI) {
+            return serv->active_players[i]->player_peer;
+        }
+    }
+    return NULL;
+}
+
 bool send_map_info(server_data_t *serv)
 {
     peer_t *peer = NULL;
     char *temp = NULL;
 
-    for (size_t i = 0; i < serv->active_player_n; i++) {
-        if (serv->active_players[i]->disconnected == CONNECTED &&
-        serv->active_players[i]->type == GUI) {
-            peer = serv->active_players[i]->player_peer;
-            break;
-        }
-    }
+    peer = find_gui_peer(serv);
     if (peer == NULL) {
         dprintf(2, "No GUI client found.\n");
         return false;
