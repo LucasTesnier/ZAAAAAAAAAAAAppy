@@ -23,18 +23,16 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Zaaaaaaappppy", "index.html", [
-    [ "Zaaaaaaaaaaaappy", "index.html#autotoc_md0", [
-      [ "Before continuing...", "index.html#autotoc_md1", [
-        [ "Prerequisites", "index.html#autotoc_md2", null ],
-        [ "Building program", "index.html#autotoc_md3", null ],
-        [ "Testing program", "index.html#autotoc_md4", null ],
-        [ "Coding Style", "index.html#autotoc_md5", null ]
-      ] ],
-      [ "Thank for reading", "index.html#autotoc_md6", null ],
-      [ "Authors", "index.html#autotoc_md7", null ]
-    ] ],
     [ "Todo List", "todo.html", null ],
     [ "Namespaces", "namespaces.html", [
+      [ "Before continuing...", "index.html#autotoc_md0", [
+        [ "Prerequisites", "index.html#autotoc_md1", null ],
+        [ "Building program", "index.html#autotoc_md2", null ],
+        [ "Testing program", "index.html#autotoc_md3", null ],
+        [ "Coding Style", "index.html#autotoc_md4", null ]
+      ] ],
+      [ "Thank for reading", "index.html#autotoc_md5", null ],
+      [ "Authors", "index.html#autotoc_md6", null ],
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
@@ -76,8 +74,8 @@ var NAVTREEINDEX =
 "classai__handle__response_1_1_inventory.html#af6541f17ba9f6114fcdb1eb336bf46a9",
 "command__hold_8h.html#a8ddbf89386ce249ca0a7ebb80960e51f",
 "functions_z.html",
-"player_8h_source.html",
-"structzappy__server__s.html#ab30ba07e2a0bd07a15e45a92c32db9c5"
+"player__life_8c.html",
+"take__command_8c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
