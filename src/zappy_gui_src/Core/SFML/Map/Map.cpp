@@ -257,6 +257,7 @@ void Map::addPlayer(gui::entity::Player &player)
             return;
         }
     }
+    _sounds.at(SPAWN_SOUND)->play();
     _players.emplace_back(player);
     _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
 }
@@ -267,6 +268,7 @@ void Map::removePlayer(gui::entity::Player &player)
         if (it.base()->_uuid == player._uuid) {
             _tile[itop(sf::Vector2f(it.base()->getPosition().first, it.base()->getPosition().second))]->removePlayer(*it.base());
             _players.erase(it);
+            _sounds.at(DEATH_SOUND)->play() ;
             return;
         }
     }

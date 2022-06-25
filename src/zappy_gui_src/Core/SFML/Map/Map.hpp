@@ -36,8 +36,8 @@
 #define SOUND_SPAWN_PATH "assets/spawn.wav"
 #define SOUND_DEATH_PATH "assets/death.wav"
 #define SOUND_EGG_PATH "assets/egg.wav"
-#define SOUND_WIN_PATH "assets/egg.wav"
-#define SOUND_LOSE_PATH "assets/loose.wav"
+#define SOUND_WIN_PATH "assets/win.wav"
+#define SOUND_LOSE_PATH "assets/lose.wav"
 
 namespace gui {
     /// \brief enum of index of sounds
@@ -56,7 +56,6 @@ namespace gui {
     /// \brief Class for the map of the zappy. It contain all informations that will be display.
     class Map {
         public:
-
             /// \brief Constructor of the Map.
             Map();
 
