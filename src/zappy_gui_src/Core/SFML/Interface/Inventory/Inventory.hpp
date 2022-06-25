@@ -138,7 +138,7 @@ namespace gui {
             /// \brief the font of the texts
             sf::Font _font;
             /// \brief the vector of text containing the value of each items of the inventory
-            std::vector<sf::Text> _textsInv;
+            std::vector<std::pair<sf::Text, std::pair<sf::RectangleShape, sf::Texture>>> _textsInv;
             /// \brief the vector of text containing the informations of each players
             std::vector<sf::Text> _textsPlayer;
             /// \brief the vector of text containing the informations of each eggs

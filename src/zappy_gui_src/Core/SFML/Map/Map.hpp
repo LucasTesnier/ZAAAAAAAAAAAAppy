@@ -80,6 +80,7 @@ namespace gui {
             inline void setMapSize(sf::Vector2f mapSize) {
                 _mapSize = mapSize;
                 _updateTileVectorSize();
+                _SetDefaultMapOrigin();
             };
 
             /// \brief Display the map on the window. Update all information of the map if necessary.
@@ -173,6 +174,11 @@ namespace gui {
                 return _tile[_tileSelected].get()->getEggs();
             };
         private:
+
+            bool _mapCanMove(sf::Vector2f mapMove);
+
+            /// \brief Set the defaut origin of the map on the map center.
+            void _SetDefaultMapOrigin();
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.

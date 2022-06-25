@@ -12,6 +12,13 @@
 
 using namespace gui;
 
+const std::vector<std::string> PLAYERS_PATH = {
+    "assets/woman1.png",
+    "assets/woman2.png",
+    "assets/woman4.png",
+    "assets/woman3.png",
+};
+
 Map::Map()
 {
     _tileSelected = -1;
@@ -34,9 +41,9 @@ void Map::_initAnimationEntities()
             tmpAnim.addTexture(_ressourcesPaths.at(i), sf::Vector2f(), sf::Vector2f());
             _ressourcesAnim.emplace_back(tmpAnim);
         }
-        _playerAnimation.addTexture(PLAYER1_PATH, sf::Vector2f(), sf::Vector2f());
-        _playerAnimation.addTexture(PLAYER2_PATH, sf::Vector2f(), sf::Vector2f());
-        _playerAnimation.addTexture(PLAYER3_PATH, sf::Vector2f(), sf::Vector2f());
+        for (const std::string &it : PLAYERS_PATH) {
+            _playerAnimation.addTexture(it, sf::Vector2f(), sf::Vector2f());
+        }
         _eggAnimation.addTexture(EGG_PATH, sf::Vector2f(), sf::Vector2f());
     } catch (AnimationException &e) {
         std::cerr << e.what() << std::endl;
@@ -87,6 +94,20 @@ void Map::_initRessourcesPaths()
 
 }
 
+void Map::_SetDefaultMapOrigin()
+{
+    sf::Vector2f origin;
+    sf::FloatRect firstTileRect = _tile.front().get()->getGlobalBound();
+    sf::FloatRect lastTileRect = _tile.back().get()->getGlobalBound();
+    sf::Vector2u windowSize = _window.get()->getSize();
+
+    origin.x = -(int(windowSize.x) / 2);
+    origin.y = (((lastTileRect.top + lastTileRect.height) - firstTileRect.top) / 2 - windowSize.y / 2);
+    for (auto &it : _tile) {
+        it.get()->setOrigin(origin);
+    }
+}
+
 void Map::_updateTileVectorSize()
 {
     while (_mapSize.x * _mapSize.y < _tile.size())
@@ -99,7 +120,7 @@ void Map::_updateTileVectorSize()
     while (_mapSize.x * _mapSize.y > _tile.size()) {
         _tile.push_back(std::make_unique<Tile>());
         _tile.back()->setPosition(sf::Vector2f((_tile.size() - 1) % (int)_mapSize.x, (_tile.size() - 1) / (int)_mapSize.x));
-        _tile.back()->setSize(sf::Vector2f(100, 100));
+        _tile.back()->setSize(sf::Vector2f(150, 150));
         if (_tile.size() == 1)
             _tile.back()->setTexture("assets/ground1.png");
         else
@@ -126,11 +147,32 @@ void Map::removeEntities(std::string &type)
     }
 }
 
+bool Map::_mapCanMove(sf::Vector2f moveMap)
+{
+    sf::Vector2u windowSize = _window.get()->getSize();
+    sf::FloatRect topTileRect = _tile.at(0).get()->getGlobalBound();
+    sf::FloatRect bottomTileRect = _tile.at(_mapSize.x * _mapSize.y - 1).get()->getGlobalBound();
+    sf::FloatRect leftTileRect = _tile.at((_mapSize.y - 1) * _mapSize.x).get()->getGlobalBound();
+    sf::FloatRect rightTileRect = _tile.at(_mapSize.x - 1).get()->getGlobalBound();
+
+    if (moveMap.x < 0 && leftTileRect.left > windowSize.x / 2)
+        return false;
+    if (moveMap.x > 0 && rightTileRect.left + rightTileRect.width < windowSize.x / 2)
+        return false;
+    if (moveMap.y < 0 && topTileRect.top > windowSize.y / 2)
+        return false;
+    if (moveMap.y > 0 && bottomTileRect.top + bottomTileRect.height < windowSize.y / 2)
+        return false;
+    return true;
+}
+
 void Map::_updateMoveMap()
 {
     int value = 10;
     sf::Vector2f moveMap = {0, 0};
 
+    if (_event->isKeyPressed(sf::Keyboard::G))
+        _SetDefaultMapOrigin();
     if (_event->isKeyPressed(sf::Keyboard::Z))
         moveMap.y = value;
     if (_event->isKeyPressed(sf::Keyboard::Q))
@@ -139,9 +181,12 @@ void Map::_updateMoveMap()
         moveMap.y = -value;
     if (_event->isKeyPressed(sf::Keyboard::D))
         moveMap.x = -value;
-    for (auto &it : _tile) {
-        if (moveMap.x || moveMap.y)
+    if (!_mapCanMove(moveMap))
+        return;
+    if (moveMap.x || moveMap.y) {
+        for (auto &it : _tile) {
             it->setOrigin(it->getOrigin() + moveMap);
+        }
     }
 }
 
@@ -217,10 +262,10 @@ sf::Color Map::_findTeamColor(const std::string &teamName)
 void Map::_displayPlayers(Tile &tile)
 {
     if (tile.getPlayers().size()) {
-        _playerAnimation.setSize(sf::Vector2f(58, 58));
-        _playerAnimation.setDuration(100);
+        _playerAnimation.setSize(sf::Vector2f(100, 100));
+        _playerAnimation.setDuration(400);
         _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(0).getTeamName()));
-        _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 25});
+        _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
         _playerAnimation.update();
         _window->draw(_playerAnimation.getShape());
         if (tile.getPlayers().size() >= 2) {
@@ -258,7 +303,7 @@ void Map::_displayResources(Tile &tile)
         else
             multiplier = multiplierStone;
         if (it) {
-            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(18, 18));
+            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(30, 30));
             _ressourcesAnim.at(index - 1).setPosition({tile.getGlobalBound().left + index * tile.getGlobalBound().width / 9 - 10, tile.getGlobalBound().top + tile.getGlobalBound().height / 2 - _ressourcesAnim.at(index - 1).getGlobalBounds().height / 2 - 10});
             _ressourcesAnim.at(index - 1).update();
             _window->draw(_ressourcesAnim.at(index - 1).getShape());
@@ -285,7 +330,7 @@ void Map::_displayResources(Tile &tile)
 void Map::_displayEggs(Tile &tile)
 {
     if (tile.getEggs().size()) {
-        _eggAnimation.setSize(sf::Vector2f(28, 28));
+        _eggAnimation.setSize(sf::Vector2f(40, 40));
         _eggAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _eggAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top + 20});
         _eggAnimation.update();
         _window->draw(_eggAnimation.getShape());
