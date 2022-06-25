@@ -173,7 +173,7 @@ $(document).ready(function(){initNavTree('scheduler_8c_source.html',''); initRes
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    time_t tmp_time = 0;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">if</span> (!<span class="keyword">self</span>)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">return</span> (<span class="keyword">struct</span> timeval){.tv_sec = -1, .tv_usec = 0};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">return</span> (<span class="keyword">struct</span> timeval){-1, 0};</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    TAILQ_FOREACH(tmp, &amp;self-&gt;events, events) {</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        tmp_time = tmp-&gt;<a class="code" href="structscheduler__event__s.html#a8d0065299615176169ceac2c65f38365">ticks</a> * (1 / <span class="keyword">self</span>-&gt;freq);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> (tmp_time &lt; smallest)</div>
@@ -181,10 +181,10 @@ $(document).ready(function(){initNavTree('scheduler_8c_source.html',''); initRes
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    tmp_time = time(NULL);</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">if</span> (smallest == 10000000000)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">return</span> (<span class="keyword">struct</span> timeval){.tv_sec =</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">return</span> (<span class="keyword">struct</span> timeval){</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        (20 - floor((tmp_time - self-&gt;ressource) * self-&gt;freq)) *</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        (1 / self-&gt;freq), .tv_usec = 0};</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> (<span class="keyword">struct</span> timeval){.tv_sec = smallest, .tv_usec = 0};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        (1 / self-&gt;freq), 0};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> (<span class="keyword">struct</span> timeval){smallest, 0};</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
