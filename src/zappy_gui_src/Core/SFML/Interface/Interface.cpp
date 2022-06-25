@@ -23,8 +23,8 @@ void Interface::updateAndDisplay()
 {
     _minimap.setBottomMenuPosition(_inventory.getPosition());
     _inventory.setAreaServer(_server.getPosition(), _server.getSize());
-    _inventory.display();
     _minimap.display();
+    _inventory.display();
     _server.display();
     if (_event->isKeyPressed(sf::Keyboard::M))
         _minimap.switchSize(true);
@@ -38,5 +38,6 @@ void Interface::updateAndDisplay()
         _inventory.update();
         _server.update();
     }
-    /// This function will call class which should display something, like minimap class.
+    _inventory.scroll(_event.get()->getMouseScrollValue());
+    _server.scroll(_event.get()->getMouseScrollValue());
 }

@@ -109,7 +109,9 @@ namespace gui {
             inline void setEggs(const std::vector<gui::entity::Egg> &eggs) {
                 _eggs = eggs;
             }
-
+            /// \brief It updates the index of the player's vector and the egg's vector.
+            /// \param scroll The value of the mouseWheel's scroll.
+            void scroll(const float &scroll);
         private:
             /// \brief resize the body and all the shapes on it
             void _updateBody();
@@ -136,7 +138,7 @@ namespace gui {
             /// \brief the font of the texts
             sf::Font _font;
             /// \brief the vector of text containing the value of each items of the inventory
-            std::vector<sf::Text> _textsInv;
+            std::vector<std::pair<sf::Text, std::pair<sf::RectangleShape, sf::Texture>>> _textsInv;
             /// \brief the vector of text containing the informations of each players
             std::vector<sf::Text> _textsPlayer;
             /// \brief the vector of text containing the informations of each eggs
@@ -151,6 +153,10 @@ namespace gui {
             std::vector<gui::entity::Player> _players;
             /// \brief the eggs on the selected tile
             std::vector<gui::entity::Egg> _eggs;
+            /// \brief The index where the player's vector need to start.
+            std::size_t _startPlayerText;
+            /// \brief The index where the egg's vector need to start.
+            std::size_t _startEggText;
     };
 }
 

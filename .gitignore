@@ -80,7 +80,7 @@ src/zappy_ai_src/ai_tile_switch.py
 # CMake garbage
 CMakeFiles
 cmake_install.cmake
-Makefile
+# Makefile
 CMakeCache.txt
 toto
 
