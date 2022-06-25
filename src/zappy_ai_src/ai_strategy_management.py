@@ -403,12 +403,16 @@ class Ai:
                 - Eject from another player (not implemented at the moment)
                 - Broadcast, sending message from another player (not implemented at the moment)
         """
-        pos = 0
         response: str = self.__lib.getUnexpectedResponse()
         if response is "":
             return
         if response is "dead":
             safeExitError(84, "Player is dead, disconnected.")
+        self.__broadCastResponseManagement(response)
+
+    def __broadCastResponseManagement(self, response: str):
+        """This is used to parse the response of"""
+        pos = 0
         if response.startswith("message"):
             infos = response.split(", ")
             team_name = infos[1]
@@ -421,7 +425,7 @@ class Ai:
                 print(e)
             action = infos[2]
             if action is "incantation":
-                return BroadcastInfo(action, team_name, pos, int(infos[3]), int (infos[4]), "")
+                return BroadcastInfo(action, team_name, pos, int(infos[3]), int(infos[4]), "")
             if action is "give":
                 return BroadcastInfo(action, team_name, pos, 0, 0, infos[2])
 
