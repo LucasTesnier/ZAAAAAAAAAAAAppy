@@ -33,6 +33,13 @@ namespace gui {
             /// \param name The name of the player.
             /// \param position The position of the player.
             inline void addPlayer(const std::string &name, const sf::Vector2f &position) {
+                for (auto &it : _playerList) {
+                    if (std::get<0>(it) == name) {
+                        std::get<0>(it) = name;
+                        std::get<1>(it) = position;
+                        return;
+                    }
+                }
                 _playerList.push_back(std::tuple(name, position));
             };
 

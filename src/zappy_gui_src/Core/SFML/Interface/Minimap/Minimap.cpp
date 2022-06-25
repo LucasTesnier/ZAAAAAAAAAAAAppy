@@ -31,18 +31,36 @@ Minimap::Minimap()
     _map.setPoint(3, tilePointPosition[3]);
     _minimapSize = minimapSize;
     isSwitch = false;
+    _player.setRadius(5);
 }
 
 void Minimap::display()
 {
+    float max = (_mapSize.x > _mapSize.y) ? _mapSize.x : _mapSize.y;
+    sf::FloatRect area;
+    float ratio = 0;
+
     _window->draw(_minimap);
     _window->draw(_map);
-    for (std::tuple<std::string, sf::Vector2f> &it __attribute__((unused)): _playerList) {}
+    area = _map.getGlobalBounds();
+    if (area.width > area.height)
+        ratio = _minimapSize.x / area.width;
+    else
+        ratio = _minimapSize.y / area.height;
+    for (std::tuple<std::string, sf::Vector2f> &it __attribute__((unused)): _playerList) {
+        _player.setPosition(_map.getPosition() + _toIsometric(sf::Vector2f(_minimapSize.x / 2 / max * std::get<1>(it).x * ratio, _minimapSize.y / 2 / max * std::get<1>(it).y * ratio), sf::Vector2f(45, 45)));
+        _window->draw(_player);
+    }
 }
 
 void Minimap::removePlayer(const std::string &name __attribute__((unused)))
 {
-
+    for (auto it = _playerList.begin(); it != _playerList.end(); ++it) {
+        if (std::get<0>((*it.base())) == name) {
+            _playerList.erase(it);
+            return;
+        }
+    }
 }
 
 void Minimap::switchSize(bool state)
