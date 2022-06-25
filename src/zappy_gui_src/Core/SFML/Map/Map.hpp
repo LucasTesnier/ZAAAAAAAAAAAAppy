@@ -153,6 +153,8 @@ namespace gui {
             };
         private:
 
+            bool _mapCanMove(sf::Vector2f mapMove);
+
             /// \brief Set the defaut origin of the map on the map center.
             void _SetDefaultMapOrigin();
 

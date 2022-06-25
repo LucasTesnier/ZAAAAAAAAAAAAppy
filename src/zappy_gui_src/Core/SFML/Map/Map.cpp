@@ -12,6 +12,13 @@
 
 using namespace gui;
 
+const std::vector<std::string> PLAYERS_PATH = {
+    "assets/woman1.png",
+    "assets/woman2.png",
+    "assets/woman4.png",
+    "assets/woman3.png",
+};
+
 Map::Map()
 {
     _tileSelected = -1;
@@ -33,9 +40,9 @@ void Map::_initAnimationEntities()
             tmpAnim.addTexture(_ressourcesPaths.at(i), sf::Vector2f(), sf::Vector2f());
             _ressourcesAnim.emplace_back(tmpAnim);
         }
-        _playerAnimation.addTexture(PLAYER1_PATH,sf::Vector2f(), sf::Vector2f());
-        _playerAnimation.addTexture(PLAYER2_PATH,sf::Vector2f(), sf::Vector2f());
-        _playerAnimation.addTexture(PLAYER3_PATH,sf::Vector2f(), sf::Vector2f());
+        for (const std::string &it : PLAYERS_PATH) {
+            _playerAnimation.addTexture(it, sf::Vector2f(), sf::Vector2f());
+        }
         _eggAnimation.addTexture(EGG_PATH, sf::Vector2f(), sf::Vector2f());
     } catch (AnimationException &e) {
         std::cerr << e.what() << std::endl;
@@ -57,9 +64,12 @@ void Map::_initRessourcesPaths()
 void Map::_SetDefaultMapOrigin()
 {
     sf::Vector2f origin;
+    sf::FloatRect firstTileRect = _tile.front().get()->getGlobalBound();
+    sf::FloatRect lastTileRect = _tile.back().get()->getGlobalBound();
+    sf::Vector2u windowSize = _window.get()->getSize();
 
-    origin.x = -(int(_window.get()->getSize().x) / 2);
-    origin.y = (((_tile.back().get()->getGlobalBound().top + _tile.back().get()->getGlobalBound().height) - _tile.front().get()->getGlobalBound().top) / 2 - _window.get()->getSize().y / 2);
+    origin.x = -(int(windowSize.x) / 2);
+    origin.y = (((lastTileRect.top + lastTileRect.height) - firstTileRect.top) / 2 - windowSize.y / 2);
     for (auto &it : _tile) {
         it.get()->setOrigin(origin);
     }
@@ -104,6 +114,25 @@ void Map::removeEntities(std::string &type)
     }
 }
 
+bool Map::_mapCanMove(sf::Vector2f moveMap)
+{
+    sf::Vector2u windowSize = _window.get()->getSize();
+    sf::FloatRect topTileRect = _tile.at(0).get()->getGlobalBound();
+    sf::FloatRect bottomTileRect = _tile.at(_mapSize.x * _mapSize.y - 1).get()->getGlobalBound();
+    sf::FloatRect leftTileRect = _tile.at((_mapSize.y - 1) * _mapSize.x).get()->getGlobalBound();
+    sf::FloatRect rightTileRect = _tile.at(_mapSize.x - 1).get()->getGlobalBound();
+
+    if (moveMap.x < 0 && leftTileRect.left > windowSize.x / 2)
+        return false;
+    if (moveMap.x > 0 && rightTileRect.left + rightTileRect.width < windowSize.x / 2)
+        return false;
+    if (moveMap.y < 0 && topTileRect.top > windowSize.y / 2)
+        return false;
+    if (moveMap.y > 0 && bottomTileRect.top + bottomTileRect.height < windowSize.y / 2)
+        return false;
+    return true;
+}
+
 void Map::_updateMoveMap()
 {
     int value = 10;
@@ -119,13 +148,7 @@ void Map::_updateMoveMap()
         moveMap.y = -value;
     if (_event->isKeyPressed(sf::Keyboard::D))
         moveMap.x = -value;
-    if (moveMap.x < 0 && _tile.at((_mapSize.y - 1) * _mapSize.x).get()->getGlobalBound().left > _window.get()->getSize().x / 2)
-        return;
-    if (moveMap.x > 0 && _tile.at((_mapSize.x - 1)).get()->getGlobalBound().left + _tile.at((_mapSize.x - 1)).get()->getGlobalBound().width < _window.get()->getSize().x / 2)
-        return;
-    if (moveMap.y < 0 && _tile.at(0).get()->getGlobalBound().top > _window.get()->getSize().y / 2)
-        return;
-    if (moveMap.y > 0 && _tile.at(_mapSize.x * _mapSize.y - 1).get()->getGlobalBound().top + _tile.at(_mapSize.x * _mapSize.y - 1).get()->getGlobalBound().height < _window.get()->getSize().y / 2)
+    if (!_mapCanMove(moveMap))
         return;
     if (moveMap.x || moveMap.y) {
         for (auto &it : _tile) {
@@ -207,7 +230,7 @@ void Map::_displayPlayers(Tile &tile)
 {
     if (tile.getPlayers().size()) {
         _playerAnimation.setSize(sf::Vector2f(100, 100));
-        _playerAnimation.setDuration(100);
+        _playerAnimation.setDuration(400);
         _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(0).getTeamName()));
         _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
         _playerAnimation.update();
