@@ -26,9 +26,10 @@ Map::Map()
     _mapSize = {10, 10};
     _zoom = 1;
     _noTileSelected = {-1, -1};
-    std::vector<int> tmpVec{0, 0, 0, 0, 0, 0, 0,};
+    std::vector<int> tmpVec{0, 0, 0, 0, 0, 0, 0};
     _noTileSelectedInv = tmpVec;
     _initAnimationEntities();
+    _initSounds();
 }
 
 void Map::_initAnimationEntities()
@@ -47,6 +48,38 @@ void Map::_initAnimationEntities()
     } catch (AnimationException &e) {
         std::cerr << e.what() << std::endl;
     }
+}
+
+void Map::_initSound(int index)
+{
+    _sounds.push_back(std::make_shared<sf::Sound>(sf::Sound{}));
+    _sounds.at(index)->setBuffer(_soundsBuffer.at(index));
+}
+
+void Map::_initSoundBuffer(const char *path, int index)
+{
+    _soundsBuffer.push_back(sf::SoundBuffer());
+    if (!_soundsBuffer.at(index).loadFromFile(path)) {
+        throw MapException("Cannot load sound file", "couldn't load file :" + std::string(path));
+    }
+}
+
+void Map::_initSounds()
+{
+    try {
+        _initSoundBuffer(SOUND_SPAWN_PATH, SPAWN_SOUND);
+        _initSoundBuffer(SOUND_DEATH_PATH, DEATH_SOUND);
+        _initSoundBuffer(SOUND_EGG_PATH, EGG_SOUND);
+        _initSoundBuffer(SOUND_WIN_PATH, WIN_SOUND);
+        _initSoundBuffer(SOUND_LOSE_PATH, LOSE_SOUND);
+    } catch (MapException &e) {
+        std::cerr << e.what() << std::endl;
+    }
+    _initSound(SPAWN_SOUND);
+    _initSound(DEATH_SOUND);
+    _initSound(EGG_SOUND);
+    _initSound(WIN_SOUND);
+    _initSound(LOSE_SOUND);
 }
 
 void Map::_initRessourcesPaths()

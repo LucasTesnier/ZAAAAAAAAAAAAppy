@@ -11,6 +11,7 @@
 #define MAP_HPP_
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <memory>
 #include <vector>
 #include "Tile.hpp"
@@ -32,7 +33,26 @@
 
 #define EGG_PATH "assets/egg.png"
 
+#define SOUND_SPAWN_PATH "assets/spawn.wav"
+#define SOUND_DEATH_PATH "assets/death.wav"
+#define SOUND_EGG_PATH "assets/egg.wav"
+#define SOUND_WIN_PATH "assets/egg.wav"
+#define SOUND_LOSE_PATH "assets/loose.wav"
+
 namespace gui {
+    /// \brief enum of index of sounds
+    typedef enum sounds_e {
+        /// \brief index of spawn sound
+        SPAWN_SOUND,
+        /// \brief index of death sound
+        DEATH_SOUND,
+        /// \brief index of egg sound
+        EGG_SOUND,
+        /// \brief index of win sound
+        WIN_SOUND,
+        /// \brief index of loose sound
+        LOSE_SOUND
+    } sounds_t;
     /// \brief Class for the map of the zappy. It contain all informations that will be display.
     class Map {
         public:
@@ -74,18 +94,19 @@ namespace gui {
 
             /// \brief add a player object to the vector
             /// \param player the player object to add
+            /// \warning for the moment, the sound is played when a player join a new team,
+            /// GUI need to know the UUID of the player so he'll play the sound only of a new player
             inline void addPlayer(gui::entity::Player &player) {
                 std::size_t tmp = itop(sf::Vector2f(player.getPosition().first, player.getPosition().second));
 
                 _players.emplace_back(player);
                 if (tmp < _tile.size())
                     _tile[tmp]->addPlayer(player);
-                // auto it = std::find_if(_teamsColor.begin(), _teamsColor.end(),
-                // [&teamname](const std::pair<std::string, sf::Color>& element){ return element.first == teamname.name;} );
                 for (auto &team : _teams) {
                     if (team == player.getTeamName())
                         return;
                 }
+                _sounds.at(SPAWN_SOUND)->play();
                 _teams.emplace_back(player.getTeamName());
                 _teamsColor.emplace_back(sf::Color(rand() % 255, rand() % 255, rand() % 255));
             }
@@ -112,6 +133,7 @@ namespace gui {
             /// \brief add a player object to the vector
             /// \param tileInfo the player object to add
             inline void addEgg(gui::entity::Egg &egg) {
+                _sounds.at(EGG_SOUND)->play();
                 _eggs.emplace_back(egg);
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
@@ -221,6 +243,18 @@ namespace gui {
             /// \brief initialize all animations for entities
             void _initAnimationEntities();
 
+            /// \brief initialize a sound
+            void _initSound(int index);
+
+            /// \brief initialize a soundBuffer with a path
+            /// \param path The path of the sound to initialize
+            void _initSoundBuffer(const char *path, int index);
+
+            /// \brief initialize all the sounds
+            void _initSounds();
+
+            /// \brief initialize all the soundsBuffer
+
             /// \brief find the color of a team
             /// \param teamName the team
             /// \return the color of the team
@@ -285,6 +319,18 @@ namespace gui {
 
             /// \brief vector of team linked to a color
             std::vector<sf::Color> _teamsColor;
+
+            using SoundPtr = std::shared_ptr<sf::Sound>;
+
+            /// \brief vector of all the sounds
+            /// \warning the order of the sounds is
+            /// SPAWN, DEATH, EGG, WIN, LOOSE
+            std::vector<SoundPtr> _sounds;
+
+            /// \brief vector of all the soundsBuffer
+            /// \warning the order of the sounds is
+            /// SPAWN, DEATH, EGG, WIN, LOOSE
+            std::vector<sf::SoundBuffer> _soundsBuffer;
     };
 } // namespace gui
 
