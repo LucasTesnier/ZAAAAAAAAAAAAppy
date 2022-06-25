@@ -69,7 +69,7 @@ namespace gui::entity {
         }
         /// \brief get the uuid
         /// \return a string containing the uuid of the player
-        const std::string &getUuid() const {
+        inline const std::string &getUuid() const {
             return _uuid;
         }
         /// \brief get the level

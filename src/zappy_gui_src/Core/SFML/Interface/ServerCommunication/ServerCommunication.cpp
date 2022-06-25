@@ -29,6 +29,19 @@ void ServerCommunication::display()
     _window->draw(_text);
 }
 
+void ServerCommunication::addTilesInfo(gui::entity::Tile &tile)
+{
+    for (auto &it : _tiles) {
+        if (it._position == tile._position) {
+            it = tile;
+            _updateText();
+            return;
+        }
+    }
+    _tiles.push_back(tile);
+    _updateText();
+}
+
 void ServerCommunication::_updateBody()
 {
     sf::Vector2u windowSize = _window->getSize();
