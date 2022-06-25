@@ -29,6 +29,19 @@ void ServerCommunication::display()
     _window->draw(_text);
 }
 
+void ServerCommunication::addTilesInfo(gui::entity::Tile &tile)
+{
+    for (auto &it : _tiles) {
+        if (it._position == tile._position) {
+            it = tile;
+            _updateText();
+            return;
+        }
+    }
+    _tiles.push_back(tile);
+    _updateText();
+}
+
 void ServerCommunication::_updateBody()
 {
     sf::Vector2u windowSize = _window->getSize();
@@ -127,13 +140,27 @@ std::string ServerCommunication::_inventoryToString(const std::vector<int> &inve
     std::string inventoryAsString;
 
     inventoryAsString.append("\tInventory:\n");
-    inventoryAsString.append("\t\tFood: " + std::to_string(inventory[0]) + "\n");
-    inventoryAsString.append("\t\tLinemate: " + std::to_string(inventory[1]) + "\n");
-    inventoryAsString.append("\t\tDeraumere: " + std::to_string(inventory[2]) + "\n");
-    inventoryAsString.append("\t\tSibur: " + std::to_string(inventory[3]) + "\n");
-    inventoryAsString.append("\t\tMendiane: " + std::to_string(inventory[4]) + "\n");
-    inventoryAsString.append("\t\tPhiras: " + std::to_string(inventory[5]) + "\n");
-    inventoryAsString.append("\t\tThystame: " + std::to_string(inventory[6]) + "\n");
+    inventoryAsString.append("\t\tFood: ");
+    inventoryAsString.append(std::to_string(inventory[0]));
+    inventoryAsString.append("\n");
+    inventoryAsString.append("\t\tLinemate: ");
+    inventoryAsString.append(std::to_string(inventory[1]));
+    inventoryAsString.append("\n");
+    inventoryAsString.append("\t\tDeraumere: ");
+    inventoryAsString.append(std::to_string(inventory[2]));
+    inventoryAsString.append("\n");
+    inventoryAsString.append("\t\tSibur: ");
+    inventoryAsString.append(std::to_string(inventory[3]));
+    inventoryAsString.append("\n");
+    inventoryAsString.append("\t\tMendiane: ");
+    inventoryAsString.append(std::to_string(inventory[4]));
+    inventoryAsString.append("\n");
+    inventoryAsString.append("\t\tPhiras: ");
+    inventoryAsString.append(std::to_string(inventory[5]));
+    inventoryAsString.append("\n");
+    inventoryAsString.append("\t\tThystame: ");
+    inventoryAsString.append(std::to_string(inventory[6]));
+    inventoryAsString.append("\n");
     return inventoryAsString;
 }
 

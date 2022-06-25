@@ -21,6 +21,7 @@ player_t *create_player(const char *team_name)
     CONTAINER_ADD_FOOD(player->inventory, 10);
     player->inventory->food = 10 * 126;
     player->level = 1;
+    player->status = true;
     uuid_generate(player->uuid);
     return player;
 }

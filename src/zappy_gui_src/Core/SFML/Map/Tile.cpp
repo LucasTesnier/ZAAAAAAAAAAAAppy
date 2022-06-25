@@ -58,6 +58,30 @@ int Tile::isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse
     return 0;
 }
 
+void Tile::removePlayer(gui::entity::Player &player)
+{
+    if (_players.empty())
+        return;
+    for (auto it = _players.begin(); it != _players.end(); ++it) {
+        if (it.base()->_uuid == player._uuid) {
+            _players.erase(it);
+            return;
+        }
+    }
+}
+
+void Tile::removeEgg(gui::entity::Egg &egg)
+{
+    if (_eggs.empty())
+        return;
+    for (auto it = _eggs.begin(); it != _eggs.end(); ++it) {
+        if (it.base()->_uuid == egg._uuid) {
+            _eggs.erase(it);
+            return;
+        }
+    }
+}
+
 bool Tile::isOnTile(sf::Vector2i mouse)
 {
     int res = 0;

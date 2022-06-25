@@ -36,8 +36,8 @@
 #define SOUND_SPAWN_PATH "assets/spawn.wav"
 #define SOUND_DEATH_PATH "assets/death.wav"
 #define SOUND_EGG_PATH "assets/egg.wav"
-#define SOUND_WIN_PATH "assets/egg.wav"
-#define SOUND_LOSE_PATH "assets/loose.wav"
+#define SOUND_WIN_PATH "assets/win.wav"
+#define SOUND_LOSE_PATH "assets/lose.wav"
 
 namespace gui {
     /// \brief enum of index of sounds
@@ -56,7 +56,6 @@ namespace gui {
     /// \brief Class for the map of the zappy. It contain all informations that will be display.
     class Map {
         public:
-
             /// \brief Constructor of the Map.
             Map();
 
@@ -94,22 +93,11 @@ namespace gui {
 
             /// \brief add a player object to the vector
             /// \param player the player object to add
-            /// \warning for the moment, the sound is played when a player join a new team,
-            /// GUI need to know the UUID of the player so he'll play the sound only of a new player
-            inline void addPlayer(gui::entity::Player &player) {
-                std::size_t tmp = itop(sf::Vector2f(player.getPosition().first, player.getPosition().second));
+            void addPlayer(gui::entity::Player &player);
 
-                _players.emplace_back(player);
-                if (tmp < _tile.size())
-                    _tile[tmp]->addPlayer(player);
-                for (auto &team : _teams) {
-                    if (team == player.getTeamName())
-                        return;
-                }
-                _sounds.at(SPAWN_SOUND)->play();
-                _teams.emplace_back(player.getTeamName());
-                _teamsColor.emplace_back(sf::Color(rand() % 255, rand() % 255, rand() % 255));
-            }
+            /// \brief remove a player from the vector of players
+            /// \param player the player object to remove
+            void removePlayer(gui::entity::Player &player);
 
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
@@ -119,10 +107,7 @@ namespace gui {
 
             /// \brief add a tile object to the vector
             /// \param tileInfo the tile object to set
-            inline void addTilesInfo(gui::entity::Tile &tileInfo) {
-                _tilesInfo.emplace_back(tileInfo);
-                _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
-            }
+            void addTilesInfo(gui::entity::Tile &tileInfo);
 
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
@@ -137,6 +122,10 @@ namespace gui {
                 _eggs.emplace_back(egg);
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
+
+            /// \brief remove a egg from the vector of eggs
+            /// \param egg the egg object to remove
+            void removeEgg(gui::entity::Egg &egg);
 
             /// \brief add a new status to the Status object
             /// \param status the status to set

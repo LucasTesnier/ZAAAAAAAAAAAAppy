@@ -8,6 +8,7 @@
 /// \file src/zappy_server_src/core/map.c
 
 #include "map.h"
+#include "container_manip.h"
 #include "entity/entity.h"
 #include "entity/tile.h"
 #include "entity/entity_types.h"
@@ -44,13 +45,12 @@ static int compute_ressource_number(map_t *map, float density)
 /// \brief Add a ressource inside a random tile
 /// \param map The map informations
 /// \param type The type of the ressources
-static void add_ressource_randomly(map_t *map, char *type)
+static void add_ressource_randomly(map_t *map, char *type,
+entity_diff_t *modified_entities)
 {
     entity_t *tile = get_tile(map, rand() % map->width, rand() % map->height);
     container_t *cases = NULL;
 
-    if (tile == NULL)
-        return;
     cases = ((tile_t *)tile->data)->inventory;
     if (!strcmp(type, "food"))
         cases->food += 1;
@@ -66,14 +66,15 @@ static void add_ressource_randomly(map_t *map, char *type)
         cases->phiras += 1;
     if (!strcmp(type, "thystame"))
         cases->thystame += 1;
+    entity_diff_add_entity(modified_entities, tile);
 }
 
-void generate_new_ressource(map_t *map)
+void generate_new_resource(map_t *map, entity_diff_t *modified_entities)
 {
     for (int i = 0; gen_list[i].name; i++) {
         for (int j = 0; j <
         compute_ressource_number(map, gen_list[i].density) + 1; j++)
-            add_ressource_randomly(map, gen_list[i].name);
+            add_ressource_randomly(map, gen_list[i].name, modified_entities);
     }
 }
 
@@ -104,6 +105,6 @@ map_t *create_new_map(int width, int height)
             map->tiles[i * width + j]->data = create_new_tile();
         }
     }
-    generate_new_ressource(map);
+    generate_new_resource(map, NULL);
     return map;
 }

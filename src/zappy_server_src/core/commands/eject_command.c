@@ -27,8 +27,8 @@ bool command_eject(char *arg, player_list_t *player, server_data_t *serv)
 }
 
 /// \brief Move an entity to a given direction
-/// \param player Entity informations
-/// \param map Map informations
+/// \param player Entity information's
+/// \param map Map information's
 /// \param dir Direction to go
 static void move_x(entity_t *player, map_t *map,
 enum player_orientation_e dir)
@@ -59,8 +59,8 @@ enum player_orientation_e dir)
 
 /// \brief Cross all the entities on the tile_pos and push them
 /// \param serv Server information
-/// \param player Player informations
-/// \param tile_pos Tile informations
+/// \param player Player information's
+/// \param tile_pos Tile information's
 static void eject_action(server_data_t *serv, player_t *player,
 position_t tile_pos)
 {
@@ -82,6 +82,7 @@ position_t tile_pos)
             move_y(entity, serv->map, WEST);
         send_unexpected_eject(get_eject_dir(serv, entity, tile_pos), serv,
             (player_t *)entity->data);
+        entity_diff_add_entity(serv->modified_entities, entity);
     }
 }
 
@@ -96,7 +97,6 @@ server_data_t *serv __attribute__((unused)))
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
     eject_action(serv, player_data, player_entity->position);
-    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(219, NULL, player->player_peer, true);
 }

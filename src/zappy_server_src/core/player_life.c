@@ -86,7 +86,7 @@ static void remove_a_player(server_data_t *serv, entity_t *entity)
 
 /// \brief Update the life of all the players
 /// \param self The scheduler object
-/// \param serv The server informations
+/// \param serv The server information's
 void scheduler_update_life(scheduler_t *self, server_data_t *serv)
 {
     time_t now = time(NULL);
@@ -101,6 +101,8 @@ void scheduler_update_life(scheduler_t *self, server_data_t *serv)
         entity2 = TAILQ_NEXT(entity, entities);
         ((player_t *)entity->data)->inventory->food -= tick;
         if (((player_t *)entity->data)->inventory->food <= 0) {
+            ((player_t *) entity->data)->status = false;
+            entity_diff_add_entity(serv->modified_entities, entity);
             remove_a_player(serv, entity);
         }
         entity = entity2;

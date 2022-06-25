@@ -90,5 +90,6 @@ void destroy_server_data(server_data_t *server_data)
     free(server_data->map);
     delete_teams(&server_data->teams);
     scheduler_delete(server_data->scheduler);
+    destroy_entity_diff(&server_data->modified_entities);
     free(server_data);
 }

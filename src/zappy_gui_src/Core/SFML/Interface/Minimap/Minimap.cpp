@@ -39,21 +39,11 @@ Minimap::Minimap()
 
 void Minimap::display()
 {
-    sf::FloatRect area;
-    float ratio = 0;
 
     _window->draw(_minimap);
-    _window->draw(_map);
-    area = _map.getGlobalBounds();
-    if (area.width > area.height)
-        ratio = _minimapSize.x / area.width;
-    else
-        ratio = _minimapSize.y / area.height;
+    // _window->draw(_map);
     for (std::tuple<std::string, sf::Vector2f> &it __attribute__((unused)): _playerList) {
-        sf::Vector2f playerPosition = _toIsometric(sf::Vector2f(std::get<1>(it).x, std::get<1>(it).y), VIEW_ANGLE);
-        sf::Vector2f scale = _toIsometric(sf::Vector2f(ratio, ratio), VIEW_ANGLE);
-        _player.setPosition(_map.getPosition() + sf::Vector2f(playerPosition.x * scale.x, playerPosition.y * scale.y));
-        _map.setPosition(sf::Vector2f(_minimap.getPosition().x - _map.getPoint(1).x * _map.getScale().x, _minimap.getPosition().y));
+        _player.setPosition(_minimap.getPosition() + sf::Vector2f(std::get<1>(it).x * _minimapSize.x / _mapSize.x, std::get<1>(it).y * _minimapSize.y / _mapSize.y));
         _window->draw(_player);
     }
 }
@@ -104,45 +94,8 @@ sf::Vector2f Minimap::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)
 
 void Minimap::_updateConvexShape()
 {
-    const std::size_t tileNbrPoint = 4;
-    const sf::Vector2f tilePointPosition[tileNbrPoint] = {{0, 0}, {0, _minimapSize.y}, _minimapSize, {_minimapSize.x, 0}};
     const sf::Vector2u windowSize = _window.get()->getSize();
-    sf::FloatRect area;
-    float ratio = 0;
 
-    for (std::size_t i = 0; i < tileNbrPoint; i++) {
-        _map.setPoint(i, _toIsometric(tilePointPosition[i], VIEW_ANGLE));
-    }
-    area = _map.getGlobalBounds();
-    if (area.width > area.height)
-        ratio = _minimapSize.x / area.width;
-    else
-        ratio = _minimapSize.y / area.height;
-    _minimap.setSize(_minimapSize);
     _minimap.setPosition(sf::Vector2f(windowSize.x, _bottomMenuPosition.y) - _minimapSize);
-    _map.setPosition(_minimap.getPosition());
-    _map.scale(sf::Vector2f(ratio, ratio));
-    _map.setPosition(sf::Vector2f(_minimap.getPosition().x - _map.getPoint(1).x * _map.getScale().x, _minimap.getPosition().y));
+    _minimap.setSize(_minimapSize);
 }
-
-// void Minimap::_updateConvexShape()
-// {
-//     float max = (_mapSize.x > _mapSize.y) ? _mapSize.x : _mapSize.y;
-//     sf::FloatRect area;
-//     float ratio;
-
-//     _map.setPoint(0, _toIsometric(sf::Vector2f(0, 0), sf::Vector2f(45, 45)));
-//     _map.setPoint(1, _toIsometric(sf::Vector2f(0, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));
-//     _map.setPoint(2, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));
-//     _map.setPoint(3, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 0), sf::Vector2f(45, 45)));
-//     _minimap.setPosition(sf::Vector2f(_window->getSize().x - _minimapSize.x, _bottomMenuPosition.y - _minimapSize.y));
-//     _minimap.setSize(_minimapSize);
-//     _minimap.setFillColor(sf::Color(100, 100, 100));
-//     area = _map.getGlobalBounds();
-//     if (area.width > area.height)
-//         ratio = _minimapSize.x / area.width;
-//     else
-//         ratio = _minimapSize.y / area.height;
-//     _map.scale(sf::Vector2f(ratio, ratio));
-//     _map.setPosition(sf::Vector2f(_minimap.getPosition().x - _map.getPoint(1).x * _map.getScale().x, _minimap.getPosition().y));
-// }

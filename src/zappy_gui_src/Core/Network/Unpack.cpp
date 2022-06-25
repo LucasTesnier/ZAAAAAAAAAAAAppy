@@ -55,6 +55,8 @@ gui::entity::Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
     try {
         auto player = stov(unpacked[1], ';');
         p._position = std::make_pair(std::stoi(player[0]), std::stoi(player[1]));
+        p._uuid = player[2];
+        p._statusPlayer = std::stoi(player[3]);
         player.clear();
         player = stov(unpacked[2], '}');
         p._inventory = UnpackInventory(player[0]);
@@ -89,8 +91,10 @@ gui::entity::Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
     try {
         auto egg = stov(unpacked[1], ';');
         e._position = std::make_pair(std::stoi(egg[0]), std::stoi(egg[1]));
-        std::size_t pos = egg[2].find("}");
-        std::string team_name = egg[2].substr(0, pos);
+        e._uuid = egg[2];
+        e._statusEgg = std::stoi(egg[3]);
+        std::size_t pos = egg[4].find("}");
+        std::string team_name = egg[4].substr(0, pos);
         e._team_name = team_name;
     } catch(...) {
         throw (std::invalid_argument("Egg invalid parsing"));
