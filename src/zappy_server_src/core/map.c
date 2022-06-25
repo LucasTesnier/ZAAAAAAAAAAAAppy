@@ -52,7 +52,6 @@ entity_diff_t *modified_entities)
     container_t *cases = NULL;
 
     cases = ((tile_t *)tile->data)->inventory;
-    CONTAINER_INCREASE_GENERIC(cases, type);
     if (!strcmp(type, "food"))
         cases->food += 1;
     if (!strcmp(type, "linemate"))
