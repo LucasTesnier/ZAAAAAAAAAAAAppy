@@ -389,10 +389,13 @@ class Ai:
 
     def __waitServerResponse(self):
         """This is used by AI to wait until the server's response, managing unexpected responses in the same time"""
-        while not self.__lib.getResponseState():
-            pass
-        if self.__lib.getUnexpectedResponseState():
-            self.__unexpectedResponseManagement()
+        while True:
+            while not self.__lib.getResponseState():
+                pass
+            if self.__lib.getUnexpectedResponseState():
+                self.__unexpectedResponseManagement()
+            else:
+                return
 
     def __unexpectedResponseManagement(self):
         """This is used by AI to manage every unexpected response send by the server like :
