@@ -488,7 +488,7 @@ class Ai:
         """
         From the response object given by self.__Queues.popFctPtr()
         Find the correct way to get the response and process it
-        Only the getter of Forwarf, Right, Left, Take/Place Object, Eject, Fork and Incantation are handled
+        Only the getter of Forward, Right, Left, Take/Place Object, Eject, Fork and Incantation are handled
         """
         responseTreated : bool = False
 
@@ -496,28 +496,32 @@ class Ai:
             return False
         fctPtr = self.__Queues.popFctPtr()
         while not responseTreated and self.__getIsRunning():
-
             if self.__lib.GetUnexpectedResponseState():
                 self.__unexpectedResponseManagement()
                 continue
             if fctPtr in [self.__lib.GetRepForward, self.__lib.GetRepTurnLeft, self.__lib.GetRepTurnRight]:
                 self.__Queues.decMov() if fctPtr() else self.__setTargetTileReached(True)
-            if fctPtr in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
+                print("Pop mov")
+            elif fctPtr in [self.__lib.GetRepTakeObject, self.__lib.GetRepPlaceObject, self.__lib.GetRepEject]:
                 fctPtr()
-            if fctPtr == self.__lib.GetRepFork and self.__lib.GetRepFork():
+                print("Pop object")
+            elif fctPtr == self.__lib.GetRepFork and self.__lib.GetRepFork():
                 self.__decrAvailableSlots()
-            if fctPtr == self.__lib.GetRepIncantation:
+                print("Pop fork")
+            elif fctPtr == self.__lib.GetRepIncantation:
                 if self.__lib.GetRepIncantation() > 0:
                     self.__incrPlayerCurrentLevel()
                     self.__setAskedElevation(False)
-            if fctPtr == self.__lib.GetRepInventory:
+                print("pop Elevation")
+            elif fctPtr == self.__lib.GetRepInventory:
                 self.__inventory.fillInventory(self.__lib.GetRepInventory())
-            if fctPtr == self.__lib.GetRepLook:
+                print("Pop inventory")
+            elif fctPtr == self.__lib.GetRepLook:
                 self.__visionOfTheMap.fillMap(self.__lib.GetRepLook())
+                print("Pop vision")
             responseTreated = True
         if not self.__Queues.isMovementLeft():
             self.__setTargetTileReached(True)
-        self.__Queues.decMov()
         return True
 
 
