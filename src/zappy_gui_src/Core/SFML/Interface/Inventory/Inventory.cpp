@@ -92,7 +92,8 @@ void Inventory::initTextTileInventory()
     }
     std::size_t i = 0;
     for (auto &t : _textsInv) {
-        t.second.second.loadFromFile(RESSOURCE_PATH[i]);
+        if (!t.second.second.loadFromFile(RESSOURCE_PATH[i]))
+            return;
         t.second.first.setTexture(&t.second.second);
         t.first.setFont(_font);
         t.first.setFillColor(sf::Color::Black);
