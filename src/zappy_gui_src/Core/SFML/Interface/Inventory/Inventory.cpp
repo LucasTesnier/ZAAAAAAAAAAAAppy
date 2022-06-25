@@ -127,24 +127,24 @@ void Inventory::setPosTextsPlayer(int x, int y, int offset)
 {
     if (_startPlayerText >= _textsPlayer.size())
         return;
-    _textsPlayer.at(_startPlayerText + 0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
-    _textsPlayer.at(_startPlayerText + 1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
+    _textsPlayer.at(_startPlayerText + 0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
+    _textsPlayer.at(_startPlayerText + 1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
     if (_startPlayerText + 2 >= _textsPlayer.size())
         return;
-    _textsPlayer.at(_startPlayerText + 2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
-    _textsPlayer.at(_startPlayerText + 3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
+    _textsPlayer.at(_startPlayerText + 2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
+    _textsPlayer.at(_startPlayerText + 3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
 }
 
 void Inventory::setPosTextsEgg(int x, int y, int offset)
 {
     if (_startPlayerText >= _textsPlayer.size())
         return;
-    _textsEgg.at(0).setPosition(_body.getPosition().x + x, _body.getPosition().y + y);
-    _textsEgg.at(1).setPosition(_body.getPosition().x + x, _body.getPosition().y + y + 60);
+    _textsEgg.at(0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
+    _textsEgg.at(1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
     if (_startPlayerText + 2 >= _textsPlayer.size())
         return;
-    _textsEgg.at(2).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y);
-    _textsEgg.at(3).setPosition(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60);
+    _textsEgg.at(2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
+    _textsEgg.at(3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
 }
 
 void Inventory::setPosSpritesInv()
