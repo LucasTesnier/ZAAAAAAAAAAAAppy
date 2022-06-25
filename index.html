@@ -106,7 +106,8 @@ Building program</h3>
 <div class="line">cmake --build ./build</div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md3"></a>
 Testing program</h3>
-<div class="fragment"><div class="line">cmake --build ./build</div>
+<div class="fragment"><div class="line">cmake . -B ./build -G &quot;Unix Makefiles&quot; -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE=ON</div>
+<div class="line">cmake --build ./build</div>
 <div class="line">cd ./build</div>
 <div class="line">ctest --output-on-failure</div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
