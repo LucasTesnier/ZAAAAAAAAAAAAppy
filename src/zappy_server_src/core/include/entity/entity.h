@@ -62,7 +62,6 @@ typedef struct entity_diff_s {
     size_t offset;
 } entity_diff_t;
 
-
 /// \brief Create a new entity
 /// \param type the entity typ
 /// \param position the entity position

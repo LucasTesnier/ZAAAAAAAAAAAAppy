@@ -8,6 +8,7 @@
 /// \file src/zappy_server_src/core/map.c
 
 #include "map.h"
+#include "container_manip.h"
 #include "entity/entity.h"
 #include "entity/tile.h"
 #include "entity/entity_types.h"
@@ -50,9 +51,8 @@ entity_diff_t *modified_entities)
     entity_t *tile = get_tile(map, rand() % map->width, rand() % map->height);
     container_t *cases = NULL;
 
-    if (tile == NULL)
-        return;
     cases = ((tile_t *)tile->data)->inventory;
+    CONTAINER_INCREASE_GENERIC(cases, type);
     if (!strcmp(type, "food"))
         cases->food += 1;
     if (!strcmp(type, "linemate"))
