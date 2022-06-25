@@ -10,6 +10,7 @@ var namespacegui =
     [ "Inventory", "classgui_1_1_inventory.html", "classgui_1_1_inventory" ],
     [ "InventoryException", "classgui_1_1_inventory_exception.html", "classgui_1_1_inventory_exception" ],
     [ "Map", "classgui_1_1_map.html", "classgui_1_1_map" ],
+    [ "MapException", "classgui_1_1_map_exception.html", "classgui_1_1_map_exception" ],
     [ "Minimap", "classgui_1_1_minimap.html", "classgui_1_1_minimap" ],
     [ "ServerCommunication", "classgui_1_1_server_communication.html", "classgui_1_1_server_communication" ],
     [ "ServerCommunicationException", "classgui_1_1_server_communication_exception.html", "classgui_1_1_server_communication_exception" ],

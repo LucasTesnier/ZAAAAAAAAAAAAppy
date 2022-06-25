@@ -19,6 +19,7 @@ var hierarchy =
         [ "AnimationException", "classgui_1_1_animation_exception.html", null ],
         [ "CoreException", "classgui_1_1_core_exception.html", null ],
         [ "InventoryException", "classgui_1_1_inventory_exception.html", null ],
+        [ "MapException", "classgui_1_1_map_exception.html", null ],
         [ "ServerCommunicationException", "classgui_1_1_server_communication_exception.html", null ],
         [ "TileException", "classgui_1_1_tile_exception.html", null ],
         [ "UnpackException", "classgui_1_1_unpack_exception.html", null ]
@@ -49,9 +50,9 @@ var hierarchy =
     [ "Start", "structgui_1_1unpack_1_1_start.html", null ],
     [ "tcp_server_s", "structtcp__server__s.html", null ],
     [ "team_s", "structteam__s.html", null ],
+    [ "Tile", "classgui_1_1entity_1_1_tile.html", null ],
     [ "Tile", "classgui_1_1_tile.html", null ],
     [ "Tile", "classai__handle__response_1_1_tile.html", null ],
-    [ "Tile", "classgui_1_1entity_1_1_tile.html", null ],
     [ "tile_s", "structtile__s.html", null ],
     [ "Unpack", "classgui_1_1unpack_1_1_unpack.html", null ],
     [ "zappy_client_s", "structzappy__client__s.html", null ],
