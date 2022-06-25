@@ -39,6 +39,7 @@ var NAVTREE =
         [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ],
         [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
@@ -71,11 +72,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_animation_8cpp.html",
-"classgui_1_1_animation.html#a02b5eb9e134b742292fc926c5149fd06",
-"command__hold_8h.html#afebdd96324196d5e1c32039cf0b07446",
-"get_2incantation_8c.html",
-"scheduler_8h.html#a44bf417c6a4762084f82f37fba58b5e4",
-"teams__remove_8c_source.html"
+"classai__handle__response_1_1_inventory.html#afc5215825b78aa1cca02aff924b05d31",
+"command__hold_8h.html#aac4704bced22df9488198e7931e2f725",
+"game__status_8c.html#a83fb53f194c85e3ee13a7de46ed02a83",
+"rcodes_8h.html",
+"team_8c.html#adbc2a6f6dab0eab313c12bd441126d56"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

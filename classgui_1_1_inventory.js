@@ -11,6 +11,7 @@ var classgui_1_1_inventory =
     [ "initTextPlayer", "classgui_1_1_inventory.html#aeedd69337b8e3f8fddb5b6bf15ff4063", null ],
     [ "initTextTileInventory", "classgui_1_1_inventory.html#a55403ae0abba80d4ed7f2369327984a8", null ],
     [ "initTextTilePosition", "classgui_1_1_inventory.html#a2781c0e87869700a4c00fbb226310c8c", null ],
+    [ "scroll", "classgui_1_1_inventory.html#a2537800e6f00dac9de0b6c3307c41f60", null ],
     [ "setAreaServer", "classgui_1_1_inventory.html#a742d5492bc9c7c02027b57ad78b5594f", null ],
     [ "setBackgroundColor", "classgui_1_1_inventory.html#a786070762874772789b2ef75fcc1f260", null ],
     [ "setButtonColor", "classgui_1_1_inventory.html#aa6fc2c9da28ee7f5dcd304d32b15abb6", null ],

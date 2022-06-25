@@ -160,6 +160,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afb4cc45505d9d7ebdbef92cde8bececc"><td class="memItemLeft" align="right" valign="top">sf::Mouse::Button&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_event.html#afb4cc45505d9d7ebdbef92cde8bececc">getButton</a> () const</td></tr>
 <tr class="memdesc:afb4cc45505d9d7ebdbef92cde8bececc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the button pressed.  <a href="class_event.html#afb4cc45505d9d7ebdbef92cde8bececc">More...</a><br /></td></tr>
 <tr class="separator:afb4cc45505d9d7ebdbef92cde8bececc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a032df47f71e4251005beb2476ab8a642"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_event.html#a032df47f71e4251005beb2476ab8a642">setMouseScrollValue</a> (float value)</td></tr>
+<tr class="memdesc:a032df47f71e4251005beb2476ab8a642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mouseWheel's value as a float.  <a href="class_event.html#a032df47f71e4251005beb2476ab8a642">More...</a><br /></td></tr>
+<tr class="separator:a032df47f71e4251005beb2476ab8a642"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f35bb1ba2ecc9520cad60144abab716"><td class="memItemLeft" align="right" valign="top">const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_event.html#a3f35bb1ba2ecc9520cad60144abab716">getMouseScrollValue</a> () const</td></tr>
+<tr class="memdesc:a3f35bb1ba2ecc9520cad60144abab716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the mouseWheel's value as a float.  <a href="class_event.html#a3f35bb1ba2ecc9520cad60144abab716">More...</a><br /></td></tr>
+<tr class="separator:a3f35bb1ba2ecc9520cad60144abab716"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class event handle events from SFML to be use anywhere in the zappy_gui. It will simplify the use of all event from keyboard and mouse button. </p>
@@ -464,6 +470,36 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3f35bb1ba2ecc9520cad60144abab716"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f35bb1ba2ecc9520cad60144abab716">&#9670;&nbsp;</a></span>getMouseScrollValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float&amp; getMouseScrollValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the mouseWheel's value as a float. </p>
+<dl class="section return"><dt>Returns</dt><dd>The value previously set, or 0 otherwise. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_event_8hpp_source.html#l00141">141</a> of file <a class="el" href="_event_8hpp_source.html">Event.hpp</a>.</p>
+
+</div>
+</div>
 <a id="aa719991c8aff02e9dd3a146edcc4f1bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa719991c8aff02e9dd3a146edcc4f1bf">&#9670;&nbsp;</a></span>isAltPressed()</h2>
 
@@ -738,6 +774,42 @@ Public Member Functions</h2></td></tr>
 <p>Set the key pressed status to false. Keep the last key pressed in the variable. </p>
 
 <p class="definition">Definition at line <a class="el" href="_event_8hpp_source.html#l00033">33</a> of file <a class="el" href="_event_8hpp_source.html">Event.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a032df47f71e4251005beb2476ab8a642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a032df47f71e4251005beb2476ab8a642">&#9670;&nbsp;</a></span>setMouseScrollValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setMouseScrollValue </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the mouseWheel's value as a float. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_event_8hpp_source.html#l00135">135</a> of file <a class="el" href="_event_8hpp_source.html">Event.hpp</a>.</p>
 
 </div>
 </div>

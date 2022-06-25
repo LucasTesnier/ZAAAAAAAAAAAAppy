@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['north_1448',['NORTH',['../namespacegui_1_1entity.html#ad4c25d29eedd6a367b314a8352df4948ad0611de6f28d4a9c9eac959f5344698e',1,'gui::entity::NORTH()'],['../player_8h.html#ad4c25d29eedd6a367b314a8352df4948ad0611de6f28d4a9c9eac959f5344698e',1,'NORTH():&#160;player.h']]]
+  ['logout_1472',['LOGOUT',['../server_8h.html#affac9094a814a8d62e37c45f9af9842da86d6ca369e69a3a0f0c9bd063dd39a70',1,'server.h']]],
+  ['lose_5fsound_1473',['LOSE_SOUND',['../namespacegui.html#a0c42997b1efdcb1d74f28a577e75bdc9ae0bf858406d46cb6e035377f14fa68ec',1,'gui']]]
 ];

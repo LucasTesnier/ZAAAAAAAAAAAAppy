@@ -8,6 +8,7 @@ var dir_cb3ff3b97dd445c2dea16edd4a0c2c18 =
       [ "ServerCommunicationException", "classgui_1_1_server_communication_exception.html", "classgui_1_1_server_communication_exception" ],
       [ "InventoryException", "classgui_1_1_inventory_exception.html", "classgui_1_1_inventory_exception" ],
       [ "TileException", "classgui_1_1_tile_exception.html", "classgui_1_1_tile_exception" ],
-      [ "AnimationException", "classgui_1_1_animation_exception.html", "classgui_1_1_animation_exception" ]
+      [ "AnimationException", "classgui_1_1_animation_exception.html", "classgui_1_1_animation_exception" ],
+      [ "MapException", "classgui_1_1_map_exception.html", "classgui_1_1_map_exception" ]
     ] ]
 ];

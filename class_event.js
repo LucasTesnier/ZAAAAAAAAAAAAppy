@@ -10,6 +10,7 @@ var class_event =
     [ "ctrlReleased", "class_event.html#a05cf3acc98dce6a7cab472c8e99f3775", null ],
     [ "getButton", "class_event.html#afb4cc45505d9d7ebdbef92cde8bececc", null ],
     [ "getKey", "class_event.html#a489c675f714ea187772d13b14a55d32e", null ],
+    [ "getMouseScrollValue", "class_event.html#a3f35bb1ba2ecc9520cad60144abab716", null ],
     [ "isAltPressed", "class_event.html#aa719991c8aff02e9dd3a146edcc4f1bf", null ],
     [ "isButtonPressed", "class_event.html#a9ddbab80b376ffec9c471c3c27bfe3b1", null ],
     [ "isButtonPressed", "class_event.html#a0674e84b274a9ecd9d952ded6a8cf11d", null ],
@@ -19,6 +20,7 @@ var class_event =
     [ "isShiftPressed", "class_event.html#a65e2d1dd76fc80ebfa30880bd9df2c40", null ],
     [ "keyPressed", "class_event.html#a7b28aa144ec69375c8d81bce4cecc95d", null ],
     [ "keyReleased", "class_event.html#a2818dcf49434a44b00efc2dfd75ad33c", null ],
+    [ "setMouseScrollValue", "class_event.html#a032df47f71e4251005beb2476ab8a642", null ],
     [ "shiftPressed", "class_event.html#addb9170c614df4078997f470a3adadbe", null ],
     [ "shiftReleased", "class_event.html#ad349219a6273ed0e7cd90523e06b6631", null ]
 ];
