@@ -111,6 +111,8 @@ class ServerWrapper:
         c_port = ctypes.c_int(port)
         self.__connectToServer.restype = ctypes.c_bool
         c_value = self.__connectToServer(b_machineName, c_port)
+        if c_value:
+            self.__flush()
         return c_value
 
     def getRepConnectToServer(self) -> bool:
