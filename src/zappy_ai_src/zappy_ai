@@ -19,8 +19,8 @@ def needHelp(ac : int, av) ->  bool:
     Return True is flag found, false otherwise
     """
 
-    if ac is 2:
-        if av[1] is "--help" or av[1] is "-h":
+    if ac == 2:
+        if av[1] == "--help" or av[1] == "-h":
             return True
     return False
 
@@ -50,7 +50,7 @@ def main() -> int:
     return 0
 
 
-if __name__ is '__main__':
+if __name__ == '__main__':
     try:
         exit(main())
     except KeyboardInterrupt:
