@@ -42,6 +42,9 @@ SAFETY_MARGIN = 300
 """This is indication for the AI to switch to survival strategy under or equal to 300 units of time"""
 FOOD_LIMIT = 300
 
+"""This is the limit before the next try of elevation"""
+ELEVATION_LIMIT = 500
+
 """This is the limit before the next update of the mapVision"""
 MAP_VISION_UPDATE_LIMIT = 70
 
@@ -237,6 +240,9 @@ class Ai:
         """This private member represents the time to know when the temporary mapVision should be updated"""
         self.__mapVisionTime = 0
 
+        """This private member represents the time to know when AI can try an elevation"""
+        self.__elevationTime = 0
+
         """This private member informs if the player is able
             to move or not, to participate of teamCall of something else
         """
@@ -281,6 +287,9 @@ class Ai:
     def __resetMapVisionTime(self):
         self.__mapVisionTime = time()
 
+    def __resetElevationTime(self):
+        self.__elevationTime = time()
+
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
 
@@ -319,6 +328,9 @@ class Ai:
 
     def __getMapVisionTime(self) -> float:
         return self.__mapVisionTime
+
+    def __getElevationTime(self) -> float:
+        return self.__elevationTime
 
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
@@ -420,6 +432,14 @@ class Ai:
             self.__inventory.fillInventory(self.__lib.getRepInventory())
             self.__resetInventoryTime()
 
+    def __elevationManagement(self):
+        """This is used by AI to know when is the best moment to try an elevation"""
+        if self.__getTargetComponent() != "nothing":
+            return
+        delta_time = time() - self.__getElevationTime()
+        if delta_time >= ELEVATION_LIMIT / self.__getFrequency():
+            self.__tryElevation()
+
     def __timeManagement(self):
         """This is used by AI to manage useful time recorder
             at each turn of the loop, Ai increments mapVisionTime & inventoryTime
@@ -428,6 +448,7 @@ class Ai:
         """
         self.__inventoryTimeManagement()
         self.__mapVisionTimeManagement()
+        self.__elevationManagement()
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
@@ -449,10 +470,7 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        component = self.__getTargetComponent()
-        if component == "nothing":
-            self.__tryElevation()
-            return
+        component = "sibur" if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
         self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if not self.__lib.askTakeObject(component):
             safeExitError()
@@ -493,16 +511,13 @@ class Ai:
             return :    True if successfully asked the server
                         False otherwise
         """
-        level_of_player = self.__getPlayerCurrentLevel()
-        if self.__getInventory().GetFood() < TIME_LIMIT.get("incantation") / self.__getFrequency():
-            return False
         if self.__getRequiredComponent() != "nothing":
             return False
-        required_player: int = LEVEL_UP_REQUIREMENTS[level_of_player].get("player")
-        print(f"required_player : {required_player} and we get : {self.__getVisionOfTheMap().GetTile(0).player} players !")
-        if self.__getVisionOfTheMap().GetTile(0).player < required_player:
-            return False
         if not self.__isThisActionRealisable("incantation"):
+            return False
+        level_of_player = self.__getPlayerCurrentLevel()
+        required_player: int = LEVEL_UP_REQUIREMENTS[level_of_player].get("player")
+        if self.__getVisionOfTheMap().GetTile(0).player < required_player:
             return False
         if not self.__lib.askIncantation():
             safeExitError()
