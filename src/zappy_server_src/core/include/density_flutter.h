@@ -52,12 +52,39 @@ player_list_t *player, server_data_t *serv)
     return true;
 }
 
+/// \brief Parse a string and get the density value stored in it
+/// \param arg The string to parse
+/// \param density The density value array
+static void parse_string_to_density(char *arg, float *density)
+{
+    char *ptr = arg;
+
+    for (; ptr && *ptr != '\0' && *ptr != '['; ptr++);
+    density[0] = atof(ptr + 1);
+    for (ptr += 1; ptr && *ptr != '\0' && *ptr != ','; ptr++);
+    density[1] = atof(ptr + 1);
+    for (ptr += 1; ptr && *ptr != '\0' && *ptr != ','; ptr++);
+    density[2] = atof(ptr + 1);
+    for (ptr += 1; ptr && *ptr != '\0' && *ptr != ','; ptr++);
+    density[3] = atof(ptr + 1);
+    for (ptr += 1; ptr && *ptr != '\0' && *ptr != ','; ptr++);
+    density[4] = atof(ptr + 1);
+    for (ptr += 1; ptr && *ptr != '\0' && *ptr != ','; ptr++);
+    density[5] = atof(ptr + 1);
+    for (ptr += 1; ptr && *ptr != '\0' && *ptr != ','; ptr++);
+    density[6] = atof(ptr + 1);
+}
+
 bool command_push_density(char *arg,
 player_list_t *player, server_data_t *serv)
 {
-    (void) serv;
-    (void) arg;
-    dprintf(2, "Change the generation density to\n");
+    float *temp = serv->arguments->generation_density;
+
+    parse_string_to_density(arg, temp);
+    dprintf(2, "Change the generation density:\nFood -> %f\nLinemate -> %f\n\
+    Deraumere -> %f\nSibur -> %f\nMendiane -> %f\nPhiras -> %f\n\
+    Thystame -> %f\n", temp[0], temp[1], temp[2], temp[3], temp[4], temp[5],
+    temp[6]);
     pop_message(player->player_peer);
     return print_retcode(802, NULL, player->player_peer, true);
 }
