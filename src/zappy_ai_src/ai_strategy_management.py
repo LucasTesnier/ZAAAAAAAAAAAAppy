@@ -514,7 +514,7 @@ class Ai:
         """This is used by the AI to know if the action is realisable or not depending on its food"""
         return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action) * self.__getFrequency()
 
-    def __forkManagement(self, needed_players : int):
+    def __forkManagement(self, needed_players: int):
         player_on_map = MAX_TEAM_PLAYER - self.__getAvailableSlots()
         if needed_players > player_on_map:
             self.__fork()
