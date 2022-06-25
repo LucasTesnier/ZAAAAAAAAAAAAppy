@@ -64,8 +64,8 @@ namespace gui {
 
             /// \brief add a status object to the map
             /// \param status the status object to add
-            inline void addStatus(gui::entity::Status &status) {
-                _map.addStatus(status);
+            inline void handleStatus(gui::entity::Status &status) {
+                _map.handleStatus(status);
             }
 
             /// \brief remove entities depending on the type given

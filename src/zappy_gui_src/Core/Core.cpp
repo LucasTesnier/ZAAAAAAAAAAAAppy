@@ -161,7 +161,7 @@ void Core::_updateEntities(std::string &type, std::string &response)
             entity::Status s;
             try {
                 _unpackObject->UnpackEntity(s, it);
-                _sfml->addStatus(s);
+                _sfml->handleStatus(s);
             } catch (...) {}
         }
     }

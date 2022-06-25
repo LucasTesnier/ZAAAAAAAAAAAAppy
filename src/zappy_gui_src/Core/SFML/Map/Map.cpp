@@ -8,7 +8,6 @@
 /// \file src/zappy_gui_src/Core/SFML/Map/Map.cpp
 
 #include "Map.hpp"
-#include "ZappyGuiException.hpp"
 
 using namespace gui;
 
@@ -30,6 +29,7 @@ Map::Map()
     _noTileSelectedInv = tmpVec;
     _initAnimationEntities();
     _initSounds();
+    _isStatus = false;
 }
 
 void Map::_initAnimationEntities()
@@ -145,6 +145,36 @@ void Map::removeEntities(std::string &type)
         for (auto &it : _tile)
             it->removeEggs();
     }
+}
+
+void Map::handleStatus(gui::entity::Status &status)
+{
+    _isStatus = true;
+    _status = status;
+}
+
+void Map::_displayStatus()
+{
+    sf::Text text;
+    sf::Font font;
+    std::string s;
+
+    if (_status.getStatus() == "win") {
+        s = " have won !";
+        _sounds.at(WIN_SOUND)->play();
+    } else if (_status.getStatus() == "lose") {
+        s = " have lost ...";
+    } else
+        s = "ZaaaaaaaaaaaaaaaaaPPY";
+    _sounds.at(LOSE_SOUND)->play();
+    if (!font.loadFromFile("assets/arial.ttf"))
+        throw MapException("Can't load font", "set status on map");
+    text.setFont(font);
+    text.setCharacterSize(60);
+    s.insert(0, "Team " + _status.getTeamName());
+    text.setString(s);
+    text.setPosition(sf::Vector2f(_window.get()->getSize().x / 2 - text.getGlobalBounds().width / 2, _window.get()->getSize().y / 2 - text.getGlobalBounds().height / 2));
+    _window->draw(text);
 }
 
 bool Map::_mapCanMove(sf::Vector2f moveMap)
@@ -375,4 +405,7 @@ void Map::display()
     }
     _displaySelectedTile();
     _displayHoveredTile();
+    if (_isStatus) {
+        _displayStatus();
+    }
 }
