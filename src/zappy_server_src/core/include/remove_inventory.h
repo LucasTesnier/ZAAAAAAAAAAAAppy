@@ -37,7 +37,7 @@ container_t *inventory, container_t *to_remove)
     }
 }
 
-/// \brief Remove minimum ressource in the inventory 
+/// \brief Remove minimum ressource in the inventory
 /// \param inventory The inventory where the data is removed
 /// \param to_remove The container where the removing quantity is stored
 static inline void remove_min_from_inventory(container_t *inventory,
