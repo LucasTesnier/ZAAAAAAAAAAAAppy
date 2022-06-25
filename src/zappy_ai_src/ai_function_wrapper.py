@@ -142,7 +142,7 @@ class ServerWrapper:
             safeExitError()
         self.__getRepJoinTeam.restype = ctypes.c_char_p
         c_value = self.__getRepJoinTeam()
-        if c_value == None:
+        if c_value is None:
             return None
         return c_value.decode("UTF-8")
 
