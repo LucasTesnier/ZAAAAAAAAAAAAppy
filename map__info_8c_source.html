@@ -139,30 +139,35 @@ $(document).ready(function(){initNavTree('map__info_8c_source.html',''); initRes
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> res;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="command__hold_8h.html#a934abecaabac5694ecf28baf635f6474">   54</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="map__info_8c.html#a934abecaabac5694ecf28baf635f6474">send_map_info</a>(<a class="code" href="structserver__data__s.html">server_data_t</a> *serv)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="structpeer__s.html">peer_t</a> *peer = NULL;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">char</span> *temp = NULL;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">static</span> <a class="code" href="structpeer__s.html">peer_t</a> *find_gui_peer(<a class="code" href="structserver__data__s.html">server_data_t</a> *serv)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; serv-&gt;<a class="code" href="structserver__data__s.html#ad3cf6a974cc1b128ea158cc8ec82c2af">active_player_n</a>; i++) {</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> (serv-&gt;<a class="code" href="structserver__data__s.html#a6d4879bd407994cf4b8d38fa0440ad76">active_players</a>[i]-&gt;<a class="code" href="structplayer__list__s.html#a0865e01a181b06c85e23725694da39aa">disconnected</a> == <a class="code" href="server_8h.html#affac9094a814a8d62e37c45f9af9842da7a691a2430ec26878897b5fbc9c22a4c">CONNECTED</a> &amp;&amp;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        serv-&gt;<a class="code" href="structserver__data__s.html#a6d4879bd407994cf4b8d38fa0440ad76">active_players</a>[i]-&gt;<a class="code" href="structplayer__list__s.html#af19b622c3e8f17047419b2a3ae4b826d">type</a> == <a class="code" href="server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a73c6901c7c648a6a735770bc038bb26a">GUI</a>) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            peer = serv-&gt;<a class="code" href="structserver__data__s.html#a6d4879bd407994cf4b8d38fa0440ad76">active_players</a>[i]-&gt;<a class="code" href="structplayer__list__s.html#a01de66c2197f9a937058124f029eff7b">player_peer</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (peer == NULL) {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        dprintf(2, <span class="stringliteral">&quot;No GUI client found.\n&quot;</span>);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> (serv-&gt;<a class="code" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a>-&gt;<a class="code" href="structentity__diff__s.html#aadb6d6eb83e646653a1402032e45dcab">offset</a> == 0)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    temp = <a class="code" href="map__info_8c.html#a426111f860d8d85fa6c1a1e8a57293ac">pack_modified_entities</a>(serv-&gt;<a class="code" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="entity__diff_8c.html#a391bf5c45ad276bdf6fae1eff7fece6d">entity_diff_reset</a>(serv-&gt;<a class="code" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    print_retcode(708, temp, peer, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    free(temp);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">return</span> serv-&gt;<a class="code" href="structserver__data__s.html#a6d4879bd407994cf4b8d38fa0440ad76">active_players</a>[i]-&gt;<a class="code" href="structplayer__list__s.html#a01de66c2197f9a937058124f029eff7b">player_peer</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="command__hold_8h.html#a934abecaabac5694ecf28baf635f6474">   68</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="map__info_8c.html#a934abecaabac5694ecf28baf635f6474">send_map_info</a>(<a class="code" href="structserver__data__s.html">server_data_t</a> *serv)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="structpeer__s.html">peer_t</a> *peer = NULL;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">char</span> *temp = NULL;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    peer = find_gui_peer(serv);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span> (peer == NULL) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        dprintf(2, <span class="stringliteral">&quot;No GUI client found.\n&quot;</span>);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (serv-&gt;<a class="code" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a>-&gt;<a class="code" href="structentity__diff__s.html#aadb6d6eb83e646653a1402032e45dcab">offset</a> == 0)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    temp = <a class="code" href="map__info_8c.html#a426111f860d8d85fa6c1a1e8a57293ac">pack_modified_entities</a>(serv-&gt;<a class="code" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a>);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="entity__diff_8c.html#a391bf5c45ad276bdf6fae1eff7fece6d">entity_diff_reset</a>(serv-&gt;<a class="code" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    print_retcode(708, temp, peer, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    free(temp);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructplayer__list__s_html_af19b622c3e8f17047419b2a3ae4b826d"><div class="ttname"><a href="structplayer__list__s.html#af19b622c3e8f17047419b2a3ae4b826d">player_list_s::type</a></div><div class="ttdeci">client_type_t type</div><div class="ttdoc">Type of the client.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00057">server.h:57</a></div></div>
@@ -174,7 +179,7 @@ $(document).ready(function(){initNavTree('map__info_8c_source.html',''); initRes
 <div class="ttc" id="aserver_8h_html_ad8ed285ff076847698d9bdc1680aaed2a73c6901c7c648a6a735770bc038bb26a"><div class="ttname"><a href="server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a73c6901c7c648a6a735770bc038bb26a">GUI</a></div><div class="ttdeci">@ GUI</div><div class="ttdoc">Type for the Graphic Interface.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00031">server.h:31</a></div></div>
 <div class="ttc" id="astructplayer__list__s_html_a0865e01a181b06c85e23725694da39aa"><div class="ttname"><a href="structplayer__list__s.html#a0865e01a181b06c85e23725694da39aa">player_list_s::disconnected</a></div><div class="ttdeci">player_state_t disconnected</div><div class="ttdoc">Login status.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00055">server.h:55</a></div></div>
 <div class="ttc" id="aentity__diff_8c_html_a391bf5c45ad276bdf6fae1eff7fece6d"><div class="ttname"><a href="entity__diff_8c.html#a391bf5c45ad276bdf6fae1eff7fece6d">entity_diff_reset</a></div><div class="ttdeci">void entity_diff_reset(entity_diff_t *diff)</div><div class="ttdoc">Reset the diff-&gt;offset to 0.</div><div class="ttdef"><b>Definition:</b> <a href="entity__diff_8c_source.html#l00052">entity_diff.c:52</a></div></div>
-<div class="ttc" id="amap__info_8c_html_a934abecaabac5694ecf28baf635f6474"><div class="ttname"><a href="map__info_8c.html#a934abecaabac5694ecf28baf635f6474">send_map_info</a></div><div class="ttdeci">bool send_map_info(server_data_t *serv)</div><div class="ttdoc">Tell to the gui all the map informations.</div><div class="ttdef"><b>Definition:</b> <a href="map__info_8c_source.html#l00054">map_info.c:54</a></div></div>
+<div class="ttc" id="amap__info_8c_html_a934abecaabac5694ecf28baf635f6474"><div class="ttname"><a href="map__info_8c.html#a934abecaabac5694ecf28baf635f6474">send_map_info</a></div><div class="ttdeci">bool send_map_info(server_data_t *serv)</div><div class="ttdoc">Tell to the gui all the map informations.</div><div class="ttdef"><b>Definition:</b> <a href="map__info_8c_source.html#l00068">map_info.c:68</a></div></div>
 <div class="ttc" id="astructmap__s_html_a226f75d2c292e065e927e9498905d5e8"><div class="ttname"><a href="structmap__s.html#a226f75d2c292e065e927e9498905d5e8">map_s::tiles</a></div><div class="ttdeci">entity_t ** tiles</div><div class="ttdoc">The collection of tiles.</div><div class="ttdef"><b>Definition:</b> <a href="map_8h_source.html#l00019">map.h:19</a></div></div>
 <div class="ttc" id="acommand__hold_8h_html"><div class="ttname"><a href="command__hold_8h.html">command_hold.h</a></div></div>
 <div class="ttc" id="ateam_8h_html"><div class="ttname"><a href="team_8h.html">team.h</a></div></div>

@@ -150,12 +150,11 @@ $(document).ready(function(){initNavTree('join__command_8c_source.html',''); ini
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    plr-&gt;<a class="code" href="structplayer__list__s.html#a190075c1d57943f7506b7e3ba16a5000">player_data</a> = player_entity;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="entity__wrapper__add_8c.html#ad5c5a51ab326e303a508b2168c4b5df1">entity_wrapper_add_player</a>(serv-&gt;<a class="code" href="structserver__data__s.html#af3eb005ec8536ccd0e336ecc6f7510f9">entities</a>, player_entity);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="team_8h.html#af1eca42ba9628b28e069a6b5e8001d8c">add_user_to_team</a>(tmp, ((<a class="code" href="structplayer__s.html">player_t</a> *)player_entity-&gt;<a class="code" href="structentity__s.html#a735984d41155bc1032e09bece8f8d66d">data</a>)-&gt;uuid);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="entity__diff_8c.html#a92cf4cfe03e6acf87620efd28dfb434c">entity_diff_add_entity</a>(serv-&gt;<a class="code" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a>, player_entity);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="fd__set__manage_8h.html#a6e75061503eb4a9f24ecc70d77f0195a">pop_message</a>(plr-&gt;<a class="code" href="structplayer__list__s.html#a01de66c2197f9a937058124f029eff7b">player_peer</a>);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    print_retcode(211, (res = join_resp(serv, tmp)), plr-&gt;<a class="code" href="structplayer__list__s.html#a01de66c2197f9a937058124f029eff7b">player_peer</a>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    free(res);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="fd__set__manage_8h.html#a6e75061503eb4a9f24ecc70d77f0195a">pop_message</a>(plr-&gt;<a class="code" href="structplayer__list__s.html#a01de66c2197f9a937058124f029eff7b">player_peer</a>);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    print_retcode(211, (res = join_resp(serv, tmp)), plr-&gt;<a class="code" href="structplayer__list__s.html#a01de66c2197f9a937058124f029eff7b">player_peer</a>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    free(res);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructplayer__list__s_html"><div class="ttname"><a href="structplayer__list__s.html">player_list_s</a></div><div class="ttdoc">Node of a player list.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00049">server.h:49</a></div></div>
