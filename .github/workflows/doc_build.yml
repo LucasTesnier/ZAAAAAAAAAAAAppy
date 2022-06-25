@@ -31,3 +31,4 @@ jobs:
         folder: docs/build/html
         message: "Update generated documentation"
         branch: gh-pages
+    needs: build
