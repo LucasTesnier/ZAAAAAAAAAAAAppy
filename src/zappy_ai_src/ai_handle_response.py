@@ -15,7 +15,16 @@ class Inventory:
             print("The given string cannot be used to create an inventory", file=stderr)
 
     def __getitem__(self, item):
-        return getattr(self, item)
+        stringEquivalent = {
+            'food': self.__food,
+            'linemate': self.__linemate,
+            'deraumere': self.__deraumere,
+            'sibur': self.__sibur,
+            'mendiane': self.__mendiane,
+            'phiras': self.__phiras,
+            'thystame': self.__thystame
+        }
+        return stringEquivalent[item]
 
     def fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
