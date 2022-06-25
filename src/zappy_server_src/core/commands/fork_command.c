@@ -88,7 +88,6 @@ static void remove_egg(server_data_t *serv, egg_t *egg, entity_t *egg_e)
     team->max_members, egg->team_name);
     entity_wrapper_remove_entity(serv->entities, egg_e);
     send_map_info(serv);
-//    send_entities_list_info(serv);
 }
 
 void process_eggs_inspection(server_data_t *serv)

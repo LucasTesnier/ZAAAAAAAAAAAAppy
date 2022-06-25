@@ -120,7 +120,6 @@ bool Core::_canEntityUpdate(std::vector<std::string> &entityAsString, std::strin
     if (!entityAsString.empty() && entityAsString.at(0).rfind("start", 0) == 0)
         entityAsString.erase(entityAsString.begin());
     if (!entityAsString.empty() && remove) {
-        // _removeEntities(type);
         return true;
     }
     return false;

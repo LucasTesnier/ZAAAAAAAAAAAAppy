@@ -44,7 +44,9 @@ char *pack_player(entity_t *entity)
     char *container = NULL;
     char *player_uuid = malloc(sizeof(char) * 40);
 
-    player = (player_t*)entity->data;
+    if (!player_uuid)
+        return NULL;
+    player = (player_t *)entity->data;
     if ((tmp = (char *)malloc(sizeof(char) *
         (get_len_player(entity, player) + PLAYER_SIZE))) == NULL)
         return NULL;
@@ -84,15 +86,18 @@ char *pack_egg(entity_t *entity)
     egg_t *egg = NULL;
     char *egg_uuid = malloc(sizeof(char) * 40);
 
+    if (!egg_uuid)
+        return NULL;
     egg = (egg_t *)entity->data;
     if ((tmp = malloc(sizeof(char) *
         (get_len_egg(entity, egg) + EGG_SIZE))) == NULL)
         return NULL;
     uuid_unparse(egg->id, egg_uuid);
-    sprintf(tmp, "egg{%d;%d;%s;%s}",
+    sprintf(tmp, "egg{%d;%d;%s;%d;%s}",
             entity->position.x,
             entity->position.y,
             egg_uuid,
+            egg->hatched,
             (char *)egg->team_name);
     free(egg_uuid);
     return tmp;
