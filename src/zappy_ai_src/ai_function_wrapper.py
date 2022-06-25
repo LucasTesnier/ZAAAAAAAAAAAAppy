@@ -332,6 +332,8 @@ class ServerWrapper:
             safeExitError()
         self.__getRepLook.restype = ctypes.c_char_p
         c_value = self.__getRepLook()
+        if c_value is None:
+            return ""
         return c_value.decode("UTF-8")
 
     def getRepInventory(self) -> str:

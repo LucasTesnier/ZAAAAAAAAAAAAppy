@@ -121,6 +121,8 @@ class Map:
 
     def fillMap(self, lookStr : str) -> None:
         """ Parse the string given in parameter and fill the Map object """
+        if str is "":
+            return
         mapTab = []
         self.__map.clear()
         mapTab = lookStr.split(", ")
