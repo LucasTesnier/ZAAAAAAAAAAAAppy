@@ -261,9 +261,13 @@ class Ai:
         self.__isRunning = is_running
 
     def __setInventory(self, inventory_response: str):
+        if inventory_response is "":
+            return
         self.__inventory.fillInventory(inventory_response)
 
     def __setVisionOfTheMap(self, look_response: str):
+        if look_response is "":
+            return
         self.__visionOfTheMap.fillMap(look_response)
 
     def __setTargetTile(self, index: int):
@@ -296,7 +300,7 @@ class Ai:
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
 
-    def __getAvailableSlots(self):
+    def __getAvailableSlots(self) -> int:
         return self.__availableSlots
 
     def __getTeamName(self) -> str:
@@ -367,7 +371,7 @@ class Ai:
         if self.__lib.getNecessaryFunctions():
             print("[AI] libzappy_ai_api charged, SUCCESS!")
         else:
-            print("[AI] cannot charge libzappy_ai_api, ERROR!")
+            safeExitError(84, "[AI] cannot charge libzappy_ai_api, ERROR!")
         self.__initFrequency()
 
     def __initFrequency(self):
@@ -379,8 +383,7 @@ class Ai:
         tmp_food = self.__inventory.GetFood()
         if not self.__lib.askInventory():
             safeExitError()
-        while not self.__lib.getResponseState():
-            pass
+        self.__waitServerResponse()
         self.__setInventory(self.__lib.getRepInventory())
         self.__setFrequency(int((tmp_food - self.__inventory.GetFood()) / 2))
 
