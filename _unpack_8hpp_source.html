@@ -121,22 +121,26 @@ $(document).ready(function(){initNavTree('_unpack_8hpp_source.html',''); initRes
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">UnpackEntity</a>(<a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> &amp;e, std::string &amp;packed);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;   <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    std::vector&lt;std::string&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    stov(<span class="keyword">const</span> std::string &amp;str, <span class="keywordtype">char</span> separator, <span class="keywordtype">bool</span> pushEmptyStrings = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::vector&lt;int&gt; UnpackInventory(std::string &amp;inv);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">//i/ \param unpacked the vector of strings to Unpack strings</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a> UnpackPlayer(std::vector&lt;std::string&gt; &amp;unpacked);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> UnpackTile(std::vector&lt;std::string&gt; &amp;unpacked);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> UnpackEgg(std::vector&lt;std::string&gt; &amp;unpacked);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> UnpackStart(std::vector&lt;std::string&gt; &amp;unpacked);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}  <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">UnpackEntity</a>(<a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> &amp;s, std::string &amp;packed);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;   <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::vector&lt;std::string&gt;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    stov(<span class="keyword">const</span> std::string &amp;str, <span class="keywordtype">char</span> separator, <span class="keywordtype">bool</span> pushEmptyStrings = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::vector&lt;int&gt; UnpackInventory(std::string &amp;inv);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">//i/ \param unpacked the vector of strings to Unpack strings</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a> UnpackPlayer(std::vector&lt;std::string&gt; &amp;unpacked);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> UnpackTile(std::vector&lt;std::string&gt; &amp;unpacked);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> UnpackEgg(std::vector&lt;std::string&gt; &amp;unpacked);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> UnpackStart(std::vector&lt;std::string&gt; &amp;unpacked);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> UnpackStatus(std::vector&lt;std::string&gt; &amp;unpacked);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}  <span class="comment">// namespace gui</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_aa1772bcd232124fc8fd97013f40c4310"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#aa1772bcd232124fc8fd97013f40c4310">gui::unpack::Start::max_player</a></div><div class="ttdeci">int max_player</div><div class="ttdoc">Max number of player in team.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00025">Unpack.hpp:25</a></div></div>
@@ -145,12 +149,13 @@ $(document).ready(function(){initNavTree('_unpack_8hpp_source.html',''); initRes
 <div class="ttc" id="aclassgui_1_1entity_1_1_egg_html"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00102">Entity.hpp:102</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html">gui::unpack::Start</a></div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00016">Unpack.hpp:16</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_aec1dee03c858e0d3910c40c209890ab0"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#aec1dee03c858e0d3910c40c209890ab0">gui::unpack::Start::size_x</a></div><div class="ttdeci">int size_x</div><div class="ttdoc">The width of the map.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00018">Unpack.hpp:18</a></div></div>
+<div class="ttc" id="astructgui_1_1entity_1_1_status_html"><div class="ttname"><a href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00124">Entity.hpp:124</a></div></div>
 <div class="ttc" id="aclassgui_1_1unpack_1_1_unpack_html_aca1696976ca1645d425c7d05080da873"><div class="ttname"><a href="classgui_1_1unpack_1_1_unpack.html#aca1696976ca1645d425c7d05080da873">gui::unpack::Unpack::Unpack</a></div><div class="ttdeci">Unpack()=default</div></div>
 <div class="ttc" id="aclassgui_1_1entity_1_1_player_html"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00037">Entity.hpp:37</a></div></div>
 <div class="ttc" id="aclassgui_1_1unpack_1_1_unpack_html"><div class="ttname"><a href="classgui_1_1unpack_1_1_unpack.html">gui::unpack::Unpack</a></div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00028">Unpack.hpp:28</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_a22aeb82e7a98517be5f90c810e423af0"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#a22aeb82e7a98517be5f90c810e423af0">gui::unpack::Start::size_y</a></div><div class="ttdeci">int size_y</div><div class="ttdoc">The height of the map.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00020">Unpack.hpp:20</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_a55655bd98a90593c959502c5ed8afae7"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#a55655bd98a90593c959502c5ed8afae7">gui::unpack::Start::team_number</a></div><div class="ttdeci">int team_number</div><div class="ttdoc">The number of team.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00022">Unpack.hpp:22</a></div></div>
-<div class="ttc" id="aclassgui_1_1unpack_1_1_unpack_html_a7dda6a6af28650fbb868930c0f4ea9a2"><div class="ttname"><a href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">gui::unpack::Unpack::UnpackEntity</a></div><div class="ttdeci">void UnpackEntity(gui::entity::Player &amp;p, std::string &amp;packed)</div><div class="ttdoc">Unpack an entity player from a packed string.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8cpp_source.html#l00120">Unpack.cpp:120</a></div></div>
+<div class="ttc" id="aclassgui_1_1unpack_1_1_unpack_html_a7dda6a6af28650fbb868930c0f4ea9a2"><div class="ttname"><a href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">gui::unpack::Unpack::UnpackEntity</a></div><div class="ttdeci">void UnpackEntity(gui::entity::Player &amp;p, std::string &amp;packed)</div><div class="ttdoc">Unpack an entity player from a packed string.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8cpp_source.html#l00138">Unpack.cpp:138</a></div></div>
 <div class="ttc" id="a_entity_8hpp_html"><div class="ttname"><a href="_entity_8hpp.html">Entity.hpp</a></div></div>
 <div class="ttc" id="aclassgui_1_1unpack_1_1_unpack_html_aad906f4201484be4a4b2542b326df469"><div class="ttname"><a href="classgui_1_1unpack_1_1_unpack.html#aad906f4201484be4a4b2542b326df469">gui::unpack::Unpack::~Unpack</a></div><div class="ttdeci">~Unpack()=default</div></div>
 <!-- start footer part -->

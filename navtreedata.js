@@ -33,6 +33,7 @@ var NAVTREE =
       [ "Thank for reading", "index.html#autotoc_md6", null ],
       [ "Authors", "index.html#autotoc_md7", null ]
     ] ],
+    [ "Todo List", "todo.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -73,10 +74,10 @@ var NAVTREEINDEX =
 [
 "_animation_8cpp.html",
 "classai__handle__response_1_1_inventory.html#af6541f17ba9f6114fcdb1eb336bf46a9",
-"command__hold_8h.html#aa0f430630e0107b96108edbacbcd3f22",
-"game__status_8c.html#a44fbb0e804acfee0b0628fe2003a5050",
-"player__life_8c.html#ad6b3c59a382e039415f805d2a9d95200",
-"team_8c.html"
+"command__hold_8h.html#a8ddbf89386ce249ca0a7ebb80960e51f",
+"functions_z.html",
+"player_8h_source.html",
+"structzappy__server__s.html#ab30ba07e2a0bd07a15e45a92c32db9c5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

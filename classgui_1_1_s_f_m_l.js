@@ -5,6 +5,7 @@ var classgui_1_1_s_f_m_l =
     [ "_changeMapSize", "classgui_1_1_s_f_m_l.html#a3eaad91a5b932119eaa3c048d69d0c72", null ],
     [ "addEgg", "classgui_1_1_s_f_m_l.html#aef4c4c48becd7b0f0d1e2724d6ce26ee", null ],
     [ "addPlayer", "classgui_1_1_s_f_m_l.html#adcda371d9446543ebc405b8d142b5094", null ],
+    [ "addStatus", "classgui_1_1_s_f_m_l.html#ade6d2e79c850d47a62659c8fc639f6a1", null ],
     [ "addTilesInfo", "classgui_1_1_s_f_m_l.html#a7492003eb5dda9644d23cdec846e1012", null ],
     [ "display", "classgui_1_1_s_f_m_l.html#a1e5b20fed15743656bb6d2e6a6ea6269", null ],
     [ "isRunning", "classgui_1_1_s_f_m_l.html#ad619b8b51adc7874204abd71080cd90e", null ],

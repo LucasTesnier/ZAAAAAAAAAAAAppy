@@ -4,6 +4,7 @@ var classgui_1_1_map =
     [ "~Map", "classgui_1_1_map.html#a50561ca737e8efc1fa144556f650419a", null ],
     [ "addEgg", "classgui_1_1_map.html#aef4c4c48becd7b0f0d1e2724d6ce26ee", null ],
     [ "addPlayer", "classgui_1_1_map.html#adcda371d9446543ebc405b8d142b5094", null ],
+    [ "addStatus", "classgui_1_1_map.html#ade6d2e79c850d47a62659c8fc639f6a1", null ],
     [ "addTilesInfo", "classgui_1_1_map.html#a7492003eb5dda9644d23cdec846e1012", null ],
     [ "display", "classgui_1_1_map.html#a1e5b20fed15743656bb6d2e6a6ea6269", null ],
     [ "getEggs", "classgui_1_1_map.html#abf20016ff8d2870d68b42738c78c909b", null ],

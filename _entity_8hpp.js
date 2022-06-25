@@ -3,6 +3,7 @@ var _entity_8hpp =
     [ "Player", "classgui_1_1entity_1_1_player.html", "classgui_1_1entity_1_1_player" ],
     [ "Tile", "classgui_1_1entity_1_1_tile.html", "classgui_1_1entity_1_1_tile" ],
     [ "Egg", "classgui_1_1entity_1_1_egg.html", "classgui_1_1entity_1_1_egg" ],
+    [ "Status", "structgui_1_1entity_1_1_status.html", "structgui_1_1entity_1_1_status" ],
     [ "player_orientation_e", "_entity_8hpp.html#ad4c25d29eedd6a367b314a8352df4948", [
       [ "NORTH", "_entity_8hpp.html#ad4c25d29eedd6a367b314a8352df4948ad0611de6f28d4a9c9eac959f5344698e", null ],
       [ "SOUTH", "_entity_8hpp.html#ad4c25d29eedd6a367b314a8352df4948a8ef5c0bce69283a9986011a63eea8a6b", null ],

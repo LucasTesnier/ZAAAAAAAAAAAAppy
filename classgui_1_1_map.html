@@ -133,6 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aef4c4c48becd7b0f0d1e2724d6ce26ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1_map.html#aef4c4c48becd7b0f0d1e2724d6ce26ee">addEgg</a> (<a class="el" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> &amp;egg)</td></tr>
 <tr class="memdesc:aef4c4c48becd7b0f0d1e2724d6ce26ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a player object to the vector  <a href="classgui_1_1_map.html#aef4c4c48becd7b0f0d1e2724d6ce26ee">More...</a><br /></td></tr>
 <tr class="separator:aef4c4c48becd7b0f0d1e2724d6ce26ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade6d2e79c850d47a62659c8fc639f6a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1_map.html#ade6d2e79c850d47a62659c8fc639f6a1">addStatus</a> (<a class="el" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> &amp;status)</td></tr>
+<tr class="memdesc:ade6d2e79c850d47a62659c8fc639f6a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new status to the Status object  <a href="classgui_1_1_map.html#ade6d2e79c850d47a62659c8fc639f6a1">More...</a><br /></td></tr>
+<tr class="separator:ade6d2e79c850d47a62659c8fc639f6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a807b8a9a5b21a824a5ec01c0dc3c4410"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1_map.html#a807b8a9a5b21a824a5ec01c0dc3c4410">removeEntities</a> (std::string &amp;type)</td></tr>
 <tr class="memdesc:a807b8a9a5b21a824a5ec01c0dc3c4410"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove entities depending on the type given  <a href="classgui_1_1_map.html#a807b8a9a5b21a824a5ec01c0dc3c4410">More...</a><br /></td></tr>
 <tr class="separator:a807b8a9a5b21a824a5ec01c0dc3c4410"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -273,6 +276,43 @@ Public Member Functions</h2></td></tr>
 <dl class="section warning"><dt>Warning</dt><dd>for the moment, the sound is played when a player join a new team, GUI need to know the UUID of the player so he'll play the sound only of a new player </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00099">99</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ade6d2e79c850d47a62659c8fc639f6a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade6d2e79c850d47a62659c8fc639f6a1">&#9670;&nbsp;</a></span>addStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addStatus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> &amp;&#160;</td>
+          <td class="paramname"><em>status</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add a new status to the Status object </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">status</td><td>the status to set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>TODO do something with the status : sound of lose or win, display something on screen </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00144">144</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -419,7 +459,7 @@ Public Member Functions</h2></td></tr>
 <p>get the vector of eggs on the selected tile </p>
 <dl class="section return"><dt>Returns</dt><dd>the vector of eggs on the tile selected by the user </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00171">171</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00178">178</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -449,7 +489,7 @@ Public Member Functions</h2></td></tr>
 <p>get the inventory selected tile </p>
 <dl class="section return"><dt>Returns</dt><dd>the inventory of the tile selected by the user </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00155">155</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00162">162</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -479,7 +519,7 @@ Public Member Functions</h2></td></tr>
 <p>get the vector of players on the selected tile </p>
 <dl class="section return"><dt>Returns</dt><dd>the vector of players on the tile selected by the user </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00163">163</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00170">170</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -509,7 +549,7 @@ Public Member Functions</h2></td></tr>
 <p>get the posititon of the selected tile </p>
 <dl class="section return"><dt>Returns</dt><dd>the position of the tile selected by the user </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00147">147</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_map_8hpp_source.html#l00154">154</a> of file <a class="el" href="_map_8hpp_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>

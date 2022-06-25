@@ -110,6 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1863152421a1e6b895dbcb7592a889b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1unpack_1_1_unpack.html#a1863152421a1e6b895dbcb7592a889b2">UnpackEntity</a> (<a class="el" href="structgui_1_1unpack_1_1_start.html">Start</a> &amp;e, std::string &amp;packed)</td></tr>
 <tr class="memdesc:a1863152421a1e6b895dbcb7592a889b2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgui_1_1unpack_1_1_unpack.html">Unpack</a> an entity start from a packed string.  <a href="classgui_1_1unpack_1_1_unpack.html#a1863152421a1e6b895dbcb7592a889b2">More...</a><br /></td></tr>
 <tr class="separator:a1863152421a1e6b895dbcb7592a889b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a277233781dbaa20181235b5fbf987eac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1unpack_1_1_unpack.html#a277233781dbaa20181235b5fbf987eac">UnpackEntity</a> (<a class="el" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> &amp;s, std::string &amp;packed)</td></tr>
+<tr class="memdesc:a277233781dbaa20181235b5fbf987eac"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgui_1_1unpack_1_1_unpack.html">Unpack</a> an entity status from a packed string.  <a href="classgui_1_1unpack_1_1_unpack.html#a277233781dbaa20181235b5fbf987eac">More...</a><br /></td></tr>
+<tr class="separator:a277233781dbaa20181235b5fbf987eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -167,7 +170,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa2846c427d98b212da3b8af5d397ff4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2846c427d98b212da3b8af5d397ff4d">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2846c427d98b212da3b8af5d397ff4d">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,12 +204,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00138">138</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00156">156</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a7dda6a6af28650fbb868930c0f4ea9a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dda6a6af28650fbb868930c0f4ea9a2">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dda6a6af28650fbb868930c0f4ea9a2">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,12 +243,51 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00120">120</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00138">138</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a277233781dbaa20181235b5fbf987eac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a277233781dbaa20181235b5fbf987eac">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UnpackEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>packed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="classgui_1_1unpack_1_1_unpack.html">Unpack</a> an entity status from a packed string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>The status entity to fill with information passed in the <code>packed</code> parameter. </td></tr>
+    <tr><td class="paramname">packed</td><td>The string packed to be use to get informations about a status entity. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00174">174</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
 
 </div>
 </div>
 <a id="afbf3f7f4b7e261600f40d4140f1a955b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbf3f7f4b7e261600f40d4140f1a955b">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afbf3f7f4b7e261600f40d4140f1a955b">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,12 +321,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00129">129</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00147">147</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a1863152421a1e6b895dbcb7592a889b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1863152421a1e6b895dbcb7592a889b2">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1863152421a1e6b895dbcb7592a889b2">&#9670;&nbsp;</a></span>UnpackEntity() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +360,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00147">147</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_unpack_8cpp_source.html#l00165">165</a> of file <a class="el" href="_unpack_8cpp_source.html">Unpack.cpp</a>.</p>
 
 </div>
 </div>
