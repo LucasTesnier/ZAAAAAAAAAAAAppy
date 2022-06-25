@@ -4,19 +4,33 @@ from sys import stderr
 class Inventory:
     def __init__(self, inventoryResponse : str):
         """ Constructor of the Inventory Class """
-        self.__food : int = 0
-        self.__linemate : int = 0
-        self.__deraumere : int = 0
-        self.__sibur : int = 0
-        self.__mendiane : int = 0
-        self.__phiras : int = 0
-        self.__thystame : int = 0
+        self.__food: int = 0
+        self.__linemate: int = 0
+        self.__deraumere: int = 0
+        self.__sibur: int = 0
+        self.__mendiane: int = 0
+        self.__phiras: int = 0
+        self.__thystame: int = 0
         if not self.fillInventory(inventoryResponse):
             print("The given string cannot be used to create an inventory", file=stderr)
+
+    def __getitem__(self, item):
+        stringEquivalent = {
+            'food': self.__food,
+            'linemate': self.__linemate,
+            'deraumere': self.__deraumere,
+            'sibur': self.__sibur,
+            'mendiane': self.__mendiane,
+            'phiras': self.__phiras,
+            'thystame': self.__thystame
+        }
+        return stringEquivalent[item]
 
     def fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
         """ Parse the string given in parameter and fill the Inventory object """
+        if str is "":
+            return False
         inventorySplit = inventoryStr.split(", ")
         try:
             self.__food = int(inventorySplit[0].split(" ")[1])
@@ -89,24 +103,28 @@ class Inventory:
 @dataclass
 class Tile:
     """ Dataclass for the Map Class """
-    player : int
-    food : int
-    linemate : int
-    deraumere : int
-    sibur : int
-    mendiane : int
-    phiras : int
-    thystame : int
+    player: int
+    food: int
+    linemate: int
+    deraumere: int
+    sibur: int
+    mendiane: int
+    phiras: int
+    thystame: int
 
+    def __getitem__(self, item):
+        return getattr(self, item)
 
 class Map:
-    def __init__(self, lookResponse : str):
+    def __init__(self, lookResponse: str):
         """ Constructor of the Tile Class """
-        self.__map = [] ## Map of Tile ##
+        self.__map = []
         self.fillMap(lookResponse)
 
     def fillMap(self, lookStr : str) -> None:
         """ Parse the string given in parameter and fill the Map object """
+        if str is "":
+            return
         mapTab = []
         self.__map.clear()
         mapTab = lookStr.split(", ")
