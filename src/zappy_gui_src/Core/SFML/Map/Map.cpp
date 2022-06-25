@@ -109,6 +109,8 @@ void Map::_updateMoveMap()
     int value = 10;
     sf::Vector2f moveMap = {0, 0};
 
+    if (_event->isKeyPressed(sf::Keyboard::G))
+        _SetDefaultMapOrigin();
     if (_event->isKeyPressed(sf::Keyboard::Z))
         moveMap.y = value;
     if (_event->isKeyPressed(sf::Keyboard::Q))
@@ -117,9 +119,18 @@ void Map::_updateMoveMap()
         moveMap.y = -value;
     if (_event->isKeyPressed(sf::Keyboard::D))
         moveMap.x = -value;
-    for (auto &it : _tile) {
-        if (moveMap.x || moveMap.y)
+    if (moveMap.x < 0 && _tile.at((_mapSize.y - 1) * _mapSize.x).get()->getGlobalBound().left > _window.get()->getSize().x / 2)
+        return;
+    if (moveMap.x > 0 && _tile.at((_mapSize.x - 1)).get()->getGlobalBound().left + _tile.at((_mapSize.x - 1)).get()->getGlobalBound().width < _window.get()->getSize().x / 2)
+        return;
+    if (moveMap.y < 0 && _tile.at(0).get()->getGlobalBound().top > _window.get()->getSize().y / 2)
+        return;
+    if (moveMap.y > 0 && _tile.at(_mapSize.x * _mapSize.y - 1).get()->getGlobalBound().top + _tile.at(_mapSize.x * _mapSize.y - 1).get()->getGlobalBound().height < _window.get()->getSize().y / 2)
+        return;
+    if (moveMap.x || moveMap.y) {
+        for (auto &it : _tile) {
             it->setOrigin(it->getOrigin() + moveMap);
+        }
     }
 }
 
