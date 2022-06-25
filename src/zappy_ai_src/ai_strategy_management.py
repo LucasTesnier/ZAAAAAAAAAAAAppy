@@ -278,6 +278,9 @@ class Ai:
     def __setAbleToMove(self, ability: bool):
         self.__ableToMove = ability
 
+    def __setAvailableSlots(self, nb_available_slots: int):
+        self.__availableSlots = nb_available_slots
+
     def __incrPlayerCurrentLevel(self):
         self.__playerCurrentLevel += 1
 
@@ -552,6 +555,9 @@ class Ai:
             return :    True if the request successfully send to the server
                         False Otherwise
         """
+        self.__lib.askConnectNbr()
+        self.__waitServerResponse()
+        self.__setAvailableSlots(self.__lib.getRepConnectNbr())
         if not self.__isThisActionRealisable("fork"):
             return False
         if self.__getAvailableSlots() is 0:
