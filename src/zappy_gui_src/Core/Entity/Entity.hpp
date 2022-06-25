@@ -125,6 +125,8 @@ namespace gui::entity {
         std::string _team_name;
         /// \brief string representating the uuid
         std::string _uuid;
+        /// \brief status of the egg, true if it has hatch, false otherwise
+        bool _statusEgg;
         /// \brief get the position
         /// \return a pair containing the position x and y
         inline const std::pair<int, int> &getPosition() const {

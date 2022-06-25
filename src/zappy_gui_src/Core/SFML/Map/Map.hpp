@@ -124,6 +124,10 @@ namespace gui {
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
 
+            /// \brief remove a egg from the vector of eggs
+            /// \param egg the egg object to remove
+            void removeEgg(gui::entity::Egg &egg);
+
             /// \brief add a new status to the Status object
             /// \param status the status to set
             /// \todo TODO do something with the status : sound of lose or win, display something on screen

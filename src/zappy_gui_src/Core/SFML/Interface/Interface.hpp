@@ -69,6 +69,12 @@ namespace gui {
                 _server.removePlayer(player);
             };
 
+            /// \brief Remove the egg passed as parameter from the server menu.
+            /// \param egg The egg to be removed.
+            inline void removeEgg(gui::entity::Egg &egg) {
+                _server.removeEgg(egg);
+            };
+
             /// \brief Add the tile passed as parameter to the server menu.
             /// \param tile The tile to be added.
             inline void addTilesInfo(gui::entity::Tile &tile) {

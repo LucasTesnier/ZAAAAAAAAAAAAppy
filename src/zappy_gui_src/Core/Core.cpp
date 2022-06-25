@@ -149,7 +149,10 @@ void Core::_updateEntities(std::string &type, std::string &response)
             entity::Egg e;
             try {
                 _unpackObject->UnpackEntity(e, it);
-                _sfml->addEgg(e);
+                if (e._statusEgg)
+                    _sfml->removeEgg(e);
+                else
+                    _sfml->addEgg(e);
             } catch (...) {}
         }
         if (type == "tile") {

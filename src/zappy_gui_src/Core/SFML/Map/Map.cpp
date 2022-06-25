@@ -272,6 +272,17 @@ void Map::removePlayer(gui::entity::Player &player)
     }
 }
 
+void Map::removeEgg(gui::entity::Egg &egg)
+{
+    for (auto it = _eggs.begin(); it != _eggs.end(); ++it) {
+        if (it.base()->_uuid == egg._uuid) {
+            _tile[itop(sf::Vector2f(it.base()->getPosition().first, it.base()->getPosition().second))]->removeEgg(*it.base());
+            _eggs.erase(it);
+            return;
+        }
+    }
+}
+
 void Map::addTilesInfo(gui::entity::Tile &tileInfo)
 {
     for (auto &it : _tilesInfo) {

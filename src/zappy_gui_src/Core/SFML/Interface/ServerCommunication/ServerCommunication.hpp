@@ -83,10 +83,21 @@ namespace gui {
             /// \brief Remove a player from a vector of players. It updates also the text on the left menu.
             /// \param player The player to be removed.
             inline void removePlayer(gui::entity::Player &player) {
-                // _players.erase(std::remove(_players.begin(), _players.end(), player), _players.end());
                 for (auto it = _players.begin(); it != _players.end(); ++it) {
                     if (it.base()->_uuid == player._uuid) {
                         _players.erase(it);
+                        break;
+                    }
+                }
+                _updateText();
+            };
+
+            /// \brief Remove a egg from a vector of eggs. It updates also the text on the left menu.
+            /// \param egg The egg to be removed.
+            inline void removeEgg(gui::entity::Egg &egg) {
+                for (auto it = _eggs.begin(); it != _eggs.end(); ++it) {
+                    if (it.base()->_uuid == egg._uuid) {
+                        _eggs.erase(it);
                         break;
                     }
                 }
