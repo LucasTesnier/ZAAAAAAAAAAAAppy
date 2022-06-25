@@ -83,7 +83,7 @@ server_data_t *serv)
         turn_left(player_data);
     else
         turn_right(player_data);
-    send_entities_list_info(serv);
+    entity_diff_add_entity(serv->modified_entities, player_entity);
     pop_message(player->player_peer);
     return print_retcode(214, arg, player->player_peer, true);
 }

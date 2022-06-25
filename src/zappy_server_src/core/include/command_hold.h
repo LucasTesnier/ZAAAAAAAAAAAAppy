@@ -297,7 +297,7 @@ void scheduler_update_life(scheduler_t *self, server_data_t *serv);
 /// \brief Generate new ressources every 20 ticks
 /// \param self The scheduler
 /// \param serv The server informations
-void scheduler_update_ressource(scheduler_t *self, server_data_t *serv);
+void scheduler_update_resource(scheduler_t *self, server_data_t *serv);
 
 /// \brief Return the matched player_list of a player_t
 /// \param serv The server informations

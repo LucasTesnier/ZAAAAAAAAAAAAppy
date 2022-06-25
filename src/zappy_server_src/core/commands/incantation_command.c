@@ -117,7 +117,6 @@ player_t *player, position_t player_pos, position_t start_pos)
     player->level += 1;
     res[0] = '\0';
     sprintf(res, "%i", player->level);
-    send_entities_list_info(serv);
     victory_detection(serv, player->team);
     return res;
 }
@@ -136,9 +135,10 @@ server_data_t *serv)
     res = incantation_action(serv, player_data, player_entity->position,
     player->incantation_position);
     pop_message(player->player_peer);
-    if (res != NULL)
+    if (res != NULL) {
         print_retcode(222, res, player->player_peer, true);
-    else
+        entity_diff_add_entity(serv->modified_entities, player_entity);
+    } else
         print_retcode(316, NULL, player->player_peer, false);
     free(res);
     return true;

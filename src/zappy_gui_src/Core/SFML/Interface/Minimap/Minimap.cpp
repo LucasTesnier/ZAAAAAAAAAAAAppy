@@ -42,7 +42,6 @@ void Minimap::display()
 
 void Minimap::removePlayer(const std::string &name __attribute__((unused)))
 {
-
 }
 
 void Minimap::switchSize(bool state)

@@ -12,6 +12,7 @@
 
     #include <uuid/uuid.h>
     #include <string.h>
+    #include <stdbool.h>
 
 /// \brief Represents an egg that will hatch after a given time
 typedef struct egg_s {
@@ -20,6 +21,9 @@ typedef struct egg_s {
 
     /// The egg team
     char *team_name;
+
+    /// The egg status, hatched (1) or not (0)
+    bool hatched;
 } egg_t;
 
 /// \brief Creates a new egg with the given team name

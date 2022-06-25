@@ -29,9 +29,9 @@ bool command_fork(char *arg, player_list_t *player, server_data_t *serv)
     return true;
 }
 
-/// \brief Handle the verification process for the fork hability
-/// \param serv The server informations
-/// \param player The player informations
+/// \brief Handle the verification process for the fork ability
+/// \param serv The server information's
+/// \param player The player information's
 /// \return true When operation succeed
 /// \return false When operation failed
 static bool fork_verification(server_data_t *serv, player_t *player)
@@ -69,7 +69,6 @@ server_data_t *serv)
         return print_retcode(317, NULL, player->player_peer, false);
     }
     manage_forked_egg(player_entity, serv);
-    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(218, NULL, player->player_peer, true);
 }
@@ -87,8 +86,9 @@ static void remove_egg(server_data_t *serv, egg_t *egg, entity_t *egg_e)
     team->max_members += 1;
     dprintf(2, "A new slot (%i) have been open for the team %s.\n",
     team->max_members, egg->team_name);
-    entity_wrapper_remove_entity(serv->entities, egg_e);
+    egg->hatched = true;
     send_entities_list_info(serv);
+    entity_wrapper_remove_entity(serv->entities, egg_e);
 }
 
 void process_eggs_inspection(server_data_t *serv)

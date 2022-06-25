@@ -247,16 +247,55 @@ void Map::_displayHoveredTile()
     }
 }
 
-sf::Color Map::_findTeamColor(const std::string &teamName)
+void Map::addPlayer(gui::entity::Player &player)
 {
-    int i = 0;
-
-    for (auto &team : _teams) {
-        if (team == teamName)
-            return _teamsColor.at(i);
-        i++;
+    for (auto &it : _players) {
+        if (it._uuid == player._uuid) {
+            _tile[itop(sf::Vector2f(it.getPosition().first, it.getPosition().second))]->removePlayer(it);
+            it = player;
+            _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+            return;
+        }
     }
-    return sf::Color::Transparent;
+    _sounds.at(SPAWN_SOUND)->play();
+    _players.emplace_back(player);
+    _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+}
+
+void Map::removePlayer(gui::entity::Player &player)
+{
+    for (auto it = _players.begin(); it != _players.end(); ++it) {
+        if (it.base()->_uuid == player._uuid) {
+            _tile[itop(sf::Vector2f(it.base()->getPosition().first, it.base()->getPosition().second))]->removePlayer(*it.base());
+            _players.erase(it);
+            _sounds.at(DEATH_SOUND)->play() ;
+            return;
+        }
+    }
+}
+
+void Map::removeEgg(gui::entity::Egg &egg)
+{
+    for (auto it = _eggs.begin(); it != _eggs.end(); ++it) {
+        if (it.base()->_uuid == egg._uuid) {
+            _tile[itop(sf::Vector2f(it.base()->getPosition().first, it.base()->getPosition().second))]->removeEgg(*it.base());
+            _eggs.erase(it);
+            return;
+        }
+    }
+}
+
+void Map::addTilesInfo(gui::entity::Tile &tileInfo)
+{
+    for (auto &it : _tilesInfo) {
+        if (it._position == tileInfo._position) {
+            it = tileInfo;
+            _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
+            return;
+        }
+    }
+    _tilesInfo.emplace_back(tileInfo);
+    _tile[itop(sf::Vector2f(tileInfo.getPosition().first, tileInfo.getPosition().second))]->setTileInfo(tileInfo);
 }
 
 void Map::_displayPlayers(Tile &tile)
@@ -264,25 +303,21 @@ void Map::_displayPlayers(Tile &tile)
     if (tile.getPlayers().size()) {
         _playerAnimation.setSize(sf::Vector2f(100, 100));
         _playerAnimation.setDuration(400);
-        _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(0).getTeamName()));
         _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
         _playerAnimation.update();
         _window->draw(_playerAnimation.getShape());
         if (tile.getPlayers().size() >= 2) {
             _playerAnimation.moveShape({-6, 6});
-            _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(1).getTeamName()));
             _playerAnimation.update();
             _window->draw(_playerAnimation.getShape());
         }
         if (tile.getPlayers().size() >= 3) {
             _playerAnimation.moveShape({12, 0});
-            _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(2).getTeamName()));
             _playerAnimation.update();
             _window->draw(_playerAnimation.getShape());
         }
         if (tile.getPlayers().size() >= 4) {
             _playerAnimation.moveShape({-6, 6});
-            _playerAnimation.setColor(_findTeamColor(tile.getPlayers().at(3).getTeamName()));
             _playerAnimation.update();
             _window->draw(_playerAnimation.getShape());
         }
