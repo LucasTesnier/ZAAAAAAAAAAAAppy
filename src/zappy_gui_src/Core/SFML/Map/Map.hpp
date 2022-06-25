@@ -11,6 +11,7 @@
 #define MAP_HPP_
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <memory>
 #include <vector>
 #include "Tile.hpp"
@@ -32,7 +33,26 @@
 
 #define EGG_PATH "assets/egg.png"
 
+#define SOUND_SPAWN_PATH "assets/spawn.wav"
+#define SOUND_DEATH_PATH "assets/death.wav"
+#define SOUND_EGG_PATH "assets/egg.wav"
+#define SOUND_WIN_PATH "assets/egg.wav"
+#define SOUND_LOSE_PATH "assets/loose.wav"
+
 namespace gui {
+    /// \brief enum of index of sounds
+    typedef enum sounds_e {
+        /// \brief index of spawn sound
+        SPAWN_SOUND,
+        /// \brief index of death sound
+        DEATH_SOUND,
+        /// \brief index of egg sound
+        EGG_SOUND,
+        /// \brief index of win sound
+        WIN_SOUND,
+        /// \brief index of loose sound
+        LOSE_SOUND
+    } sounds_t;
     /// \brief Class for the map of the zappy. It contain all informations that will be display.
     class Map {
         public:
@@ -60,6 +80,7 @@ namespace gui {
             inline void setMapSize(sf::Vector2f mapSize) {
                 _mapSize = mapSize;
                 _updateTileVectorSize();
+                _SetDefaultMapOrigin();
             };
 
             /// \brief Display the map on the window. Update all information of the map if necessary.
@@ -94,8 +115,16 @@ namespace gui {
             /// \brief add a player object to the vector
             /// \param tileInfo the player object to add
             inline void addEgg(gui::entity::Egg &egg) {
+                _sounds.at(EGG_SOUND)->play();
                 _eggs.emplace_back(egg);
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
+            }
+
+            /// \brief add a new status to the Status object
+            /// \param status the status to set
+            /// \todo TODO do something with the status : sound of lose or win, display something on screen
+            inline void addStatus(gui::entity::Status &status) {
+                _statusGame = status;
             }
 
             /// \brief remove entities depending on the type given
@@ -134,6 +163,11 @@ namespace gui {
                 return _tile[_tileSelected].get()->getEggs();
             };
         private:
+
+            bool _mapCanMove(sf::Vector2f mapMove);
+
+            /// \brief Set the defaut origin of the map on the map center.
+            void _SetDefaultMapOrigin();
 
             /// \brief Display the actual selected and hover tile if it's different to index -1. It also display the entity one these tile, otherwise they won't be displayed.
             /// \param entityRepresentation The circle shape used to display entities.
@@ -198,6 +232,18 @@ namespace gui {
             /// \brief initialize all animations for entities
             void _initAnimationEntities();
 
+            /// \brief initialize a sound
+            void _initSound(int index);
+
+            /// \brief initialize a soundBuffer with a path
+            /// \param path The path of the sound to initialize
+            void _initSoundBuffer(const char *path, int index);
+
+            /// \brief initialize all the sounds
+            void _initSounds();
+
+            /// \brief initialize all the soundsBuffer
+
             /// \brief find the color of a team
             /// \param teamName the team
             /// \return the color of the team
@@ -245,6 +291,9 @@ namespace gui {
             /// \brief vector of eggs to be displayed on the tile
             std::vector<gui::entity::Egg> _eggs;
 
+            /// \brief status of the game
+            gui::entity::Status _statusGame;
+
             /// \brief vector of paths for ressources
             std::vector<std::string> _ressourcesPaths;
 
@@ -262,6 +311,18 @@ namespace gui {
 
             /// \brief vector of team linked to a color
             std::vector<sf::Color> _teamsColor;
+
+            using SoundPtr = std::shared_ptr<sf::Sound>;
+
+            /// \brief vector of all the sounds
+            /// \warning the order of the sounds is
+            /// SPAWN, DEATH, EGG, WIN, LOOSE
+            std::vector<SoundPtr> _sounds;
+
+            /// \brief vector of all the soundsBuffer
+            /// \warning the order of the sounds is
+            /// SPAWN, DEATH, EGG, WIN, LOOSE
+            std::vector<sf::SoundBuffer> _soundsBuffer;
     };
 } // namespace gui
 

@@ -74,7 +74,7 @@ bool remove_user_from_team(team_t* team, uuid_t user_uuid)
 {
     if (!team)
         return false;
-    for (int i = 0; i< team->current_members; i++) {
+    for (int i = 0; i < team->current_members; i++) {
         if (uuid_compare(team->members_uuid[i], user_uuid) == 0) {
             uuid_clear(team->members_uuid[i]);
             team->current_members--;

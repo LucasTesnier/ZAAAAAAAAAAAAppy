@@ -1,5 +1,10 @@
+***
+<p align=center>
+    <img src=docs/assets/logo/logo_303_289.png />
+</p>
+
 [![Build](https://github.com/LucasTesnier/ZAAAAAAAAAAAAppy/actions/workflows/cmake.yml/badge.svg)](https://github.com/LucasTesnier/ZAAAAAAAAAAAAppy/actions/workflows/cmake.yml)
-# Zaaaaaaaaaaaappy
+***
 
 The Zappy project consists of the realization of a simulation of a "Spore Like".
 

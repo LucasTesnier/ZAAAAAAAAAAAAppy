@@ -85,7 +85,7 @@ struct timeval scheduler_get_smallest_timeout(scheduler_t *self)
     time_t tmp_time = 0;
 
     if (!self)
-        return (struct timeval){.tv_sec = -1, .tv_usec = 0};
+        return (struct timeval){-1, 0};
     TAILQ_FOREACH(tmp, &self->events, events) {
         tmp_time = tmp->ticks * (1 / self->freq);
         if (tmp_time < smallest)
@@ -93,8 +93,8 @@ struct timeval scheduler_get_smallest_timeout(scheduler_t *self)
     }
     tmp_time = time(NULL);
     if (smallest == 10000000000)
-        return (struct timeval){.tv_sec =
+        return (struct timeval){
         (20 - floor((tmp_time - self->ressource) * self->freq)) *
-        (1 / self->freq), .tv_usec = 0};
-    return (struct timeval){.tv_sec = smallest, .tv_usec = 0};
+        (1 / self->freq), 0};
+    return (struct timeval){smallest, 0};
 }

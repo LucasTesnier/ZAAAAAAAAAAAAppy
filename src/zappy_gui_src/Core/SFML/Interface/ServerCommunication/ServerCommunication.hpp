@@ -105,6 +105,10 @@ namespace gui {
             /// \note Type value available are: `player`, `egg`, `tile`.
             /// \param type The type of the entity.
             void removeEntities(std::string &type);
+
+            /// \brief Use the scroll value to move the text up and down on the menu.
+            /// \param scrollValue Positive value to move down the text, negatif value to move up the text, and null value do nothing.
+            void scroll(const float &scrollValue);
         private:
 
             /// \brief It converts an inventory's vector to a string.
