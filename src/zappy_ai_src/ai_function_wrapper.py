@@ -9,43 +9,43 @@ class ServerWrapper:
         self.DLLibWrapper : DLLibWrapper = DLLibWrapper(libName)
 
         """ Private members functions pointer """
-        self.__ConnectToServer = None
-        self.__GetRepConnectToServer = None
-        self.__AskJoinTeam = None
-        self.__GetRepJoinTeam = None
-        self.__GetResponseState = None
-        self.__GetUnexpectedResponseState = None
-        self.__GetUnexpectedResponse = None
-        self.__GetNetworkState = None
-        self.__FlushData = None
+        self.__connectToServer = None
+        self.__getRepConnectToServer = None
+        self.__askJoinTeam = None
+        self.__getRepJoinTeam = None
+        self.__getResponseState = None
+        self.__getUnexpectedResponseState = None
+        self.__getUnexpectedResponse = None
+        self.__getNetworkState = None
+        self.__flushData = None
 
         """ Ask an action for the AI to the server """
-        self.__AskForward = None
-        self.__AskTurnRight = None
-        self.__AskTurnLeft = None
-        self.__AskLook = None
-        self.__AskInventory = None
-        self.__AskBroadcastText = None
-        self.__AskConnectNbr = None
-        self.__AskFork = None
-        self.__AskEject = None
-        self.__AskTakeObject = None
-        self.__AskPlaceObject = None
-        self.__AskIncantation = None
+        self.__askForward = None
+        self.__askTurnRight = None
+        self.__askTurnLeft = None
+        self.__askLook = None
+        self.__askInventory = None
+        self.__askBroadcastText = None
+        self.__askConnectNbr = None
+        self.__askFork = None
+        self.__askEject = None
+        self.__askTakeObject = None
+        self.__askPlaceObject = None
+        self.__askIncantation = None
 
         """ Get the result of the ask function from the server """
-        self.__GetRepForward = None
-        self.__GetRepTurnRight = None
-        self.__GetRepTurnLeft = None
-        self.__GetRepLook = None
-        self.__GetRepInventory = None
-        self.__GetRepBroadcastText = None
-        self.__GetRepConnectNbr = None
-        self.__GetRepFork = None
-        self.__GetRepEject = None
-        self.__GetRepTakeObject = None
-        self.__GetRepPlaceObject = None
-        self.__GetRepIncantation = None
+        self.__getRepForward = None
+        self.__getRepTurnRight = None
+        self.__getRepTurnLeft = None
+        self.__getRepLook = None
+        self.__getRepInventory = None
+        self.__getRepBroadcastText = None
+        self.__getRepConnectNbr = None
+        self.__getRepFork = None
+        self.__getRepEject = None
+        self.__getRepTakeObject = None
+        self.__getRepPlaceObject = None
+        self.__getRepIncantation = None
 
     def getNecessaryFunctions(self) -> bool:
         """
@@ -56,52 +56,52 @@ class ServerWrapper:
         """
         try:
             self.DLLibWrapper.openLibrary()
-            self.__ConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_try_to_connect_to_server")
-            self.__GetRepConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_connect_to_server_response")
-            self.__AskJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_join")
-            self.__GetRepJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_join_response")
-            self.__GetResponseState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_response_state")
-            self.__GetUnexpectedResponseState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_unexpected_response_state")
-            self.__GetUnexpectedResponse = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_unexpected_response")
-            self.__AskForward = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_forward")
-            self.__AskTurnRight = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_right")
-            self.__AskTurnLeft = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_left")
-            self.__AskLook = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_look")
-            self.__AskInventory = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_inventory")
-            self.__AskBroadcastText = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_broadcast")
-            self.__AskConnectNbr = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_connectable")
-            self.__AskFork = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_fork")
-            self.__AskEject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_eject")
-            self.__AskTakeObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_take")
-            self.__AskPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_place")
-            self.__AskIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_incantation")
-            self.__GetRepForward = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_forward_response")
-            self.__GetRepTurnRight = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_right_response")
-            self.__GetRepTurnLeft = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_left_response")
-            self.__GetRepLook = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_look_response")
-            self.__GetRepInventory = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_inventory_response")
-            self.__GetRepBroadcastText = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_broadcast_response")
-            self.__GetRepConnectNbr = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_connectable_response")
-            self.__GetRepFork = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_fork_response")
-            self.__GetRepEject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_eject_response")
-            self.__GetRepTakeObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_take_response")
-            self.__GetRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
-            self.__GetRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
-            self.__GetNetworkState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_network_state")
-            self.__FlushData = self.DLLibWrapper.getFunctionFromLibrary("c_interface_flush_asked_data")
+            self.__connectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_try_to_connect_to_server")
+            self.__getRepConnectToServer = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_connect_to_server_response")
+            self.__askJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_join")
+            self.__getRepJoinTeam = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_join_response")
+            self.__getResponseState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_response_state")
+            self.__getUnexpectedResponseState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_unexpected_response_state")
+            self.__getUnexpectedResponse = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_unexpected_response")
+            self.__askForward = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_forward")
+            self.__askTurnRight = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_right")
+            self.__askTurnLeft = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_left")
+            self.__askLook = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_look")
+            self.__askInventory = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_inventory")
+            self.__askBroadcastText = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_broadcast")
+            self.__askConnectNbr = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_connectable")
+            self.__askFork = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_fork")
+            self.__askEject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_eject")
+            self.__askTakeObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_take")
+            self.__askPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_place")
+            self.__askIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_ask_incantation")
+            self.__getRepForward = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_forward_response")
+            self.__getRepTurnRight = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_right_response")
+            self.__getRepTurnLeft = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_left_response")
+            self.__getRepLook = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_look_response")
+            self.__getRepInventory = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_inventory_response")
+            self.__getRepBroadcastText = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_broadcast_response")
+            self.__getRepConnectNbr = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_connectable_response")
+            self.__getRepFork = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_fork_response")
+            self.__getRepEject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_eject_response")
+            self.__getRepTakeObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_take_response")
+            self.__getRepPlaceObject = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_place_response")
+            self.__getRepIncantation = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_incantation_response")
+            self.__getNetworkState = self.DLLibWrapper.getFunctionFromLibrary("c_interface_get_network_state")
+            self.__flushData = self.DLLibWrapper.getFunctionFromLibrary("c_interface_flush_asked_data")
         except Exception as ex:
             print(ex, file=stderr)
             return False
         return True
 
-    def __Flush(self) -> None:
+    def __flush(self) -> None:
         """ Wrapped Function : Flush the Api's command to the server """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__FlushData.restype = ctypes.c_bool
-        while not self.__FlushData():
+        self.__flushData.restype = ctypes.c_bool
+        while not self.__flushData():
             continue
 
-    def ConnectToServer(self, machineName : str, port : int):
+    def connectToServer(self, machineName : str, port : int):
         """ Wrapped Function : Try to connect the AI to the server
             Return True if a server has been found
             Return False otherwise
@@ -109,302 +109,302 @@ class ServerWrapper:
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_machineName = machineName.encode("UTF-8")
         c_port = ctypes.c_int(port)
-        self.__ConnectToServer.restype = ctypes.c_bool
-        c_value = self.__ConnectToServer(b_machineName, c_port)
+        self.__connectToServer.restype = ctypes.c_bool
+        c_value = self.__connectToServer(b_machineName, c_port)
         return c_value
 
-    def GetRepConnectToServer(self) -> bool:
+    def getRepConnectToServer(self) -> bool:
         """ Wrapped Function : Get the response of ConnectToServer() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepConnectToServer.restype = ctypes.c_bool
-        c_value = self.__GetRepConnectToServer()
+        self.__getRepConnectToServer.restype = ctypes.c_bool
+        c_value = self.__getRepConnectToServer()
         return c_value
 
-    def AskJoinTeam(self, teamName : str) -> bool:
+    def askJoinTeam(self, teamName : str) -> bool:
         """ Wrapped Function : Try to join a Team """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_teamName = teamName.encode("UTF-8")
-        self.__AskJoinTeam.restype = ctypes.c_bool
-        c_value = self.__AskJoinTeam(ctypes.c_char_p(b_teamName))
+        self.__askJoinTeam.restype = ctypes.c_bool
+        c_value = self.__askJoinTeam(ctypes.c_char_p(b_teamName))
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def GetRepJoinTeam(self) -> str:
+    def getRepJoinTeam(self) -> str:
         """ Wrapped Function : Get the response about joining a team """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepJoinTeam.restype = ctypes.c_char_p
-        c_value = self.__GetRepJoinTeam()
+        self.__getRepJoinTeam.restype = ctypes.c_char_p
+        c_value = self.__getRepJoinTeam()
         if c_value == None:
             return None
         return c_value.decode("UTF-8")
 
-    def GetResponseState(self) -> bool:
+    def getResponseState(self) -> bool:
         """ Wrapped Function : Return true if a response is available, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetResponseState.restype = ctypes.c_bool
-        c_value = self.__GetResponseState()
+        self.__getResponseState.restype = ctypes.c_bool
+        c_value = self.__getResponseState()
         return c_value
 
-    def GetUnexpectedResponseState(self) -> bool:
+    def getUnexpectedResponseState(self) -> bool:
         """ Wrapped Function : Return true if a response is available, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetUnexpectedResponseState.restype = ctypes.c_bool
-        c_value = self.__GetUnexpectedResponseState()
+        self.__getUnexpectedResponseState.restype = ctypes.c_bool
+        c_value = self.__getUnexpectedResponseState()
         return c_value
 
-    def GetUnexpectedResponse(self) -> str:
+    def getUnexpectedResponse(self) -> str:
         """ Wrapped Function : Return the unexpected message """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetUnexpectedResponse.restype = ctypes.c_char_p
-        c_value = self.__GetUnexpectedResponse()
+        self.__getUnexpectedResponse.restype = ctypes.c_char_p
+        c_value = self.__getUnexpectedResponse()
         return c_value.decode("UTF-8")
 
-    def AskForward(self) -> bool:
+    def askForward(self) -> bool:
         """ Wrapped Function : Move the client forward """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskForward.restype = ctypes.c_bool
-        c_value = self.__AskForward()
+        self.__askForward.restype = ctypes.c_bool
+        c_value = self.__askForward()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskTurnRight(self) -> bool:
+    def askTurnRight(self) -> bool:
         """ Wrapped Function : Turn the client to the right """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskTurnRight.restype = ctypes.c_bool
-        c_value = self.__AskTurnRight()
+        self.__askTurnRight.restype = ctypes.c_bool
+        c_value = self.__askTurnRight()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskTurnLeft(self) -> bool:
+    def askTurnLeft(self) -> bool:
         """ Wrapped Function : Turn the client to the left """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskTurnLeft.restype = ctypes.c_bool
-        c_value = self.__AskTurnLeft()
+        self.__askTurnLeft.restype = ctypes.c_bool
+        c_value = self.__askTurnLeft()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskLook(self) -> bool:
+    def askLook(self) -> bool:
         """ Wrapped Function : Look around the client """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskLook.restype = ctypes.c_bool
-        c_value = self.__AskLook()
+        self.__askLook.restype = ctypes.c_bool
+        c_value = self.__askLook()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskInventory(self) -> bool:
+    def askInventory(self) -> bool:
         """ Wrapped Function : Ask for the client inventory """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskInventory.restype = ctypes.c_bool
-        c_value = self.__AskInventory()
+        self.__askInventory.restype = ctypes.c_bool
+        c_value = self.__askInventory()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskBroadcastText(self, message : str) -> bool:
+    def askBroadcastText(self, message : str) -> bool:
         """ Wrapped Function : Broadcast a text """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_message = message.encode("UTF-8")
-        self.__AskBroadcastText.restype = ctypes.c_bool
-        c_value = self.__AskBroadcastText(ctypes.c_char_p(b_message))
+        self.__askBroadcastText.restype = ctypes.c_bool
+        c_value = self.__askBroadcastText(ctypes.c_char_p(b_message))
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskConnectNbr(self) -> bool:
+    def askConnectNbr(self) -> bool:
         """ Wrapped Function : Ask for the place left on the client's team """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskConnectNbr.restype = ctypes.c_bool
-        c_value = self.__AskConnectNbr()
+        self.__askConnectNbr.restype = ctypes.c_bool
+        c_value = self.__askConnectNbr()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskFork(self) -> bool:
+    def askFork(self) -> bool:
         """ Wrapped Function : Fork the client to lay an egg """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskFork.restype = ctypes.c_bool
-        c_value = self.__AskFork()
+        self.__askFork.restype = ctypes.c_bool
+        c_value = self.__askFork()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskEject(self) -> bool:
+    def askEject(self) -> bool:
         """ Wrapped Function : Eject the other clients of the client's tile """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskEject.restype = ctypes.c_bool
-        c_value = self.__AskEject()
+        self.__askEject.restype = ctypes.c_bool
+        c_value = self.__askEject()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskTakeObject(self, object : str) -> bool:
+    def askTakeObject(self, object : str) -> bool:
         """ Wrapped Function : Take an object on the client tile """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_object = object.encode("UTF-8")
-        self.__AskTakeObject.restype = ctypes.c_bool
-        c_value = self.__AskTakeObject(ctypes.c_char_p(b_object))
+        self.__askTakeObject.restype = ctypes.c_bool
+        c_value = self.__askTakeObject(ctypes.c_char_p(b_object))
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskPlaceObject(self, object : str) -> bool:
+    def askPlaceObject(self, object : str) -> bool:
         """ Wrapped Function : Place an object on the client tile """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         b_object = object.encode("UTF-8")
-        self.__AskPlaceObject.restype = ctypes.c_bool
-        c_value = self.__AskPlaceObject(ctypes.c_char_p(b_object))
+        self.__askPlaceObject.restype = ctypes.c_bool
+        c_value = self.__askPlaceObject(ctypes.c_char_p(b_object))
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def AskIncantation(self) -> bool:
+    def askIncantation(self) -> bool:
         """ Wrapped Function : Start an incantation on the client tile """
         """ Return true if the command has been send, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__AskIncantation.restype = ctypes.c_bool
-        c_value = self.__AskIncantation()
+        self.__askIncantation.restype = ctypes.c_bool
+        c_value = self.__askIncantation()
         if c_value:
-            self.__Flush()
+            self.__flush()
         return c_value
 
-    def GetRepForward(self) -> bool:
+    def getRepForward(self) -> bool:
         """ Wrapped Function : Get the reponse of AskForward() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepForward.restype = ctypes.c_bool
-        c_value = self.__GetRepForward()
+        self.__getRepForward.restype = ctypes.c_bool
+        c_value = self.__getRepForward()
         return c_value
 
-    def GetRepTurnRight(self) -> bool:
+    def getRepTurnRight(self) -> bool:
         """ Wrapped Function : Get the reponse of AskTurnRight() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepTurnRight.restype = ctypes.c_bool
-        c_value = self.__GetRepTurnRight()
+        self.__getRepTurnRight.restype = ctypes.c_bool
+        c_value = self.__getRepTurnRight()
         return c_value
 
-    def GetRepTurnLeft(self) -> bool:
+    def getRepTurnLeft(self) -> bool:
         """ Wrapped Function : Get the reponse of AskTurnLeft() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepTurnLeft.restype = ctypes.c_bool
-        c_value = self.__GetRepTurnLeft()
+        self.__getRepTurnLeft.restype = ctypes.c_bool
+        c_value = self.__getRepTurnLeft()
         return c_value
 
-    def GetRepLook(self) -> str:
+    def getRepLook(self) -> str:
         """ Wrapped Function : Get the reponse of AskLook() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepLook.restype = ctypes.c_char_p
-        c_value = self.__GetRepLook()
+        self.__getRepLook.restype = ctypes.c_char_p
+        c_value = self.__getRepLook()
         return c_value.decode("UTF-8")
 
-    def GetRepInventory(self) -> str:
+    def getRepInventory(self) -> str:
         """ Wrapped Function : Get the reponse of AskInventory() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepInventory.restype = ctypes.c_char_p
-        c_value = self.__GetRepInventory()
+        self.__getRepInventory.restype = ctypes.c_char_p
+        c_value = self.__getRepInventory()
         return c_value.decode("UTF-8")
 
-    def GetRepBroadcastText(self) -> bool:
+    def getRepBroadcastText(self) -> bool:
         """ Wrapped Function : Get the reponse of AskBroadcastText() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepBroadcastText.restype = ctypes.c_bool
-        c_value = self.__GetRepBroadcastText()
+        self.__getRepBroadcastText.restype = ctypes.c_bool
+        c_value = self.__getRepBroadcastText()
         return c_value
 
-    def GetRepConnectNbr(self) -> bool:
+    def getRepConnectNbr(self) -> bool:
         """ Wrapped Function : Get the reponse of AskConnectNbr() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepConnectNbr.restype = ctypes.c_bool
-        c_value = self.__GetRepConnectNbr()
+        self.__getRepConnectNbr.restype = ctypes.c_bool
+        c_value = self.__getRepConnectNbr()
         return c_value
 
-    def GetRepFork(self) -> bool:
+    def getRepFork(self) -> bool:
         """ Wrapped Function : Get the reponse of AskFork() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepFork.restype = ctypes.c_bool
-        c_value = self.__GetRepFork()
+        self.__getRepFork.restype = ctypes.c_bool
+        c_value = self.__getRepFork()
         return c_value
 
-    def GetRepEject(self) -> bool:
+    def getRepEject(self) -> bool:
         """ Wrapped Function : Get the reponse of AskEject() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepEject.restype = ctypes.c_bool
-        c_value = self.__GetRepEject()
+        self.__getRepEject.restype = ctypes.c_bool
+        c_value = self.__getRepEject()
         return c_value
 
-    def GetRepTakeObject(self) -> bool:
+    def getRepTakeObject(self) -> bool:
         """ Wrapped Function : Get the reponse of AskTakeObject() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepTakeObject.restype = ctypes.c_bool
-        c_value = self.__GetRepTakeObject()
+        self.__getRepTakeObject.restype = ctypes.c_bool
+        c_value = self.__getRepTakeObject()
         return c_value
 
-    def GetRepPlaceObject(self) -> bool:
+    def getRepPlaceObject(self) -> bool:
         """ Wrapped Function : Get the reponse of AskPlaceObject() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepPlaceObject.restype = ctypes.c_bool
-        c_value = self.__GetRepPlaceObject()
+        self.__getRepPlaceObject.restype = ctypes.c_bool
+        c_value = self.__getRepPlaceObject()
         return c_value
 
-    def GetRepIncantation(self) -> int:
+    def getRepIncantation(self) -> int:
         """ Wrapped Function : Get the reponse of AskIncantation() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        if not self.GetNetworkState():
+        if not self.getNetworkState():
             safeExitError()
-        self.__GetRepIncantation.restype = ctypes.c_int
-        c_value = self.__GetRepIncantation()
+        self.__getRepIncantation.restype = ctypes.c_int
+        c_value = self.__getRepIncantation()
         return c_value
 
-    def GetNetworkState(self) -> bool:
+    def getNetworkState(self) -> bool:
         """ Wrapped Function : Get the Network State, return true is everything ok, false otherwise """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
-        self.__GetNetworkState.restype = ctypes.c_bool
-        c_value = self.__GetNetworkState()
+        self.__getNetworkState.restype = ctypes.c_bool
+        c_value = self.__getNetworkState()
         return c_value
