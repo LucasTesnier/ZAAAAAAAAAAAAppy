@@ -139,14 +139,20 @@ void Core::_updateEntities(std::string &type, std::string &response)
             entity::Player p;
             try {
                 _unpackObject->UnpackEntity(p, it);
-                _sfml->addPlayer(p);
+                if (!p.getStatusPlayer())
+                    _sfml->removePlayer(p);
+                else
+                    _sfml->addPlayer(p);
             } catch (...) {}
         }
         if (type == "egg") {
             entity::Egg e;
             try {
                 _unpackObject->UnpackEntity(e, it);
-                _sfml->addEgg(e);
+                if (e._statusEgg)
+                    _sfml->removeEgg(e);
+                else
+                    _sfml->addEgg(e);
             } catch (...) {}
         }
         if (type == "tile") {

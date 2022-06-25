@@ -96,6 +96,10 @@ namespace gui {
             /// \param player the player object to add
             void addPlayer(gui::entity::Player &player);
 
+            /// \brief remove a player from the vector of players
+            /// \param player the player object to remove
+            void removePlayer(gui::entity::Player &player);
+
             /// \brief Get the vector of players of the tile.
             /// \return The vector of players.
             inline const std::vector<gui::entity::Tile> &getTilesInfo() const {
@@ -119,6 +123,10 @@ namespace gui {
                 _eggs.emplace_back(egg);
                 _tile[itop(sf::Vector2f(egg.getPosition().first, egg.getPosition().second))]->addEgg(egg);
             }
+
+            /// \brief remove a egg from the vector of eggs
+            /// \param egg the egg object to remove
+            void removeEgg(gui::entity::Egg &egg);
 
             /// \brief add a new status to the Status object
             /// \param status the status to set
