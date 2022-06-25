@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"game__status_8c.html#a44fbb0e804acfee0b0628fe2003a5050":[3,0,0,2,0,0,10,1],
+"game__status_8c.html#a4cfdf061c9931815b3f7da856d07a9dd":[3,0,0,2,0,0,10,3],
 "game__status_8c.html#a83fb53f194c85e3ee13a7de46ed02a83":[3,0,0,2,0,0,10,0],
 "game__status_8c.html#aa0f430630e0107b96108edbacbcd3f22":[3,0,0,2,0,0,10,2],
 "game__status_8c_source.html":[3,0,0,2,0,0,10],
@@ -152,12 +154,12 @@ var NAVTREEINDEX3 =
 "my__zappy__server_8h_source.html":[3,0,0,2,0,2,10],
 "namespaceai___d_l_lib__wrapper.html":[2,0,1],
 "namespaceai___d_l_lib__wrapper.html":[1,0,1],
-"namespaceai__core.html":[1,0,0],
 "namespaceai__core.html":[2,0,0],
+"namespaceai__core.html":[1,0,0],
 "namespaceai__function__wrapper.html":[2,0,2],
 "namespaceai__function__wrapper.html":[1,0,2],
-"namespaceai__handle__response.html":[1,0,3],
 "namespaceai__handle__response.html":[2,0,3],
+"namespaceai__handle__response.html":[1,0,3],
 "namespaceai__safe__error.html":[1,0,4],
 "namespaceai__strategy__management.html":[2,0,4],
 "namespaceai__strategy__management.html":[1,0,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "player_8h.html#aefdc4a36eee5199c976dfc9566db77bf":[3,0,0,2,0,2,0,4,1],
 "player_8h_source.html":[3,0,0,2,0,2,0,4],
 "player__life_8c.html":[3,0,0,2,0,11],
-"player__life_8c.html#a2d52147697973cc4c3101121ed06e17e":[3,0,0,2,0,11,0],
-"player__life_8c.html#ad6b3c59a382e039415f805d2a9d95200":[3,0,0,2,0,11,1],
-"player__life_8c_source.html":[3,0,0,2,0,11]
+"player__life_8c.html#a2d52147697973cc4c3101121ed06e17e":[3,0,0,2,0,11,0]
 };

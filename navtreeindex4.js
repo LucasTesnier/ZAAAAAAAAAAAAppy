@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"player__life_8c.html#ad6b3c59a382e039415f805d2a9d95200":[3,0,0,2,0,11,1],
+"player__life_8c_source.html":[3,0,0,2,0,11],
 "rcodes_8h.html":[3,0,0,2,0,2,11],
 "rcodes_8h.html#ae0a70c38c430b9e5fe49c76c88d02103":[3,0,0,2,0,2,11,1],
 "rcodes_8h_source.html":[3,0,0,2,0,2,11],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "take__command_8c_source.html":[3,0,0,2,0,0,20],
 "tcp__server_8c.html":[3,0,0,2,1,5],
 "tcp__server_8c.html#a69bee5092329eea4e02aca3a3d023764":[3,0,0,2,1,5,0],
-"tcp__server_8c_source.html":[3,0,0,2,1,5],
-"team_8c.html":[3,0,0,2,0,18],
-"team_8c.html#a21f1d9b08517941dc44349bcfceae932":[3,0,0,2,0,18,3]
+"tcp__server_8c_source.html":[3,0,0,2,1,5]
 };

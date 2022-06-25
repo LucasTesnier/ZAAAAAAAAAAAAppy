@@ -72,11 +72,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_animation_8cpp.html",
-"classai__handle__response_1_1_inventory.html#afc5215825b78aa1cca02aff924b05d31",
-"command__hold_8h.html#aac4704bced22df9488198e7931e2f725",
-"game__status_8c.html#a83fb53f194c85e3ee13a7de46ed02a83",
-"rcodes_8h.html",
-"team_8c.html#adbc2a6f6dab0eab313c12bd441126d56"
+"classai__handle__response_1_1_inventory.html#af6541f17ba9f6114fcdb1eb336bf46a9",
+"command__hold_8h.html#aa0f430630e0107b96108edbacbcd3f22",
+"game__status_8c.html#a44fbb0e804acfee0b0628fe2003a5050",
+"player__life_8c.html#ad6b3c59a382e039415f805d2a9d95200",
+"team_8c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -45,11 +45,12 @@ var searchData=
   ['player_5fstate_5ft_507',['player_state_t',['../server_8h.html#a02386904fb81879dc442c1b22361523b',1,'server.h']]],
   ['player_5ft_508',['player_t',['../player_8h.html#aefdc4a36eee5199c976dfc9566db77bf',1,'player.h']]],
   ['players_509',['players',['../structentity__wrapper__s.html#aee293c9317884c9fce08c7841ac232f0',1,'entity_wrapper_s']]],
-  ['pop_5fmessage_510',['pop_message',['../fd__set__manage_8h.html#a6e75061503eb4a9f24ecc70d77f0195a',1,'pop_message(peer_t *peer):&#160;server_read_client.c'],['../server__read__client_8c.html#a6e75061503eb4a9f24ecc70d77f0195a',1,'pop_message(peer_t *peer):&#160;server_read_client.c']]],
-  ['port_511',['port',['../structargument__s.html#a300b6806fe6818927fe4df08f2398124',1,'argument_s::port()'],['../structtcp__server__s.html#a8e0798404bf2cf5dabb84c5ba9a4f236',1,'tcp_server_s::port()']]],
-  ['position_512',['position',['../structentity__s.html#ab77439df40d917a0b8e8ba2ee1e5530c',1,'entity_s']]],
-  ['position_5fs_513',['position_s',['../structposition__s.html',1,'']]],
-  ['position_5ft_514',['position_t',['../entity_8h.html#ae91e9d371efd32526f59e97a74a0e04b',1,'entity.h']]],
-  ['process_5feggs_5finspection_515',['process_eggs_inspection',['../fork__command_8c.html#a25d7227133ecda6a20661162995fdce4',1,'process_eggs_inspection(server_data_t *serv):&#160;fork_command.c'],['../command__hold_8h.html#a25d7227133ecda6a20661162995fdce4',1,'process_eggs_inspection(server_data_t *serv):&#160;fork_command.c']]],
-  ['ptr_516',['ptr',['../structcommand__data__s.html#acaa608b074c81d775da8da9557854c3c',1,'command_data_s']]]
+  ['players_5fpath_510',['PLAYERS_PATH',['../_map_8cpp.html#a25930311ca34925a3aa6c2be6f0b3114',1,'Map.cpp']]],
+  ['pop_5fmessage_511',['pop_message',['../fd__set__manage_8h.html#a6e75061503eb4a9f24ecc70d77f0195a',1,'pop_message(peer_t *peer):&#160;server_read_client.c'],['../server__read__client_8c.html#a6e75061503eb4a9f24ecc70d77f0195a',1,'pop_message(peer_t *peer):&#160;server_read_client.c']]],
+  ['port_512',['port',['../structargument__s.html#a300b6806fe6818927fe4df08f2398124',1,'argument_s::port()'],['../structtcp__server__s.html#a8e0798404bf2cf5dabb84c5ba9a4f236',1,'tcp_server_s::port()']]],
+  ['position_513',['position',['../structentity__s.html#ab77439df40d917a0b8e8ba2ee1e5530c',1,'entity_s']]],
+  ['position_5fs_514',['position_s',['../structposition__s.html',1,'']]],
+  ['position_5ft_515',['position_t',['../entity_8h.html#ae91e9d371efd32526f59e97a74a0e04b',1,'entity.h']]],
+  ['process_5feggs_5finspection_516',['process_eggs_inspection',['../fork__command_8c.html#a25d7227133ecda6a20661162995fdce4',1,'process_eggs_inspection(server_data_t *serv):&#160;fork_command.c'],['../command__hold_8h.html#a25d7227133ecda6a20661162995fdce4',1,'process_eggs_inspection(server_data_t *serv):&#160;fork_command.c']]],
+  ['ptr_517',['ptr',['../structcommand__data__s.html#acaa608b074c81d775da8da9557854c3c',1,'command_data_s']]]
 ];
