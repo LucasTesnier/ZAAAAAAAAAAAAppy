@@ -29,6 +29,8 @@ class Inventory:
     def fillInventory(self, inventoryStr : str) -> bool:
         """ PRIVATE METHOD """
         """ Parse the string given in parameter and fill the Inventory object """
+        if str is "":
+            return
         inventorySplit = inventoryStr.split(", ")
         try:
             self.__food = int(inventorySplit[0].split(" ")[1])

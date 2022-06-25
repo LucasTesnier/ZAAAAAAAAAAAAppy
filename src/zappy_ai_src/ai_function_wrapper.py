@@ -343,6 +343,8 @@ class ServerWrapper:
             safeExitError()
         self.__getRepInventory.restype = ctypes.c_char_p
         c_value = self.__getRepInventory()
+        if c_value is None:
+            return ""
         return c_value.decode("UTF-8")
 
     def getRepBroadcastText(self) -> bool:
@@ -354,12 +356,12 @@ class ServerWrapper:
         c_value = self.__getRepBroadcastText()
         return c_value
 
-    def getRepConnectNbr(self) -> bool:
+    def getRepConnectNbr(self) -> int:
         """ Wrapped Function : Get the reponse of AskConnectNbr() """
         """ BEWARE : Any use of this function before calling getNecessaryFunctions() will need to undefined behaviour """
         if not self.getNetworkState():
             safeExitError()
-        self.__getRepConnectNbr.restype = ctypes.c_bool
+        self.__getRepConnectNbr.restype = ctypes.c_int
         c_value = self.__getRepConnectNbr()
         return c_value
 
