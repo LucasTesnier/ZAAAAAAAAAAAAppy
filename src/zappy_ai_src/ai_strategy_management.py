@@ -396,7 +396,9 @@ class Ai:
         """
         pos = 0
         response: str = self.__lib.getUnexpectedResponse()
-        if response == "dead":
+        if response is "":
+            return
+        if response is "dead":
             safeExitError(84, "Player is dead, disconnected.")
         if response.startswith("message"):
             infos = response.split(", ")
@@ -409,9 +411,9 @@ class Ai:
             except ValueError as e:
                 print(e)
             action = infos[2]
-            if action == "incantation":
+            if action is "incantation":
                 return BroadcastInfo(action, team_name, pos, int(infos[3]), int (infos[4]), "")
-            if action == "give":
+            if action is "give":
                 return BroadcastInfo(action, team_name, pos, 0, 0, infos[2])
 
     def __mapVisionTimeManagement(self):
@@ -470,7 +472,7 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        component = "sibur" if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
+        component = "sibur" if self.__getTargetComponent() is "nothing" else self.__getTargetComponent()
         self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if not self.__lib.askTakeObject(component):
             safeExitError()
@@ -537,8 +539,8 @@ class Ai:
         if not self.__isThisActionRealisable("broadcast"):
             return False
         level_of_player = self.__getPlayerCurrentLevel()
-        nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action == "incantation" else 1
-        required_level = self.__getPlayerCurrentLevel() if action == "incantation" else 1
+        nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action is "incantation" else 1
+        required_level = self.__getPlayerCurrentLevel() if action is "incantation" else 1
         if not self.__lib.askBroadcastText(f"{self.__getTeamName()}, {action}, {nb_player}, {required_level}\n"):
             safeExitError()
         self.__waitServerResponse()
@@ -552,7 +554,7 @@ class Ai:
         """
         if not self.__isThisActionRealisable("fork"):
             return False
-        if self.__getAvailableSlots() == 0:
+        if self.__getAvailableSlots() is 0:
             return False
         if not self.__lib.askFork():
             safeExitError()
@@ -567,7 +569,7 @@ class Ai:
             This function will request ask methods of the API and then wait the response to proceed
             Param :     index: int, representing the index of the tile you want to reach
         """
-        if index == -1:
+        if index is -1:
             return
         nb_forward_steps = 0
         front_tile_index = 0
@@ -587,7 +589,7 @@ class Ai:
             self.__waitServerResponse()
             self.__lib.getRepTurnLeft()
             nb_forward_steps *= -1
-        elif nb_forward_steps == 0:
+        elif nb_forward_steps is 0:
             return
         else:
             if not self.__lib.askTurnRight():
@@ -613,32 +615,32 @@ class Ai:
         south_delta = south.index(1) - south.index(1)
         east_delta = east.index(1) - east.index(1)
 
-        if tile_index == 0:
+        if tile_index is 0:
             #don't move
             pass
-        if tile_index == north.index(0):
+        if tile_index is north.index(0):
             #forward
             pass
-        if tile_index == west.index(0):
+        if tile_index is west.index(0):
             #Turn left, forward
             pass
-        if tile_index == south.index(0):
+        if tile_index is south.index(0):
             # Turn left, turn left, forward
             pass
-        if tile_index == east.index(0):
+        if tile_index is east.index(0):
             #Turn right, forward
             pass
 
-        if tile_index == north.index(1):
+        if tile_index is north.index(1):
             #forward, forward
             pass
-        if tile_index == west.index(1):
+        if tile_index is west.index(1):
             #Turn left, forward, forward
             pass
-        if tile_index == south.index(1):
+        if tile_index is south.index(1):
             # Turn left, turn left, forward, forward
             pass
-        if tile_index == east.index(1):
+        if tile_index is east.index(1):
             #Turn right, forward, forward
             pass
 

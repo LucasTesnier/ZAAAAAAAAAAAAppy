@@ -171,6 +171,8 @@ class ServerWrapper:
             safeExitError()
         self.__getUnexpectedResponse.restype = ctypes.c_char_p
         c_value = self.__getUnexpectedResponse()
+        if c_value is None:
+            return ""
         return c_value.decode("UTF-8")
 
     def askForward(self) -> bool:
