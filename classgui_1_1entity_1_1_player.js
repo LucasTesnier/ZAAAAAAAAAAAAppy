@@ -6,10 +6,14 @@ var classgui_1_1entity_1_1_player =
     [ "getLevel", "classgui_1_1entity_1_1_player.html#aad9049d0663db250e8bcd91ba93f35d0", null ],
     [ "getOrientation", "classgui_1_1entity_1_1_player.html#ab782e8ec57759332317d2a215b40645c", null ],
     [ "getPosition", "classgui_1_1entity_1_1_player.html#a824321351dde269da97640a08f09c975", null ],
+    [ "getStatusPlayer", "classgui_1_1entity_1_1_player.html#a491ff3f208b4e5b02d94f5e06a24f4c2", null ],
     [ "getTeamName", "classgui_1_1entity_1_1_player.html#a3fc3901c611596e87cb722ce015b3c65", null ],
+    [ "getUuid", "classgui_1_1entity_1_1_player.html#a57bb0d82bc747ec19103782524693ceb", null ],
     [ "_inventory", "classgui_1_1entity_1_1_player.html#af01738a05c58c9e624d9f009e37777b2", null ],
     [ "_level", "classgui_1_1entity_1_1_player.html#ab753c56c3647c69d89760fb3fd19951f", null ],
     [ "_orientation", "classgui_1_1entity_1_1_player.html#a2879b27d02de38e37499a7212d8e2377", null ],
     [ "_position", "classgui_1_1entity_1_1_player.html#addedc325647c3418987e77f5e1c8d534", null ],
-    [ "_team_name", "classgui_1_1entity_1_1_player.html#a9768c4edce2da49e0733bd5077654fe1", null ]
+    [ "_statusPlayer", "classgui_1_1entity_1_1_player.html#a3648d241c5df7e4f16c743b5f082d35c", null ],
+    [ "_team_name", "classgui_1_1entity_1_1_player.html#a9768c4edce2da49e0733bd5077654fe1", null ],
+    [ "_uuid", "classgui_1_1entity_1_1_player.html#a45ed1b2976f986635a63b65d5fa72e6c", null ]
 ];

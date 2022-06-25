@@ -147,65 +147,95 @@ $(document).ready(function(){initNavTree('_tile_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#af0070894b3128cb8615042b344a72a60">   61</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classgui_1_1_tile.html#af0070894b3128cb8615042b344a72a60">Tile::isOnTile</a>(sf::Vector2i mouse)</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#a0a4827ce6e3caa60681a270a56068e05">   61</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_tile.html#a0a4827ce6e3caa60681a270a56068e05">Tile::removePlayer</a>(<a class="code" href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a> &amp;player)</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">int</span> res = 0;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    sf::Vector2f position = _toIsometric(sf::Vector2f(_position.x * _size.x, _position.y * _size.y), sf::Vector2f(45, 35));</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    mouse.x -= position.x - _shape.getOrigin().x;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    mouse.y -= position.y - _shape.getOrigin().y;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(0), _shape.getPoint(1), mouse);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(1), _shape.getPoint(2), mouse);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(2), _shape.getPoint(3), mouse);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(3), _shape.getPoint(0), mouse);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (res == 4)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;sf::Vector2f Tile::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    sf::Vector2f point;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    point.x = cos((360 - angle.x / 2) * M_PI / 180) * vector.x - cos(angle.x / 2 * M_PI / 180) * vector.y;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    point.y = sin(angle.y / 2 * M_PI / 180) * vector.y + sin(angle.y / 2 * M_PI / 180) * vector.x;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> (point);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keywordtype">void</span> Tile::_setShape()</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;{</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    _shape.setPosition(_toIsometric({_position.x * _size.x, _position.y * _size.y}, {45, 35}));</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    _shape.setPointCount(4);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    _shape.setPoint(0, _toIsometric({0, 0}, {45, 35}));</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    _shape.setPoint(1, _toIsometric({0, _size.y}, {45, 35}));</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    _shape.setPoint(2, _toIsometric({_size.x, _size.y}, {45, 35}));</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    _shape.setPoint(3, _toIsometric({_size.x, 0}, {45, 35}));</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#ae0e04ac9c7535158dd7f0d73d9e8501c">   96</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_tile.html#ae0e04ac9c7535158dd7f0d73d9e8501c">Tile::setZoom</a>(<span class="keywordtype">float</span> zoom)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (zoom == _zoom)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    _zoom = zoom;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    _size.x *= zoom;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    _size.y *= zoom;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    _setShape();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#a0b1aea8d18e844debc9a918767e53749">  106</a></span>&#160;<a class="code" href="classgui_1_1_tile.html#a0b1aea8d18e844debc9a918767e53749">Tile::~Tile</a>()</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> (_players.empty())</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = _players.begin(); it != _players.end(); ++it) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span> (it.base()-&gt;_uuid == player.<a class="code" href="classgui_1_1entity_1_1_player.html#a45ed1b2976f986635a63b65d5fa72e6c">_uuid</a>) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            _players.erase(it);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#a061857bc272c73de0ecb0c1e0c9e86cb">   73</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_tile.html#a061857bc272c73de0ecb0c1e0c9e86cb">Tile::removeEgg</a>(<a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> &amp;egg)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (_eggs.empty())</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = _eggs.begin(); it != _eggs.end(); ++it) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (it.base()-&gt;_uuid == egg.<a class="code" href="classgui_1_1entity_1_1_egg.html#a45ed1b2976f986635a63b65d5fa72e6c">_uuid</a>) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            _eggs.erase(it);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#af0070894b3128cb8615042b344a72a60">   85</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classgui_1_1_tile.html#af0070894b3128cb8615042b344a72a60">Tile::isOnTile</a>(sf::Vector2i mouse)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;{</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">int</span> res = 0;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    sf::Vector2f position = _toIsometric(sf::Vector2f(_position.x * _size.x, _position.y * _size.y), sf::Vector2f(45, 35));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    mouse.x -= position.x - _shape.getOrigin().x;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    mouse.y -= position.y - _shape.getOrigin().y;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(0), _shape.getPoint(1), mouse);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(1), _shape.getPoint(2), mouse);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(2), _shape.getPoint(3), mouse);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    res += <a class="code" href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">isOnRight</a>(_shape.getPoint(3), _shape.getPoint(0), mouse);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (res == 4)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;sf::Vector2f Tile::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    sf::Vector2f point;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    point.x = cos((360 - angle.x / 2) * M_PI / 180) * vector.x - cos(angle.x / 2 * M_PI / 180) * vector.y;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    point.y = sin(angle.y / 2 * M_PI / 180) * vector.y + sin(angle.y / 2 * M_PI / 180) * vector.x;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> (point);</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">void</span> Tile::_setShape()</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;{</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    _shape.setPosition(_toIsometric({_position.x * _size.x, _position.y * _size.y}, {45, 35}));</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    _shape.setPointCount(4);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    _shape.setPoint(0, _toIsometric({0, 0}, {45, 35}));</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    _shape.setPoint(1, _toIsometric({0, _size.y}, {45, 35}));</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    _shape.setPoint(2, _toIsometric({_size.x, _size.y}, {45, 35}));</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    _shape.setPoint(3, _toIsometric({_size.x, 0}, {45, 35}));</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#ae0e04ac9c7535158dd7f0d73d9e8501c">  120</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_tile.html#ae0e04ac9c7535158dd7f0d73d9e8501c">Tile::setZoom</a>(<span class="keywordtype">float</span> zoom)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;{</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">if</span> (zoom == _zoom)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    _zoom = zoom;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    _size.x *= zoom;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    _size.y *= zoom;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    _setShape();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="classgui_1_1_tile.html#a0b1aea8d18e844debc9a918767e53749">  130</a></span>&#160;<a class="code" href="classgui_1_1_tile.html#a0b1aea8d18e844debc9a918767e53749">Tile::~Tile</a>()</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;{</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassgui_1_1_tile_html_a0b1aea8d18e844debc9a918767e53749"><div class="ttname"><a href="classgui_1_1_tile.html#a0b1aea8d18e844debc9a918767e53749">gui::Tile::~Tile</a></div><div class="ttdeci">~Tile()</div><div class="ttdoc">Destructor of the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00106">Tile.cpp:106</a></div></div>
+<div class="ttc" id="aclassgui_1_1_tile_html_a0b1aea8d18e844debc9a918767e53749"><div class="ttname"><a href="classgui_1_1_tile.html#a0b1aea8d18e844debc9a918767e53749">gui::Tile::~Tile</a></div><div class="ttdeci">~Tile()</div><div class="ttdoc">Destructor of the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00130">Tile.cpp:130</a></div></div>
 <div class="ttc" id="aclassgui_1_1_tile_html_a62133c3b6302525cbd5501bd11fbdb98"><div class="ttname"><a href="classgui_1_1_tile.html#a62133c3b6302525cbd5501bd11fbdb98">gui::Tile::operator=</a></div><div class="ttdeci">Tile operator=(const Tile &amp;tile)</div><div class="ttdoc">Copy constructor of the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00031">Tile.cpp:31</a></div></div>
 <div class="ttc" id="aclassgui_1_1_tile_exception_html"><div class="ttname"><a href="classgui_1_1_tile_exception.html">gui::TileException</a></div><div class="ttdoc">Class for the Tile exception.</div><div class="ttdef"><b>Definition:</b> <a href="_zappy_gui_exception_8hpp_source.html#l00065">ZappyGuiException.hpp:65</a></div></div>
-<div class="ttc" id="aclassgui_1_1_tile_html_ae0e04ac9c7535158dd7f0d73d9e8501c"><div class="ttname"><a href="classgui_1_1_tile.html#ae0e04ac9c7535158dd7f0d73d9e8501c">gui::Tile::setZoom</a></div><div class="ttdeci">void setZoom(float zoom)</div><div class="ttdoc">Set the zoom of the map.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00096">Tile.cpp:96</a></div></div>
-<div class="ttc" id="aclassgui_1_1_tile_html_af0070894b3128cb8615042b344a72a60"><div class="ttname"><a href="classgui_1_1_tile.html#af0070894b3128cb8615042b344a72a60">gui::Tile::isOnTile</a></div><div class="ttdeci">bool isOnTile(sf::Vector2i mouse)</div><div class="ttdoc">Check if the mouse is on the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00061">Tile.cpp:61</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00116">Entity.hpp:116</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html_a45ed1b2976f986635a63b65d5fa72e6c"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html#a45ed1b2976f986635a63b65d5fa72e6c">gui::entity::Egg::_uuid</a></div><div class="ttdeci">std::string _uuid</div><div class="ttdoc">string representating the uuid</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00127">Entity.hpp:127</a></div></div>
+<div class="ttc" id="aclassgui_1_1_tile_html_ae0e04ac9c7535158dd7f0d73d9e8501c"><div class="ttname"><a href="classgui_1_1_tile.html#ae0e04ac9c7535158dd7f0d73d9e8501c">gui::Tile::setZoom</a></div><div class="ttdeci">void setZoom(float zoom)</div><div class="ttdoc">Set the zoom of the map.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00120">Tile.cpp:120</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_player_html"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00037">Entity.hpp:37</a></div></div>
+<div class="ttc" id="aclassgui_1_1_tile_html_af0070894b3128cb8615042b344a72a60"><div class="ttname"><a href="classgui_1_1_tile.html#af0070894b3128cb8615042b344a72a60">gui::Tile::isOnTile</a></div><div class="ttdeci">bool isOnTile(sf::Vector2i mouse)</div><div class="ttdoc">Check if the mouse is on the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00085">Tile.cpp:85</a></div></div>
 <div class="ttc" id="aclassgui_1_1_tile_html"><div class="ttname"><a href="classgui_1_1_tile.html">gui::Tile</a></div><div class="ttdoc">Class for the tile that will be display on the map.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8hpp_source.html#l00020">Tile.hpp:20</a></div></div>
+<div class="ttc" id="aclassgui_1_1_tile_html_a0a4827ce6e3caa60681a270a56068e05"><div class="ttname"><a href="classgui_1_1_tile.html#a0a4827ce6e3caa60681a270a56068e05">gui::Tile::removePlayer</a></div><div class="ttdeci">void removePlayer(gui::entity::Player &amp;player)</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00061">Tile.cpp:61</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_player_html_a45ed1b2976f986635a63b65d5fa72e6c"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#a45ed1b2976f986635a63b65d5fa72e6c">gui::entity::Player::_uuid</a></div><div class="ttdeci">std::string _uuid</div><div class="ttdoc">string representating the uuid</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00050">Entity.hpp:50</a></div></div>
 <div class="ttc" id="a_tile_8hpp_html"><div class="ttname"><a href="_tile_8hpp.html">Tile.hpp</a></div></div>
 <div class="ttc" id="anamespacegui_html"><div class="ttname"><a href="namespacegui.html">gui</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8hpp_source.html#l00015">Animation.hpp:15</a></div></div>
 <div class="ttc" id="a_zappy_gui_exception_8hpp_html"><div class="ttname"><a href="_zappy_gui_exception_8hpp.html">ZappyGuiException.hpp</a></div></div>
+<div class="ttc" id="aclassgui_1_1_tile_html_a061857bc272c73de0ecb0c1e0c9e86cb"><div class="ttname"><a href="classgui_1_1_tile.html#a061857bc272c73de0ecb0c1e0c9e86cb">gui::Tile::removeEgg</a></div><div class="ttdeci">void removeEgg(gui::entity::Egg &amp;egg)</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00073">Tile.cpp:73</a></div></div>
 <div class="ttc" id="aclassgui_1_1_tile_html_addcdb7459aa49f86892e4a1cc6cb34d9"><div class="ttname"><a href="classgui_1_1_tile.html#addcdb7459aa49f86892e4a1cc6cb34d9">gui::Tile::Tile</a></div><div class="ttdeci">Tile()</div><div class="ttdoc">Constructor of the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00014">Tile.cpp:14</a></div></div>
 <div class="ttc" id="aclassgui_1_1_tile_html_a27c3e189725919affa6a43e7fcfaf287"><div class="ttname"><a href="classgui_1_1_tile.html#a27c3e189725919affa6a43e7fcfaf287">gui::Tile::isOnRight</a></div><div class="ttdeci">int isOnRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2i mouse)</div><div class="ttdoc">Check if the mouse is on the right of the two vectors.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8cpp_source.html#l00050">Tile.cpp:50</a></div></div>
 <div class="ttc" id="aclassgui_1_1_tile_html_a4984a7c8f494290c8ab53101252aba16"><div class="ttname"><a href="classgui_1_1_tile.html#a4984a7c8f494290c8ab53101252aba16">gui::Tile::setTexture</a></div><div class="ttdeci">void setTexture(std::shared_ptr&lt; sf::Texture &gt; texture)</div><div class="ttdoc">Set the texture of the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8hpp_source.html#l00096">Tile.hpp:96</a></div></div>

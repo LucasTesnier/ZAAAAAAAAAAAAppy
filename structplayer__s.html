@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('structplayer__s.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 
-<p>Reprensents a player.  
+<p>Represents a player.  
  <a href="structplayer__s.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="player_8h_source.html">player.h</a>&gt;</code></p>
@@ -99,7 +99,7 @@ Collaboration diagram for player_s:</div>
 <div class="dyncontent">
 <div class="center"><img src="structplayer__s__coll__graph.png" border="0" usemap="#player__s_coll__map" alt="Collaboration graph"/></div>
 <map name="player__s_coll__map" id="player__s_coll__map">
-<area shape="rect" title="Reprensents a player." alt="" coords="15,95,93,121"/>
+<area shape="rect" title="Represents a player." alt="" coords="15,95,93,121"/>
 <area shape="rect" href="structcontainer__s.html" title="Generic type for items storage." alt="" coords="5,5,103,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
@@ -115,6 +115,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a9082f945c1d289684d0bcd51ee08e11e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structplayer__s.html#a9082f945c1d289684d0bcd51ee08e11e">level</a></td></tr>
 <tr class="memdesc:a9082f945c1d289684d0bcd51ee08e11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player level.  <a href="structplayer__s.html#a9082f945c1d289684d0bcd51ee08e11e">More...</a><br /></td></tr>
 <tr class="separator:a9082f945c1d289684d0bcd51ee08e11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f0bff7112206922c9d5a87adad6f2b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structplayer__s.html#ad1f0bff7112206922c9d5a87adad6f2b">status</a></td></tr>
+<tr class="memdesc:ad1f0bff7112206922c9d5a87adad6f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player status, alive (1) or dead (0)  <a href="structplayer__s.html#ad1f0bff7112206922c9d5a87adad6f2b">More...</a><br /></td></tr>
+<tr class="separator:ad1f0bff7112206922c9d5a87adad6f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3c8ef38fdd8380ae1eca05d80403407"><td class="memItemLeft" align="right" valign="top"><a class="el" href="container_8h.html#a6af066f1021a8947032e6f4449181677">container_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structplayer__s.html#aa3c8ef38fdd8380ae1eca05d80403407">inventory</a></td></tr>
 <tr class="memdesc:aa3c8ef38fdd8380ae1eca05d80403407"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player inventory.  <a href="structplayer__s.html#aa3c8ef38fdd8380ae1eca05d80403407">More...</a><br /></td></tr>
 <tr class="separator:aa3c8ef38fdd8380ae1eca05d80403407"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,7 +126,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a32757ee2ec4d309446bb91c6658dbe7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Reprensents a player. </p>
+<div class="textblock"><p>Represents a player. </p>
 
 <p class="definition">Definition at line <a class="el" href="player_8h_source.html#l00033">33</a> of file <a class="el" href="player_8h_source.html">player.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
@@ -141,7 +144,7 @@ Data Fields</h2></td></tr>
 
 <p>The player inventory. </p>
 
-<p class="definition">Definition at line <a class="el" href="player_8h_source.html#l00044">44</a> of file <a class="el" href="player_8h_source.html">player.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="player_8h_source.html#l00047">47</a> of file <a class="el" href="player_8h_source.html">player.h</a>.</p>
 
 </div>
 </div>
@@ -177,7 +180,25 @@ Data Fields</h2></td></tr>
 
 <p>The current player orientation, default NORTH. </p>
 
-<p class="definition">Definition at line <a class="el" href="player_8h_source.html#l00047">47</a> of file <a class="el" href="player_8h_source.html">player.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="player_8h_source.html#l00050">50</a> of file <a class="el" href="player_8h_source.html">player.h</a>.</p>
+
+</div>
+</div>
+<a id="ad1f0bff7112206922c9d5a87adad6f2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1f0bff7112206922c9d5a87adad6f2b">&#9670;&nbsp;</a></span>status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool status</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The player status, alive (1) or dead (0) </p>
+
+<p class="definition">Definition at line <a class="el" href="player_8h_source.html#l00044">44</a> of file <a class="el" href="player_8h_source.html">player.h</a>.</p>
 
 </div>
 </div>

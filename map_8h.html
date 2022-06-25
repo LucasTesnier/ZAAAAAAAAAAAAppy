@@ -113,7 +113,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <area shape="rect" title=" " alt="" coords="5026,5,5185,47"/>
 <area shape="rect" href="forward__command_8c.html" title=" " alt="" coords="5,288,189,344"/>
 <area shape="rect" href="server_8h.html" title=" " alt="" coords="4663,95,4825,136"/>
-<area shape="rect" href="ressource__generation_8c.html" title=" " alt="" coords="6309,295,6518,337"/>
+<area shape="rect" href="resource__generation_8c.html" title=" " alt="" coords="6309,295,6512,337"/>
 <area shape="rect" href="map_8c.html" title=" " alt="" coords="5143,95,5302,136"/>
 <area shape="rect" href="map__utils_8c.html" title=" " alt="" coords="5326,95,5485,136"/>
 <area shape="rect" href="argument__handling_8c.html" title=" " alt="" coords="3065,191,3260,233"/>
@@ -171,9 +171,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa84ee990caf6ae9d59f3726c46891b8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="entity_8h.html#ad0c3149de5542539dcb5c9251c68fbd2">entity_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8h.html#aa84ee990caf6ae9d59f3726c46891b8c">get_tile</a> (<a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *map, int x, int y)</td></tr>
 <tr class="memdesc:aa84ee990caf6ae9d59f3726c46891b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a tile from the map given its coordinates.  <a href="map_8h.html#aa84ee990caf6ae9d59f3726c46891b8c">More...</a><br /></td></tr>
 <tr class="separator:aa84ee990caf6ae9d59f3726c46891b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2da7bc67e564f262ee964ba08f43163"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8h.html#ae2da7bc67e564f262ee964ba08f43163">generate_new_ressource</a> (<a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *map)</td></tr>
-<tr class="memdesc:ae2da7bc67e564f262ee964ba08f43163"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate new ressources on the map !  <a href="map_8h.html#ae2da7bc67e564f262ee964ba08f43163">More...</a><br /></td></tr>
-<tr class="separator:ae2da7bc67e564f262ee964ba08f43163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35dd23c479993a4c3a095d49acc614e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8h.html#a35dd23c479993a4c3a095d49acc614e2">generate_new_resource</a> (<a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *map, <a class="el" href="entity_8h.html#aa8f0e5e25ca59e0e6ffbc253c48e1760">entity_diff_t</a> *modified_entities)</td></tr>
+<tr class="memdesc:a35dd23c479993a4c3a095d49acc614e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate new resources on the map !  <a href="map_8h.html#a35dd23c479993a4c3a095d49acc614e2">More...</a><br /></td></tr>
+<tr class="separator:a35dd23c479993a4c3a095d49acc614e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a812fdfc9dc1dedd706429d3e2117c296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8h.html#a812fdfc9dc1dedd706429d3e2117c296">display_map</a> (<a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *map)</td></tr>
 <tr class="memdesc:a812fdfc9dc1dedd706429d3e2117c296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility function to print the map.  <a href="map_8h.html#a812fdfc9dc1dedd706429d3e2117c296">More...</a><br /></td></tr>
 <tr class="separator:a812fdfc9dc1dedd706429d3e2117c296"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,9 +230,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The newly created map or NULL if an error occured </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The newly created map or NULL if an error occurred </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00089">89</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00090">90</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
 
 </div>
 </div>
@@ -258,31 +258,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae2da7bc67e564f262ee964ba08f43163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2da7bc67e564f262ee964ba08f43163">&#9670;&nbsp;</a></span>generate_new_ressource()</h2>
+<a id="a35dd23c479993a4c3a095d49acc614e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35dd23c479993a4c3a095d49acc614e2">&#9670;&nbsp;</a></span>generate_new_resource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void generate_new_ressource </td>
+          <td class="memname">void generate_new_resource </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *&#160;</td>
-          <td class="paramname"><em>map</em></td><td>)</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="entity_8h.html#aa8f0e5e25ca59e0e6ffbc253c48e1760">entity_diff_t</a> *&#160;</td>
+          <td class="paramname"><em>modified_entities</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate new ressources on the map ! </p>
+<p>Generate new resources on the map ! </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">map</td><td>The map informations </td></tr>
+    <tr><td class="paramname">map</td><td>The map information's </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00071">71</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00072">72</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
 
 </div>
 </div>
@@ -327,9 +337,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The tile at the given coordinates or NULL if an error occured </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The tile at the given coordinates or NULL if an error occurred </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00080">80</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00081">81</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
 
 </div>
 </div>

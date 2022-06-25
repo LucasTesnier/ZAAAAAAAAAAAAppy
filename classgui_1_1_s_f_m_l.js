@@ -9,5 +9,7 @@ var classgui_1_1_s_f_m_l =
     [ "addTilesInfo", "classgui_1_1_s_f_m_l.html#a7492003eb5dda9644d23cdec846e1012", null ],
     [ "display", "classgui_1_1_s_f_m_l.html#a1e5b20fed15743656bb6d2e6a6ea6269", null ],
     [ "isRunning", "classgui_1_1_s_f_m_l.html#ad619b8b51adc7874204abd71080cd90e", null ],
-    [ "removeEntities", "classgui_1_1_s_f_m_l.html#a807b8a9a5b21a824a5ec01c0dc3c4410", null ]
+    [ "removeEgg", "classgui_1_1_s_f_m_l.html#a061857bc272c73de0ecb0c1e0c9e86cb", null ],
+    [ "removeEntities", "classgui_1_1_s_f_m_l.html#a807b8a9a5b21a824a5ec01c0dc3c4410", null ],
+    [ "removePlayer", "classgui_1_1_s_f_m_l.html#a0a4827ce6e3caa60681a270a56068e05", null ]
 ];

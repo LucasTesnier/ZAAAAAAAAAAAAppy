@@ -12,7 +12,7 @@ var dir_40efa13ea7c4fb5db39b43bbadf3772a =
     [ "map_utils.c", "map__utils_8c.html", "map__utils_8c" ],
     [ "my_zappy_server.c", "my__zappy__server_8c.html", "my__zappy__server_8c" ],
     [ "player_life.c", "player__life_8c.html", "player__life_8c" ],
-    [ "ressource_generation.c", "ressource__generation_8c.html", "ressource__generation_8c" ],
+    [ "resource_generation.c", "resource__generation_8c.html", "resource__generation_8c" ],
     [ "scheduler.c", "scheduler_8c.html", "scheduler_8c" ],
     [ "scheduler_delete.c", "scheduler__delete_8c.html", "scheduler__delete_8c" ],
     [ "server_data.c", "server__data_8c.html", "server__data_8c" ],

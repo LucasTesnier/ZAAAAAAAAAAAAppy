@@ -14,7 +14,9 @@ var classgui_1_1_map =
     [ "getSelectedTilePlayers", "classgui_1_1_map.html#a05c023a3aadeb17c702ec0d54691219d", null ],
     [ "getSelectedTilePos", "classgui_1_1_map.html#ab79128fe0deb4b9787a1a670357df99b", null ],
     [ "getTilesInfo", "classgui_1_1_map.html#a60a0567db8bf9d246fd037fe725db638", null ],
+    [ "removeEgg", "classgui_1_1_map.html#a061857bc272c73de0ecb0c1e0c9e86cb", null ],
     [ "removeEntities", "classgui_1_1_map.html#a807b8a9a5b21a824a5ec01c0dc3c4410", null ],
+    [ "removePlayer", "classgui_1_1_map.html#a0a4827ce6e3caa60681a270a56068e05", null ],
     [ "setEvent", "classgui_1_1_map.html#abfce24cd8a57fa33d6121b32dfa11c0b", null ],
     [ "setMapSize", "classgui_1_1_map.html#a783db250b028caef046b38f2e5e5ae0e", null ],
     [ "setWindow", "classgui_1_1_map.html#a08e8844dbb06e443aa34cd9bda79602b", null ]

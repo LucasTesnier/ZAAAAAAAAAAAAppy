@@ -90,6 +90,7 @@ $(document).ready(function(){initNavTree('map_8c.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="map_8h_source.html">map.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="container__manip_8h_source.html">container_manip.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="entity_8h_source.html">entity/entity.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="tile_8h_source.html">entity/tile.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="entity__types_8h_source.html">entity/entity_types.h</a>&quot;</code><br />
@@ -100,13 +101,14 @@ Include dependency graph for map.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="map_8c__incl.png" border="0" usemap="#src_2zappy__server__src_2core_2map_8c" alt=""/></div>
 <map name="src_2zappy__server__src_2core_2map_8c" id="src_2zappy__server__src_2core_2map_8c">
-<area shape="rect" title=" " alt="" coords="259,5,418,47"/>
-<area shape="rect" href="map_8h.html" title=" " alt="" coords="255,95,318,121"/>
+<area shape="rect" title=" " alt="" coords="314,5,473,47"/>
+<area shape="rect" href="map_8h.html" title=" " alt="" coords="191,95,254,121"/>
 <area shape="rect" href="entity_8h.html" title=" " alt="" coords="161,169,273,196"/>
 <area shape="rect" href="entity__types_8h.html" title="The entity type, defined in." alt="" coords="5,244,120,271"/>
-<area shape="rect" href="tile_8h.html" title=" " alt="" coords="342,95,439,121"/>
+<area shape="rect" href="container__manip_8h.html" title=" " alt="" coords="671,95,814,121"/>
+<area shape="rect" href="tile_8h.html" title=" " alt="" coords="345,95,442,121"/>
 <area shape="rect" title=" " alt="" coords="589,244,659,271"/>
-<area shape="rect" title=" " alt="" coords="671,95,737,121"/>
+<area shape="rect" title=" " alt="" coords="839,95,905,121"/>
 <area shape="rect" title=" " alt="" coords="145,244,245,271"/>
 <area shape="rect" title=" " alt="" coords="268,244,351,271"/>
 <area shape="rect" title=" " alt="" coords="375,244,470,271"/>
@@ -119,9 +121,9 @@ Include dependency graph for map.c:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae2da7bc67e564f262ee964ba08f43163"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8c.html#ae2da7bc67e564f262ee964ba08f43163">generate_new_ressource</a> (<a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *map)</td></tr>
-<tr class="memdesc:ae2da7bc67e564f262ee964ba08f43163"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate new ressources on the map !  <a href="map_8c.html#ae2da7bc67e564f262ee964ba08f43163">More...</a><br /></td></tr>
-<tr class="separator:ae2da7bc67e564f262ee964ba08f43163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35dd23c479993a4c3a095d49acc614e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8c.html#a35dd23c479993a4c3a095d49acc614e2">generate_new_resource</a> (<a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *map, <a class="el" href="entity_8h.html#aa8f0e5e25ca59e0e6ffbc253c48e1760">entity_diff_t</a> *modified_entities)</td></tr>
+<tr class="memdesc:a35dd23c479993a4c3a095d49acc614e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate new resources on the map !  <a href="map_8c.html#a35dd23c479993a4c3a095d49acc614e2">More...</a><br /></td></tr>
+<tr class="separator:a35dd23c479993a4c3a095d49acc614e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa84ee990caf6ae9d59f3726c46891b8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="entity_8h.html#ad0c3149de5542539dcb5c9251c68fbd2">entity_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8c.html#aa84ee990caf6ae9d59f3726c46891b8c">get_tile</a> (<a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *map, int x, int y)</td></tr>
 <tr class="memdesc:aa84ee990caf6ae9d59f3726c46891b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a tile from the map given its coordinates.  <a href="map_8c.html#aa84ee990caf6ae9d59f3726c46891b8c">More...</a><br /></td></tr>
 <tr class="separator:aa84ee990caf6ae9d59f3726c46891b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,37 +166,47 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The newly created map or NULL if an error occured </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The newly created map or NULL if an error occurred </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00089">89</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00090">90</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
 
 </div>
 </div>
-<a id="ae2da7bc67e564f262ee964ba08f43163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2da7bc67e564f262ee964ba08f43163">&#9670;&nbsp;</a></span>generate_new_ressource()</h2>
+<a id="a35dd23c479993a4c3a095d49acc614e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35dd23c479993a4c3a095d49acc614e2">&#9670;&nbsp;</a></span>generate_new_resource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void generate_new_ressource </td>
+          <td class="memname">void generate_new_resource </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="map_8h.html#ae80c6c8b9f9e5f88c65337bb1cd2eb65">map_t</a> *&#160;</td>
-          <td class="paramname"><em>map</em></td><td>)</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="entity_8h.html#aa8f0e5e25ca59e0e6ffbc253c48e1760">entity_diff_t</a> *&#160;</td>
+          <td class="paramname"><em>modified_entities</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate new ressources on the map ! </p>
+<p>Generate new resources on the map ! </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">map</td><td>The map informations </td></tr>
+    <tr><td class="paramname">map</td><td>The map information's </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00071">71</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00072">72</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
 
 </div>
 </div>
@@ -239,9 +251,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The tile at the given coordinates or NULL if an error occured </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The tile at the given coordinates or NULL if an error occurred </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00080">80</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="map_8c_source.html#l00081">81</a> of file <a class="el" href="map_8c_source.html">map.c</a>.</p>
 
 </div>
 </div>

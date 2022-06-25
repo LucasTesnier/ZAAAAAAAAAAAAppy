@@ -22,7 +22,7 @@
 <area shape="rect" id="node21" href="$take__command_8c.html" title=" " alt="" coords="4577,295,4822,337"/>
 <area shape="rect" id="node22" href="$turn__command_8c.html" title=" " alt="" coords="4846,295,5089,337"/>
 <area shape="rect" id="node23" href="$unexpected__send_8c.html" title=" " alt="" coords="5113,288,5323,344"/>
-<area shape="rect" id="node24" href="$end__game__gestion_8c.html" title=" " alt="" coords="6323,295,6515,337"/>
+<area shape="rect" id="node24" href="$end__game__gestion_8c.html" title=" " alt="" coords="6318,295,6510,337"/>
 <area shape="rect" id="node25" href="$server_8h.html" title=" " alt="" coords="5496,95,5657,136"/>
 <area shape="rect" id="node35" href="$team_8c.html" title=" " alt="" coords="6027,95,6185,136"/>
 <area shape="rect" id="node36" href="$teams__remove_8c.html" title=" " alt="" coords="6209,95,6376,136"/>
@@ -30,9 +30,9 @@
 <area shape="rect" id="node27" href="$command__hold_8c.html" title=" " alt="" coords="5348,295,5517,337"/>
 <area shape="rect" id="node28" href="$command__hold_8h.html" title=" " alt="" coords="3351,184,3525,240"/>
 <area shape="rect" id="node30" href="$player__life_8c.html" title=" " alt="" coords="5541,295,5700,337"/>
-<area shape="rect" id="node31" href="$ressource__generation_8c.html" title=" " alt="" coords="5724,295,5933,337"/>
-<area shape="rect" id="node32" href="$server__data_8c.html" title=" " alt="" coords="5957,295,6116,337"/>
-<area shape="rect" id="node33" href="$server__run_8c.html" title=" " alt="" coords="6140,295,6299,337"/>
+<area shape="rect" id="node31" href="$resource__generation_8c.html" title=" " alt="" coords="5725,295,5927,337"/>
+<area shape="rect" id="node32" href="$server__data_8c.html" title=" " alt="" coords="5952,295,6111,337"/>
+<area shape="rect" id="node33" href="$server__run_8c.html" title=" " alt="" coords="6135,295,6293,337"/>
 <area shape="rect" id="node34" href="$server__init_8c.html" title=" " alt="" coords="5792,191,5951,233"/>
 <area shape="rect" id="node29" href="$fork__utils_8c.html" title=" " alt="" coords="3500,295,3707,337"/>
 </map>

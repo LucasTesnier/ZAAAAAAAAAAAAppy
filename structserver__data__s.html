@@ -99,18 +99,19 @@ Collaboration diagram for server_data_s:</div>
 <div class="dyncontent">
 <div class="center"><img src="structserver__data__s__coll__graph.png" border="0" usemap="#server__data__s_coll__map" alt="Collaboration graph"/></div>
 <map name="server__data__s_coll__map" id="server__data__s_coll__map">
-<area shape="rect" title="Major data for the server." alt="" coords="423,273,537,300"/>
-<area shape="rect" href="structscheduler__s.html" title=" " alt="" coords="117,184,216,211"/>
-<area shape="rect" href="structargument__s.html" title="Different settings of the game." alt="" coords="240,184,339,211"/>
-<area shape="rect" href="structplayer__list__s.html" title="Node of a player list." alt="" coords="363,184,467,211"/>
-<area shape="rect" href="structentity__s.html" title="Represents a generic entity." alt="" coords="469,95,544,121"/>
-<area shape="rect" href="structmap__s.html" title="Represents the zappy map." alt="" coords="513,184,578,211"/>
-<area shape="rect" href="structposition__s.html" title="Represents a generic position in the game." alt="" coords="5,5,93,32"/>
-<area shape="rect" href="structcommand__data__s.html" title="Command informations and data." alt="" coords="190,95,327,121"/>
-<area shape="rect" href="structpeer__s.html" title="Represents a client connection." alt="" coords="362,95,427,121"/>
-<area shape="rect" href="structzappy__server__s.html" title="Wraps the application and network side of the zappy srever." alt="" coords="603,184,725,211"/>
-<area shape="rect" href="structtcp__server__s.html" title="Represents a basic tcp server." alt="" coords="631,95,735,121"/>
-<area shape="rect" href="structentity__wrapper__s.html" title="Entity wrapper used at the top level." alt="" coords="750,184,885,211"/>
+<area shape="rect" title="Major data for the server." alt="" coords="801,157,915,184"/>
+<area shape="rect" href="structscheduler__s.html" title=" " alt="" coords="519,5,618,32"/>
+<area shape="rect" href="structargument__s.html" title="Different settings of the game." alt="" coords="519,56,618,83"/>
+<area shape="rect" href="structplayer__list__s.html" title="Node of a player list." alt="" coords="517,208,621,235"/>
+<area shape="rect" href="structentity__s.html" title="Represents a generic entity." alt="" coords="230,124,305,151"/>
+<area shape="rect" href="structmap__s.html" title="Represents the zappy map." alt="" coords="536,157,601,184"/>
+<area shape="rect" href="structentity__diff__s.html" title="Wrapper around entity diffs between two server actions." alt="" coords="517,107,620,133"/>
+<area shape="rect" href="structposition__s.html" title="Represents a generic position in the game." alt="" coords="5,173,93,200"/>
+<area shape="rect" href="structcommand__data__s.html" title="Command information&#39;s and data." alt="" coords="199,256,336,283"/>
+<area shape="rect" href="structpeer__s.html" title="Represents a client connection." alt="" coords="235,307,300,333"/>
+<area shape="rect" href="structzappy__server__s.html" title="Wraps the application and network side of the zappy srever." alt="" coords="507,259,630,285"/>
+<area shape="rect" href="structtcp__server__s.html" title="Represents a basic tcp server." alt="" coords="215,357,319,384"/>
+<area shape="rect" href="structentity__wrapper__s.html" title="Entity wrapper used at the top level." alt="" coords="501,309,636,336"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -140,6 +141,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ab7aa6f97f572b5fb15937392de427123"><td class="memItemLeft" align="right" valign="top">struct teams_list_s&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structserver__data__s.html#ab7aa6f97f572b5fb15937392de427123">teams</a></td></tr>
 <tr class="memdesc:ab7aa6f97f572b5fb15937392de427123"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all the teams.  <a href="structserver__data__s.html#ab7aa6f97f572b5fb15937392de427123">More...</a><br /></td></tr>
 <tr class="separator:ab7aa6f97f572b5fb15937392de427123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a692a6a64d98270fd82dc76fc501654a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="entity_8h.html#aa8f0e5e25ca59e0e6ffbc253c48e1760">entity_diff_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">modified_entities</a></td></tr>
+<tr class="memdesc:a692a6a64d98270fd82dc76fc501654a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of the modified entities that will be sent to the GUI client.  <a href="structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0">More...</a><br /></td></tr>
+<tr class="separator:a692a6a64d98270fd82dc76fc501654a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Major data for the server. </p>
@@ -233,6 +237,24 @@ Data Fields</h2></td></tr>
 <p>Map of the game. </p>
 
 <p class="definition">Definition at line <a class="el" href="server_8h_source.html#l00093">93</a> of file <a class="el" href="server_8h_source.html">server.h</a>.</p>
+
+</div>
+</div>
+<a id="a692a6a64d98270fd82dc76fc501654a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a692a6a64d98270fd82dc76fc501654a0">&#9670;&nbsp;</a></span>modified_entities</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="entity_8h.html#aa8f0e5e25ca59e0e6ffbc253c48e1760">entity_diff_t</a>* modified_entities</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List of the modified entities that will be sent to the GUI client. </p>
+
+<p class="definition">Definition at line <a class="el" href="server_8h_source.html#l00101">101</a> of file <a class="el" href="server_8h_source.html">server.h</a>.</p>
 
 </div>
 </div>

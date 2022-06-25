@@ -1,4 +1,4 @@
 <map id="player_s" name="player_s">
-<area shape="rect" id="node1" title="Reprensents a player." alt="" coords="15,95,93,121"/>
+<area shape="rect" id="node1" title="Represents a player." alt="" coords="15,95,93,121"/>
 <area shape="rect" id="node2" href="$structcontainer__s.html" title="Generic type for items storage." alt="" coords="5,5,103,32"/>
 </map>

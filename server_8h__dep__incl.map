@@ -5,9 +5,9 @@
 <area shape="rect" id="node4" href="$end__game__gestion_8c.html" title=" " alt="" coords="199,206,391,247"/>
 <area shape="rect" id="node5" href="$command__hold_8h.html" title=" " alt="" coords="3376,95,3551,151"/>
 <area shape="rect" id="node29" href="$player__life_8c.html" title=" " alt="" coords="5759,206,5917,247"/>
-<area shape="rect" id="node30" href="$ressource__generation_8c.html" title=" " alt="" coords="5941,206,6151,247"/>
-<area shape="rect" id="node31" href="$server__data_8c.html" title=" " alt="" coords="6175,206,6333,247"/>
-<area shape="rect" id="node32" href="$server__run_8c.html" title=" " alt="" coords="6357,206,6516,247"/>
+<area shape="rect" id="node30" href="$resource__generation_8c.html" title=" " alt="" coords="5942,206,6145,247"/>
+<area shape="rect" id="node31" href="$server__data_8c.html" title=" " alt="" coords="6169,206,6328,247"/>
+<area shape="rect" id="node32" href="$server__run_8c.html" title=" " alt="" coords="6352,206,6511,247"/>
 <area shape="rect" id="node33" href="$server__init_8c.html" title=" " alt="" coords="4903,102,5061,143"/>
 <area shape="rect" id="node6" href="$auth__command_8c.html" title=" " alt="" coords="1568,206,1815,247"/>
 <area shape="rect" id="node7" href="$broadcast__command_8c.html" title=" " alt="" coords="1839,199,2037,255"/>

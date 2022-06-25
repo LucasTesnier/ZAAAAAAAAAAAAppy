@@ -36,7 +36,7 @@ var command__hold_8h =
     [ "process_eggs_inspection", "command__hold_8h.html#a25d7227133ecda6a20661162995fdce4", null ],
     [ "remove_player_from_team", "command__hold_8h.html#a2d52147697973cc4c3101121ed06e17e", null ],
     [ "scheduler_update_life", "command__hold_8h.html#ad6b3c59a382e039415f805d2a9d95200", null ],
-    [ "scheduler_update_ressource", "command__hold_8h.html#ae33f33b412a46ee007194789922a344c", null ],
+    [ "scheduler_update_resource", "command__hold_8h.html#a8521fb2d88b03730bab3906fdcb625b0", null ],
     [ "send_entities_list_info", "command__hold_8h.html#abb71006d2fedeccd16f91442eda120dd", null ],
     [ "send_game_paused", "command__hold_8h.html#a83fb53f194c85e3ee13a7de46ed02a83", null ],
     [ "send_game_started", "command__hold_8h.html#a44fbb0e804acfee0b0628fe2003a5050", null ],

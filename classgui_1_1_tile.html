@@ -193,6 +193,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9b94b164b0abfc66fdc925e2002ec138"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1_tile.html#a9b94b164b0abfc66fdc925e2002ec138">removeTileInfo</a> ()</td></tr>
 <tr class="memdesc:a9b94b164b0abfc66fdc925e2002ec138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all tile information that are stored.  <a href="classgui_1_1_tile.html#a9b94b164b0abfc66fdc925e2002ec138">More...</a><br /></td></tr>
 <tr class="separator:a9b94b164b0abfc66fdc925e2002ec138"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a4827ce6e3caa60681a270a56068e05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1_tile.html#a0a4827ce6e3caa60681a270a56068e05">removePlayer</a> (<a class="el" href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a> &amp;player)</td></tr>
+<tr class="separator:a0a4827ce6e3caa60681a270a56068e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061857bc272c73de0ecb0c1e0c9e86cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgui_1_1_tile.html#a061857bc272c73de0ecb0c1e0c9e86cb">removeEgg</a> (<a class="el" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> &amp;egg)</td></tr>
+<tr class="separator:a061857bc272c73de0ecb0c1e0c9e86cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for the tile that will be display on the map. </p>
@@ -265,7 +269,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Destructor of the tile. </p>
 
-<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00106">106</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00130">130</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
 
 </div>
 </div>
@@ -744,7 +748,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the mouse is on the tile, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00061">61</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00085">85</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
 
 </div>
 </div>
@@ -777,6 +781,26 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a061857bc272c73de0ecb0c1e0c9e86cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a061857bc272c73de0ecb0c1e0c9e86cb">&#9670;&nbsp;</a></span>removeEgg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void removeEgg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> &amp;&#160;</td>
+          <td class="paramname"><em>egg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00073">73</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a9bbdac2e74ead117966902bf32df95ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9bbdac2e74ead117966902bf32df95ed">&#9670;&nbsp;</a></span>removeEggs()</h2>
 
@@ -803,6 +827,26 @@ Public Member Functions</h2></td></tr>
 <p>Remove all eggs that are stored. </p>
 
 <p class="definition">Definition at line <a class="el" href="_tile_8hpp_source.html#l00195">195</a> of file <a class="el" href="_tile_8hpp_source.html">Tile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0a4827ce6e3caa60681a270a56068e05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a4827ce6e3caa60681a270a56068e05">&#9670;&nbsp;</a></span>removePlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void removePlayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a> &amp;&#160;</td>
+          <td class="paramname"><em>player</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00061">61</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
 
 </div>
 </div>
@@ -1211,7 +1255,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00096">96</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tile_8cpp_source.html#l00120">120</a> of file <a class="el" href="_tile_8cpp_source.html">Tile.cpp</a>.</p>
 
 </div>
 </div>

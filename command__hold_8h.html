@@ -155,9 +155,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <area shape="rect" href="unexpected__send_8c.html" title=" " alt="" coords="5307,109,5518,165"/>
 <area shape="rect" href="end__game__gestion_8c.html" title=" " alt="" coords="5542,117,5734,158"/>
 <area shape="rect" href="player__life_8c.html" title=" " alt="" coords="5759,117,5917,158"/>
-<area shape="rect" href="ressource__generation_8c.html" title=" " alt="" coords="5941,117,6151,158"/>
-<area shape="rect" href="server__data_8c.html" title=" " alt="" coords="6175,117,6333,158"/>
-<area shape="rect" href="server__run_8c.html" title=" " alt="" coords="6357,117,6516,158"/>
+<area shape="rect" href="resource__generation_8c.html" title=" " alt="" coords="5942,117,6145,158"/>
+<area shape="rect" href="server__data_8c.html" title=" " alt="" coords="6169,117,6328,158"/>
+<area shape="rect" href="server__run_8c.html" title=" " alt="" coords="6352,117,6511,158"/>
 </map>
 </div>
 </div>
@@ -276,9 +276,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ad6b3c59a382e039415f805d2a9d95200"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#ad6b3c59a382e039415f805d2a9d95200">scheduler_update_life</a> (<a class="el" href="scheduler_8h.html#a68cdda8d0ee6933abb7955521cae8a9d">scheduler_t</a> *self, <a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv)</td></tr>
 <tr class="memdesc:ad6b3c59a382e039415f805d2a9d95200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cross all the player and remove life.  <a href="command__hold_8h.html#ad6b3c59a382e039415f805d2a9d95200">More...</a><br /></td></tr>
 <tr class="separator:ad6b3c59a382e039415f805d2a9d95200"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae33f33b412a46ee007194789922a344c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#ae33f33b412a46ee007194789922a344c">scheduler_update_ressource</a> (<a class="el" href="scheduler_8h.html#a68cdda8d0ee6933abb7955521cae8a9d">scheduler_t</a> *self, <a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv)</td></tr>
-<tr class="memdesc:ae33f33b412a46ee007194789922a344c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate new ressources every 20 ticks.  <a href="command__hold_8h.html#ae33f33b412a46ee007194789922a344c">More...</a><br /></td></tr>
-<tr class="separator:ae33f33b412a46ee007194789922a344c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8521fb2d88b03730bab3906fdcb625b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#a8521fb2d88b03730bab3906fdcb625b0">scheduler_update_resource</a> (<a class="el" href="scheduler_8h.html#a68cdda8d0ee6933abb7955521cae8a9d">scheduler_t</a> *self, <a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv)</td></tr>
+<tr class="memdesc:a8521fb2d88b03730bab3906fdcb625b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate new ressources every 20 ticks.  <a href="command__hold_8h.html#a8521fb2d88b03730bab3906fdcb625b0">More...</a><br /></td></tr>
+<tr class="separator:a8521fb2d88b03730bab3906fdcb625b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1653b29cd4ded3e95be9252f919292e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="server_8h.html#a7bbfdf51731b99cd993077b5c53020ed">player_list_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#ae1653b29cd4ded3e95be9252f919292e">find_player_list_by_uuid</a> (<a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv, <a class="el" href="player_8h.html#aefdc4a36eee5199c976dfc9566db77bf">player_t</a> *tmp)</td></tr>
 <tr class="memdesc:ae1653b29cd4ded3e95be9252f919292e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the matched player_list of a player_t.  <a href="command__hold_8h.html#ae1653b29cd4ded3e95be9252f919292e">More...</a><br /></td></tr>
 <tr class="separator:ae1653b29cd4ded3e95be9252f919292e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -835,7 +835,7 @@ false When operation failed </dd></dl>
 <dd>
 false When operation failed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="incantation__command_8c_source.html#l00125">125</a> of file <a class="el" href="incantation__command_8c_source.html">incantation_command.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="incantation__command_8c_source.html#l00124">124</a> of file <a class="el" href="incantation__command_8c_source.html">incantation_command.c</a>.</p>
 
 </div>
 </div>
@@ -980,7 +980,7 @@ false When operation failed </dd></dl>
 <dd>
 false When operation failed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="join__command_8c_source.html#l00057">57</a> of file <a class="el" href="join__command_8c_source.html">join_command.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="join__command_8c_source.html#l00058">58</a> of file <a class="el" href="join__command_8c_source.html">join_command.c</a>.</p>
 
 </div>
 </div>
@@ -1943,7 +1943,7 @@ false When operation failed </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">self</td><td>The scheduler object </td></tr>
-    <tr><td class="paramname">serv</td><td>The server informations </td></tr>
+    <tr><td class="paramname">serv</td><td>The server information's </td></tr>
   </table>
   </dd>
 </dl>
@@ -1952,14 +1952,14 @@ false When operation failed </dd></dl>
 
 </div>
 </div>
-<a id="ae33f33b412a46ee007194789922a344c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae33f33b412a46ee007194789922a344c">&#9670;&nbsp;</a></span>scheduler_update_ressource()</h2>
+<a id="a8521fb2d88b03730bab3906fdcb625b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8521fb2d88b03730bab3906fdcb625b0">&#9670;&nbsp;</a></span>scheduler_update_resource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void scheduler_update_ressource </td>
+          <td class="memname">void scheduler_update_resource </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="scheduler_8h.html#a68cdda8d0ee6933abb7955521cae8a9d">scheduler_t</a> *&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -1987,7 +1987,7 @@ false When operation failed </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ressource__generation_8c_source.html#l00019">19</a> of file <a class="el" href="ressource__generation_8c_source.html">ressource_generation.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="resource__generation_8c_source.html#l00019">19</a> of file <a class="el" href="resource__generation_8c_source.html">resource_generation.c</a>.</p>
 
 </div>
 </div>
@@ -2111,7 +2111,7 @@ false When operation failed </dd></dl>
 <dd>
 false When operation failed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="map__info_8c_source.html#l00036">36</a> of file <a class="el" href="map__info_8c_source.html">map_info.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="map__info_8c_source.html#l00054">54</a> of file <a class="el" href="map__info_8c_source.html">map_info.c</a>.</p>
 
 </div>
 </div>

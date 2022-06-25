@@ -130,58 +130,57 @@ $(document).ready(function(){initNavTree('_minimap_8cpp_source.html',''); initRe
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">Minimap::removePlayer</a>(<span class="keyword">const</span> std::string &amp;name __attribute__((unused)))</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">Minimap::switchSize</a>(<span class="keywordtype">bool</span> state)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (state &amp;&amp; isSwitch == <span class="keyword">false</span>) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> (_minimapSize.x == 200 &amp;&amp; _minimapSize.y == 200)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            _minimapSize = sf::Vector2f(_window-&gt;getSize().x, _window-&gt;getSize().y - _window-&gt;getSize().y / 5);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            _minimapSize = {200, 200};</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        _updateConvexShape();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        isSwitch = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (state == <span class="keyword">false</span>)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        isSwitch = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;sf::Vector2f Minimap::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    sf::Vector2f point;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    point.x = cos((360 - angle.x / 2) * M_PI / 180) * vector.x - cos(angle.x / 2 * M_PI / 180) * vector.y;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    point.y = sin(angle.y / 2 * M_PI / 180) * vector.y + sin(angle.y / 2 * M_PI / 180) * vector.x;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> (point);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span> Minimap::_updateConvexShape()</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">float</span> max = (_mapSize.x &gt; _mapSize.y) ? _mapSize.x : _mapSize.y;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    sf::FloatRect area;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">float</span> ratio;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    _map.setPoint(0, _toIsometric(sf::Vector2f(0, 0), sf::Vector2f(45, 45)));</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    _map.setPoint(1, _toIsometric(sf::Vector2f(0, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    _map.setPoint(2, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    _map.setPoint(3, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 0), sf::Vector2f(45, 45)));</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    _minimap.setPosition(sf::Vector2f(_window-&gt;getSize().x - _minimapSize.x, _bottomMenuPosition.y - _minimapSize.y));</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    _minimap.setSize(_minimapSize);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    _minimap.setFillColor(sf::Color(100, 100, 100));</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    area = _map.getGlobalBounds();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (area.width &gt; area.height)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        ratio = _minimapSize.x / area.width;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        ratio = _minimapSize.y / area.height;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    _map.scale(sf::Vector2f(ratio, ratio));</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    _map.setPosition(sf::Vector2f(_minimap.getPosition().x - _map.getPoint(1).x * _map.getScale().x, _minimap.getPosition().y));</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">Minimap::switchSize</a>(<span class="keywordtype">bool</span> state)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> (state &amp;&amp; isSwitch == <span class="keyword">false</span>) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (_minimapSize.x == 200 &amp;&amp; _minimapSize.y == 200)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            _minimapSize = sf::Vector2f(_window-&gt;getSize().x, _window-&gt;getSize().y - _window-&gt;getSize().y / 5);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            _minimapSize = {200, 200};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        _updateConvexShape();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        isSwitch = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (state == <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        isSwitch = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;sf::Vector2f Minimap::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    sf::Vector2f point;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    point.x = cos((360 - angle.x / 2) * M_PI / 180) * vector.x - cos(angle.x / 2 * M_PI / 180) * vector.y;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    point.y = sin(angle.y / 2 * M_PI / 180) * vector.y + sin(angle.y / 2 * M_PI / 180) * vector.x;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> (point);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> Minimap::_updateConvexShape()</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">float</span> max = (_mapSize.x &gt; _mapSize.y) ? _mapSize.x : _mapSize.y;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    sf::FloatRect area;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">float</span> ratio;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    _map.setPoint(0, _toIsometric(sf::Vector2f(0, 0), sf::Vector2f(45, 45)));</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    _map.setPoint(1, _toIsometric(sf::Vector2f(0, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    _map.setPoint(2, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 200 / max * _mapSize.y), sf::Vector2f(45, 45)));</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    _map.setPoint(3, _toIsometric(sf::Vector2f(200 / max * _mapSize.x, 0), sf::Vector2f(45, 45)));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    _minimap.setPosition(sf::Vector2f(_window-&gt;getSize().x - _minimapSize.x, _bottomMenuPosition.y - _minimapSize.y));</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    _minimap.setSize(_minimapSize);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    _minimap.setFillColor(sf::Color(100, 100, 100));</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    area = _map.getGlobalBounds();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">if</span> (area.width &gt; area.height)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        ratio = _minimapSize.x / area.width;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        ratio = _minimapSize.y / area.height;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    _map.scale(sf::Vector2f(ratio, ratio));</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    _map.setPosition(sf::Vector2f(_minimap.getPosition().x - _map.getPoint(1).x * _map.getScale().x, _minimap.getPosition().y));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassgui_1_1_minimap_html_a1e5b20fed15743656bb6d2e6a6ea6269"><div class="ttname"><a href="classgui_1_1_minimap.html#a1e5b20fed15743656bb6d2e6a6ea6269">gui::Minimap::display</a></div><div class="ttdeci">void display()</div><div class="ttdoc">Display the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00036">Minimap.cpp:36</a></div></div>
 <div class="ttc" id="a_minimap_8hpp_html"><div class="ttname"><a href="_minimap_8hpp.html">Minimap.hpp</a></div></div>
 <div class="ttc" id="aclassgui_1_1_minimap_html_a3b31115ad03606ad142bbb7c8e47ce3c"><div class="ttname"><a href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">gui::Minimap::removePlayer</a></div><div class="ttdeci">void removePlayer(const std::string &amp;name)</div><div class="ttdoc">Remove a player from the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00043">Minimap.cpp:43</a></div></div>
-<div class="ttc" id="aclassgui_1_1_minimap_html_ad9de8a541e5c02c57f8da39d7f7d3419"><div class="ttname"><a href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">gui::Minimap::switchSize</a></div><div class="ttdeci">void switchSize(bool state)</div><div class="ttdoc">Switch the minimap size.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00048">Minimap.cpp:48</a></div></div>
+<div class="ttc" id="aclassgui_1_1_minimap_html_ad9de8a541e5c02c57f8da39d7f7d3419"><div class="ttname"><a href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">gui::Minimap::switchSize</a></div><div class="ttdeci">void switchSize(bool state)</div><div class="ttdoc">Switch the minimap size.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00047">Minimap.cpp:47</a></div></div>
 <div class="ttc" id="anamespacegui_html"><div class="ttname"><a href="namespacegui.html">gui</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8hpp_source.html#l00015">Animation.hpp:15</a></div></div>
 <div class="ttc" id="aclassgui_1_1_minimap_html_a505fb375b40ef6fdf058a352875c6e1b"><div class="ttname"><a href="classgui_1_1_minimap.html#a505fb375b40ef6fdf058a352875c6e1b">gui::Minimap::Minimap</a></div><div class="ttdeci">Minimap()</div><div class="ttdoc">Constructor of the Minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00015">Minimap.cpp:15</a></div></div>
 <!-- start footer part -->

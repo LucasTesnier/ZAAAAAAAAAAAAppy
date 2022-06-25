@@ -11,6 +11,7 @@ var annotated_dup =
     [ "command_data_s", "structcommand__data__s.html", "structcommand__data__s" ],
     [ "container_s", "structcontainer__s.html", "structcontainer__s" ],
     [ "egg_s", "structegg__s.html", "structegg__s" ],
+    [ "entity_diff_s", "structentity__diff__s.html", "structentity__diff__s" ],
     [ "entity_s", "structentity__s.html", "structentity__s" ],
     [ "entity_wrapper_s", "structentity__wrapper__s.html", "structentity__wrapper__s" ],
     [ "Event", "class_event.html", "class_event" ],

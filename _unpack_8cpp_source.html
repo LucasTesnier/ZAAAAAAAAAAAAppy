@@ -143,154 +143,162 @@ $(document).ready(function(){initNavTree('_unpack_8cpp_source.html',''); initRes
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">try</span> {</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">auto</span> player = stov(unpacked[1], <span class="charliteral">&#39;;&#39;</span>);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#addedc325647c3418987e77f5e1c8d534">_position</a> = std::make_pair(std::stoi(player[0]), std::stoi(player[1]));</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        player.clear();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        player = stov(unpacked[2], <span class="charliteral">&#39;}&#39;</span>);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#af01738a05c58c9e624d9f009e37777b2">_inventory</a> = UnpackInventory(player[0]);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">auto</span> p_end = stov(player[1], <span class="charliteral">&#39;;&#39;</span>);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#a9768c4edce2da49e0733bd5077654fe1">_team_name</a> = p_end[0];</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#ab753c56c3647c69d89760fb3fd19951f">_level</a> = std::stoi(p_end[1]);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#a2879b27d02de38e37499a7212d8e2377">_orientation</a> = gui::entity::mapOrientation.find(p_end[2])-&gt;second;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Player invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> Unpack::UnpackTile(std::vector&lt;std::string&gt; &amp;unpacked)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> t;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">auto</span> tile = stov(unpacked[1], <span class="charliteral">&#39;;&#39;</span>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        t.<a class="code" href="classgui_1_1entity_1_1_tile.html#addedc325647c3418987e77f5e1c8d534">_position</a> = std::make_pair(std::stoi(tile[0]), std::stoi(tile[1]));</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        tile.clear();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        tile = stov(unpacked[2], <span class="charliteral">&#39;}&#39;</span>);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        t.<a class="code" href="classgui_1_1entity_1_1_tile.html#af01738a05c58c9e624d9f009e37777b2">_inventory</a> = UnpackInventory(tile[0]);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Tile invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> t;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> Unpack::UnpackEgg(std::vector&lt;std::string&gt; &amp;unpacked)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;{</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> e;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">auto</span> egg = stov(unpacked[1], <span class="charliteral">&#39;;&#39;</span>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        e.<a class="code" href="classgui_1_1entity_1_1_egg.html#addedc325647c3418987e77f5e1c8d534">_position</a> = std::make_pair(std::stoi(egg[0]), std::stoi(egg[1]));</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        std::size_t pos = egg[2].find(<span class="stringliteral">&quot;}&quot;</span>);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        std::string team_name = egg[2].substr(0, pos);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        e.<a class="code" href="classgui_1_1entity_1_1_egg.html#a9768c4edce2da49e0733bd5077654fe1">_team_name</a> = team_name;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Egg invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> e;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> Unpack::UnpackStart(std::vector&lt;std::string&gt; &amp;unpacked)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> start;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#a45ed1b2976f986635a63b65d5fa72e6c">_uuid</a> = player[2];</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#a3648d241c5df7e4f16c743b5f082d35c">_statusPlayer</a> = std::stoi(player[3]);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        player.clear();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        player = stov(unpacked[2], <span class="charliteral">&#39;}&#39;</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#af01738a05c58c9e624d9f009e37777b2">_inventory</a> = UnpackInventory(player[0]);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">auto</span> p_end = stov(player[1], <span class="charliteral">&#39;;&#39;</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#a9768c4edce2da49e0733bd5077654fe1">_team_name</a> = p_end[0];</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#ab753c56c3647c69d89760fb3fd19951f">_level</a> = std::stoi(p_end[1]);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        p.<a class="code" href="classgui_1_1entity_1_1_player.html#a2879b27d02de38e37499a7212d8e2377">_orientation</a> = gui::entity::mapOrientation.find(p_end[2])-&gt;second;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Player invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> p;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> Unpack::UnpackTile(std::vector&lt;std::string&gt; &amp;unpacked)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> t;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">auto</span> tile = stov(unpacked[1], <span class="charliteral">&#39;;&#39;</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        t.<a class="code" href="classgui_1_1entity_1_1_tile.html#addedc325647c3418987e77f5e1c8d534">_position</a> = std::make_pair(std::stoi(tile[0]), std::stoi(tile[1]));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        tile.clear();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        tile = stov(unpacked[2], <span class="charliteral">&#39;}&#39;</span>);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        t.<a class="code" href="classgui_1_1entity_1_1_tile.html#af01738a05c58c9e624d9f009e37777b2">_inventory</a> = UnpackInventory(tile[0]);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Tile invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> t;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> Unpack::UnpackEgg(std::vector&lt;std::string&gt; &amp;unpacked)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;{</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> e;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">auto</span> egg = stov(unpacked[1], <span class="charliteral">&#39;;&#39;</span>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        e.<a class="code" href="classgui_1_1entity_1_1_egg.html#addedc325647c3418987e77f5e1c8d534">_position</a> = std::make_pair(std::stoi(egg[0]), std::stoi(egg[1]));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        e.<a class="code" href="classgui_1_1entity_1_1_egg.html#a45ed1b2976f986635a63b65d5fa72e6c">_uuid</a> = egg[2];</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        e.<a class="code" href="classgui_1_1entity_1_1_egg.html#a72c20aae054783e3dff78a463ee2ef8b">_statusEgg</a> = std::stoi(egg[3]);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        std::size_t pos = egg[4].find(<span class="stringliteral">&quot;}&quot;</span>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::string team_name = egg[4].substr(0, pos);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        e.<a class="code" href="classgui_1_1entity_1_1_egg.html#a9768c4edce2da49e0733bd5077654fe1">_team_name</a> = team_name;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Egg invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> e;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">auto</span> data = stov(unpacked[1], <span class="charliteral">&#39;;&#39;</span>);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#aec1dee03c858e0d3910c40c209890ab0">size_x</a> = std::stoi(data[0]);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#a22aeb82e7a98517be5f90c810e423af0">size_y</a> = std::stoi(data[1]);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#a55655bd98a90593c959502c5ed8afae7">team_number</a> = std::stoi(data[2]);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        data.clear();</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        data = stov(unpacked[2], <span class="charliteral">&#39;}&#39;</span>);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">auto</span> temp = stov(data[1], <span class="charliteral">&#39;;&#39;</span>);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#aa1772bcd232124fc8fd97013f40c4310">max_player</a> = std::stoi(temp[0]);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Start invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> start;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> Unpack::UnpackStatus(std::vector&lt;std::string&gt; &amp;unpacked)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;{</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> status;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> Unpack::UnpackStart(std::vector&lt;std::string&gt; &amp;unpacked)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> start;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">auto</span> data = stov(unpacked[1], <span class="charliteral">&#39;;&#39;</span>);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#aec1dee03c858e0d3910c40c209890ab0">size_x</a> = std::stoi(data[0]);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#a22aeb82e7a98517be5f90c810e423af0">size_y</a> = std::stoi(data[1]);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#a55655bd98a90593c959502c5ed8afae7">team_number</a> = std::stoi(data[2]);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        data.clear();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        data = stov(unpacked[2], <span class="charliteral">&#39;}&#39;</span>);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">auto</span> temp = stov(data[1], <span class="charliteral">&#39;;&#39;</span>);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        start.<a class="code" href="structgui_1_1unpack_1_1_start.html#aa1772bcd232124fc8fd97013f40c4310">max_player</a> = std::stoi(temp[0]);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Start invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> start;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">try</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keyword">auto</span> data = stov(unpacked[1], <span class="charliteral">&#39;:&#39;</span>);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        status.<a class="code" href="structgui_1_1entity_1_1_status.html#aefa59aed50857b4c5566c8ff7450b855">_status</a> = data[0];</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        std::size_t pos = data[1].find(<span class="stringliteral">&quot;}&quot;</span>);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        std::string team_name = data[1].substr(0, pos);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        status.<a class="code" href="structgui_1_1entity_1_1_status.html#a9768c4edce2da49e0733bd5077654fe1">_team_name</a> = team_name;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Status invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">return</span> status;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">  138</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a> &amp;p, std::string &amp;packed)</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;player&quot;</span>) {</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        p = UnpackPlayer(unpacked);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    } <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Player entity invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#afbf3f7f4b7e261600f40d4140f1a955b">  147</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> &amp;t, std::string &amp;packed)</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;tile&quot;</span>) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        t = UnpackTile(unpacked);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    } <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Tile entity invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#aa2846c427d98b212da3b8af5d397ff4d">  156</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> &amp;e, std::string &amp;packed)</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;{</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;egg&quot;</span>) {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        e = UnpackEgg(unpacked);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    } <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Egg entity invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#a1863152421a1e6b895dbcb7592a889b2">  165</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> &amp;e, std::string &amp;packed)</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;{</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;start&quot;</span>) {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        e = UnpackStart(unpacked);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    } <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Start entity invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#a277233781dbaa20181235b5fbf987eac">  174</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> &amp;s, std::string &amp;packed)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;{</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;status&quot;</span>) {</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        s = UnpackStatus(unpacked);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    } <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Start entity invalid parsing&quot;</span>));</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> Unpack::UnpackStatus(std::vector&lt;std::string&gt; &amp;unpacked)</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;{</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> status;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">try</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keyword">auto</span> data = stov(unpacked[1], <span class="charliteral">&#39;:&#39;</span>);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        status.<a class="code" href="structgui_1_1entity_1_1_status.html#aefa59aed50857b4c5566c8ff7450b855">_status</a> = data[0];</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        std::size_t pos = data[1].find(<span class="stringliteral">&quot;}&quot;</span>);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        std::string team_name = data[1].substr(0, pos);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        status.<a class="code" href="structgui_1_1entity_1_1_status.html#a9768c4edce2da49e0733bd5077654fe1">_team_name</a> = team_name;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    } <span class="keywordflow">catch</span>(...) {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Status invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> status;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">  142</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a> &amp;p, std::string &amp;packed)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;{</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;player&quot;</span>) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        p = UnpackPlayer(unpacked);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    } <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Player entity invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#afbf3f7f4b7e261600f40d4140f1a955b">  151</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a> &amp;t, std::string &amp;packed)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;tile&quot;</span>) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        t = UnpackTile(unpacked);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    } <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Tile entity invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#aa2846c427d98b212da3b8af5d397ff4d">  160</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a> &amp;e, std::string &amp;packed)</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;{</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;egg&quot;</span>) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        e = UnpackEgg(unpacked);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    } <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Egg entity invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#a1863152421a1e6b895dbcb7592a889b2">  169</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="structgui_1_1unpack_1_1_start.html">Start</a> &amp;e, std::string &amp;packed)</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;{</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;start&quot;</span>) {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        e = UnpackStart(unpacked);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    } <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Start entity invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;}</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="classgui_1_1unpack_1_1_unpack.html#a277233781dbaa20181235b5fbf987eac">  178</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">Unpack::UnpackEntity</a>(<a class="code" href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a> &amp;s, std::string &amp;packed)</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;{</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keyword">auto</span> unpacked = stov(packed, <span class="charliteral">&#39;{&#39;</span>);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">if</span> (unpacked[0] == <span class="stringliteral">&quot;status&quot;</span>) {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        s = UnpackStatus(unpacked);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    } <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">throw</span> (std::invalid_argument(<span class="stringliteral">&quot;Start entity invalid parsing&quot;</span>));</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassgui_1_1entity_1_1_tile_html_af01738a05c58c9e624d9f009e37777b2"><div class="ttname"><a href="classgui_1_1entity_1_1_tile.html#af01738a05c58c9e624d9f009e37777b2">gui::entity::Tile::_inventory</a></div><div class="ttdeci">std::vector&lt; int &gt; _inventory</div><div class="ttdoc">vector of int representating the inventory</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00089">Entity.hpp:89</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_tile_html_af01738a05c58c9e624d9f009e37777b2"><div class="ttname"><a href="classgui_1_1entity_1_1_tile.html#af01738a05c58c9e624d9f009e37777b2">gui::entity::Tile::_inventory</a></div><div class="ttdeci">std::vector&lt; int &gt; _inventory</div><div class="ttdoc">vector of int representating the inventory</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00103">Entity.hpp:103</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_aa1772bcd232124fc8fd97013f40c4310"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#aa1772bcd232124fc8fd97013f40c4310">gui::unpack::Start::max_player</a></div><div class="ttdeci">int max_player</div><div class="ttdoc">Max number of player in team.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00025">Unpack.hpp:25</a></div></div>
-<div class="ttc" id="astructgui_1_1entity_1_1_status_html_aefa59aed50857b4c5566c8ff7450b855"><div class="ttname"><a href="structgui_1_1entity_1_1_status.html#aefa59aed50857b4c5566c8ff7450b855">gui::entity::Status::_status</a></div><div class="ttdeci">std::string _status</div><div class="ttdoc">The status of the game win or loose.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00127">Entity.hpp:127</a></div></div>
-<div class="ttc" id="aclassgui_1_1entity_1_1_player_html_ab753c56c3647c69d89760fb3fd19951f"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#ab753c56c3647c69d89760fb3fd19951f">gui::entity::Player::_level</a></div><div class="ttdeci">int _level</div><div class="ttdoc">level of the player</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00050">Entity.hpp:50</a></div></div>
+<div class="ttc" id="astructgui_1_1entity_1_1_status_html_aefa59aed50857b4c5566c8ff7450b855"><div class="ttname"><a href="structgui_1_1entity_1_1_status.html#aefa59aed50857b4c5566c8ff7450b855">gui::entity::Status::_status</a></div><div class="ttdeci">std::string _status</div><div class="ttdoc">The status of the game win or loose.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00150">Entity.hpp:150</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_player_html_ab753c56c3647c69d89760fb3fd19951f"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#ab753c56c3647c69d89760fb3fd19951f">gui::entity::Player::_level</a></div><div class="ttdeci">int _level</div><div class="ttdoc">level of the player</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00054">Entity.hpp:54</a></div></div>
 <div class="ttc" id="anamespacegui_1_1unpack_html"><div class="ttname"><a href="namespacegui_1_1unpack.html">gui::unpack</a></div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00015">Unpack.hpp:15</a></div></div>
-<div class="ttc" id="aclassgui_1_1entity_1_1_tile_html"><div class="ttname"><a href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00080">Entity.hpp:80</a></div></div>
-<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00102">Entity.hpp:102</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_tile_html"><div class="ttname"><a href="classgui_1_1entity_1_1_tile.html">gui::entity::Tile</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00094">Entity.hpp:94</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html_a72c20aae054783e3dff78a463ee2ef8b"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html#a72c20aae054783e3dff78a463ee2ef8b">gui::entity::Egg::_statusEgg</a></div><div class="ttdeci">bool _statusEgg</div><div class="ttdoc">status of the egg, true if it has hatch, false otherwise</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00129">Entity.hpp:129</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html">gui::entity::Egg</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00116">Entity.hpp:116</a></div></div>
 <div class="ttc" id="aclassgui_1_1entity_1_1_player_html_addedc325647c3418987e77f5e1c8d534"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#addedc325647c3418987e77f5e1c8d534">gui::entity::Player::_position</a></div><div class="ttdeci">std::pair&lt; int, int &gt; _position</div><div class="ttdoc">vector of pair containing the position x and y</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00044">Entity.hpp:44</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html">gui::unpack::Start</a></div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00016">Unpack.hpp:16</a></div></div>
-<div class="ttc" id="aclassgui_1_1entity_1_1_tile_html_addedc325647c3418987e77f5e1c8d534"><div class="ttname"><a href="classgui_1_1entity_1_1_tile.html#addedc325647c3418987e77f5e1c8d534">gui::entity::Tile::_position</a></div><div class="ttdeci">std::pair&lt; int, int &gt; _position</div><div class="ttdoc">vector of pair containing the position x and y</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00087">Entity.hpp:87</a></div></div>
-<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html_addedc325647c3418987e77f5e1c8d534"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html#addedc325647c3418987e77f5e1c8d534">gui::entity::Egg::_position</a></div><div class="ttdeci">std::pair&lt; int, int &gt; _position</div><div class="ttdoc">vector of pair containing the position x and y</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00109">Entity.hpp:109</a></div></div>
-<div class="ttc" id="aclassgui_1_1entity_1_1_player_html_a2879b27d02de38e37499a7212d8e2377"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#a2879b27d02de38e37499a7212d8e2377">gui::entity::Player::_orientation</a></div><div class="ttdeci">player_orientation_e _orientation</div><div class="ttdoc">orientation of the player</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00052">Entity.hpp:52</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_tile_html_addedc325647c3418987e77f5e1c8d534"><div class="ttname"><a href="classgui_1_1entity_1_1_tile.html#addedc325647c3418987e77f5e1c8d534">gui::entity::Tile::_position</a></div><div class="ttdeci">std::pair&lt; int, int &gt; _position</div><div class="ttdoc">vector of pair containing the position x and y</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00101">Entity.hpp:101</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html_a45ed1b2976f986635a63b65d5fa72e6c"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html#a45ed1b2976f986635a63b65d5fa72e6c">gui::entity::Egg::_uuid</a></div><div class="ttdeci">std::string _uuid</div><div class="ttdoc">string representating the uuid</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00127">Entity.hpp:127</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html_addedc325647c3418987e77f5e1c8d534"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html#addedc325647c3418987e77f5e1c8d534">gui::entity::Egg::_position</a></div><div class="ttdeci">std::pair&lt; int, int &gt; _position</div><div class="ttdoc">vector of pair containing the position x and y</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00123">Entity.hpp:123</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_player_html_a2879b27d02de38e37499a7212d8e2377"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#a2879b27d02de38e37499a7212d8e2377">gui::entity::Player::_orientation</a></div><div class="ttdeci">player_orientation_e _orientation</div><div class="ttdoc">orientation of the player</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00056">Entity.hpp:56</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_aec1dee03c858e0d3910c40c209890ab0"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#aec1dee03c858e0d3910c40c209890ab0">gui::unpack::Start::size_x</a></div><div class="ttdeci">int size_x</div><div class="ttdoc">The width of the map.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00018">Unpack.hpp:18</a></div></div>
-<div class="ttc" id="astructgui_1_1entity_1_1_status_html"><div class="ttname"><a href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00124">Entity.hpp:124</a></div></div>
+<div class="ttc" id="astructgui_1_1entity_1_1_status_html"><div class="ttname"><a href="structgui_1_1entity_1_1_status.html">gui::entity::Status</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00147">Entity.hpp:147</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_player_html_a3648d241c5df7e4f16c743b5f082d35c"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#a3648d241c5df7e4f16c743b5f082d35c">gui::entity::Player::_statusPlayer</a></div><div class="ttdeci">bool _statusPlayer</div><div class="ttdoc">bool representating the status of the player</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00052">Entity.hpp:52</a></div></div>
 <div class="ttc" id="aclassgui_1_1entity_1_1_player_html"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html">gui::entity::Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00037">Entity.hpp:37</a></div></div>
-<div class="ttc" id="astructgui_1_1entity_1_1_status_html_a9768c4edce2da49e0733bd5077654fe1"><div class="ttname"><a href="structgui_1_1entity_1_1_status.html#a9768c4edce2da49e0733bd5077654fe1">gui::entity::Status::_team_name</a></div><div class="ttdeci">std::string _team_name</div><div class="ttdoc">the name of the team who won or lost</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00129">Entity.hpp:129</a></div></div>
+<div class="ttc" id="astructgui_1_1entity_1_1_status_html_a9768c4edce2da49e0733bd5077654fe1"><div class="ttname"><a href="structgui_1_1entity_1_1_status.html#a9768c4edce2da49e0733bd5077654fe1">gui::entity::Status::_team_name</a></div><div class="ttdeci">std::string _team_name</div><div class="ttdoc">the name of the team who won or lost</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00152">Entity.hpp:152</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_a22aeb82e7a98517be5f90c810e423af0"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#a22aeb82e7a98517be5f90c810e423af0">gui::unpack::Start::size_y</a></div><div class="ttdeci">int size_y</div><div class="ttdoc">The height of the map.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00020">Unpack.hpp:20</a></div></div>
 <div class="ttc" id="a_unpack_8hpp_html"><div class="ttname"><a href="_unpack_8hpp.html">Unpack.hpp</a></div></div>
-<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html_a9768c4edce2da49e0733bd5077654fe1"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html#a9768c4edce2da49e0733bd5077654fe1">gui::entity::Egg::_team_name</a></div><div class="ttdeci">std::string _team_name</div><div class="ttdoc">string representating the team</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00111">Entity.hpp:111</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_egg_html_a9768c4edce2da49e0733bd5077654fe1"><div class="ttname"><a href="classgui_1_1entity_1_1_egg.html#a9768c4edce2da49e0733bd5077654fe1">gui::entity::Egg::_team_name</a></div><div class="ttdeci">std::string _team_name</div><div class="ttdoc">string representating the team</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00125">Entity.hpp:125</a></div></div>
 <div class="ttc" id="astructgui_1_1unpack_1_1_start_html_a55655bd98a90593c959502c5ed8afae7"><div class="ttname"><a href="structgui_1_1unpack_1_1_start.html#a55655bd98a90593c959502c5ed8afae7">gui::unpack::Start::team_number</a></div><div class="ttdeci">int team_number</div><div class="ttdoc">The number of team.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8hpp_source.html#l00022">Unpack.hpp:22</a></div></div>
+<div class="ttc" id="aclassgui_1_1entity_1_1_player_html_a45ed1b2976f986635a63b65d5fa72e6c"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#a45ed1b2976f986635a63b65d5fa72e6c">gui::entity::Player::_uuid</a></div><div class="ttdeci">std::string _uuid</div><div class="ttdoc">string representating the uuid</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00050">Entity.hpp:50</a></div></div>
 <div class="ttc" id="a_zappy_gui_exception_8hpp_html"><div class="ttname"><a href="_zappy_gui_exception_8hpp.html">ZappyGuiException.hpp</a></div></div>
-<div class="ttc" id="aclassgui_1_1unpack_1_1_unpack_html_a7dda6a6af28650fbb868930c0f4ea9a2"><div class="ttname"><a href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">gui::unpack::Unpack::UnpackEntity</a></div><div class="ttdeci">void UnpackEntity(gui::entity::Player &amp;p, std::string &amp;packed)</div><div class="ttdoc">Unpack an entity player from a packed string.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8cpp_source.html#l00138">Unpack.cpp:138</a></div></div>
+<div class="ttc" id="aclassgui_1_1unpack_1_1_unpack_html_a7dda6a6af28650fbb868930c0f4ea9a2"><div class="ttname"><a href="classgui_1_1unpack_1_1_unpack.html#a7dda6a6af28650fbb868930c0f4ea9a2">gui::unpack::Unpack::UnpackEntity</a></div><div class="ttdeci">void UnpackEntity(gui::entity::Player &amp;p, std::string &amp;packed)</div><div class="ttdoc">Unpack an entity player from a packed string.</div><div class="ttdef"><b>Definition:</b> <a href="_unpack_8cpp_source.html#l00142">Unpack.cpp:142</a></div></div>
 <div class="ttc" id="aclassgui_1_1entity_1_1_player_html_a9768c4edce2da49e0733bd5077654fe1"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#a9768c4edce2da49e0733bd5077654fe1">gui::entity::Player::_team_name</a></div><div class="ttdeci">std::string _team_name</div><div class="ttdoc">string representating the team</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00048">Entity.hpp:48</a></div></div>
 <div class="ttc" id="aclassgui_1_1entity_1_1_player_html_af01738a05c58c9e624d9f009e37777b2"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#af01738a05c58c9e624d9f009e37777b2">gui::entity::Player::_inventory</a></div><div class="ttdeci">std::vector&lt; int &gt; _inventory</div><div class="ttdoc">vector of int representating the inventory</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00046">Entity.hpp:46</a></div></div>
 <!-- start footer part -->
