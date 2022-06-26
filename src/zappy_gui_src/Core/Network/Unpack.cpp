@@ -181,5 +181,5 @@ void Unpack::UnpackEntity(gui::entity::Status &s, std::string &packed)
     if (unpacked[0] == "status") {
         s = UnpackStatus(unpacked);
     } else
-        throw (std::invalid_argument("Start entity invalid parsing"));
+        throw (std::invalid_argument("Status entity invalid parsing"));
 }

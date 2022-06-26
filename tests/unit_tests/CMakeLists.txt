@@ -22,3 +22,4 @@ function (create_test)
 endfunction()
 
 add_subdirectory(wrapper)
+add_subdirectory(gui_unpack)
