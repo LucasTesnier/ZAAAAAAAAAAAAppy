@@ -1,1 +1,2 @@
 add_subdirectory(unit_tests)
+add_subdirectory(zappy_ai_tests)
