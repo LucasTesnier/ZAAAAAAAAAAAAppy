@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import sys
+import sys, os
 
-sys.path.append('../')
+sys.path.insert(0, os.path.dirname("./../../src/zappy_ai_src/ai_handle_response.py"))
 
 from ai_handle_response import Map, Tile
 

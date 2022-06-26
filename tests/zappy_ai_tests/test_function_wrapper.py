@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import sys
+import sys, os
 
-sys.path.append('../')
+sys.path.insert(0, os.path.dirname("./../../src/zappy_ai_src/ai_function_wrapper.py"))
 
 from ai_function_wrapper import ServerWrapper
 
@@ -12,7 +12,7 @@ def server_wrapper_test(lib_path : str) -> ServerWrapper:
 
 def test_default():
     """ Main Function """
-    Test1 : ServerWrapper = server_wrapper_test("./TestLib.so")
+    Test1 : ServerWrapper = server_wrapper_test("./tests_lib/TestLib.so.so")
     assert(Test1.getNecessaryFunctions() == False)
 
 def test_unexisting():
@@ -20,5 +20,5 @@ def test_unexisting():
     assert(Test2.getNecessaryFunctions() == False)
 
 def test_valid():
-    Test3 : ServerWrapper = server_wrapper_test("./../libzappy_ai_api.so")
+    Test3 : ServerWrapper = server_wrapper_test("./tests_lib/libzappy_ai_api.so")
     assert(Test3.getNecessaryFunctions() == True)

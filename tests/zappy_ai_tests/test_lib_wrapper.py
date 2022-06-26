@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import sys
+import sys, os
 
-sys.path.append('../')
+sys.path.insert(0, os.path.dirname("./../../src/zappy_ai_src/ai_DLLib_wrapper.py"))
 
 from ai_DLLib_wrapper import DLLibWrapper
 
@@ -18,7 +18,7 @@ def test_unexisting_lib():
         assert(e.args == ('./unexisting_lib.so: cannot open shared object file: No such file or directory', ))
 
 def test_existing_lib():
-    Test2 : DLLibWrapper = lib_test("./../libzappy_ai_api.so")
+    Test2 : DLLibWrapper = lib_test("./tests_lib/libzappy_ai_api.so")
     try:
         Test2.openLibrary()
     except:
@@ -29,7 +29,7 @@ def test_existing_lib():
     assert 0 == 0
 
 def test_get_function_from_lib():
-    Test3 : DLLibWrapper = lib_test("./../libzappy_ai_api.so")
+    Test3 : DLLibWrapper = lib_test("./tests_lib/libzappy_ai_api.so")
     try:
         Test3.openLibrary()
         ptr = Test3.getFunctionFromLibrary("c_interface_ask_join")
