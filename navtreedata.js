@@ -29,10 +29,11 @@ var NAVTREE =
         [ "Prerequisites", "index.html#autotoc_md1", null ],
         [ "Building program", "index.html#autotoc_md2", null ],
         [ "Testing program", "index.html#autotoc_md3", null ],
-        [ "Coding Style", "index.html#autotoc_md4", null ]
+        [ "Coding Style", "index.html#autotoc_md4", null ],
+        [ "RFC Protocol", "index.html#autotoc_md5", null ]
       ] ],
-      [ "Thank for reading", "index.html#autotoc_md5", null ],
-      [ "Authors", "index.html#autotoc_md6", null ],
+      [ "Thank for reading", "index.html#autotoc_md6", null ],
+      [ "Authors", "index.html#autotoc_md7", null ],
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
@@ -74,8 +75,8 @@ var NAVTREEINDEX =
 "classai__handle__response_1_1_inventory.html#a4fd669224dbb4080badbd2f9598ebf90",
 "cmake__error_8c.html",
 "forward__command_8c_source.html",
-"pack_8h.html#a0fcf550a4977ab39c89ad15f8717f11d",
-"structscheduler__event__s.html",
+"pack_8h.html",
+"structretcodes__s.html#acb63ca32f0302b8f9eaeeca4cf1fa8bc",
 "zappy__gui__src_2_core_2_network_2api_2include_2intern__data_8h.html#abdf8ea6a1e9b4e5228421e6ae9e8c376afb6b839a96a9da95547956098b7606ef"
 ];
 

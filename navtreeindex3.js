@@ -149,8 +149,9 @@ var NAVTREEINDEX3 =
 "index.html#autotoc_md2":[0,1],
 "index.html#autotoc_md3":[0,2],
 "index.html#autotoc_md4":[0,3],
-"index.html#autotoc_md5":[1],
-"index.html#autotoc_md6":[2],
+"index.html#autotoc_md5":[0,4],
+"index.html#autotoc_md6":[1],
+"index.html#autotoc_md7":[2],
 "inventory__command_8c.html":[3,0,0,2,0,0,12],
 "inventory__command_8c.html#a09cdfcef46c8c4b8ceaf18f4142f790e":[3,0,0,2,0,0,12,1],
 "inventory__command_8c.html#aef758ddcb8cf12bf764d3f919f0ccf4f":[3,0,0,2,0,0,12,0],
@@ -206,10 +207,10 @@ var NAVTREEINDEX3 =
 "namespaceai___d_l_lib__wrapper.html":[1,3,2],
 "namespaceai__broadcast__to__object.html":[1,3,0],
 "namespaceai__broadcast__to__object.html":[2,0,0],
-"namespaceai__core.html":[1,3,1],
 "namespaceai__core.html":[2,0,1],
-"namespaceai__function__wrapper.html":[2,0,3],
+"namespaceai__core.html":[1,3,1],
 "namespaceai__function__wrapper.html":[1,3,3],
+"namespaceai__function__wrapper.html":[2,0,3],
 "namespaceai__handle__response.html":[1,3,4],
 "namespaceai__handle__response.html":[2,0,4],
 "namespaceai__safe__error.html":[1,3,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "pack_8c.html#ac2302f1705bb0a254e7299ec9bf80c9e":[3,0,0,2,0,1,9,1],
 "pack_8c.html#ae578b1ec2f00c9e14894b3e33bf261ea":[3,0,0,2,0,1,9,3],
 "pack_8c.html#aebb28d2ff8ba85cdfc24ecd7c42d7822":[3,0,0,2,0,1,9,4],
-"pack_8c_source.html":[3,0,0,2,0,1,9],
-"pack_8h.html":[3,0,0,2,0,2,0,3]
+"pack_8c_source.html":[3,0,0,2,0,1,9]
 };
