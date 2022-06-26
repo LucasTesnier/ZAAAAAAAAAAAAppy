@@ -28,7 +28,8 @@ SFML::SFML(const sf::Vector2f mapSize) : _run(true)
     _interface.setWindow(_window);
     _interface.setMapSize(mapSize);
     _runIntroMenu = true;
-    _introMenuShape.second.loadFromFile("assets/logo.png");
+    if (!_introMenuShape.second.loadFromFile("assets/logo.png"))
+        return;
     _introMenuShape.first.setTexture(&_introMenuShape.second);
     _introMenuShape.first.setSize(sf::Vector2f(_window.get()->getSize().x / 100, _window.get()->getSize().y / 100));
     _introMenuShape.first.setPosition(sf::Vector2f(_window.get()->getSize().x / 2, _window.get()->getSize().y / 2) - sf::Vector2f(_introMenuShape.first.getSize().x / 2, _introMenuShape.first.getSize().y / 2));
