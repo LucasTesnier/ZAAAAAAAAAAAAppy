@@ -73,10 +73,10 @@ var NAVTREEINDEX =
 "_animation_8cpp.html",
 "classai__handle__response_1_1_inventory.html#a6092e59d9e0c56b01e7b4a65f3b4be7f",
 "cmake__error_8c_source.html",
-"functions_d.html",
-"pack_8h.html#a757740bc8b4c2fbbe044e798c29a19bd",
-"structscheduler__s.html#a100f588aec3a1db6d5c7de1d31887c1d",
-"zappy__gui__src_2_core_2_network_2net__utils_2client__utils_8c.html#a986aac3fabf3da548bbd880233d6d6ab"
+"functions.html",
+"pack_8h.html#a51032ba76b388e53308850a0c8261fc9",
+"structscheduler__event__s.html#a8d0065299615176169ceac2c65f38365",
+"zappy__gui__src_2_core_2_network_2api_2include_2intern__data_8h.html#abec40bf2dbe728894027978533cc097a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

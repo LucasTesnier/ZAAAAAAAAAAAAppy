@@ -16,6 +16,7 @@ var entity_8h =
     [ "destroy_entity_diff", "entity_8h.html#ac5a506d833c71d0e1933a37613db34fe", null ],
     [ "entity_diff_add_entity", "entity_8h.html#a92cf4cfe03e6acf87620efd28dfb434c", null ],
     [ "entity_diff_expand_size", "entity_8h.html#ac6efb67dfb7e62b1fd1b5b1a8f0cec7d", null ],
+    [ "entity_diff_remove_entity", "entity_8h.html#a012a7f21685b0d2d7bf030c154a5b10f", null ],
     [ "entity_diff_reset", "entity_8h.html#a391bf5c45ad276bdf6fae1eff7fece6d", null ],
     [ "entity_set_data", "entity_8h.html#ae20be6cd08b14e264db9b19aac40a275", null ],
     [ "entity_wrapper_add_egg", "entity_8h.html#ab9d8dd4aad5aca11377502c686c09a95", null ],
