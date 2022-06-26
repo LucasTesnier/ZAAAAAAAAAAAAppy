@@ -563,7 +563,7 @@ class Ai:
         elif direction == "east":
             self.__eastTravel(x, y)
 
-    def __getMovementArrayFromBroadcast(self, broadCastIndex: int) -> List[int, int]:
+    def __getMovementArrayFromBroadcast(self, broadCastIndex: int):
         """This function is used by AI to know which movements to do to reach its teammate
             return : movement_res[x, y]
                         where   x is the x-axis of the call
@@ -601,7 +601,9 @@ class Ai:
         REQUIRED_LEVEL = 3
         NB_PLAYERS = 4
         RESOURCE = 5
+        #message 22, A, 2, incantation, 2
         if response.startswith("message"):
+            response = response.split("message ")[1]
             infos = response.split(", ")
             team_name = infos[TEAM_NAME]
             try:
@@ -802,7 +804,7 @@ class Ai:
         if nb_forward_steps < 0:
             self.__turnLeft()
             nb_forward_steps *= -1
-        elif nb_forward_steps is 0:
+        elif nb_forward_steps == 0:
             return
         else:
             self.__turnRight()

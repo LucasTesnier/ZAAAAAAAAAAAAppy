@@ -22,10 +22,7 @@ bool send_game_paused(server_data_t *serv)
             break;
         }
     }
-    if (peer == NULL) {
-        dprintf(2, "No GUI client found.\n");
-        return false;
-    }
+
     return print_retcode(702, "status{game:paused}", peer, true);
 }
 
@@ -39,10 +36,7 @@ bool send_game_started(server_data_t *serv)
             break;
         }
     }
-    if (peer == NULL) {
-        dprintf(2, "No GUI client found.\n");
-        return false;
-    }
+
     return print_retcode(703, "status{game:start}", peer, true);
 }
 

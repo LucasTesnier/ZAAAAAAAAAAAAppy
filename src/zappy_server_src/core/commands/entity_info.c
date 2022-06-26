@@ -48,10 +48,7 @@ bool send_entities_list_info(server_data_t *serv)
             peer = serv->active_players[i]->player_peer;
             break;
         }
-    if (peer == NULL) {
-        dprintf(2, "No GUI client found.\n");
-        return false;
-    }
+
     temp = pack_all_entities(serv->entities);
     print_retcode(707, temp, peer, true);
     free(temp);

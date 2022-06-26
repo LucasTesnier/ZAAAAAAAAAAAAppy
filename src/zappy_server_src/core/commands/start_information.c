@@ -88,10 +88,7 @@ bool send_start_info(server_data_t *serv)
             peer = serv->active_players[i]->player_peer;
             break;
         }
-    if (peer == NULL) {
-        dprintf(2, "No GUI client found.\n");
-        return false;
-    }
+
     temp = pack_all_data(serv);
     print_retcode(701, temp, peer, true);
     free(temp);
