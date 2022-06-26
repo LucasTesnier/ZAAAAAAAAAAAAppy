@@ -463,7 +463,6 @@ class Ai:
 
     def __ejectManagement(self, orientation: str):
         """This function occurs when the player got ejected by another player"""
-        # TODO regarder ce que peut entrainer quand on se fait ejecter d'une case, je pense pas grand chose
         pass
 
     def __getDirectionOfTeammate(self, x: int, y: int) -> str:
@@ -852,7 +851,6 @@ class Ai:
         """This is the main function of aggressive strategy, it manages all actions to deny other teams
             and then avoid their win
         """
-        # TODO @ref __broadCastResponseManagement
         self.__setStrategyMode(AiStrategy.AGGRESSIVE)
         self.__setAbleToMove(True)
 
@@ -870,7 +868,6 @@ class Ai:
         """This is used by the AI to request specific components from the team
             Param : component: str, representing the specific component needed by the AI
         """
-        # TODO : ça pourrait être cool de demander des composants à la team via le broadcast @ref RFC
         pass
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
@@ -886,7 +883,6 @@ class Ai:
             if component != "nothing":
                 break
         self.__setTargetComponent(self.__getRequiredComponent())
-        self.__setAbleToMove(True)
 
     def __findClosestTileFromComponent(self, component: str) -> int:
         """This is used by AI to find the closest tile depending on the component requested
