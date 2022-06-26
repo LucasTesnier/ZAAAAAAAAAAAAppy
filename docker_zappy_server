@@ -1,0 +1,9 @@
+from epitechcontent/epitest-docker:latest
+
+COPY src .
+COPY cmake .
+COPY CMakeLists.txt .
+
+RUN cmake . -B ./build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
+
+CMD ["cmake", "--build", "./build", "--target", "zappy_server"]
