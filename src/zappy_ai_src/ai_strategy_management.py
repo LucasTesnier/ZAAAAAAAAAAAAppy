@@ -444,8 +444,9 @@ class Ai:
         if response == "eject":
             self.__ejectManagement()
         if response.startswith("message:"):
-            print("ON RECOIT UN BROADCAST FREROT")
+            print("PARSING MESSAGE : OK")
             if self.__getInventory().GetFood() >= CAN_REACH_TEAMMATE:
+                print("TIME LIMIT : OK")
                 bc_infos = self.__broadCastResponseManagement(response)
                 self.__reachTeammate(self.__getMovementArrayFromBroadcast(bc_infos.pos))
 
@@ -676,13 +677,15 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        component = COMPONENT_LIST[
-            random.randint(0, 6)] if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
+        component = COMPONENT_LIST[random.randint(0, 6)] \
+            if self.__getTargetComponent() == "nothing" \
+            else self.__getTargetComponent()
         self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if not self.__lib.askTakeObject(component):
             safeExitError()
         self.__waitServerResponse()
-        self.__lib.getRepTakeObject()
+        if not self.__lib.getRepTakeObject():
+            self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if component == "food" and self.__getFoodStock():
             self.__decrFoodStock()
 
@@ -784,10 +787,10 @@ class Ai:
             return
         nb_forward_steps = 0
         front_tile_index = 0
-        for vector in reversed(PATH_REFERENCES[:]):
+        for vector in reversed(PATH_REFERENCES[1:]):
             if index <= vector.maxIndexInLine:
                 front_tile_index = vector.frontTileIndex
-                nb_forward_steps = PATH_REFERENCES.index(vector)
+                nb_forward_steps = vector
         for _ in range(0, nb_forward_steps):
             self.__forward()
         nb_forward_steps = index - front_tile_index
