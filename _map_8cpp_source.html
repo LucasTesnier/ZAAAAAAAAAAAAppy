@@ -101,10 +101,10 @@ $(document).ready(function(){initNavTree('_map_8cpp_source.html',''); initResiza
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacegui.html">gui</a>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="_map_8cpp.html#a25930311ca34925a3aa6c2be6f0b3114">   15</a></span>&#160;<span class="keyword">const</span> std::vector&lt;std::string&gt; <a class="code" href="_map_8cpp.html#a25930311ca34925a3aa6c2be6f0b3114">PLAYERS_PATH</a> = {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="stringliteral">&quot;assets/woman1.png&quot;</span>,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="stringliteral">&quot;assets/woman2.png&quot;</span>,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="stringliteral">&quot;assets/woman4.png&quot;</span>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="stringliteral">&quot;assets/woman3.png&quot;</span>,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="stringliteral">&quot;assets/yellow_woman1.png&quot;</span>,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="stringliteral">&quot;assets/yellow_woman2.png&quot;</span>,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="stringliteral">&quot;assets/yellow_woman4.png&quot;</span>,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="stringliteral">&quot;assets/yellow_woman3.png&quot;</span>,</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classgui_1_1_map.html#a49848ab3a0e1934c5615242b67af68c7">   22</a></span>&#160;<a class="code" href="classgui_1_1_map.html#a49848ab3a0e1934c5615242b67af68c7">Map::Map</a>()</div>
@@ -389,7 +389,7 @@ $(document).ready(function(){initNavTree('_map_8cpp_source.html',''); initResiza
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="keywordtype">void</span> Map::_displayPlayers(<a class="code" href="classgui_1_1_tile.html">Tile</a> &amp;tile)</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;{</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size()) {</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        _playerAnimation.<a class="code" href="classgui_1_1_animation.html#abe08fb450d7fe18d78e990016b2bb3d8">setSize</a>(sf::Vector2f(100, 100));</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        _playerAnimation.<a class="code" href="classgui_1_1_animation.html#abe08fb450d7fe18d78e990016b2bb3d8">setSize</a>(sf::Vector2f(40, 80));</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        _playerAnimation.<a class="code" href="classgui_1_1_animation.html#a21c2927f79b7e3644e27501b28dcc6ed">setDuration</a>(400);</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        _playerAnimation.<a class="code" href="classgui_1_1_animation.html#a02b5eb9e134b742292fc926c5149fd06">setPosition</a>({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 2 - _playerAnimation.<a class="code" href="classgui_1_1_animation.html#a3993d3bec15c8fedf8fd636b9c468209">getGlobalBounds</a>().width / 2, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top - 50});</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        _playerAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
