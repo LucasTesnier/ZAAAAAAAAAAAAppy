@@ -102,87 +102,103 @@ $(document).ready(function(){initNavTree('_minimap_8cpp_source.html',''); initRe
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="_minimap_8cpp.html#a6ff7e817965b4cbd7fa0b98210478826">   15</a></span>&#160;<span class="keyword">const</span> sf::Vector2f <a class="code" href="_minimap_8cpp.html#a6ff7e817965b4cbd7fa0b98210478826">VIEW_ANGLE</a> = sf::Vector2f(45, 45);</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a505fb375b40ef6fdf058a352875c6e1b">   17</a></span>&#160;<a class="code" href="classgui_1_1_minimap.html#a505fb375b40ef6fdf058a352875c6e1b">Minimap::Minimap</a>()</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">const</span> sf::Vector2f minimapSize = {200, 200};</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    _playerList.clear();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    _minimap.setFillColor(sf::Color(100, 100, 100));</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    _minimapSize = minimapSize;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    isSwitch = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    _player.setRadius(3);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="_minimap_8cpp.html#a7a4d81132fa79528f8cd5a855b7f2139">   17</a></span>&#160;<span class="keyword">const</span> std::vector&lt;sf::Color&gt; <a class="code" href="_minimap_8cpp.html#a7a4d81132fa79528f8cd5a855b7f2139">TEAMS_COLORS</a> = {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    sf::Color(254, 202, 100),</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    sf::Color(158, 110, 255),</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    sf::Color(254, 129, 166),</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    sf::Color(110, 153, 255)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a505fb375b40ef6fdf058a352875c6e1b">   24</a></span>&#160;<a class="code" href="classgui_1_1_minimap.html#a505fb375b40ef6fdf058a352875c6e1b">Minimap::Minimap</a>()</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">const</span> sf::Vector2f minimapSize = {200, 200};</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a1e5b20fed15743656bb6d2e6a6ea6269">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#a1e5b20fed15743656bb6d2e6a6ea6269">Minimap::display</a>()</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    _window-&gt;draw(_minimap);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">for</span> (std::tuple&lt;std::string, sf::Vector2f&gt; &amp;it: _playerList) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        _player.setPosition(_minimap.getPosition() + sf::Vector2f(std::get&lt;1&gt;(it).x * _minimapSize.x / _mapSize.x, std::get&lt;1&gt;(it).y * _minimapSize.y / _mapSize.y));</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        _window-&gt;draw(_player);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">Minimap::removePlayer</a>(<span class="keyword">const</span> std::string &amp;name)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = _playerList.begin(); it != _playerList.end(); ++it) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (std::get&lt;0&gt;((*it.base())) == name) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            _playerList.erase(it);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    _playerList.clear();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    _minimap.setFillColor(sf::Color(100, 100, 100));</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    _minimapSize = minimapSize;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    isSwitch = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    _player.setRadius(3);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a1e5b20fed15743656bb6d2e6a6ea6269">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#a1e5b20fed15743656bb6d2e6a6ea6269">Minimap::display</a>()</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    _window-&gt;draw(_minimap);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">for</span> (std::tuple&lt;std::string, sf::Vector2f&gt; &amp;it: _playerList) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::size_t index = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">for</span> (index = 0; std::get&lt;0&gt;(it) != _teamsNames.at(index); index++);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        _player.setFillColor(<a class="code" href="_minimap_8cpp.html#a7a4d81132fa79528f8cd5a855b7f2139">TEAMS_COLORS</a>.at(index % 4));</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        _player.setPosition(_minimap.getPosition() + sf::Vector2f(std::get&lt;1&gt;(it).x * _minimapSize.x / _mapSize.x, std::get&lt;1&gt;(it).y * _minimapSize.y / _mapSize.y));</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        _window-&gt;draw(_player);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a7715257e81a8695f9ff552b206841a25">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#a7715257e81a8695f9ff552b206841a25">Minimap::addPlayer</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> sf::Vector2f &amp;position)</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">Minimap::removePlayer</a>(<span class="keyword">const</span> std::string &amp;name)</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : _playerList) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (std::get&lt;0&gt;(it) == name) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            std::get&lt;0&gt;(it) = name;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            std::get&lt;1&gt;(it) = position;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    _playerList.push_back(std::tuple(name, position));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">   59</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">Minimap::switchSize</a>(<span class="keywordtype">bool</span> state)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> (state &amp;&amp; isSwitch == <span class="keyword">false</span>) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">if</span> (_minimapSize.x == 200 &amp;&amp; _minimapSize.y == 200)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            _minimapSize = sf::Vector2f(_window-&gt;getSize().x, _window-&gt;getSize().y - _window-&gt;getSize().y / 5);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            _minimapSize = {200, 200};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        _updateConvexShape();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        isSwitch = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (state == <span class="keyword">false</span>)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        isSwitch = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;sf::Vector2f Minimap::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    sf::Vector2f point;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    point.x = cos((360 - angle.x / 2) * M_PI / 180) * vector.x - cos(angle.x / 2 * M_PI / 180) * vector.y;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    point.y = sin(angle.y / 2 * M_PI / 180) * vector.y + sin(angle.y / 2 * M_PI / 180) * vector.x;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> (point);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> Minimap::_updateConvexShape()</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">const</span> sf::Vector2u windowSize = _window.get()-&gt;getSize();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    _minimap.setPosition(sf::Vector2f(windowSize.x, _bottomMenuPosition.y) - _minimapSize);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    _minimap.setSize(_minimapSize);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = _playerList.begin(); it != _playerList.end(); ++it) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (std::get&lt;0&gt;((*it.base())) == name) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            _playerList.erase(it);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#a7715257e81a8695f9ff552b206841a25">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#a7715257e81a8695f9ff552b206841a25">Minimap::addPlayer</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> sf::Vector2f &amp;position)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : _playerList) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> (std::get&lt;0&gt;(it) == name) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            std::get&lt;0&gt;(it) = name;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            std::get&lt;1&gt;(it) = position;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    _playerList.push_back(std::tuple(name, position));</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : _teamsNames) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> (it == name)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    _teamsNames.push_back(name);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">   74</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">Minimap::switchSize</a>(<span class="keywordtype">bool</span> state)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> (state &amp;&amp; isSwitch == <span class="keyword">false</span>) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">if</span> (_minimapSize.x == 200 &amp;&amp; _minimapSize.y == 200)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            _minimapSize = sf::Vector2f(_window-&gt;getSize().x, _window-&gt;getSize().y - _window-&gt;getSize().y / 5);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            _minimapSize = {200, 200};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        _updateConvexShape();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        isSwitch = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (state == <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        isSwitch = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;sf::Vector2f Minimap::_toIsometric(sf::Vector2f vector, sf::Vector2f angle)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    sf::Vector2f point;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    point.x = cos((360 - angle.x / 2) * M_PI / 180) * vector.x - cos(angle.x / 2 * M_PI / 180) * vector.y;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    point.y = sin(angle.y / 2 * M_PI / 180) * vector.y + sin(angle.y / 2 * M_PI / 180) * vector.x;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span> (point);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordtype">void</span> Minimap::_updateConvexShape()</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">const</span> sf::Vector2u windowSize = _window.get()-&gt;getSize();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    _minimap.setPosition(sf::Vector2f(windowSize.x, _bottomMenuPosition.y) - _minimapSize);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    _minimap.setSize(_minimapSize);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassgui_1_1_minimap_html_a1e5b20fed15743656bb6d2e6a6ea6269"><div class="ttname"><a href="classgui_1_1_minimap.html#a1e5b20fed15743656bb6d2e6a6ea6269">gui::Minimap::display</a></div><div class="ttdeci">void display()</div><div class="ttdoc">Display the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00028">Minimap.cpp:28</a></div></div>
+<div class="ttc" id="aclassgui_1_1_minimap_html_a1e5b20fed15743656bb6d2e6a6ea6269"><div class="ttname"><a href="classgui_1_1_minimap.html#a1e5b20fed15743656bb6d2e6a6ea6269">gui::Minimap::display</a></div><div class="ttdeci">void display()</div><div class="ttdoc">Display the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00035">Minimap.cpp:35</a></div></div>
 <div class="ttc" id="a_minimap_8cpp_html_a6ff7e817965b4cbd7fa0b98210478826"><div class="ttname"><a href="_minimap_8cpp.html#a6ff7e817965b4cbd7fa0b98210478826">VIEW_ANGLE</a></div><div class="ttdeci">const sf::Vector2f VIEW_ANGLE</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00015">Minimap.cpp:15</a></div></div>
 <div class="ttc" id="a_minimap_8hpp_html"><div class="ttname"><a href="_minimap_8hpp.html">Minimap.hpp</a></div></div>
-<div class="ttc" id="aclassgui_1_1_minimap_html_a3b31115ad03606ad142bbb7c8e47ce3c"><div class="ttname"><a href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">gui::Minimap::removePlayer</a></div><div class="ttdeci">void removePlayer(const std::string &amp;name)</div><div class="ttdoc">Remove a player from the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00037">Minimap.cpp:37</a></div></div>
-<div class="ttc" id="aclassgui_1_1_minimap_html_a7715257e81a8695f9ff552b206841a25"><div class="ttname"><a href="classgui_1_1_minimap.html#a7715257e81a8695f9ff552b206841a25">gui::Minimap::addPlayer</a></div><div class="ttdeci">void addPlayer(const std::string &amp;name, const sf::Vector2f &amp;position)</div><div class="ttdoc">Add a player from the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00047">Minimap.cpp:47</a></div></div>
-<div class="ttc" id="aclassgui_1_1_minimap_html_ad9de8a541e5c02c57f8da39d7f7d3419"><div class="ttname"><a href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">gui::Minimap::switchSize</a></div><div class="ttdeci">void switchSize(bool state)</div><div class="ttdoc">Switch the minimap size.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00059">Minimap.cpp:59</a></div></div>
+<div class="ttc" id="aclassgui_1_1_minimap_html_a3b31115ad03606ad142bbb7c8e47ce3c"><div class="ttname"><a href="classgui_1_1_minimap.html#a3b31115ad03606ad142bbb7c8e47ce3c">gui::Minimap::removePlayer</a></div><div class="ttdeci">void removePlayer(const std::string &amp;name)</div><div class="ttdoc">Remove a player from the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00047">Minimap.cpp:47</a></div></div>
+<div class="ttc" id="aclassgui_1_1_minimap_html_a7715257e81a8695f9ff552b206841a25"><div class="ttname"><a href="classgui_1_1_minimap.html#a7715257e81a8695f9ff552b206841a25">gui::Minimap::addPlayer</a></div><div class="ttdeci">void addPlayer(const std::string &amp;name, const sf::Vector2f &amp;position)</div><div class="ttdoc">Add a player from the minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00057">Minimap.cpp:57</a></div></div>
+<div class="ttc" id="a_minimap_8cpp_html_a7a4d81132fa79528f8cd5a855b7f2139"><div class="ttname"><a href="_minimap_8cpp.html#a7a4d81132fa79528f8cd5a855b7f2139">TEAMS_COLORS</a></div><div class="ttdeci">const std::vector&lt; sf::Color &gt; TEAMS_COLORS</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00017">Minimap.cpp:17</a></div></div>
+<div class="ttc" id="aclassgui_1_1_minimap_html_ad9de8a541e5c02c57f8da39d7f7d3419"><div class="ttname"><a href="classgui_1_1_minimap.html#ad9de8a541e5c02c57f8da39d7f7d3419">gui::Minimap::switchSize</a></div><div class="ttdeci">void switchSize(bool state)</div><div class="ttdoc">Switch the minimap size.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00074">Minimap.cpp:74</a></div></div>
 <div class="ttc" id="anamespacegui_html"><div class="ttname"><a href="namespacegui.html">gui</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8hpp_source.html#l00015">Animation.hpp:15</a></div></div>
-<div class="ttc" id="aclassgui_1_1_minimap_html_a505fb375b40ef6fdf058a352875c6e1b"><div class="ttname"><a href="classgui_1_1_minimap.html#a505fb375b40ef6fdf058a352875c6e1b">gui::Minimap::Minimap</a></div><div class="ttdeci">Minimap()</div><div class="ttdoc">Constructor of the Minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00017">Minimap.cpp:17</a></div></div>
+<div class="ttc" id="aclassgui_1_1_minimap_html_a505fb375b40ef6fdf058a352875c6e1b"><div class="ttname"><a href="classgui_1_1_minimap.html#a505fb375b40ef6fdf058a352875c6e1b">gui::Minimap::Minimap</a></div><div class="ttdeci">Minimap()</div><div class="ttdoc">Constructor of the Minimap.</div><div class="ttdef"><b>Definition:</b> <a href="_minimap_8cpp_source.html#l00024">Minimap.cpp:24</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
