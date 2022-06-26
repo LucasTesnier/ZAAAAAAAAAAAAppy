@@ -335,11 +335,20 @@ void Map::_displayPlayers(Tile &tile)
 
     if (tile.getPlayers().size()) {
         for (index = 0; tile.getPlayers().at(0).getTeamName() != _teamsNames.at(index); index++);
-        _playerAnimation.at(index % 4).setSize(sf::Vector2f(56 / 2, 188 / 2));
-        _playerAnimation.at(index % 4).setDuration(400);
-        _playerAnimation.at(index % 4).setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.at(index % 4).getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
-        _playerAnimation.at(index % 4).update();
-        _window->draw(_playerAnimation.at(index % 4).getShape());
+        if (tile.getPlayers().size() == 0) {
+            _playerAnimation.at(index % 4).setSize(sf::Vector2f(56 / 2, 188 / 2));
+            _playerAnimation.at(index % 4).setDuration(400);
+            _playerAnimation.at(index % 4).setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.at(index % 4).getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
+            _playerAnimation.at(index % 4).update();
+            _window->draw(_playerAnimation.at(index % 4).getShape());
+            return;
+        }
+        _playerAnimation.at(4).setSize(sf::Vector2f(56 / 2, 188 / 2));
+        _playerAnimation.at(4).setDuration(400);
+        _playerAnimation.at(4).setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.at(index % 4).getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
+        _playerAnimation.at(4).moveShape({-6, 6});
+        _playerAnimation.at(4).update();
+        _window->draw(_playerAnimation.at(4).getShape());
         if (tile.getPlayers().size() >= 2) {
             _playerAnimation.at(4).moveShape({-6, 6});
             _playerAnimation.at(4).update();
