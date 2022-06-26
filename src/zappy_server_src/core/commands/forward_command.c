@@ -22,11 +22,11 @@ static void move_x(entity_t *player, map_t *map)
     position_t *pos = &player->position;
     player_t *player_data = (player_t *)player->data;
 
-    if (player_data->orientation == NORTH)
+    if (player_data->orientation == WEST)
         pos->x = (pos->x - 1) < 0 ? (map->width - 1) :
         (pos->x - 1) % (map->width - 1);
     else
-        pos->x = (map->width == 1) ? 0 : (pos->x + 1) % (map->width - 1);
+        pos->x = (map->width == 1) ? 0 : (pos->x + 1) % (map->width);
 }
 
 /// \brief Move an entity to a given direction
@@ -37,8 +37,8 @@ static void move_y(entity_t *player, map_t *map)
     position_t *pos = &player->position;
     player_t *player_data = (player_t *)player->data;
 
-    if (player_data->orientation == EAST)
-        pos->y = (map->height == 1) ? 0 : (pos->y + 1) % (map->height - 1);
+    if (player_data->orientation == SOUTH)
+        pos->y = (map->height == 1) ? 0 : (pos->y + 1) % (map->height);
     else
         pos->y = (pos->y - 1) < 0 ? (map->height - 1) :
         (pos->y - 1) % (map->height - 1);
@@ -68,9 +68,9 @@ player_list_t *player, server_data_t *serv)
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
     if (player_data->orientation == NORTH || player_data->orientation == SOUTH)
-        move_x(player_entity, serv->map);
-    else
         move_y(player_entity, serv->map);
+    else
+        move_x(player_entity, serv->map);
     entity_diff_add_entity(serv->modified_entities, player_entity);
     pop_message(player->player_peer);
     return print_retcode(213, NULL, player->player_peer, true);
