@@ -456,6 +456,8 @@ class Ai:
         if "message" in response:
             if self.__getInventory().GetFood() >= CAN_REACH_TEAMMATE:
                 bc_infos = self.__broadCastResponseManagement(response)
+                if bc_infos == None:
+                    return
                 self.__reachTeammate(self.__getMovementArrayFromBroadcast(bc_infos.pos))
 
     def __ejectManagement(self, orientation: str):
@@ -608,28 +610,21 @@ class Ai:
             Notice that all players receiving every broadcast, so it could be possible to intercept enemies'
             broadcast and try to deny their actions
         """
-        pos = 0
         POS = 0
         TEAM_NAME = 1
         NB_PLAYERS = 2
         ACTION = 3
         REQUIRED_LEVEL = 4
-        RESOURCE = 5
         if response.startswith("message"):
             response = response.split("message ")[1]
             infos = response.split(", ")
+            pos = int(infos[POS])
             team_name = infos[TEAM_NAME]
-            if team_name != self.__getTeamName():
-                return
-            try:
-                pos = int(infos[POS])
-            except ValueError as e:
-                print(e)
             action = infos[ACTION]
+            if team_name != self.__getTeamName():
+                return None
             if action == "incantation":
                 return BroadcastInfo(action, team_name, pos, int(infos[REQUIRED_LEVEL]), int(infos[NB_PLAYERS]), "")
-            if action == "give":
-                return BroadcastInfo(action, team_name, pos, 0, 0, infos[RESOURCE])
 
     def __mapVisionTimeManagement(self):
         delta_time = time() - self.__getMapVisionTime()
