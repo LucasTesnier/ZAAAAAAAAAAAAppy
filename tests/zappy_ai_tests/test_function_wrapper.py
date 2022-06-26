@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-import sys, os
-
-sys.path.insert(0, os.path.dirname("./../../src/zappy_ai_src/ai_function_wrapper.py"))
-
 from ai_function_wrapper import ServerWrapper
 
 def server_wrapper_test(lib_path : str) -> ServerWrapper:

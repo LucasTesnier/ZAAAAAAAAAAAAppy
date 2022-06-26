@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-import sys, os
-
-sys.path.insert(0, os.path.dirname("./../../src/zappy_ai_src/ai_handle_response.py"))
-
 from ai_handle_response import Map, Tile
 
 def map_test(test_str : str) -> Map:

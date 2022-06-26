@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-import sys, os
-
-sys.path.insert(0, os.path.dirname("./../../src/zappy_ai_src/ai_DLLib_wrapper.py"))
-
 from ai_DLLib_wrapper import DLLibWrapper
 
 def lib_test(lib_path : str) -> DLLibWrapper:
