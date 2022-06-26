@@ -13,10 +13,10 @@
 using namespace gui;
 
 const std::vector<std::string> PLAYERS_PATH = {
-    "assets/woman1.png",
-    "assets/woman2.png",
-    "assets/woman4.png",
-    "assets/woman3.png",
+    "assets/yellow_woman1.png",
+    "assets/yellow_woman2.png",
+    "assets/yellow_woman4.png",
+    "assets/yellow_woman3.png",
 };
 
 Map::Map()
@@ -301,7 +301,7 @@ void Map::addTilesInfo(gui::entity::Tile &tileInfo)
 void Map::_displayPlayers(Tile &tile)
 {
     if (tile.getPlayers().size()) {
-        _playerAnimation.setSize(sf::Vector2f(100, 100));
+        _playerAnimation.setSize(sf::Vector2f(40, 80));
         _playerAnimation.setDuration(400);
         _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
         _playerAnimation.update();

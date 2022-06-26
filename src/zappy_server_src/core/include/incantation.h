@@ -44,7 +44,7 @@ position_t player_pos, container_t to_remove, unsigned int level)
     entity_t *entity = NULL;
 
     TAILQ_FOREACH(entity, &wrapper->players, entities) {
-        if (entity->position.x != player_pos.x &&
+        if (entity->position.x != player_pos.x ||
         entity->position.y != player_pos.y)
             continue;
         if (((player_t *)entity->data)->level < level)

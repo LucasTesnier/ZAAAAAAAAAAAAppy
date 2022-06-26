@@ -69,7 +69,7 @@ position_t tile_pos)
 
     TAILQ_FOREACH(entity, &serv->entities->players, entities) {
         if (entity->position.x != tile_pos.x
-            && entity->position.y != tile_pos.y)
+            || entity->position.y != tile_pos.y)
             continue;
         if (!uuid_compare(((player_t *)entity->data)->uuid, player->uuid))
             continue;
@@ -82,7 +82,7 @@ position_t tile_pos)
         if (player->orientation == WEST)
             move_x(entity, serv->map, WEST);
         send_unexpected_eject(get_eject_dir(serv, entity, tile_pos), serv,
-            (player_t *)entity->data);
+            (player_t *)entity->data, entity->position);
         entity_diff_add_entity(serv->modified_entities, entity);
     }
 }

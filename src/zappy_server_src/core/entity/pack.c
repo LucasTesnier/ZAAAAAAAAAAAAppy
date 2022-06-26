@@ -107,6 +107,8 @@ char *pack_entity(entity_t *entity)
 {
     char *packed = NULL;
 
+    if (entity == NULL)
+        return "";
     switch (entity->type) {
         case ENTITY_PLAYER_TYPE:
             packed = pack_player(entity);

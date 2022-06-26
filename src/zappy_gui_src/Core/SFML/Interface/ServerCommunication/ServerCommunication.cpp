@@ -42,6 +42,40 @@ void ServerCommunication::addTilesInfo(gui::entity::Tile &tile)
     _updateText();
 }
 
+void ServerCommunication::addPlayer(gui::entity::Player &player)
+{
+    for (gui::entity::Player &it : _players) {
+        if (it._uuid == player._uuid) {
+            it = player;
+            return;
+        }
+    }
+    _players.push_back(player);
+    _updateText();
+}
+
+void ServerCommunication::removePlayer(gui::entity::Player &player)
+{
+    for (auto it = _players.begin(); it != _players.end(); ++it) {
+        if (it.base()->_uuid == player._uuid) {
+            _players.erase(it);
+            break;
+        }
+    }
+    _updateText();
+}
+
+void ServerCommunication::removeEgg(gui::entity::Egg &egg)
+{
+    for (auto it = _eggs.begin(); it != _eggs.end(); ++it) {
+        if (it.base()->_uuid == egg._uuid) {
+            _eggs.erase(it);
+            break;
+        }
+    }
+    _updateText();
+}
+
 void ServerCommunication::_updateBody()
 {
     sf::Vector2u windowSize = _window->getSize();
