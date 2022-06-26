@@ -228,7 +228,8 @@ server_data_t *serv);
 /// \param direction The eject direction
 /// \param serv Server informations
 /// \param tmp The data of the player
-void send_unexpected_eject(int direction, server_data_t *serv, player_t *tmp);
+void send_unexpected_eject(int direction, server_data_t *serv, player_t *tmp,
+position_t pos);
 
 /// \brief Send a died signal to a player
 /// \param serv Server informations

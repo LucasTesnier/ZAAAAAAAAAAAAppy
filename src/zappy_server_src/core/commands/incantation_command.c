@@ -54,7 +54,7 @@ position_t player_pos)
 
     TAILQ_FOREACH(entity, &wrapper->players, entities) {
         if (entity->position.x != player_pos.x
-            && entity->position.y != player_pos.y)
+            || entity->position.y != player_pos.y)
             continue;
         if (((player_t *)entity->data)->level >= level)
             total_player++;

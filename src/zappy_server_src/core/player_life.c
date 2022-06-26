@@ -78,6 +78,7 @@ static void remove_a_player(server_data_t *serv, entity_t *entity)
     send_unexpected_dead(serv, (player_t *)entity->data);
     user->disconnected = TO_LOGOUT;
     remove_player_scheduling(serv, entity, user);
+    entity_diff_remove_entity(serv->modified_entities, entity);
     drop_player_inventory(serv, entity);
     remove_player_from_team((player_t *)entity->data, serv);
     TAILQ_REMOVE(&serv->entities->players, entity, entities);

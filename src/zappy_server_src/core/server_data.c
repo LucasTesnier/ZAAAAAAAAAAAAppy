@@ -69,6 +69,8 @@ player_state_t comp)
             ((player_t *)
             server_data->active_players[i]->player_data->data)->status = 0;
             send_entities_list_info(server_data);
+            entity_diff_remove_entity(server_data->modified_entities,
+            server_data->active_players[i]->player_data);
             remove_player_from_team(
             (player_t *)server_data->active_players[i]->player_data->data,
             server_data);
