@@ -240,9 +240,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a68269aea6c06e9eab00ebfb063f1034e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#a68269aea6c06e9eab00ebfb063f1034e">command_incantation_end</a> (char *arg, <a class="el" href="server_8h.html#a7bbfdf51731b99cd993077b5c53020ed">player_list_t</a> *player, <a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv)</td></tr>
 <tr class="memdesc:a68269aea6c06e9eab00ebfb063f1034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">End the incantation process.  <a href="command__hold_8h.html#a68269aea6c06e9eab00ebfb063f1034e">More...</a><br /></td></tr>
 <tr class="separator:a68269aea6c06e9eab00ebfb063f1034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c1ec4495cfc405b5f08ce0ff92fbe0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#a1c1ec4495cfc405b5f08ce0ff92fbe0c">send_unexpected_eject</a> (int direction, <a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv, <a class="el" href="player_8h.html#aefdc4a36eee5199c976dfc9566db77bf">player_t</a> *tmp)</td></tr>
-<tr class="memdesc:a1c1ec4495cfc405b5f08ce0ff92fbe0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a eject signal to a player.  <a href="command__hold_8h.html#a1c1ec4495cfc405b5f08ce0ff92fbe0c">More...</a><br /></td></tr>
-<tr class="separator:a1c1ec4495cfc405b5f08ce0ff92fbe0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2432a568cc4882f713a921c19e3b869"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#aa2432a568cc4882f713a921c19e3b869">send_unexpected_eject</a> (int direction, <a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv, <a class="el" href="player_8h.html#aefdc4a36eee5199c976dfc9566db77bf">player_t</a> *tmp, <a class="el" href="entity_8h.html#ae91e9d371efd32526f59e97a74a0e04b">position_t</a> pos)</td></tr>
+<tr class="memdesc:aa2432a568cc4882f713a921c19e3b869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a eject signal to a player.  <a href="command__hold_8h.html#aa2432a568cc4882f713a921c19e3b869">More...</a><br /></td></tr>
+<tr class="separator:aa2432a568cc4882f713a921c19e3b869"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a959a58a1354c8e1a12c9dda64284b4ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="command__hold_8h.html#a959a58a1354c8e1a12c9dda64284b4ee">send_unexpected_dead</a> (<a class="el" href="server_8h.html#a9ca54fdf642f42b1f7fbdf968d0d4295">server_data_t</a> *serv, <a class="el" href="player_8h.html#aefdc4a36eee5199c976dfc9566db77bf">player_t</a> *tmp)</td></tr>
 <tr class="memdesc:a959a58a1354c8e1a12c9dda64284b4ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a died signal to a player.  <a href="command__hold_8h.html#a959a58a1354c8e1a12c9dda64284b4ee">More...</a><br /></td></tr>
 <tr class="separator:a959a58a1354c8e1a12c9dda64284b4ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1643,7 +1643,7 @@ false When operation failed </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>player_list_t* The founded player_list </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="unexpected__send_8c_source.html#l00049">49</a> of file <a class="el" href="unexpected__send_8c_source.html">unexpected_send.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="unexpected__send_8c_source.html#l00052">52</a> of file <a class="el" href="unexpected__send_8c_source.html">unexpected_send.c</a>.</p>
 
 </div>
 </div>
@@ -2265,12 +2265,12 @@ false When operation failed </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="unexpected__send_8c_source.html#l00036">36</a> of file <a class="el" href="unexpected__send_8c_source.html">unexpected_send.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="unexpected__send_8c_source.html#l00039">39</a> of file <a class="el" href="unexpected__send_8c_source.html">unexpected_send.c</a>.</p>
 
 </div>
 </div>
-<a id="a1c1ec4495cfc405b5f08ce0ff92fbe0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c1ec4495cfc405b5f08ce0ff92fbe0c">&#9670;&nbsp;</a></span>send_unexpected_eject()</h2>
+<a id="aa2432a568cc4882f713a921c19e3b869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2432a568cc4882f713a921c19e3b869">&#9670;&nbsp;</a></span>send_unexpected_eject()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2291,7 +2291,13 @@ false When operation failed </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="player_8h.html#aefdc4a36eee5199c976dfc9566db77bf">player_t</a> *&#160;</td>
-          <td class="paramname"><em>tmp</em>&#160;</td>
+          <td class="paramname"><em>tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="entity_8h.html#ae91e9d371efd32526f59e97a74a0e04b">position_t</a>&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

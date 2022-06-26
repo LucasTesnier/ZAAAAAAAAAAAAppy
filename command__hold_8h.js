@@ -45,6 +45,6 @@ var command__hold_8h =
     [ "send_team_lose", "command__hold_8h.html#aa0f430630e0107b96108edbacbcd3f22", null ],
     [ "send_team_win", "command__hold_8h.html#a4cfdf061c9931815b3f7da856d07a9dd", null ],
     [ "send_unexpected_dead", "command__hold_8h.html#a959a58a1354c8e1a12c9dda64284b4ee", null ],
-    [ "send_unexpected_eject", "command__hold_8h.html#a1c1ec4495cfc405b5f08ce0ff92fbe0c", null ],
+    [ "send_unexpected_eject", "command__hold_8h.html#aa2432a568cc4882f713a921c19e3b869", null ],
     [ "victory_detection", "command__hold_8h.html#a30c41c7d0b3a007cbca4e014ff6f8a35", null ]
 ];
