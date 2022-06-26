@@ -437,6 +437,131 @@ class Ai:
             safeExitError(84, "Player is dead, disconnected.")
         self.__broadCastResponseManagement(response)
 
+    def __getDirectionOfTeammate(self, x: int, y: int) -> str:
+        """This function is used by AI to know the direction to go to join the teammate"""
+        if y >= x and y > 0:
+            return "north"
+        if y <= x and y < 0:
+            return "south"
+        if y < x < 0:
+            return "west"
+        if x > y and x > 0:
+            return "east"
+
+    def __forward(self):
+        if not self.__lib.askForward():
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepForward()
+
+    def __turnRight(self):
+        if not self.__lib.askTurnRight():
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepTurnRight()
+
+    def __turnLeft(self):
+        if not self.__lib.askTurnLeft():
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepTurnLeft()
+
+    def __northTravel(self, x: int, y: int):
+        for _ in range(y):
+            self.__forward()
+        if x < 0:
+            self.__turnLeft()
+            x *= -1
+            for _ in range(x):
+                self.__forward()
+        else:
+            self.__turnRight()
+            for _ in range(x):
+                self.__forward()
+
+    def __southTravel(self, x: int, y: int):
+        for _ in range(2):
+            self.__turnLeft()
+        y *= -1
+        for _ in range(y):
+            self.__forward()
+        if x < 0:
+            self.__turnRight()
+            x *= -1
+            for _ in range(x):
+                self.__forward()
+        else:
+            self.__turnLeft()
+            for _ in range(x):
+                self.__forward()
+
+    def __westTravel(self, x: int, y: int):
+        self.__turnLeft()
+        x *= -1
+        for _ in range(x):
+            self.__forward()
+        if y < 0:
+            self.__turnLeft()
+            y *= -1
+            for _ in range(y):
+                self.__forward()
+        else:
+            self.__turnRight()
+            for _ in range(y):
+                self.__forward()
+
+    def __eastTravel(self, x: int, y: int):
+        self.__turnRight()
+        for _ in range(x):
+            self.__forward()
+        if y < 0:
+            self.__turnRight()
+            y *= -1
+            for _ in range(y):
+                self.__forward()
+        else:
+            self.__turnLeft()
+            for _ in range(y):
+                self.__forward()
+
+    def __reachTeammate(self, movements):
+        """This function is used by AI to reach its teammate from array of coordinates"""
+        x = movements[0]
+        y = movements[1]
+        direction = self.__getDirectionOfTeammate(x, y)
+
+        if direction == "south":
+            self.__southTravel(x, y)
+        elif direction == "west":
+            self.__westTravel(x, y)
+        elif direction == "east":
+            self.__eastTravel(x, y)
+
+    def __getMovementArrayFromBroadcast(self, broadCastIndex: int):
+        """This function is used by AI to know which movements to do to reach its teammate
+            return : movement_res[x, y]
+                        where   x is the x-axis of the call
+                                y is the y-axis of the call
+        """
+        current_index = 0
+        y = 0
+        x = 0
+        delta_y = 0
+        delta_x = -1
+        movement_res = [0, 0]
+
+        while current_index != broadCastIndex + 1:
+            movement_res[0] = x * -1
+            movement_res[1] = y
+            if y == x or (y < 0 and y == -x) or (y > 0 and y == 1 - x):
+                temp = delta_y
+                delta_y = -delta_x
+                delta_x = temp
+            x += delta_x
+            y += delta_y
+            current_index += 1
+        return movement_res
+
     def __broadCastResponseManagement(self, response: str):
         """This is used to parse the response of the broadcast
             Notice that all players receiving every broadcast, so it could be possible to intercept enemies'
@@ -631,29 +756,17 @@ class Ai:
                 front_tile_index = vector.frontTileIndex
                 nb_forward_steps = PATH_REFERENCES.index(vector)
         for _ in range(0, nb_forward_steps):
-            if not self.__lib.askForward():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepForward()
+            self.__forward()
         nb_forward_steps = index - front_tile_index
         if nb_forward_steps < 0:
-            if not self.__lib.askTurnLeft():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepTurnLeft()
+            self.__turnLeft()
             nb_forward_steps *= -1
         elif nb_forward_steps is 0:
             return
         else:
-            if not self.__lib.askTurnRight():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepTurnRight()
+            self.__turnRight()
         for _ in range(0, nb_forward_steps):
-            if not self.__lib.askForward():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepForward()
+            self.__forward()
 
     def __reachBroadCastTile(self, tile_index: int):
         """This is used by AI after a broadcast call from other member of the team
@@ -749,7 +862,7 @@ class Ai:
     def __farming(self):
         """This is the main function of farming strategy, it manages all actions to get components as fast as possible
         """
-        for i in range(7):
+        for i in range(8):
             component = self.__getRequiredComponent(i)
             if component != "nothing":
                 break
