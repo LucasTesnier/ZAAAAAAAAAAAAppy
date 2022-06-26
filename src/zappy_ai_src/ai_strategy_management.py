@@ -1,9 +1,11 @@
 from collections import namedtuple
+from typing import List
 
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from ai_safe_error import safeExitError
 from ai_broadcast_to_object import BroadcastInfo
+from ai_strategy_mode import AiStrategy
 from time import time
 import random
 
@@ -259,6 +261,8 @@ class Ai:
         """This private member informs the AI is in survival mode and need to take only food"""
         self.__survivalModeOn = False
 
+        self.__strategyMode = AiStrategy.SURVIVAL
+
         """This private member informs the AI a stock of food that it needs to take before doing any other actions
             This can be useful to prepare elevation of other big actions like reach another teamMate
         """
@@ -316,8 +320,8 @@ class Ai:
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
 
-    def __setSurvivalMode(self, mode: bool):
-        self.__survivalModeOn = mode
+    def __setStrategyMode(self, mode: AiStrategy):
+        self.__strategyMode = mode
 
     def __setFoodStock(self, stock: int):
         self.__foodStockCpt = stock
@@ -355,6 +359,9 @@ class Ai:
     def __getFrequency(self) -> int:
         return self.__frequency
 
+    def __getStrategyMode(self) -> AiStrategy:
+        return self.__strategyMode
+
     def __getInventoryTime(self) -> float:
         return self.__inventoryTime
 
@@ -366,9 +373,6 @@ class Ai:
 
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
-
-    def __getSurvivalMode(self) -> bool:
-        return self.__survivalModeOn
 
     def __getPlayerMaxRange(self) -> int:
         """This is used to know the maximal range of the player's vision depending on his level
@@ -435,24 +439,24 @@ class Ai:
                 - Eject from another player
                 - Broadcast, sending message from another player
         """
+        #Get response : 603 Message : message 15, A, 2, incantation, 2
         print("RENTRE DANS UNEXPECTED RESPONSE MANAGEMENT")
         response: str = self.__lib.getUnexpectedResponse()
-        if response == "":
+        if response == "" or response == None:
             return
-        if response == "dead":
+        if "dead" in response:
             safeExitError(84, "Player is dead, disconnected.")
-        if response == "eject":
-            self.__ejectManagement()
-        if response.startswith("message:"):
-            print("PARSING MESSAGE : OK")
+        if "eject" in response:
+            self.__ejectManagement(response.split(": ")[1])
+        if "message" in response:
+            print(f"Reponse : {response}")
             if self.__getInventory().GetFood() >= CAN_REACH_TEAMMATE:
-                print("TIME LIMIT : OK")
                 bc_infos = self.__broadCastResponseManagement(response)
                 self.__reachTeammate(self.__getMovementArrayFromBroadcast(bc_infos.pos))
 
-    def __ejectManagement(self):
+    def __ejectManagement(self, orientation : str):
         """This function occurs when the player got ejected by another player"""
-        # SAVONSTANT regarder ce que peut entrainer quand on se fait ejecter d'une case, je pense pas grand chose
+        # TODO regarder ce que peut entrainer quand on se fait ejecter d'une case, je pense pas grand chose
         pass
 
     def __getDirectionOfTeammate(self, x: int, y: int) -> str:
@@ -559,7 +563,7 @@ class Ai:
         elif direction == "east":
             self.__eastTravel(x, y)
 
-    def __getMovementArrayFromBroadcast(self, broadCastIndex: int):
+    def __getMovementArrayFromBroadcast(self, broadCastIndex: int) -> List[int, int]:
         """This function is used by AI to know which movements to do to reach its teammate
             return : movement_res[x, y]
                         where   x is the x-axis of the call
@@ -573,7 +577,6 @@ class Ai:
         delta_y = 0
         delta_x = -1
         movement_res = [X, Y]
-
         while current_index != broadCastIndex + 1:
             movement_res[X] = x * -1
             movement_res[Y] = y
@@ -605,8 +608,10 @@ class Ai:
                 pos = int(infos[POS].split(" ")[1])
             except ValueError as e:
                 print(e)
-            if team_name != self.__teamName:
-                # SAVONSTANT : Créer un membre privé self.__aggressivModeOn qu'on passe à true dans @ref __deny()
+            if team_name != self.__teamName \
+            and infos[1] != "incantation" \
+            and self.__strategyMode == AiStrategy.AGGRESSIVE:
+                # TODO : Créer un membre privé self.__aggressivModeOn qu'on passe à true dans @ref __deny()
                 # savoir si l'ia est en mode agressif pour executer ce genre d'action
                 self.__interceptEnemiesMessage(pos)
                 return
@@ -814,7 +819,7 @@ class Ai:
         if not self.__getFoodStock():
             self.__setFoodStock(10)
         self.__setTargetComponent("food")
-        self.__setSurvivalMode(True)
+        self.__setStrategyMode(AiStrategy.SURVIVAL)
         self.__setAbleToMove(False)
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
@@ -826,7 +831,8 @@ class Ai:
         """This is the main function of aggressive strategy, it manages all actions to deny other teams
             and then avoid their win
         """
-        # SAVONSTANT @ref __broadCastResponseManagement
+        # TODO @ref __broadCastResponseManagement
+        self.__setStrategyMode(AiStrategy.AGGRESSIVE)
         self.__setAbleToMove(True)
 
     def __interceptEnemiesMessage(self, tile_index: int):
@@ -834,8 +840,12 @@ class Ai:
             it's possible for the AI to go on the tile and eject players trying to elevate or something else
         """
         callPos = self.__getMovementArrayFromBroadcast(tile_index)
-        self.__reachTeammate(callPos)
-        # SAVONSTANT les deux premières lignes servent à récupérer la pos(x, y) du call puis de reach la case,
+        if (callPos[0] + callPos[1] + 2) * (7 / self.__frequency) <= self.__getInventory().GetFood() + SAFETY_MARGIN:
+            self.__reachSpecificTile(tile_index)
+            self.__lib.askEject()
+            return True
+        # self.__reachTeammate(callPos)
+        # TODO les deux premières lignes servent à récupérer la pos(x, y) du call puis de reach la case,
         # Ce qui pourrait être cool c'est de prévoir si il est possible d'atteindre cette case sans mourir
         # Ou de mettre un certain cap de nourriture avant d'executer l'action
         # @ref : possibilité de modifier la fonction reachTeammate()
@@ -844,7 +854,7 @@ class Ai:
         """This is used by the AI to request specific components from the team
             Param : component: str, representing the specific component needed by the AI
         """
-        # SAVONSTANT : ça pourrait être cool de demander des composants à la team via le broadcast @ref RFC
+        # TODO : ça pourrait être cool de demander des composants à la team via le broadcast @ref RFC
         pass
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
