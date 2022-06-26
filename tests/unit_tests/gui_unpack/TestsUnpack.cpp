@@ -86,7 +86,54 @@ Test(Unpack, test_unpack_invalid_egg)
 {
     gui::entity::Egg egg;
     gui::unpack::Unpack unpack;
-    auto bad_egg = std::string("hug{42;24;inventory{1;2;3;4;5;6;7}}");
+    auto bad_egg = std::string("hug{42;24;uuid;0;team_guigui_oeuf}");
 
     cr_assert_throw(unpack.UnpackEntity(egg, bad_egg), std::invalid_argument);
+}
+
+Test(Unpack, test_unpack_basic_start)
+{
+    gui::unpack::Start start;
+    gui::unpack::Unpack unpack;
+    auto basic_start = std::string("start{42;24;2;{team_guigui;team_thomas};6}");
+
+    unpack.UnpackEntity(start, basic_start);
+    cr_assert_eq(42, start.size_x);
+    cr_assert_eq(24, start.size_y);
+    cr_assert_eq(2, start.team_number);
+    cr_assert_eq(6, start.max_player);
+}
+
+Test(Unpack, test_unpack_invalid_start)
+{
+    gui::unpack::Start start;
+    gui::unpack::Unpack unpack;
+    auto bad_start = std::string("tarte{42;24;2;{team_guigui;team_thomas};6}");
+
+    cr_assert_throw(unpack.UnpackEntity(start, bad_start), std::invalid_argument);
+}
+
+Test(Unpack, test_unpack_basic_status)
+{
+    gui::entity::Status status;
+    gui::unpack::Unpack unpack;
+    auto basic_status_win = std::string("status{win:team_guigui}");
+    auto basic_status_lose = std::string("status{lose:team_thomas}");
+
+    unpack.UnpackEntity(status, basic_status_win);
+    cr_assert_str_eq("win", status.getStatus().c_str());
+    cr_assert_str_eq("team_guigui", status.getTeamName().c_str());
+
+    unpack.UnpackEntity(status, basic_status_lose);
+    cr_assert_str_eq("lose", status.getStatus().c_str());
+    cr_assert_str_eq("team_thomas", status.getTeamName().c_str());
+}
+
+Test(Unpack, test_unpack_invalid_status)
+{
+    gui::entity::Status status;
+    gui::unpack::Unpack unpack;
+    auto bad_status = std::string("stanus{win:team_guigui}");
+
+    cr_assert_throw(unpack.UnpackEntity(status, bad_status), std::invalid_argument);
 }
