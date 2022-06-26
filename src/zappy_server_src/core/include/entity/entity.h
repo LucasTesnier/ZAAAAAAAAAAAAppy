@@ -141,4 +141,9 @@ void entity_diff_reset(entity_diff_t *diff);
 /// \note This function does not delete the entities
 void destroy_entity_diff(entity_diff_t **diff);
 
+/// \brief Remove all the matching entity inside a entity list
+/// \param diff The diff list
+/// \param to_remove The entity to remove from the list
+void entity_diff_remove_entity(entity_diff_t *diff, entity_t *to_remove);
+
 #endif /* ENTITY_H */

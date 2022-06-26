@@ -101,13 +101,15 @@ static inline bool resolve_directionnal_position(position_t dest,
 position_t pos, position_t map_size)
 {
     if (pos.x < 0)
-        pos.x = abs(pos.x) % (map_size.x - 1);
+        pos.x = (map_size.x == 1) ? 0 : map_size.x -
+        (abs(pos.x) % (map_size.x));
     if (pos.x >= map_size.x)
-        pos.x = pos.x % (map_size.x - 1);
+        pos.x = (map_size.x == 1) ? 0 : pos.x % (map_size.x);
     if (pos.y < 0)
-        pos.y = abs(pos.y) % (map_size.y - 1);
+        pos.y = (map_size.y == 1) ? 0 : map_size.y -
+        (abs(pos.y) % (map_size.y));
     if (pos.y >= map_size.y)
-        pos.y = pos.y % (map_size.y - 1);
+        pos.y = (map_size.y == 1) ? 0 : pos.y % (map_size.y);
     if (pos.x == dest.x && pos.y == dest.y)
         return true;
     return false;
