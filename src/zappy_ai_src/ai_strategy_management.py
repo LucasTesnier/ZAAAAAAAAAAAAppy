@@ -98,15 +98,15 @@ TIME_LIMIT = {
 """
 
 PathVector = namedtuple("PathVector", ["frontTileIndex", "maxIndexInLine"])
-PATH_REFERENCES = [PathVector(0, 0),       # UNUSED LEVEL 0
-                   PathVector(2, 3),       # LEVEL 1
-                   PathVector(6, 8),       # LEVEL 2
-                   PathVector(12, 15),     # LEVEL 3
-                   PathVector(20, 24),     # LEVEL 4
-                   PathVector(30, 35),     # LEVEL 5
-                   PathVector(42, 48),     # LEVEL 6
-                   PathVector(56, 63),     # LEVEL 7
-                   PathVector(72, 80),     # LEVEL 8
+PATH_REFERENCES = [PathVector(0, 0),  # UNUSED LEVEL 0
+                   PathVector(2, 3),  # LEVEL 1
+                   PathVector(6, 8),  # LEVEL 2
+                   PathVector(12, 15),  # LEVEL 3
+                   PathVector(20, 24),  # LEVEL 4
+                   PathVector(30, 35),  # LEVEL 5
+                   PathVector(42, 48),  # LEVEL 6
+                   PathVector(56, 63),  # LEVEL 7
+                   PathVector(72, 80),  # LEVEL 8
                    ]
 
 """This static array is used to know every requirements for elevation
@@ -180,6 +180,7 @@ LEVEL_UP_REQUIREMENTS = [{},
                          ]
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
+
 
 class Ai:
     def __init__(self, availableSlots: int, teamName: str):
@@ -427,15 +428,23 @@ class Ai:
     def __unexpectedResponseManagement(self):
         """This is used by AI to manage every unexpected response send by the server like :
                 - Death of the player
-                - Eject from another player (not implemented at the moment)
-                - Broadcast, sending message from another player (not implemented at the moment)
+                - Eject from another player
+                - Broadcast, sending message from another player
         """
         response: str = self.__lib.getUnexpectedResponse()
         if response == "":
             return
         if response == "dead":
             safeExitError(84, "Player is dead, disconnected.")
-        self.__broadCastResponseManagement(response)
+        if response == "eject":
+            self.__ejectManagement()
+        if response == "message":
+            self.__broadCastResponseManagement(response)
+
+    def __ejectManagement(self):
+        """This function occurs when the player got ejected by another player"""
+        # SAVONSTANT regarder ce que peut entrainer quand on se fait ejecter d'une case, je pense pas grand chose
+        pass
 
     def __getDirectionOfTeammate(self, x: int, y: int) -> str:
         """This function is used by AI to know the direction to go to join the teammate"""
@@ -525,7 +534,11 @@ class Ai:
                 self.__forward()
 
     def __reachTeammate(self, movements):
-        """This function is used by AI to reach its teammate from array of coordinates"""
+        """This function is used by AI to reach its teammate from array of coordinates
+            params : movements : is and array of coordinates [x, y] representing the movements to do to reach teammate
+                    where   x is the x-axis
+                            y is the y-axis
+        """
         x = movements[0]
         y = movements[1]
         direction = self.__getDirectionOfTeammate(x, y)
@@ -571,13 +584,15 @@ class Ai:
         if response.startswith("message"):
             infos = response.split(", ")
             team_name = infos[1]
-            if team_name != self.__teamName:
-                #NEED TO IMPLEMENT SAVONSTAVANT
-                return
             try:
                 pos = int(infos[0].split(" ")[1])
             except ValueError as e:
                 print(e)
+            if team_name != self.__teamName:
+                # SAVONSTANT : Créer un membre privé self.__aggressivModeOn qu'on passe à true dans @ref __deny()
+                # savoir si l'ia est en mode agressif pour executer ce genre d'action
+                self.__interceptEnemiesMessage(pos)
+                return
             action = infos[2]
             if action == "incantation":
                 return BroadcastInfo(action, team_name, pos, int(infos[3]), int(infos[4]), "")
@@ -645,7 +660,8 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        component = COMPONENT_LIST[random.randint(0, 6)] if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
+        component = COMPONENT_LIST[
+            random.randint(0, 6)] if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
         self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if not self.__lib.askTakeObject(component):
             safeExitError()
@@ -768,48 +784,6 @@ class Ai:
         for _ in range(0, nb_forward_steps):
             self.__forward()
 
-    def __reachBroadCastTile(self, tile_index: int):
-        """This is used by AI after a broadcast call from other member of the team
-            In this case, if AI is able to move, with enough food, it tries to reach the tile asked in the broadcast
-        """
-        north = (1, 10)
-        west = (3, 14)
-        south = (5, 18)
-        east = (7, 22)
-        north_delta = north.index(1) - north.index(1)
-        west_delta = west.index(1) - west.index(1)
-        south_delta = south.index(1) - south.index(1)
-        east_delta = east.index(1) - east.index(1)
-
-        if tile_index is 0:
-            #don't move
-            pass
-        if tile_index is north.index(0):
-            #forward
-            pass
-        if tile_index is west.index(0):
-            #Turn left, forward
-            pass
-        if tile_index is south.index(0):
-            # Turn left, turn left, forward
-            pass
-        if tile_index is east.index(0):
-            #Turn right, forward
-            pass
-
-        if tile_index is north.index(1):
-            #forward, forward
-            pass
-        if tile_index is west.index(1):
-            #Turn left, forward, forward
-            pass
-        if tile_index is south.index(1):
-            # Turn left, turn left, forward, forward
-            pass
-        if tile_index is east.index(1):
-            #Turn right, forward, forward
-            pass
-
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
         These functions are considered as decisions
@@ -832,26 +806,25 @@ class Ai:
         """This is the main function of aggressive strategy, it manages all actions to deny other teams
             and then avoid their win
         """
+        # SAVONSTANT @ref __broadCastResponseManagement
         self.__setAbleToMove(True)
 
-    def __takeSpecificComponent(self):
-        """This is used by the AI in case of needing a specific component and get it
-            Here, the AI is making a risky bet because it doesn't do anything else than get the specific component
-            Make sure to have enough food before calling this function
+    def __interceptEnemiesMessage(self, tile_index: int):
+        """This function is used by AI when a broadcast occurs, after getting the position of the call
+            it's possible for the AI to go on the tile and eject players trying to elevate or something else
         """
-        pass
-
-    def __denyComponents(self):
-        """This is used by high level player in the game (7, 8)
-            The AI consider a higher or lower value of the objects depending on their density in the map
-            The higher the value, the more likely is that the AI will pick up the object
-        """
-        pass
+        callPos = self.__getMovementArrayFromBroadcast(tile_index)
+        self.__reachTeammate(callPos)
+        # SAVONSTANT les deux premières lignes servent à récupérer la pos(x, y) du call puis de reach la case,
+        # Ce qui pourrait être cool c'est de prévoir si il est possible d'atteindre cette case sans mourir
+        # Ou de mettre un certain cap de nourriture avant d'executer l'action
+        # @ref : possibilité de modifier la fonction reachTeammate()
 
     def __requestComponentFromTeam(self, component: str):
         """This is used by the AI to request specific components from the team
             Param : component: str, representing the specific component needed by the AI
         """
+        # SAVONSTANT : ça pourrait être cool de demander des composants à la team via le broadcast @ref RFC
         pass
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
