@@ -1,5 +1,4 @@
 from collections import namedtuple
-from typing import List
 
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
@@ -404,6 +403,7 @@ class Ai:
                 - client is connected
         """
         self.__initAI()
+        self.__fork()
         while True:
             self.__playerStrategyManagement()
             self.__actionsProceed()
