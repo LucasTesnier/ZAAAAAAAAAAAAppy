@@ -883,6 +883,7 @@ class Ai:
             if component != "nothing":
                 break
         self.__setTargetComponent(self.__getRequiredComponent())
+        self.__setAbleToMove(True)
 
     def __findClosestTileFromComponent(self, component: str) -> int:
         """This is used by AI to find the closest tile depending on the component requested
