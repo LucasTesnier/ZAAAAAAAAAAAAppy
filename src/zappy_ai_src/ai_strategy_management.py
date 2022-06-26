@@ -456,6 +456,8 @@ class Ai:
         if "message" in response:
             if self.__getInventory().GetFood() >= CAN_REACH_TEAMMATE:
                 bc_infos = self.__broadCastResponseManagement(response)
+                if bc_infos == None:
+                    return
                 self.__reachTeammate(self.__getMovementArrayFromBroadcast(bc_infos.pos))
 
     def __ejectManagement(self, orientation: str):
@@ -620,7 +622,7 @@ class Ai:
             team_name = infos[TEAM_NAME]
             action = infos[ACTION]
             if team_name != self.__getTeamName():
-                return
+                return None
             if action == "incantation":
                 return BroadcastInfo(action, team_name, pos, int(infos[REQUIRED_LEVEL]), int(infos[NB_PLAYERS]), "")
 
