@@ -28,7 +28,7 @@ var searchData=
   ['phiras_5fpath_528',['PHIRAS_PATH',['../_map_8hpp.html#a0232c56cd7a915746f94c0e3789450ed',1,'Map.hpp']]],
   ['place_2ec_529',['place.c',['../ask_2place_8c.html',1,'(Global Namespace)'],['../get_2place_8c.html',1,'(Global Namespace)']]],
   ['place_5fcommand_2ec_530',['place_command.c',['../place__command_8c.html',1,'']]],
-  ['player_531',['Player',['../classgui_1_1entity_1_1_player.html',1,'Player'],['../structincantation__level__s.html#ae78f447e0fc84c538b91b0cc8c8a34fa',1,'incantation_level_s::player()'],['../classgui_1_1entity_1_1_player.html#acecb43f0467796fdcc87858e3ceb67d0',1,'gui::entity::Player::Player()']]],
+  ['player_531',['Player',['../classgui_1_1entity_1_1_player.html',1,'Player'],['../classgui_1_1entity_1_1_player.html#acecb43f0467796fdcc87858e3ceb67d0',1,'gui::entity::Player::Player()'],['../structincantation__level__s.html#ae78f447e0fc84c538b91b0cc8c8a34fa',1,'incantation_level_s::player()']]],
   ['player_2ec_532',['player.c',['../player_8c.html',1,'']]],
   ['player_2eh_533',['player.h',['../player_8h.html',1,'']]],
   ['player1_5fpath_534',['PLAYER1_PATH',['../_map_8hpp.html#a166eea402cc653963a1e5f46081bab5b',1,'Map.hpp']]],
