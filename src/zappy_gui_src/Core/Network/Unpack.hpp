@@ -50,6 +50,11 @@ class Unpack {
     /// \param packed The string packed to be use to get informations about a start entity.
     void UnpackEntity(Start &e, std::string &packed);
 
+    /// \brief Unpack an entity status from a packed string.
+    /// \param s The status entity to fill with information passed in the `packed` parameter.
+    /// \param packed The string packed to be use to get informations about a status entity.
+    void UnpackEntity(gui::entity::Status &s, std::string &packed);
+
    private:
         /// \brief split a string into a vector
     /// \param str the string to split
@@ -78,5 +83,9 @@ class Unpack {
     /// \brief Unpack a start data
     /// \param unpacked the vector of strings to Unpack strings
     Start UnpackStart(std::vector<std::string> &unpacked);
+
+    /// \brief Unpack a status data
+    /// \param unpacked the vector of strings to Unpack strings
+    gui::entity::Status UnpackStatus(std::vector<std::string> &unpacked);
 };
 }  // namespace gui

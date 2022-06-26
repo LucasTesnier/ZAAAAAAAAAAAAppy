@@ -228,7 +228,8 @@ server_data_t *serv);
 /// \param direction The eject direction
 /// \param serv Server informations
 /// \param tmp The data of the player
-void send_unexpected_eject(int direction, server_data_t *serv, player_t *tmp);
+void send_unexpected_eject(int direction, server_data_t *serv, player_t *tmp,
+position_t pos);
 
 /// \brief Send a died signal to a player
 /// \param serv Server informations
@@ -297,7 +298,7 @@ void scheduler_update_life(scheduler_t *self, server_data_t *serv);
 /// \brief Generate new ressources every 20 ticks
 /// \param self The scheduler
 /// \param serv The server informations
-void scheduler_update_ressource(scheduler_t *self, server_data_t *serv);
+void scheduler_update_resource(scheduler_t *self, server_data_t *serv);
 
 /// \brief Return the matched player_list of a player_t
 /// \param serv The server informations

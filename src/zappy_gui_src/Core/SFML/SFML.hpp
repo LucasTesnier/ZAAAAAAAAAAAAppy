@@ -48,6 +48,20 @@ namespace gui {
                 _interface.addPlayer(player);
             }
 
+            /// \brief remove a player object from the map
+            /// \param player the player object to remove
+            inline void removePlayer(gui::entity::Player &player) {
+                _map.removePlayer(player);
+                _interface.removePlayer(player);
+            }
+
+            /// \brief remove an egg object from the map
+            /// \param egg the egg object to remove
+            inline void removeEgg(gui::entity::Egg &egg) {
+                _map.removeEgg(egg);
+                _interface.removeEgg(egg);
+            }
+
             /// \brief add a tileInfo object to the map
             /// \param tileInfo the tileInfo object to add
             inline void addTilesInfo(gui::entity::Tile &tileInfo) {
@@ -61,6 +75,13 @@ namespace gui {
                 _map.addEgg(egg);
                 _interface.addEgg(egg);
             }
+
+            /// \brief add a status object to the map
+            /// \param status the status object to add
+            inline void addStatus(gui::entity::Status &status) {
+                _map.addStatus(status);
+            }
+
             /// \brief remove entities depending on the type given
             /// \param type string representating the type of entities to remove
             void removeEntities(std::string &type);

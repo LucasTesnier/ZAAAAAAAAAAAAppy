@@ -55,6 +55,8 @@ gui::entity::Player Unpack::UnpackPlayer(std::vector<std::string> &unpacked)
     try {
         auto player = stov(unpacked[1], ';');
         p._position = std::make_pair(std::stoi(player[0]), std::stoi(player[1]));
+        p._uuid = player[2];
+        p._statusPlayer = std::stoi(player[3]);
         player.clear();
         player = stov(unpacked[2], '}');
         p._inventory = UnpackInventory(player[0]);
@@ -89,8 +91,11 @@ gui::entity::Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
     try {
         auto egg = stov(unpacked[1], ';');
         e._position = std::make_pair(std::stoi(egg[0]), std::stoi(egg[1]));
-        egg[2].pop_back();
-        e._team_name = egg[2];
+        e._uuid = egg[2];
+        e._statusEgg = std::stoi(egg[3]);
+        std::size_t pos = egg[4].find("}");
+        std::string team_name = egg[4].substr(0, pos);
+        e._team_name = team_name;
     } catch(...) {
         throw (std::invalid_argument("Egg invalid parsing"));
     }
@@ -100,6 +105,7 @@ gui::entity::Egg Unpack::UnpackEgg(std::vector<std::string> &unpacked)
 Start Unpack::UnpackStart(std::vector<std::string> &unpacked)
 {
     Start start;
+
     try {
         auto data = stov(unpacked[1], ';');
         start.size_x = std::stoi(data[0]);
@@ -107,14 +113,30 @@ Start Unpack::UnpackStart(std::vector<std::string> &unpacked)
         start.team_number = std::stoi(data[2]);
         data.clear();
         data = stov(unpacked[2], '}');
-        /// GET TEAM LIST
         auto temp = stov(data[1], ';');
         start.max_player = std::stoi(temp[0]);
-        /// UNPACK THE TILE
     } catch(...) {
         throw (std::invalid_argument("Start invalid parsing"));
     }
     return start;
+}
+
+gui::entity::Status Unpack::UnpackStatus(std::vector<std::string> &unpacked)
+{
+    gui::entity::Status status;
+
+    try
+    {
+        auto data = stov(unpacked[1], ':');
+        status._status = data[0];
+        std::size_t pos = data[1].find("}");
+        std::string team_name = data[1].substr(0, pos);
+        status._team_name = team_name;
+    } catch(...) {
+        throw (std::invalid_argument("Status invalid parsing"));
+    }
+    return status;
+
 }
 
 void Unpack::UnpackEntity(gui::entity::Player &p, std::string &packed)
@@ -151,4 +173,13 @@ void Unpack::UnpackEntity(Start &e, std::string &packed)
         e = UnpackStart(unpacked);
     } else
         throw (std::invalid_argument("Start entity invalid parsing"));
+}
+
+void Unpack::UnpackEntity(gui::entity::Status &s, std::string &packed)
+{
+    auto unpacked = stov(packed, '{');
+    if (unpacked[0] == "status") {
+        s = UnpackStatus(unpacked);
+    } else
+        throw (std::invalid_argument("Status entity invalid parsing"));
 }

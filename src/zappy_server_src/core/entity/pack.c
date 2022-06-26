@@ -5,7 +5,7 @@
 ** Unpack
 */
 
-/// \file src/zappy_server_src/core/entity/pack.c
+/// \file src/zappy_server_src/core/entity/pack_entity.c
 
 #include "entity/entity.h"
 #include "entity/entity_types.h"
@@ -17,6 +17,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <uuid/uuid.h>
 
 char *pack_container(container_t *cont)
 {
@@ -41,20 +42,22 @@ char *pack_player(entity_t *entity)
     char *tmp = NULL;
     player_t *player = NULL;
     char *container = NULL;
+    char *player_uuid = malloc(sizeof(char) * 40);
 
-    player = (player_t*)entity->data;
+    if (!player_uuid)
+        return NULL;
+    player = (player_t *)entity->data;
     if ((tmp = (char *)malloc(sizeof(char) *
         (get_len_player(entity, player) + PLAYER_SIZE))) == NULL)
         return NULL;
     container = pack_container(player->inventory);
-    sprintf(tmp, "player{%d;%d;%s;%s;%d;%d}",
-            entity->position.x,
-            entity->position.y,
-            container,
-            player->team,
-            player->level,
+    uuid_unparse(player->uuid, player_uuid);
+    sprintf(tmp, "player{%d;%d;%s;%d;%s;%s;%d;%d}",
+            entity->position.x, entity->position.y, player_uuid,
+            player->status, container, player->team, player->level,
             player->orientation);
     free(container);
+    free(player_uuid);
     return tmp;
 }
 
@@ -81,22 +84,31 @@ char *pack_egg(entity_t *entity)
 {
     char *tmp = NULL;
     egg_t *egg = NULL;
+    char *egg_uuid = malloc(sizeof(char) * 40);
 
+    if (!egg_uuid)
+        return NULL;
     egg = (egg_t *)entity->data;
     if ((tmp = malloc(sizeof(char) *
         (get_len_egg(entity, egg) + EGG_SIZE))) == NULL)
         return NULL;
-    sprintf(tmp, "egg{%d;%d;%s}",
+    uuid_unparse(egg->id, egg_uuid);
+    sprintf(tmp, "egg{%d;%d;%s;%d;%s}",
             entity->position.x,
             entity->position.y,
+            egg_uuid,
+            egg->hatched,
             (char *)egg->team_name);
+    free(egg_uuid);
     return tmp;
 }
 
-char *pack(entity_t *entity)
+char *pack_entity(entity_t *entity)
 {
     char *packed = NULL;
 
+    if (entity == NULL)
+        return "";
     switch (entity->type) {
         case ENTITY_PLAYER_TYPE:
             packed = pack_player(entity);

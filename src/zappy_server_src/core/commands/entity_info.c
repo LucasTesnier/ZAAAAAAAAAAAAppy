@@ -23,13 +23,13 @@ char *pack_all_entities(entity_wrapper_t *entities)
         return NULL;
     res[0] = '\0';
     TAILQ_FOREACH(entity, &entities->players, entities) {
-        temp = pack(entity);
+        temp = pack_entity(entity);
         res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 1));
         strcat(res, temp);
         free(temp);
     }
     TAILQ_FOREACH(entity, &entities->eggs, entities) {
-        temp = pack(entity);
+        temp = pack_entity(entity);
         res = realloc(res, sizeof(char) * (strlen(res) + strlen(temp) + 1));
         strcat(res, temp);
         free(temp);

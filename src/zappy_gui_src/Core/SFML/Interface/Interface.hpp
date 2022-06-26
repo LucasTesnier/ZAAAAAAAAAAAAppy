@@ -61,6 +61,19 @@ namespace gui {
             /// \param player The player to be added.
             inline void addPlayer(gui::entity::Player &player) {
                 _server.addPlayer(player);
+                _minimap.addPlayer(player._uuid, sf::Vector2f(player._position.first, player._position.second));
+            };
+
+            /// \brief Remove the player passed as parameter from the server menu.
+            /// \param player The player to be removed.
+            inline void removePlayer(gui::entity::Player &player) {
+                _server.removePlayer(player);
+            };
+
+            /// \brief Remove the egg passed as parameter from the server menu.
+            /// \param egg The egg to be removed.
+            inline void removeEgg(gui::entity::Egg &egg) {
+                _server.removeEgg(egg);
             };
 
             /// \brief Add the tile passed as parameter to the server menu.
@@ -81,6 +94,7 @@ namespace gui {
             inline void removeEntities(std::string &type) {
                 _server.removeEntities(type);
             };
+
             /// \brief call the inventory object and set the position
             /// \param pos the position to set
             inline void setInventoryTilePos(const sf::Vector2f &pos) {

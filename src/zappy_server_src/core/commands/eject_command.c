@@ -27,19 +27,19 @@ bool command_eject(char *arg, player_list_t *player, server_data_t *serv)
 }
 
 /// \brief Move an entity to a given direction
-/// \param player Entity informations
-/// \param map Map informations
+/// \param player Entity information's
+/// \param map Map information's
 /// \param dir Direction to go
 static void move_x(entity_t *player, map_t *map,
 enum player_orientation_e dir)
 {
     position_t *pos = &player->position;
 
-    if (dir == NORTH)
-        pos->x = (map->width == 1) ? 0 : (pos->x - 1) % (map->width - 1);
+    if (dir == WEST)
+        pos->x = (pos->x - 1) < 0 ? (map->width - 1) :
+        (pos->x - 1) % (map->width - 1);
     else
-        pos->x = (pos->x - 1) < 0 ? map->width - 1 :
-            (pos->x - 1) % (map->width - 1);
+        pos->x = (map->width == 1) ? 0 : (pos->x + 1) % (map->width);
 }
 
 /// \brief Move an entity to a given direction
@@ -50,17 +50,18 @@ static void move_y(entity_t *player, map_t *map,
 enum player_orientation_e dir)
 {
     position_t *pos = &player->position;
-    if (dir == EAST)
-        pos->x = (map->height == 1) ? 0 : (pos->y + 1) % (map->height - 1);
+
+    if (dir == SOUTH)
+        pos->y = (map->height == 1) ? 0 : (pos->y + 1) % (map->height);
     else
-        pos->x = (pos->y - 1) < 0 ? (map->height - 1)
-            : (pos->y - 1) % (map->height - 1);
+        pos->y = (pos->y - 1) < 0 ? (map->height - 1) :
+        (pos->y - 1) % (map->height - 1);
 }
 
 /// \brief Cross all the entities on the tile_pos and push them
 /// \param serv Server information
-/// \param player Player informations
-/// \param tile_pos Tile informations
+/// \param player Player information's
+/// \param tile_pos Tile information's
 static void eject_action(server_data_t *serv, player_t *player,
 position_t tile_pos)
 {
@@ -68,20 +69,21 @@ position_t tile_pos)
 
     TAILQ_FOREACH(entity, &serv->entities->players, entities) {
         if (entity->position.x != tile_pos.x
-            && entity->position.y != tile_pos.y)
+            || entity->position.y != tile_pos.y)
             continue;
         if (!uuid_compare(((player_t *)entity->data)->uuid, player->uuid))
             continue;
         if (player->orientation == NORTH)
-            move_x(entity, serv->map, NORTH);
+            move_y(entity, serv->map, NORTH);
         if (player->orientation == SOUTH)
-            move_x(entity, serv->map, SOUTH);
+            move_y(entity, serv->map, SOUTH);
         if (player->orientation == EAST)
-            move_y(entity, serv->map, EAST);
+            move_x(entity, serv->map, EAST);
         if (player->orientation == WEST)
-            move_y(entity, serv->map, WEST);
+            move_x(entity, serv->map, WEST);
         send_unexpected_eject(get_eject_dir(serv, entity, tile_pos), serv,
-            (player_t *)entity->data);
+            (player_t *)entity->data, entity->position);
+        entity_diff_add_entity(serv->modified_entities, entity);
     }
 }
 
@@ -96,7 +98,6 @@ server_data_t *serv __attribute__((unused)))
     player_entity = (entity_t *)player->player_data;
     player_data = (player_t *)player_entity->data;
     eject_action(serv, player_data, player_entity->position);
-    send_entities_list_info(serv);
     pop_message(player->player_peer);
     return print_retcode(219, NULL, player->player_peer, true);
 }

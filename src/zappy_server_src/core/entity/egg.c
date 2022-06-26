@@ -18,6 +18,7 @@ egg_t *create_new_egg(const char *team_name)
     if (egg == NULL)
         return (NULL);
     egg->team_name = strdup(team_name);
+    egg->hatched = false;
     uuid_generate(egg->id);
     return egg;
 }

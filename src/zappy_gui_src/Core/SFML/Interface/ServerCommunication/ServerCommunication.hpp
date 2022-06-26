@@ -75,17 +75,19 @@ namespace gui {
 
             /// \brief Add a player at the end of a vector of players. It updates also the text on the left menu.
             /// \param player The player to be added.
-            inline void addPlayer(gui::entity::Player &player) {
-                _players.push_back(player);
-                _updateText();
-            };
+            void addPlayer(gui::entity::Player &player);
+
+            /// \brief Remove a player from a vector of players. It updates also the text on the left menu.
+            /// \param player The player to be removed.
+            void removePlayer(gui::entity::Player &player);
+
+            /// \brief Remove a egg from a vector of eggs. It updates also the text on the left menu.
+            /// \param egg The egg to be removed.
+            void removeEgg(gui::entity::Egg &egg);
 
             /// \brief Add a tile at the end of a vector of tiles. It updates also the text on the left menu.
             /// \param tile The tile to be added.
-            inline void addTilesInfo(gui::entity::Tile &tile) {
-                _tiles.push_back(tile);
-                _updateText();
-            };
+            void addTilesInfo(gui::entity::Tile &tile);
 
             /// \brief Add an egg at the end of a vector of eggs. It updates also the text on the left menu.
             /// \param egg The egg to be added.

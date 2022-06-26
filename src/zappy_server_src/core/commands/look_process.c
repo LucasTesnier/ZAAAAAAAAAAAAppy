@@ -52,7 +52,7 @@ position_t map_size, int lvl, position_t *looked_cases)
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
-        for (int j = MIN(left.x, right.x); j <= MAX(left.x, right.x); j++) {
+        for (int j = MAX(left.x, right.x); j >= MIN(left.x, right.x); j--) {
             looked_cases[looked_case_idx++] = (position_t) {j, left.y};
         }
         left.x -= 1;
@@ -70,16 +70,16 @@ position_t map_size, int lvl, position_t *looked_cases)
 static void look_west(position_t player,
 position_t map_size, int lvl, position_t *looked_cases)
 {
-    position_t left = (position_t) {player.x - 1, player.y - 1};
-    position_t right = (position_t) {player.x - 1, player.y + 1};
+    position_t left = (position_t) {player.x - 1, player.y + 1};
+    position_t right = (position_t) {player.x - 1, player.y - 1};
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
-        for (int j = MIN(left.x, right.x); j <= MAX(left.x, right.x); j++) {
-            looked_cases[looked_case_idx++] = (position_t) {j, left.y};
+        for (int j = MAX(left.y, right.y); j >= MIN(left.y, right.y); j--) {
+            looked_cases[looked_case_idx++] = (position_t) {left.x, j};
         }
-        left.y -= 1;
-        right.y += 1;
+        left.y += 1;
+        right.y -= 1;
         right.x -= 1;
         left.x -= 1;
     }
@@ -93,16 +93,16 @@ position_t map_size, int lvl, position_t *looked_cases)
 static void look_east(position_t player,
 position_t map_size, int lvl, position_t *looked_cases)
 {
-    position_t left = (position_t) {player.x + 1, player.y - 1};
-    position_t right = (position_t) {player.x + 1, player.y + 1};
+    position_t left = (position_t) {player.x + 1, player.y + 1};
+    position_t right = (position_t) {player.x + 1, player.y - 1};
     size_t looked_case_idx = 1;
 
     for (int i = 1; i <= lvl; i++) {
-        for (int j = MIN(left.x, right.x); j <= MAX(left.x, right.x); j++) {
-            looked_cases[looked_case_idx++] = (position_t) {j, left.y};
+        for (int j = MIN(left.y, right.y); j <= MAX(left.y, right.y); j++) {
+            looked_cases[looked_case_idx++] = (position_t) {left.x, j};
         }
-        left.y -= 1;
-        right.y += 1;
+        left.y += 1;
+        right.y -= 1;
         right.x += 1;
         left.x += 1;
     }

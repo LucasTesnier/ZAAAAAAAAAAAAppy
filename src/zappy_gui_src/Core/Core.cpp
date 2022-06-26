@@ -120,7 +120,6 @@ bool Core::_canEntityUpdate(std::vector<std::string> &entityAsString, std::strin
     if (!entityAsString.empty() && entityAsString.at(0).rfind("start", 0) == 0)
         entityAsString.erase(entityAsString.begin());
     if (!entityAsString.empty() && remove) {
-        _removeEntities(type);
         return true;
     }
     return false;
@@ -140,14 +139,20 @@ void Core::_updateEntities(std::string &type, std::string &response)
             entity::Player p;
             try {
                 _unpackObject->UnpackEntity(p, it);
-                _sfml->addPlayer(p);
+                if (!p.getStatusPlayer())
+                    _sfml->removePlayer(p);
+                else
+                    _sfml->addPlayer(p);
             } catch (...) {}
         }
         if (type == "egg") {
             entity::Egg e;
             try {
                 _unpackObject->UnpackEntity(e, it);
-                _sfml->addEgg(e);
+                if (e._statusEgg)
+                    _sfml->removeEgg(e);
+                else
+                    _sfml->addEgg(e);
             } catch (...) {}
         }
         if (type == "tile") {
@@ -155,6 +160,13 @@ void Core::_updateEntities(std::string &type, std::string &response)
             try {
                 _unpackObject->UnpackEntity(t, it);
                 _sfml->addTilesInfo(t);
+            } catch (...) {}
+        }
+        if (type == "status") {
+            entity::Status s;
+            try {
+                _unpackObject->UnpackEntity(s, it);
+                _sfml->addStatus(s);
             } catch (...) {}
         }
     }
@@ -169,12 +181,14 @@ void Core::_updateEntities(std::string &response)
     std::string tilestr = std::string("tile");
     std::string playerstr = std::string("player");
     std::string eggstr = std::string("egg");
+    std::string statusstr = std::string("status");
 
     if (response.empty()) {
         _removeEntities(playerstr);
         _removeEntities(eggstr);
         return;
     }
+    _updateEntities(statusstr, response);
     _updateEntities(tilestr, response);
     _updateEntities(playerstr, response);
     _updateEntities(eggstr, response);

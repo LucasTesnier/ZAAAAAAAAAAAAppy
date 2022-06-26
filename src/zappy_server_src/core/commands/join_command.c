@@ -33,8 +33,8 @@ static char *join_resp(server_data_t *serv, team_t *team)
 
 /// \brief Create a new player entity
 /// \param arg The function argument
-/// \param player_entity The entity informations
-/// \param serv The server informations
+/// \param player_entity The entity information's
+/// \param serv The server information's
 /// \return true When operation succeed
 /// \return false When operation failed
 static bool command_join_create_player_data(char *arg,
@@ -51,6 +51,7 @@ entity_t **player_entity, server_data_t *serv)
     if (!(player_data = create_player(arg)))
         return false;
     entity_set_data(*player_entity, player_data);
+    entity_diff_add_entity(serv->modified_entities, *player_entity);
     return true;
 }
 
@@ -71,7 +72,6 @@ bool command_join(char *arg, player_list_t *plr, server_data_t *serv)
     plr->player_data = player_entity;
     entity_wrapper_add_player(serv->entities, player_entity);
     add_user_to_team(tmp, ((player_t *)player_entity->data)->uuid);
-    send_entities_list_info(serv);
     pop_message(plr->player_peer);
     print_retcode(211, (res = join_resp(serv, tmp)), plr->player_peer, true);
     free(res);

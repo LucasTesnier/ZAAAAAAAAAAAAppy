@@ -27,9 +27,9 @@ bool command_look(char *arg, player_list_t *player, server_data_t *serv)
     return true;
 }
 
-/// \brief Get all the ressources in a tile and format it
+/// \brief Get all the resources in a tile and format it
 /// \param tile The concerned tile
-/// \param cases The tile ressources
+/// \param cases The tile resources
 /// \param res The result
 static void get_tile_content_entities(container_t *cases, char *res,
 entity_wrapper_t *wrapper, position_t curr_pos)
@@ -48,7 +48,7 @@ entity_wrapper_t *wrapper, position_t curr_pos)
             strcat(res, "eggs ");
 }
 
-/// \brief Get all the ressources in a tile and format it
+/// \brief Get all the resources in a tile and format it
 /// \param tile The concerned tile
 /// \return The result
 static char *get_tile_content(entity_t *tile, entity_wrapper_t *wrapper)
@@ -76,11 +76,11 @@ static char *get_tile_content(entity_t *tile, entity_wrapper_t *wrapper)
 }
 
 /// \brief Hold the look process
-/// \param serv The serv informations
+/// \param serv The serv information's
 /// \param level The player level
 /// \param position The player position
 /// \param map The size of the map
-/// \return char* The formated look result
+/// \return char* The formatted look result
 static char *look_action(server_data_t *serv, player_t *player,
 position_t position, position_t map)
 {

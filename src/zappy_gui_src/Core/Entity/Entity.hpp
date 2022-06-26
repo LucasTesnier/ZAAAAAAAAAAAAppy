@@ -46,6 +46,10 @@ namespace gui::entity {
         std::vector<int> _inventory;
         /// \brief string representating the team
         std::string _team_name;
+        /// \brief string representating the uuid
+        std::string _uuid;
+        /// \brief bool representating the status of the player
+        bool _statusPlayer;
         /// \brief level of the player
         int _level;
         /// \brief orientation of the player
@@ -64,6 +68,16 @@ namespace gui::entity {
         /// \return a string containing the name of the team
         inline const std::string &getTeamName() const {
             return _team_name;
+        }
+        /// \brief get the uuid
+        /// \return a string containing the uuid of the player
+        inline const std::string &getUuid() const {
+            return _uuid;
+        }
+        /// \brief get the status of the player
+        /// \return true if the player is alive, false otherwise
+        const bool &getStatusPlayer() const {
+            return _statusPlayer;
         }
         /// \brief get the level
         /// \return an int containing the level of the player
@@ -109,10 +123,37 @@ namespace gui::entity {
         std::pair<int, int> _position;
         /// \brief string representating the team
         std::string _team_name;
+        /// \brief string representating the uuid
+        std::string _uuid;
+        /// \brief status of the egg, true if it has hatch, false otherwise
+        bool _statusEgg;
         /// \brief get the position
         /// \return a pair containing the position x and y
         inline const std::pair<int, int> &getPosition() const {
             return _position;
+        }
+        /// \brief get the team name
+        /// \return a string containing the name of the team
+        inline const std::string &getTeamName() const {
+            return _team_name;
+        }
+        /// \brief get the uuid
+        /// \return a string containing the uuid of the player
+        inline const std::string &getUuid() const {
+            return _uuid;
+        }
+    };
+
+    struct Status {
+        public:
+        /// \brief The status of the game win or loose
+        std::string _status;
+        /// \brief the name of the team who won or lost
+        std::string _team_name;
+        /// \brief get the status
+        /// \return a string containing the status win or lost
+        inline const std::string &getStatus() const {
+            return _status;
         }
         /// \brief get the team name
         /// \return a string containing the name of the team

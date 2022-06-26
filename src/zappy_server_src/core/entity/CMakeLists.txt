@@ -12,5 +12,8 @@ set (ENTITY_SRC
     ${ENTITY_SRC_ROOT}/entity_wrapper_create.c
     ${ENTITY_SRC_ROOT}/entity_wrapper_remove.c
     ${ENTITY_SRC_ROOT}/entity_delete.c
+    ${ENTITY_SRC_ROOT}/entity_diff.c
+    ${ENTITY_SRC_ROOT}/entity_diff_remove.c
+
     PARENT_SCOPE
 )

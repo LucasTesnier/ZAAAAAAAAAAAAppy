@@ -77,7 +77,7 @@ typedef struct argument_s {
     char **team_list;
     /// Max client number authorized
     int client_nb;
-    /// Frequence of time
+    /// Inverse multiplicative of the time in seconds, (1 / time)
     float freq;
     /// The density data
     float *generation_density;
@@ -101,9 +101,11 @@ typedef struct server_data_s {
     entity_wrapper_t *entities;
     /// List of all the teams
     struct teams_list_s teams;
+    /// List of the modified entities that will be sent to the GUI client
+    entity_diff_t *modified_entities;
 } server_data_t;
 
-/// \brief Command informations and data
+/// \brief Command information's and data
 typedef struct command_data_s {
     /// Name of the command
     char *name;
@@ -114,7 +116,7 @@ typedef struct command_data_s {
 } command_data_t;
 
 /// \brief Init the server data structure
-/// \param port Port to setup the serveur
+/// \param port Port to setup the server
 /// \return server_data_t* Newly created server_data
 server_data_t *init_server_data(int ac, char **av);
 

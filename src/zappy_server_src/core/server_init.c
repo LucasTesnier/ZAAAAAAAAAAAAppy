@@ -37,8 +37,6 @@ static bool team_init(server_data_t *server_data)
 {
     team_t *tmp = NULL;
 
-    if (!server_data)
-        return false;
     TAILQ_INIT(&server_data->teams);
     for (int i = 0; server_data->arguments->team_list[i]; i++) {
         tmp = create_team(server_data->arguments->team_list[i],
@@ -47,6 +45,24 @@ static bool team_init(server_data_t *server_data)
             return false;
         if (!add_team(tmp, &server_data->teams))
             return false;
+    }
+    return true;
+}
+
+static bool init_entity_diff(server_data_t *server_data)
+{
+    size_t init_entity_size = server_data->map->width *
+            server_data->map->height;
+    server_data->modified_entities =
+            create_entity_diff(server_data->map->width
+            * server_data->map->height);
+    if (!server_data->modified_entities)
+        return false;
+    while (server_data->modified_entities->offset < init_entity_size) {
+        server_data->modified_entities->
+                entities[server_data->modified_entities->offset] =
+                server_data->map->tiles[server_data->modified_entities->offset];
+        server_data->modified_entities->offset++;
     }
     return true;
 }
@@ -72,7 +88,7 @@ static bool init_objects(server_data_t *server_data)
             get_tile(server_data->map, i, j), entities);
         }
     }
-    if (!team_init(server_data))
+    if (!team_init(server_data) || !init_entity_diff(server_data))
         return false;
     return true;
 }

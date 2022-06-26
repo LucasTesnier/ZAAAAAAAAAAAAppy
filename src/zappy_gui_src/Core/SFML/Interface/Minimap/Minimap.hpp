@@ -32,9 +32,7 @@ namespace gui {
             /// \brief Add a player from the minimap.
             /// \param name The name of the player.
             /// \param position The position of the player.
-            inline void addPlayer(const std::string &name, const sf::Vector2f &position) {
-                _playerList.push_back(std::tuple(name, position));
-            };
+            void addPlayer(const std::string &name, const sf::Vector2f &position);
 
             /// \brief Remove a player from the minimap.
             /// \param name The name of the player.
@@ -98,6 +96,8 @@ namespace gui {
 
             /// \brief position of the inventory menu
             sf::Vector2f _bottomMenuPosition;
+            std::vector<sf::Color> _teamsColors;
+            std::vector<std::string> _teamsNames;
     };
 } // namepsace gui
 

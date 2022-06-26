@@ -202,6 +202,8 @@ namespace gui {
                 _tileInfo._inventory.clear();
             };
 
+            void removePlayer(gui::entity::Player &player);
+            void removeEgg(gui::entity::Egg &egg);
         private:
 
             /// \brief Set the points of the tile.

@@ -16,14 +16,14 @@
 #include <math.h>
 #include <stdio.h>
 
-void scheduler_update_ressource(scheduler_t *self, server_data_t *serv)
+void scheduler_update_resource(scheduler_t *self, server_data_t *serv)
 {
     time_t now = time(NULL);
     int tick = floor((now - self->ressource) * self->freq);
 
     if (!self || tick < 20)
         return;
-    generate_new_ressource(serv->map, serv->arguments->generation_density);
-    send_map_info(serv);
+    generate_new_ressource(serv->map, serv->arguments->generation_density,
+    serv->modified_entities);
     self->ressource = time(NULL);
 }

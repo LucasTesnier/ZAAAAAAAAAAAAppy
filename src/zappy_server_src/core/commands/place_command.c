@@ -101,7 +101,9 @@ server_data_t *serv)
         pop_message(player->player_peer);
         return print_retcode(315, NULL, player->player_peer, false);
     }
-    send_map_info(serv);
+    entity_diff_add_entity(serv->modified_entities, player_entity);
+    entity_diff_add_entity(serv->modified_entities, get_tile(serv->map,
+        player_entity->position.x, player_entity->position.y));
     pop_message(player->player_peer);
     return print_retcode(221, arg, player->player_peer, true);
 }
