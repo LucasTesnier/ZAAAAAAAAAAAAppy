@@ -4,7 +4,7 @@ var searchData=
   ['main_2ecpp_453',['main.cpp',['../main_8cpp.html',1,'']]],
   ['manage_5ffd_5fsets_2ec_454',['manage_fd_sets.c',['../zappy__ai__src_2network_2net__utils_2manage__fd__sets_8c.html',1,'(Global Namespace)'],['../zappy__gui__src_2_core_2_network_2net__utils_2manage__fd__sets_8c.html',1,'(Global Namespace)']]],
   ['manage_5fforked_5fegg_455',['manage_forked_egg',['../fork__command_8c.html#aca9cfa90cc1997c32da41f15121e115a',1,'manage_forked_egg(entity_t *player_entity, server_data_t *serv):&#160;fork_utils.c'],['../fork__utils_8c.html#aca9cfa90cc1997c32da41f15121e115a',1,'manage_forked_egg(entity_t *player_entity, server_data_t *serv):&#160;fork_utils.c']]],
-  ['map_456',['Map',['../classgui_1_1_map.html',1,'Map'],['../classai__handle__response_1_1_map.html',1,'Map'],['../structserver__data__s.html#af2bb9dc718068dc88b8250185d0d6ab7',1,'server_data_s::map()'],['../classgui_1_1_map.html#a49848ab3a0e1934c5615242b67af68c7',1,'gui::Map::Map()']]],
+  ['map_456',['Map',['../classgui_1_1_map.html',1,'Map'],['../classai__handle__response_1_1_map.html',1,'Map'],['../classgui_1_1_map.html#a49848ab3a0e1934c5615242b67af68c7',1,'gui::Map::Map()'],['../structserver__data__s.html#af2bb9dc718068dc88b8250185d0d6ab7',1,'server_data_s::map()']]],
   ['map_2ec_457',['map.c',['../map_8c.html',1,'']]],
   ['map_2ecpp_458',['Map.cpp',['../_map_8cpp.html',1,'']]],
   ['map_2eh_459',['map.h',['../map_8h.html',1,'']]],

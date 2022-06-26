@@ -423,116 +423,125 @@ $(document).ready(function(){initNavTree('_map_8cpp_source.html',''); initResiza
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size()) {</div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keywordflow">for</span> (index = 0; tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().at(0).getTeamName() != _teamsNames.at(index); index++);</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        _playerAnimation.at(index % 4).setSize(sf::Vector2f(56 / 2, 188 / 2));</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        _playerAnimation.at(index % 4).setDuration(400);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        _playerAnimation.at(index % 4).setPosition({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 2 - _playerAnimation.at(index % 4).getGlobalBounds().width / 2, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top - 50});</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        _playerAnimation.at(index % 4).update();</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        _window-&gt;draw(_playerAnimation.at(index % 4).getShape());</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size() &gt;= 2) {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            _playerAnimation.at(4).moveShape({-6, 6});</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            _playerAnimation.at(4).update();</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            _window-&gt;draw(_playerAnimation.at(4).getShape());</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        }</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size() &gt;= 3) {</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            _playerAnimation.at(4).moveShape({12, 0});</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            _playerAnimation.at(4).update();</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            _window-&gt;draw(_playerAnimation.at(4).getShape());</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        }</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size() &gt;= 4) {</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            _playerAnimation.at(4).moveShape({-6, 6});</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            _playerAnimation.at(4).update();</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            _window-&gt;draw(_playerAnimation.at(4).getShape());</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        }</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    }</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;}</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="keywordtype">void</span> Map::_displayResources(<a class="code" href="classgui_1_1_tile.html">Tile</a> &amp;tile)</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;{</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    std::size_t index = 1;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    std::size_t multiplier = 1;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="keywordtype">int</span> multiplierFood = 10;</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keywordtype">int</span> multiplierStone = 5;</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    sf::Vector2f temp;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160; </div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : tile.<a class="code" href="classgui_1_1_tile.html#adaab1293d66db1381698e2e4936cbd39">getTileInfo</a>().<a class="code" href="classgui_1_1entity_1_1_tile.html#a67c9cf965a2e5cf969a7f75f6f41a199">getInventory</a>()) {</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        <span class="keywordflow">if</span> (index == 1)</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            multiplier = multiplierFood;</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            multiplier = multiplierStone;</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="keywordflow">if</span> (it) {</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(30, 30));</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            _ressourcesAnim.at(index - 1).setPosition({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + index * tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 9 - 10, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().height / 2 - _ressourcesAnim.at(index - 1).getGlobalBounds().height / 2 - 10});</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            _ressourcesAnim.at(index - 1).update();</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            <span class="keywordflow">if</span> (it &gt;= <span class="keywordtype">int</span>(2 * multiplier)) {</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                _ressourcesAnim.at(index - 1).moveShape({-6, 6});</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                _ressourcesAnim.at(index - 1).update();</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            }</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            <span class="keywordflow">if</span> (it &gt;= <span class="keywordtype">int</span>(3 * multiplier)) {</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                _ressourcesAnim.at(index - 1).moveShape({12, 0});</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                _ressourcesAnim.at(index - 1).update();</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;                _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            }</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;            <span class="keywordflow">if</span> (it &gt;= <span class="keywordtype">int</span>(4 * multiplier)) {</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                _ressourcesAnim.at(index - 1).moveShape({-6, 6});</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                _ressourcesAnim.at(index - 1).update();</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            }</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        }</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        index++;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    }</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;}</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="keywordtype">void</span> Map::_displayEggs(<a class="code" href="classgui_1_1_tile.html">Tile</a> &amp;tile)</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;{</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size()) {</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        _eggAnimation.<a class="code" href="classgui_1_1_animation.html#abe08fb450d7fe18d78e990016b2bb3d8">setSize</a>(sf::Vector2f(40, 40));</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a02b5eb9e134b742292fc926c5149fd06">setPosition</a>({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 2 - _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a3993d3bec15c8fedf8fd636b9c468209">getGlobalBounds</a>().width / 2, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top + 20});</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size() &gt;= 2) {</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a56719a245e12d43876bedf3f63dc96ed">moveShape</a>({-6, 6});</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        }</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size() &gt;= 3) {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a56719a245e12d43876bedf3f63dc96ed">moveShape</a>({12, 0});</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;            _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        }</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size() &gt;= 4) {</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a56719a245e12d43876bedf3f63dc96ed">moveShape</a>({-6, 6});</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        }</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;}</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
-<div class="line"><a name="l00424"></a><span class="lineno"><a class="line" href="classgui_1_1_map.html#a1e5b20fed15743656bb6d2e6a6ea6269">  424</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_map.html#a1e5b20fed15743656bb6d2e6a6ea6269">Map::display</a>()</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;{</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    sf::FloatRect area;</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    std::size_t tmp = 0;</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    _updateMoveMap();</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; _tile.size(); i++) {</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        area = _tile[i]-&gt;getGlobalBound();</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        <span class="keywordflow">if</span> (!_tileMustBeDisplayed(area, _window-&gt;getSize(), tmp, _mapSize, i))</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        <span class="keywordflow">if</span> (i % (<span class="keywordtype">int</span>)_mapSize.x == 0)</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;            tmp = i + 1;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        <span class="keywordflow">if</span> (tmp == 0)</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;            tmp = i;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        _findSelectedAndHoverTiles(i, mouse);</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        _window-&gt;draw(_tile[i]-&gt;getShape());</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        _displayResources(*_tile[i]);</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        _displayEggs(*_tile[i]);</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        _displayPlayers(*_tile[i]);</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    }</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    _displaySelectedTile();</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    _displayHoveredTile();</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;}</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size() == 0) {</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;            _playerAnimation.at(index % 4).setSize(sf::Vector2f(56 / 2, 188 / 2));</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            _playerAnimation.at(index % 4).setDuration(400);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            _playerAnimation.at(index % 4).setPosition({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 2 - _playerAnimation.at(index % 4).getGlobalBounds().width / 2, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top - 50});</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            _playerAnimation.at(index % 4).update();</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            _window-&gt;draw(_playerAnimation.at(index % 4).getShape());</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        }</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        _playerAnimation.at(4).setSize(sf::Vector2f(56 / 2, 188 / 2));</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        _playerAnimation.at(4).setDuration(400);</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        _playerAnimation.at(4).setPosition({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 2 - _playerAnimation.at(index % 4).getGlobalBounds().width / 2, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top - 50});</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        _playerAnimation.at(4).moveShape({-6, 6});</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        _playerAnimation.at(4).update();</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        _window-&gt;draw(_playerAnimation.at(4).getShape());</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size() &gt;= 2) {</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            _playerAnimation.at(4).moveShape({-6, 6});</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            _playerAnimation.at(4).update();</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            _window-&gt;draw(_playerAnimation.at(4).getShape());</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        }</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size() &gt;= 3) {</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            _playerAnimation.at(4).moveShape({12, 0});</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;            _playerAnimation.at(4).update();</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;            _window-&gt;draw(_playerAnimation.at(4).getShape());</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        }</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#a8479ba92dbe7f47e1d6f3051a8524180">getPlayers</a>().size() &gt;= 4) {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            _playerAnimation.at(4).moveShape({-6, 6});</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            _playerAnimation.at(4).update();</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;            _window-&gt;draw(_playerAnimation.at(4).getShape());</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        }</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    }</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;}</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="keywordtype">void</span> Map::_displayResources(<a class="code" href="classgui_1_1_tile.html">Tile</a> &amp;tile)</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;{</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    std::size_t index = 1;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    std::size_t multiplier = 1;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordtype">int</span> multiplierFood = 10;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keywordtype">int</span> multiplierStone = 5;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    sf::Vector2f temp;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : tile.<a class="code" href="classgui_1_1_tile.html#adaab1293d66db1381698e2e4936cbd39">getTileInfo</a>().<a class="code" href="classgui_1_1entity_1_1_tile.html#a67c9cf965a2e5cf969a7f75f6f41a199">getInventory</a>()) {</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <span class="keywordflow">if</span> (index == 1)</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            multiplier = multiplierFood;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            multiplier = multiplierStone;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordflow">if</span> (it) {</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            _ressourcesAnim.at(index - 1).setSize(sf::Vector2f(30, 30));</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            _ressourcesAnim.at(index - 1).setPosition({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + index * tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 9 - 10, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().height / 2 - _ressourcesAnim.at(index - 1).getGlobalBounds().height / 2 - 10});</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            _ressourcesAnim.at(index - 1).update();</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            <span class="keywordflow">if</span> (it &gt;= <span class="keywordtype">int</span>(2 * multiplier)) {</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                _ressourcesAnim.at(index - 1).moveShape({-6, 6});</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                _ressourcesAnim.at(index - 1).update();</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            }</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            <span class="keywordflow">if</span> (it &gt;= <span class="keywordtype">int</span>(3 * multiplier)) {</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;                _ressourcesAnim.at(index - 1).moveShape({12, 0});</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;                _ressourcesAnim.at(index - 1).update();</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;            }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;            <span class="keywordflow">if</span> (it &gt;= <span class="keywordtype">int</span>(4 * multiplier)) {</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;                _ressourcesAnim.at(index - 1).moveShape({-6, 6});</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                _ressourcesAnim.at(index - 1).update();</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                _window-&gt;draw(_ressourcesAnim.at(index - 1).getShape());</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;            }</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        }</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        index++;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    }</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;}</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="keywordtype">void</span> Map::_displayEggs(<a class="code" href="classgui_1_1_tile.html">Tile</a> &amp;tile)</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;{</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size()) {</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        _eggAnimation.<a class="code" href="classgui_1_1_animation.html#abe08fb450d7fe18d78e990016b2bb3d8">setSize</a>(sf::Vector2f(40, 40));</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a02b5eb9e134b742292fc926c5149fd06">setPosition</a>({tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().left + tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().width / 2 - _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a3993d3bec15c8fedf8fd636b9c468209">getGlobalBounds</a>().width / 2, tile.<a class="code" href="classgui_1_1_tile.html#ae037e9a3635d3d215066ee3f2fde1751">getGlobalBound</a>().top + 20});</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size() &gt;= 2) {</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a56719a245e12d43876bedf3f63dc96ed">moveShape</a>({-6, 6});</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        }</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size() &gt;= 3) {</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a56719a245e12d43876bedf3f63dc96ed">moveShape</a>({12, 0});</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        }</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        <span class="keywordflow">if</span> (tile.<a class="code" href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">getEggs</a>().size() &gt;= 4) {</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#a56719a245e12d43876bedf3f63dc96ed">moveShape</a>({-6, 6});</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;            _eggAnimation.<a class="code" href="classgui_1_1_animation.html#ac5c54df7ed3b930268c8d7752c101725">update</a>();</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            _window-&gt;draw(_eggAnimation.<a class="code" href="classgui_1_1_animation.html#a0d35781249f28caf935b49788bbc331a">getShape</a>());</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        }</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    }</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;}</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
+<div class="line"><a name="l00433"></a><span class="lineno"><a class="line" href="classgui_1_1_map.html#a1e5b20fed15743656bb6d2e6a6ea6269">  433</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classgui_1_1_map.html#a1e5b20fed15743656bb6d2e6a6ea6269">Map::display</a>()</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;{</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    sf::Vector2i mouse = sf::Mouse::getPosition(*_window.get());</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    sf::FloatRect area;</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    std::size_t tmp = 0;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    _updateMoveMap();</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; _tile.size(); i++) {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        area = _tile[i]-&gt;getGlobalBound();</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        <span class="keywordflow">if</span> (!_tileMustBeDisplayed(area, _window-&gt;getSize(), tmp, _mapSize, i))</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        <span class="keywordflow">if</span> (i % (<span class="keywordtype">int</span>)_mapSize.x == 0)</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;            tmp = i + 1;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;        <span class="keywordflow">if</span> (tmp == 0)</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;            tmp = i;</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        _findSelectedAndHoverTiles(i, mouse);</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        _window-&gt;draw(_tile[i]-&gt;getShape());</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        _displayResources(*_tile[i]);</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;        _displayEggs(*_tile[i]);</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        _displayPlayers(*_tile[i]);</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    }</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    _displaySelectedTile();</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    _displayHoveredTile();</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="a_map_8hpp_html_a6a7b4e240955af364384843198a73e44"><div class="ttname"><a href="_map_8hpp.html#a6a7b4e240955af364384843198a73e44">SOUND_DEATH_PATH</a></div><div class="ttdeci">#define SOUND_DEATH_PATH</div><div class="ttdef"><b>Definition:</b> <a href="_map_8hpp_source.html#l00037">Map.hpp:37</a></div></div>
@@ -583,7 +592,7 @@ $(document).ready(function(){initNavTree('_map_8cpp_source.html',''); initResiza
 <div class="ttc" id="aclassgui_1_1_map_html_adcda371d9446543ebc405b8d142b5094"><div class="ttname"><a href="classgui_1_1_map.html#adcda371d9446543ebc405b8d142b5094">gui::Map::addPlayer</a></div><div class="ttdeci">void addPlayer(gui::entity::Player &amp;player)</div><div class="ttdoc">add a player object to the vector</div><div class="ttdef"><b>Definition:</b> <a href="_map_8cpp_source.html#l00276">Map.cpp:276</a></div></div>
 <div class="ttc" id="aclassgui_1_1entity_1_1_player_html_a9768c4edce2da49e0733bd5077654fe1"><div class="ttname"><a href="classgui_1_1entity_1_1_player.html#a9768c4edce2da49e0733bd5077654fe1">gui::entity::Player::_team_name</a></div><div class="ttdeci">std::string _team_name</div><div class="ttdoc">string representating the team</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00048">Entity.hpp:48</a></div></div>
 <div class="ttc" id="anamespacegui_html_a0c42997b1efdcb1d74f28a577e75bdc9a4e191beba721d265f8f22bb869626b35"><div class="ttname"><a href="namespacegui.html#a0c42997b1efdcb1d74f28a577e75bdc9a4e191beba721d265f8f22bb869626b35">gui::DEATH_SOUND</a></div><div class="ttdeci">@ DEATH_SOUND</div><div class="ttdoc">index of death sound</div><div class="ttdef"><b>Definition:</b> <a href="_map_8hpp_source.html#l00048">Map.hpp:48</a></div></div>
-<div class="ttc" id="aclassgui_1_1_map_html_a1e5b20fed15743656bb6d2e6a6ea6269"><div class="ttname"><a href="classgui_1_1_map.html#a1e5b20fed15743656bb6d2e6a6ea6269">gui::Map::display</a></div><div class="ttdeci">void display()</div><div class="ttdoc">Display the map on the window. Update all information of the map if necessary.</div><div class="ttdef"><b>Definition:</b> <a href="_map_8cpp_source.html#l00424">Map.cpp:424</a></div></div>
+<div class="ttc" id="aclassgui_1_1_map_html_a1e5b20fed15743656bb6d2e6a6ea6269"><div class="ttname"><a href="classgui_1_1_map.html#a1e5b20fed15743656bb6d2e6a6ea6269">gui::Map::display</a></div><div class="ttdeci">void display()</div><div class="ttdoc">Display the map on the window. Update all information of the map if necessary.</div><div class="ttdef"><b>Definition:</b> <a href="_map_8cpp_source.html#l00433">Map.cpp:433</a></div></div>
 <div class="ttc" id="anamespacegui_html_a0c42997b1efdcb1d74f28a577e75bdc9a0a8abce9e9d68b2c607af786d62ceafc"><div class="ttname"><a href="namespacegui.html#a0c42997b1efdcb1d74f28a577e75bdc9a0a8abce9e9d68b2c607af786d62ceafc">gui::WIN_SOUND</a></div><div class="ttdeci">@ WIN_SOUND</div><div class="ttdoc">index of win sound</div><div class="ttdef"><b>Definition:</b> <a href="_map_8hpp_source.html#l00052">Map.hpp:52</a></div></div>
 <div class="ttc" id="aclassgui_1_1entity_1_1_tile_html_a824321351dde269da97640a08f09c975"><div class="ttname"><a href="classgui_1_1entity_1_1_tile.html#a824321351dde269da97640a08f09c975">gui::entity::Tile::getPosition</a></div><div class="ttdeci">const std::pair&lt; int, int &gt; &amp; getPosition() const</div><div class="ttdoc">get the position</div><div class="ttdef"><b>Definition:</b> <a href="_entity_8hpp_source.html#l00106">Entity.hpp:106</a></div></div>
 <div class="ttc" id="aclassgui_1_1_tile_html_abf20016ff8d2870d68b42738c78c909b"><div class="ttname"><a href="classgui_1_1_tile.html#abf20016ff8d2870d68b42738c78c909b">gui::Tile::getEggs</a></div><div class="ttdeci">const std::vector&lt; gui::entity::Egg &gt; &amp; getEggs() const</div><div class="ttdoc">Get the vector of players of the tile.</div><div class="ttdef"><b>Definition:</b> <a href="_tile_8hpp_source.html#l00179">Tile.hpp:179</a></div></div>
