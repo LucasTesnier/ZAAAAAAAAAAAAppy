@@ -1,10 +1,13 @@
 from collections import namedtuple
+from typing import List
 
 from ai_function_wrapper import ServerWrapper
 from ai_handle_response import Inventory, Map, Tile
 from ai_safe_error import safeExitError
 from ai_broadcast_to_object import BroadcastInfo
+from ai_strategy_mode import AiStrategy
 from time import time
+import random
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -40,29 +43,37 @@ FOOD_START = 1260
 SAFETY_MARGIN = 600
 
 """This is indication for the AI to switch to survival strategy under or equal to 300 units of time"""
-FOOD_LIMIT = 800
+FOOD_LIMIT = 1000
+
+"""This is indication for the AI that it can stop taking food and go farm another component"""
+ENOUGH_FOOD = 1200
 
 """This is the limit before the next try of elevation"""
-ELEVATION_LIMIT = 500
+ELEVATION_LIMIT = 200
 
 """This is the limit before the next update of the mapVision"""
-MAP_VISION_UPDATE_LIMIT = 70
+MAP_VISION_UPDATE_LIMIT = 500
 
 """This is the limit before the next update of the inventory"""
-INVENTORY_UPDATE_LIMIT = 15
+INVENTORY_UPDATE_LIMIT = 500
+
+DONT_MOVE_LIMIT = 500
+
+"""This is the indication for the AI that it can reach its teammates for elevation or something else"""
+CAN_REACH_TEAMMATE = 1000
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
 """
-COMPONENT_DENSITY = {
-    "food": 50,
-    "linemate": 30,
-    "deraumere": 15,
-    "sibur": 10,
-    "mendiane": 10,
-    "phiras": 8,
-    "thystame": 5
-}
+COMPONENT_LIST = [
+    "food",
+    "linemate",
+    "deraumere",
+    "sibur",
+    "mendiane",
+    "phiras",
+    "thystame"
+]
 
 """This static array provides information of the scheduling for each command
     Keys represents the command and values represents time/f to execute the command
@@ -94,15 +105,15 @@ TIME_LIMIT = {
 """
 
 PathVector = namedtuple("PathVector", ["frontTileIndex", "maxIndexInLine"])
-PATH_REFERENCES = [PathVector(0, 0),       # UNUSED LEVEL 0
-                   PathVector(2, 3),       # LEVEL 1
-                   PathVector(6, 8),       # LEVEL 2
-                   PathVector(12, 15),     # LEVEL 3
-                   PathVector(20, 24),     # LEVEL 4
-                   PathVector(30, 35),     # LEVEL 5
-                   PathVector(42, 48),     # LEVEL 6
-                   PathVector(56, 63),     # LEVEL 7
-                   PathVector(72, 80),     # LEVEL 8
+PATH_REFERENCES = [PathVector(0, 0),  # UNUSED LEVEL 0
+                   PathVector(2, 3),  # LEVEL 1
+                   PathVector(6, 8),  # LEVEL 2
+                   PathVector(12, 15),  # LEVEL 3
+                   PathVector(20, 24),  # LEVEL 4
+                   PathVector(30, 35),  # LEVEL 5
+                   PathVector(42, 48),  # LEVEL 6
+                   PathVector(56, 63),  # LEVEL 7
+                   PathVector(72, 80),  # LEVEL 8
                    ]
 
 """This static array is used to know every requirements for elevation
@@ -177,6 +188,7 @@ LEVEL_UP_REQUIREMENTS = [{},
 
 """-------------------------------------------AI Class---------------------------------------------------------"""
 
+
 class Ai:
     def __init__(self, availableSlots: int, teamName: str):
         """ Default Constructor of the Core class"""
@@ -243,10 +255,22 @@ class Ai:
         """This private member represents the time to know when AI can try an elevation"""
         self.__elevationTime = 0
 
+        self.__dontMoveTime = 0
+
         """This private member informs if the player is able
             to move or not, to participate of teamCall of something else
         """
         self.__ableToMove = True
+
+        """This private member informs the AI is in survival mode and need to take only food"""
+        self.__survivalModeOn = False
+
+        self.__strategyMode = AiStrategy.SURVIVAL
+
+        """This private member informs the AI a stock of food that it needs to take before doing any other actions
+            This can be useful to prepare elevation of other big actions like reach another teamMate
+        """
+        self.__foodStockCpt = 0
 
     def __del__(self):
         """Default Destructor of the AI class"""
@@ -261,12 +285,12 @@ class Ai:
         self.__isRunning = is_running
 
     def __setInventory(self, inventory_response: str):
-        if inventory_response is "":
+        if inventory_response == "":
             return
         self.__inventory.fillInventory(inventory_response)
 
     def __setVisionOfTheMap(self, look_response: str):
-        if look_response is "":
+        if look_response == "":
             return
         self.__visionOfTheMap.fillMap(look_response)
 
@@ -297,8 +321,23 @@ class Ai:
     def __resetElevationTime(self):
         self.__elevationTime = time()
 
+    def __resetDontMoveTime(self):
+        self.__dontMoveTime = time()
+
+    def __setDontMoveTime(self):
+        self.__dontMoveTime = time()
+
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
+
+    def __setStrategyMode(self, mode: AiStrategy):
+        self.__strategyMode = mode
+
+    def __setFoodStock(self, stock: int):
+        self.__foodStockCpt = stock
+
+    def __decrFoodStock(self):
+        self.__foodStockCpt -= 1
 
     def __getAvailableSlots(self) -> int:
         return self.__availableSlots
@@ -339,6 +378,9 @@ class Ai:
     def __getElevationTime(self) -> float:
         return self.__elevationTime
 
+    def __getDontMoveTime(self) -> float:
+        return self.__dontMoveTime
+
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
 
@@ -349,6 +391,9 @@ class Ai:
             """
         playerLevel = self.__playerCurrentLevel + 1
         return playerLevel * playerLevel
+
+    def __getFoodStock(self):
+        return self.__foodStockCpt
 
     """ -------------------------------------------Public members functions------------------------------------------"""
 
@@ -385,7 +430,8 @@ class Ai:
             safeExitError()
         self.__waitServerResponse()
         self.__setInventory(self.__lib.getRepInventory())
-        self.__setFrequency(int((tmp_food - self.__inventory.GetFood()) / 2))
+        frequency = int((tmp_food - self.__inventory.GetFood()) / 2)
+        self.__setFrequency(1 if frequency <= 0 else frequency)
 
     def __waitServerResponse(self):
         """This is used by AI to wait until the server's response, managing unexpected responses in the same time"""
@@ -400,43 +446,198 @@ class Ai:
     def __unexpectedResponseManagement(self):
         """This is used by AI to manage every unexpected response send by the server like :
                 - Death of the player
-                - Eject from another player (not implemented at the moment)
-                - Broadcast, sending message from another player (not implemented at the moment)
+                - Eject from another player
+                - Broadcast, sending message from another player
         """
         response: str = self.__lib.getUnexpectedResponse()
-        if response is "":
+        if response == "" or response == None:
             return
-        if response is "dead":
+        if "dead" in response:
             safeExitError(84, "Player is dead, disconnected.")
-        self.__broadCastResponseManagement(response)
+        if "eject" in response:
+            self.__ejectManagement(response.split(": ")[1])
+        if "message" in response:
+            if self.__getInventory().GetFood() >= CAN_REACH_TEAMMATE:
+                bc_infos = self.__broadCastResponseManagement(response)
+                self.__reachTeammate(self.__getMovementArrayFromBroadcast(bc_infos.pos))
+
+    def __ejectManagement(self, orientation: str):
+        """This function occurs when the player got ejected by another player"""
+        # TODO regarder ce que peut entrainer quand on se fait ejecter d'une case, je pense pas grand chose
+        pass
+
+    def __getDirectionOfTeammate(self, x: int, y: int) -> str:
+        """This function is used by AI to know the direction to go to join the teammate"""
+        if y >= x and y > 0:
+            return "north"
+        if y <= x and y < 0:
+            return "south"
+        if y < x < 0:
+            return "west"
+        if x > y and x > 0:
+            return "east"
+
+    def __forward(self):
+        if not self.__lib.askForward():
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepForward()
+
+    def __turnRight(self):
+        if not self.__lib.askTurnRight():
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepTurnRight()
+
+    def __turnLeft(self):
+        if not self.__lib.askTurnLeft():
+            safeExitError()
+        self.__waitServerResponse()
+        self.__lib.getRepTurnLeft()
+
+    def __northTravel(self, x: int, y: int):
+        for _ in range(y):
+            self.__forward()
+        if x < 0:
+            self.__turnLeft()
+            x *= -1
+            for _ in range(x):
+                self.__forward()
+        elif x > 0:
+            self.__turnRight()
+            for _ in range(x):
+                self.__forward()
+        else:
+            pass
+
+    def __southTravel(self, x: int, y: int):
+        for _ in range(2):
+            self.__turnLeft()
+        y *= -1
+        for _ in range(y):
+            self.__forward()
+        if x < 0:
+            self.__turnRight()
+            x *= -1
+            for _ in range(x):
+                self.__forward()
+        elif x > 0:
+            self.__turnLeft()
+            for _ in range(x):
+                self.__forward()
+        else:
+            pass
+
+    def __westTravel(self, x: int, y: int):
+        self.__turnLeft()
+        x *= -1
+        for _ in range(x):
+            self.__forward()
+        if y < 0:
+            self.__turnLeft()
+            y *= -1
+            for _ in range(y):
+                self.__forward()
+        elif y > 0:
+            self.__turnRight()
+            for _ in range(y):
+                self.__forward()
+        else:
+            pass
+
+    def __eastTravel(self, x: int, y: int):
+        self.__turnRight()
+        for _ in range(x):
+            self.__forward()
+        if y < 0:
+            self.__turnRight()
+            y *= -1
+            for _ in range(y):
+                self.__forward()
+        elif y > 0:
+            self.__turnLeft()
+            for _ in range(y):
+                self.__forward()
+        else:
+            pass
+
+    def __reachTeammate(self, movements):
+        """This function is used by AI to reach its teammate from array of coordinates
+            params : movements : is and array of coordinates [x, y] representing the movements to do to reach teammate
+                    where   x is the x-axis
+                            y is the y-axis
+        """
+        if not self.__ableToMove:
+            return False
+        x = movements[0]
+        y = movements[1]
+        direction = self.__getDirectionOfTeammate(x, y)
+
+        if direction == "south":
+            self.__southTravel(x, y)
+        elif direction == "west":
+            self.__westTravel(x, y)
+        elif direction == "east":
+            self.__eastTravel(x, y)
+        self.__setAbleToMove(False)
+
+    def __getMovementArrayFromBroadcast(self, broadCastIndex: int):
+        """This function is used by AI to know which movements to do to reach its teammate
+            return : movement_res[x, y]
+                        where   x is the x-axis of the call
+                                y is the y-axis of the call
+        """
+        X = 0
+        Y = 1
+        current_index = 0
+        y = 0
+        x = 0
+        delta_y = 0
+        delta_x = -1
+        movement_res = [X, Y]
+        while current_index != broadCastIndex + 1:
+            movement_res[X] = x * -1
+            movement_res[Y] = y
+            if y == x or (y < 0 and y == -x) or (y > 0 and y == 1 - x):
+                temp = delta_y
+                delta_y = -delta_x
+                delta_x = temp
+            x += delta_x
+            y += delta_y
+            current_index += 1
+        print(f"movement tab : {movement_res}")
+        return movement_res
 
     def __broadCastResponseManagement(self, response: str):
-        """This is used to parse the response of"""
+        """This is used to parse the response of the broadcast
+            Notice that all players receiving every broadcast, so it could be possible to intercept enemies'
+            broadcast and try to deny their actions
+        """
         pos = 0
+        POS = 0
+        TEAM_NAME = 1
+        NB_PLAYERS = 2
+        ACTION = 3
+        REQUIRED_LEVEL = 4
+        RESOURCE = 5
         if response.startswith("message"):
+            response = response.split("message ")[1]
             infos = response.split(", ")
-            team_name = infos[1]
-            if team_name != self.__teamName:
-                ## DENY ## TO IMPLEMENT ##
-                return
+            team_name = infos[TEAM_NAME]
             try:
-                pos = int(infos[0].split(" ")[1])
+                pos = int(infos[POS])
             except ValueError as e:
                 print(e)
-            action = infos[2]
-            if action is "incantation":
-                return BroadcastInfo(action, team_name, pos, int(infos[3]), int(infos[4]), "")
-            if action is "give":
-                return BroadcastInfo(action, team_name, pos, 0, 0, infos[2])
+            action = infos[ACTION]
+            if action == "incantation":
+                return BroadcastInfo(action, team_name, pos, int(infos[REQUIRED_LEVEL]), int(infos[NB_PLAYERS]), "")
+            if action == "give":
+                return BroadcastInfo(action, team_name, pos, 0, 0, infos[RESOURCE])
 
     def __mapVisionTimeManagement(self):
         delta_time = time() - self.__getMapVisionTime()
         if delta_time >= MAP_VISION_UPDATE_LIMIT / self.__getFrequency():
-            if not self.__lib.askLook():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__visionOfTheMap.fillMap(self.__lib.getRepLook())
-            self.__resetMapVisionTime()
+            self.__look()
 
     def __inventoryTimeManagement(self):
         delta_time = time() - self.__getInventoryTime()
@@ -454,6 +655,7 @@ class Ai:
         delta_time = time() - self.__getElevationTime()
         if delta_time >= ELEVATION_LIMIT / self.__getFrequency():
             self.__tryElevation()
+            self.__resetElevationTime()
 
     def __timeManagement(self):
         """This is used by AI to manage useful time recorder
@@ -461,8 +663,9 @@ class Ai:
             and when (limit * f) is reached, it triggers the update action
                 where f is the frequency
         """
+        if self.__getFoodStock():
+            return
         self.__inventoryTimeManagement()
-        self.__mapVisionTimeManagement()
         self.__elevationManagement()
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
@@ -474,6 +677,8 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
+        if self.__getFoodStock():
+            return
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() > 7:
@@ -481,16 +686,32 @@ class Ai:
         else:
             self.__farming()
 
+    def __look(self):
+        """This is a wrapper for look command on server, asking server and waiting for the answer"""
+        if not self.__lib.askLook():
+            safeExitError()
+        self.__waitServerResponse()
+        self.__visionOfTheMap.fillMap(self.__lib.getRepLook())
+        self.__resetMapVisionTime()
+
     def __actionsProceed(self):
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        component = "sibur" if self.__getTargetComponent() is "nothing" else self.__getTargetComponent()
+        component = COMPONENT_LIST[random.randint(0, 6)] \
+            if self.__getTargetComponent() == "nothing" \
+            else self.__getTargetComponent()
         self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if not self.__lib.askTakeObject(component):
             safeExitError()
         self.__waitServerResponse()
-        self.__lib.getRepTakeObject()
+        if not self.__lib.getRepTakeObject():
+            if self.__getAbleToMove():
+                self.__forward()
+            self.__look()
+            self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
+        if component == "food" and self.__getFoodStock():
+            self.__decrFoodStock()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
         """This is used by AI to know if the specific component is present on the specific tile
@@ -512,7 +733,7 @@ class Ai:
 
     def __isThisActionRealisable(self, action: str) -> bool:
         """This is used by the AI to know if the action is realisable or not depending on its food"""
-        return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action) * self.__getFrequency()
+        return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action) * (self.__getFrequency() / 10)
 
     def __forkManagement(self, needed_players: int):
         player_on_map = MAX_TEAM_PLAYER - self.__getAvailableSlots()
@@ -532,7 +753,10 @@ class Ai:
             return False
         level_of_player = self.__getPlayerCurrentLevel()
         required_player: int = LEVEL_UP_REQUIREMENTS[level_of_player].get("player")
+        self.__look()
         if self.__getVisionOfTheMap().GetTile(0).player < required_player:
+            self.__teamCall("incantation")
+            self.__setAbleToMove(False)
             return False
         if not self.__lib.askIncantation():
             safeExitError()
@@ -552,9 +776,9 @@ class Ai:
         if not self.__isThisActionRealisable("broadcast"):
             return False
         level_of_player = self.__getPlayerCurrentLevel()
-        nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action is "incantation" else 1
-        required_level = self.__getPlayerCurrentLevel() if action is "incantation" else 1
-        if not self.__lib.askBroadcastText(f"{self.__getTeamName()}, {action}, {nb_player}, {required_level}\n"):
+        nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action == "incantation" else 1
+        required_level = self.__getPlayerCurrentLevel() if action == "incantation" else 1
+        if not self.__lib.askBroadcastText(f"{self.__getTeamName()}, {nb_player}, {action}, {required_level}\n"):
             safeExitError()
         self.__waitServerResponse()
         self.__lib.getRepBroadcastText()
@@ -570,7 +794,7 @@ class Ai:
         self.__setAvailableSlots(self.__lib.getRepConnectNbr())
         if not self.__isThisActionRealisable("fork"):
             return False
-        if self.__getAvailableSlots() is 0:
+        if self.__getAvailableSlots() == 0:
             return False
         if not self.__lib.askFork():
             safeExitError()
@@ -585,80 +809,26 @@ class Ai:
             This function will request ask methods of the API and then wait the response to proceed
             Param :     index: int, representing the index of the tile you want to reach
         """
-        if index is -1:
+        if index == -1 or index == 0 or not self.__getAbleToMove():
             return
         nb_forward_steps = 0
         front_tile_index = 0
         for vector in reversed(PATH_REFERENCES[1:]):
             if index <= vector.maxIndexInLine:
                 front_tile_index = vector.frontTileIndex
-                nb_forward_steps = PATH_REFERENCES.index(vector)
+                nb_forward_steps = vector
         for _ in range(0, nb_forward_steps):
-            if not self.__lib.askForward():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepForward()
+            self.__forward()
         nb_forward_steps = index - front_tile_index
         if nb_forward_steps < 0:
-            if not self.__lib.askTurnLeft():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepTurnLeft()
+            self.__turnLeft()
             nb_forward_steps *= -1
-        elif nb_forward_steps is 0:
+        elif nb_forward_steps == 0:
             return
         else:
-            if not self.__lib.askTurnRight():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepTurnRight()
+            self.__turnRight()
         for _ in range(0, nb_forward_steps):
-            if not self.__lib.askForward():
-                safeExitError()
-            self.__waitServerResponse()
-            self.__lib.getRepForward()
-
-    def __reachBroadCastTile(self, tile_index: int):
-        """This is used by AI after a broadcast call from other member of the team
-            In this case, if AI is able to move, with enough food, it tries to reach the tile asked in the broadcast
-        """
-        north = (1, 10)
-        west = (3, 14)
-        south = (5, 18)
-        east = (7, 22)
-        north_delta = north.index(1) - north.index(1)
-        west_delta = west.index(1) - west.index(1)
-        south_delta = south.index(1) - south.index(1)
-        east_delta = east.index(1) - east.index(1)
-
-        if tile_index is 0:
-            #don't move
-            pass
-        if tile_index is north.index(0):
-            #forward
-            pass
-        if tile_index is west.index(0):
-            #Turn left, forward
-            pass
-        if tile_index is south.index(0):
-            # Turn left, turn left, forward
-            pass
-        if tile_index is east.index(0):
-            #Turn right, forward
-            pass
-
-        if tile_index is north.index(1):
-            #forward, forward
-            pass
-        if tile_index is west.index(1):
-            #Turn left, forward, forward
-            pass
-        if tile_index is south.index(1):
-            # Turn left, turn left, forward, forward
-            pass
-        if tile_index is east.index(1):
-            #Turn right, forward, forward
-            pass
+            self.__forward()
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are used by survival strategy
@@ -667,7 +837,10 @@ class Ai:
 
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
+        if not self.__getFoodStock():
+            self.__setFoodStock(20)
         self.__setTargetComponent("food")
+        self.__setStrategyMode(AiStrategy.SURVIVAL)
         self.__setAbleToMove(False)
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
@@ -679,26 +852,25 @@ class Ai:
         """This is the main function of aggressive strategy, it manages all actions to deny other teams
             and then avoid their win
         """
+        # TODO @ref __broadCastResponseManagement
+        self.__setStrategyMode(AiStrategy.AGGRESSIVE)
         self.__setAbleToMove(True)
 
-    def __takeSpecificComponent(self):
-        """This is used by the AI in case of needing a specific component and get it
-            Here, the AI is making a risky bet because it doesn't do anything else than get the specific component
-            Make sure to have enough food before calling this function
+    def __interceptEnemiesMessage(self, tile_index: int):
+        """This function is used by AI when a broadcast occurs, after getting the position of the call
+            it's possible for the AI to go on the tile and eject players trying to elevate or something else
         """
-        pass
-
-    def __denyComponents(self):
-        """This is used by high level player in the game (7, 8)
-            The AI consider a higher or lower value of the objects depending on their density in the map
-            The higher the value, the more likely is that the AI will pick up the object
-        """
-        pass
+        callPos = self.__getMovementArrayFromBroadcast(tile_index)
+        if (callPos[0] + callPos[1] + 2) * (7 / self.__frequency) <= self.__getInventory().GetFood() + SAFETY_MARGIN:
+            self.__reachSpecificTile(tile_index)
+            self.__lib.askEject()
+            return True
 
     def __requestComponentFromTeam(self, component: str):
         """This is used by the AI to request specific components from the team
             Param : component: str, representing the specific component needed by the AI
         """
+        # TODO : ça pourrait être cool de demander des composants à la team via le broadcast @ref RFC
         pass
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
@@ -709,6 +881,10 @@ class Ai:
     def __farming(self):
         """This is the main function of farming strategy, it manages all actions to get components as fast as possible
         """
+        for i in range(8):
+            component = self.__getRequiredComponent(i)
+            if component != "nothing":
+                break
         self.__setTargetComponent(self.__getRequiredComponent())
         self.__setAbleToMove(True)
 
@@ -722,12 +898,14 @@ class Ai:
                 return i
         return -1
 
-    def __getRequiredComponent(self) -> str:
+    def __getRequiredComponent(self, next_level: int = 0) -> str:
         """This is used by the AI to know what is the required component missing for elevation
             Ordered from rarest to the least rare component
             return : the required component or nothing if all requirements are met
         """
-        playerLevel = self.__getPlayerCurrentLevel()
+        playerLevel = self.__getPlayerCurrentLevel() + next_level
+        if playerLevel > 8:
+            playerLevel = 8
         componentList = [
             "thystame",
             "phiras",
