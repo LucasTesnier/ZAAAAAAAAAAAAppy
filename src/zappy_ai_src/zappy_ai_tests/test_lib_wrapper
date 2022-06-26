@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 import sys
-from tkinter import N
-
-from numpy import einsum
 
 sys.path.append('../')
 
