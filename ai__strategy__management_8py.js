@@ -1,8 +1,11 @@
 var ai__strategy__management_8py =
 [
     [ "Ai", "classai__strategy__management_1_1_ai.html", "classai__strategy__management_1_1_ai" ],
-    [ "COMPONENT_DENSITY", "ai__strategy__management_8py.html#af9b50cfca8cba116b2e57a7191ae099b", null ],
+    [ "CAN_REACH_TEAMMATE", "ai__strategy__management_8py.html#ae0daf0de94ee107745cc154e1e768be1", null ],
+    [ "COMPONENT_LIST", "ai__strategy__management_8py.html#a4228b15e696f1d596f32ff7b764d9b22", null ],
+    [ "DONT_MOVE_LIMIT", "ai__strategy__management_8py.html#a5d68a12e7a9c174da0867d03e193fe6e", null ],
     [ "ELEVATION_LIMIT", "ai__strategy__management_8py.html#ac8a18d3441260518dd2a5f459f05e68a", null ],
+    [ "ENOUGH_FOOD", "ai__strategy__management_8py.html#a9ba0534fb36d8569457a8584be5edbd4", null ],
     [ "FOOD_LIMIT", "ai__strategy__management_8py.html#a1623d697758dd068ae3ca56b9b10e1c9", null ],
     [ "FOOD_START", "ai__strategy__management_8py.html#a6e9d59a42d65c958c48be1484cfa227f", null ],
     [ "INVENTORY_UPDATE_LIMIT", "ai__strategy__management_8py.html#a55917a0ea1e3377d19b336fa7854f515", null ],

@@ -7,5 +7,6 @@ var namespaces_dup =
     [ "ai_handle_response", "namespaceai__handle__response.html", null ],
     [ "ai_safe_error", "namespaceai__safe__error.html", null ],
     [ "ai_strategy_management", "namespaceai__strategy__management.html", null ],
+    [ "ai_strategy_mode", "namespaceai__strategy__mode.html", null ],
     [ "gui", "namespacegui.html", "namespacegui" ]
 ];

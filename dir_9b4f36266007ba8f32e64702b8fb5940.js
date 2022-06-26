@@ -19,5 +19,8 @@ var dir_9b4f36266007ba8f32e64702b8fb5940 =
       [ "Map", "classai__handle__response_1_1_map.html", "classai__handle__response_1_1_map" ]
     ] ],
     [ "ai_safe_error.py", "ai__safe__error_8py.html", "ai__safe__error_8py" ],
-    [ "ai_strategy_management.py", "ai__strategy__management_8py.html", "ai__strategy__management_8py" ]
+    [ "ai_strategy_management.py", "ai__strategy__management_8py.html", "ai__strategy__management_8py" ],
+    [ "ai_strategy_mode.py", "ai__strategy__mode_8py.html", [
+      [ "AiStrategy", "classai__strategy__mode_1_1_ai_strategy.html", null ]
+    ] ]
 ];

@@ -6,6 +6,7 @@ var annotated_dup =
     [ "ai_function_wrapper", "namespaceai__function__wrapper.html", "namespaceai__function__wrapper" ],
     [ "ai_handle_response", "namespaceai__handle__response.html", "namespaceai__handle__response" ],
     [ "ai_strategy_management", "namespaceai__strategy__management.html", "namespaceai__strategy__management" ],
+    [ "ai_strategy_mode", "namespaceai__strategy__mode.html", "namespaceai__strategy__mode" ],
     [ "gui", "namespacegui.html", "namespacegui" ],
     [ "argument_s", "structargument__s.html", "structargument__s" ],
     [ "broadcast_data_s", "structbroadcast__data__s.html", "structbroadcast__data__s" ],
