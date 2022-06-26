@@ -308,17 +308,12 @@ namespace gui {
             std::vector<Animation> _ressourcesAnim;
 
             /// \brief object animation for the player
-            Animation _playerAnimation;
+            std::vector<Animation> _playerAnimation;
 
             /// \brief object animation for the player
             Animation _eggAnimation;
 
-            /// \brief vector of all the teams
-            std::vector<std::string> _teams;
-
-            /// \brief vector of team linked to a color
-            std::vector<sf::Color> _teamsColor;
-
+            std::vector<std::string> _teamsNames;
             using SoundPtr = std::shared_ptr<sf::Sound>;
 
             /// \brief vector of all the sounds

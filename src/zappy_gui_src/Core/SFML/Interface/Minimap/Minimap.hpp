@@ -96,6 +96,8 @@ namespace gui {
 
             /// \brief position of the inventory menu
             sf::Vector2f _bottomMenuPosition;
+            std::vector<sf::Color> _teamsColors;
+            std::vector<std::string> _teamsNames;
     };
 } // namepsace gui
 

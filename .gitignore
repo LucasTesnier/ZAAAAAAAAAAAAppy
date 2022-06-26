@@ -68,6 +68,7 @@ IDEA
 
 # Python Cache
 __pycache__
+.pytest_cache
 
 # Folders
 build

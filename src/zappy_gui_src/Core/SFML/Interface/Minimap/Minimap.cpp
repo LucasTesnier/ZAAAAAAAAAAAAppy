@@ -14,6 +14,13 @@ using namespace gui;
 
 const sf::Vector2f VIEW_ANGLE = sf::Vector2f(45, 45);
 
+const std::vector<sf::Color> TEAMS_COLORS = {
+    sf::Color(254, 202, 100),
+    sf::Color(158, 110, 255),
+    sf::Color(254, 129, 166),
+    sf::Color(110, 153, 255)
+};
+
 Minimap::Minimap()
 {
     const sf::Vector2f minimapSize = {200, 200};
@@ -29,6 +36,9 @@ void Minimap::display()
 {
     _window->draw(_minimap);
     for (std::tuple<std::string, sf::Vector2f> &it: _playerList) {
+        std::size_t index = 0;
+        for (index = 0; std::get<0>(it) != _teamsNames.at(index); index++);
+        _player.setFillColor(TEAMS_COLORS.at(index % 4));
         _player.setPosition(_minimap.getPosition() + sf::Vector2f(std::get<1>(it).x * _minimapSize.x / _mapSize.x, std::get<1>(it).y * _minimapSize.y / _mapSize.y));
         _window->draw(_player);
     }
@@ -54,6 +64,11 @@ void Minimap::addPlayer(const std::string &name, const sf::Vector2f &position)
         }
     }
     _playerList.push_back(std::tuple(name, position));
+    for (auto &it : _teamsNames) {
+        if (it == name)
+            return;
+    }
+    _teamsNames.push_back(name);
 }
 
 void Minimap::switchSize(bool state)
