@@ -323,9 +323,6 @@ class Ai:
     def __resetDontMoveTime(self):
         self.__dontMoveTime = time()
 
-    def __setDontMoveTime(self):
-        self.__dontMoveTime = time()
-
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
 
@@ -604,7 +601,6 @@ class Ai:
             x += delta_x
             y += delta_y
             current_index += 1
-        print(f"movement tab : {movement_res}")
         return movement_res
 
     def __broadCastResponseManagement(self, response: str):
@@ -623,6 +619,8 @@ class Ai:
             response = response.split("message ")[1]
             infos = response.split(", ")
             team_name = infos[TEAM_NAME]
+            if team_name != self.__getTeamName():
+                return
             try:
                 pos = int(infos[POS])
             except ValueError as e:
@@ -656,6 +654,12 @@ class Ai:
             self.__tryElevation()
             self.__resetElevationTime()
 
+    def __dontMoveManagement(self):
+        """This is used to manage the not moving AI during incantation"""
+        delta_time = time() - self.__getDontMoveTime()
+        if delta_time >= DONT_MOVE_LIMIT / self.__getFrequency():
+            self.__setAbleToMove(True)
+
     def __timeManagement(self):
         """This is used by AI to manage useful time recorder
             at each turn of the loop, Ai increments mapVisionTime & inventoryTime
@@ -666,6 +670,8 @@ class Ai:
             return
         self.__inventoryTimeManagement()
         self.__elevationManagement()
+        if not self.__getAbleToMove():
+            self.__dontMoveManagement()
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
         These functions are common in every strategies
@@ -883,7 +889,6 @@ class Ai:
             if component != "nothing":
                 break
         self.__setTargetComponent(self.__getRequiredComponent())
-        self.__setAbleToMove(True)
 
     def __findClosestTileFromComponent(self, component: str) -> int:
         """This is used by AI to find the closest tile depending on the component requested
