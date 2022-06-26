@@ -19,4 +19,3 @@ jobs:
             ${{ secrets.AZURE_REPO_URL }}
           azure_ssh_private_key:
             ${{ secrets.AZURE_MIRRORING_KEY }}
-    needs: build
