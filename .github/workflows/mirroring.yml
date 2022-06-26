@@ -10,7 +10,7 @@ jobs:
   to_github:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: pixta-dev/repository-mirroring-action@v1
@@ -19,3 +19,4 @@ jobs:
             ${{ secrets.EPI_REPO_URL }}
           ssh_private_key:
             ${{ secrets.EPI_MIRRORING_KEY }}
+    needs: build
