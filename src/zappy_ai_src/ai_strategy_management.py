@@ -481,8 +481,6 @@ class Ai:
         """This is used by AI to know when is the best moment to try an elevation"""
         if self.__getTargetComponent() != "nothing":
             return
-        if self.__getInventory().GetFood() < 1200:
-            return
         delta_time = time() - self.__getElevationTime()
         if delta_time >= ELEVATION_LIMIT / self.__getFrequency():
             self.__tryElevation()
@@ -551,7 +549,7 @@ class Ai:
 
     def __isThisActionRealisable(self, action: str) -> bool:
         """This is used by the AI to know if the action is realisable or not depending on its food"""
-        return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action) * self.__getFrequency()
+        return self.__getInventory().GetFood() + SAFETY_MARGIN >= TIME_LIMIT.get(action) * (self.__getFrequency() / 10)
 
     def __forkManagement(self, needed_players: int):
         player_on_map = MAX_TEAM_PLAYER - self.__getAvailableSlots()
