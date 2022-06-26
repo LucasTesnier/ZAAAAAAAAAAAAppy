@@ -88,6 +88,8 @@ namespace gui {
 
         private:
 
+            void _displayIntroMenu();
+
             void _getEvent();
             /// \brief The status of the SFML.
             bool _run;
@@ -103,6 +105,12 @@ namespace gui {
 
             /// \brief SFML interface.
             Interface _interface;
+
+            bool _runIntroMenu;
+
+            sf::Clock _clock;
+
+            std::pair<sf::RectangleShape, sf::Texture> _introMenuShape;
     };
 } // namespace gui
 
