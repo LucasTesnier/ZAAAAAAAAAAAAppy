@@ -9,5 +9,4 @@ create_test(
     TEST_NAME unpack_test
     TEST_SRC ${TEST_SRC_ROOT}
     TEST_DEPS ${PROJECT_NAME}_gui_core
-    # Note the test is automatically linked to the testing framework and added to the test suite
 )
