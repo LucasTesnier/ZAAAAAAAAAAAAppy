@@ -67,7 +67,8 @@ int get_len_tile(entity_t *ent, tile_t *tile);
 /// \return the len of the string representing a egg
 int get_len_egg(entity_t *ent, egg_t *egg);
 
-/// \brief pack_entity a generic container for an inventory or the content of a tile
+/// \brief pack_entity a generic container for an inventory or the content
+/// of a tile
 /// \param cont container to pack_entity
 /// \return a serialized string representing the inventory
 char *pack_container(container_t *cont);
