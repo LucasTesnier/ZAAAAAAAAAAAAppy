@@ -1,0 +1,7 @@
+from epitechcontent/epitest-docker:latest
+
+COPY . .
+
+RUN "cmake -B ./build -DCMAKE_BUILD_TYPE=Release"
+
+CMD ["cmake", "--build", "./build", "--target", "zappy_server"]
