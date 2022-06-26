@@ -55,6 +55,9 @@ MAP_VISION_UPDATE_LIMIT = 500
 """This is the limit before the next update of the inventory"""
 INVENTORY_UPDATE_LIMIT = 500
 
+"""This is the indication for the AI that it can reach its teammates for elevation or something else"""
+CAN_REACH_TEAMMATE = 1000
+
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
 """
@@ -431,6 +434,7 @@ class Ai:
                 - Eject from another player
                 - Broadcast, sending message from another player
         """
+        print("RENTRE DANS UNEXPECTED RESPONSE MANAGEMENT")
         response: str = self.__lib.getUnexpectedResponse()
         if response == "":
             return
@@ -438,8 +442,11 @@ class Ai:
             safeExitError(84, "Player is dead, disconnected.")
         if response == "eject":
             self.__ejectManagement()
-        if response == "message":
-            self.__broadCastResponseManagement(response)
+        if response.startswith("message:"):
+            print("ON RECOIT UN BROADCAST FREROT")
+            if self.__getInventory().GetFood() >= CAN_REACH_TEAMMATE:
+                bc_infos = self.__broadCastResponseManagement(response)
+                self.__reachTeammate(self.__getMovementArrayFromBroadcast(bc_infos.pos))
 
     def __ejectManagement(self):
         """This function occurs when the player got ejected by another player"""
@@ -556,16 +563,18 @@ class Ai:
                         where   x is the x-axis of the call
                                 y is the y-axis of the call
         """
+        X = 0
+        Y = 0
         current_index = 0
         y = 0
         x = 0
         delta_y = 0
         delta_x = -1
-        movement_res = [0, 0]
+        movement_res = [X, Y]
 
         while current_index != broadCastIndex + 1:
-            movement_res[0] = x * -1
-            movement_res[1] = y
+            movement_res[X] = x * -1
+            movement_res[Y] = y
             if y == x or (y < 0 and y == -x) or (y > 0 and y == 1 - x):
                 temp = delta_y
                 delta_y = -delta_x
@@ -581,11 +590,17 @@ class Ai:
             broadcast and try to deny their actions
         """
         pos = 0
+        POS = 0
+        TEAM_NAME = 1
+        ACTION = 2
+        REQUIRED_LEVEL = 3
+        NB_PLAYERS = 4
+        RESOURCE = 5
         if response.startswith("message"):
             infos = response.split(", ")
-            team_name = infos[1]
+            team_name = infos[TEAM_NAME]
             try:
-                pos = int(infos[0].split(" ")[1])
+                pos = int(infos[POS].split(" ")[1])
             except ValueError as e:
                 print(e)
             if team_name != self.__teamName:
@@ -593,11 +608,11 @@ class Ai:
                 # savoir si l'ia est en mode agressif pour executer ce genre d'action
                 self.__interceptEnemiesMessage(pos)
                 return
-            action = infos[2]
+            action = infos[ACTION]
             if action == "incantation":
-                return BroadcastInfo(action, team_name, pos, int(infos[3]), int(infos[4]), "")
+                return BroadcastInfo(action, team_name, pos, int(infos[REQUIRED_LEVEL]), int(infos[NB_PLAYERS]), "")
             if action == "give":
-                return BroadcastInfo(action, team_name, pos, 0, 0, infos[2])
+                return BroadcastInfo(action, team_name, pos, 0, 0, infos[RESOURCE])
 
     def __mapVisionTimeManagement(self):
         delta_time = time() - self.__getMapVisionTime()
@@ -711,6 +726,7 @@ class Ai:
         level_of_player = self.__getPlayerCurrentLevel()
         required_player: int = LEVEL_UP_REQUIREMENTS[level_of_player].get("player")
         if self.__getVisionOfTheMap().GetTile(0).player < required_player:
+            self.__teamCall("incantation")
             return False
         if not self.__lib.askIncantation():
             safeExitError()
@@ -732,7 +748,7 @@ class Ai:
         level_of_player = self.__getPlayerCurrentLevel()
         nb_player = LEVEL_UP_REQUIREMENTS[level_of_player].get('player') if action == "incantation" else 1
         required_level = self.__getPlayerCurrentLevel() if action == "incantation" else 1
-        if not self.__lib.askBroadcastText(f"{self.__getTeamName()}, {action}, {nb_player}, {required_level}\n"):
+        if not self.__lib.askBroadcastText(f"{self.__getTeamName()}, {nb_player}, {action}, {required_level}\n"):
             safeExitError()
         self.__waitServerResponse()
         self.__lib.getRepBroadcastText()
