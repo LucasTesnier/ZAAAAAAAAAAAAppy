@@ -20,16 +20,3 @@ jobs:
           ssh_private_key:
             ${{ secrets.EPI_MIRRORING_KEY }}
     needs: build
-  to_azure:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_azure_repo_url:
-            ${{ secrets.AZURE_REPO_URL }}
-          azure_ssh_private_key:
-            ${{ secrets.AZURE_MIRRORING_KEY }}
-    needs: build
