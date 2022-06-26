@@ -4,15 +4,15 @@ from ai_strategy_management import Ai
 from ai_safe_error import safeExitError
 
 class ClientCore:
-    def __init__(self, teamName : str, ip : str, port : int):
+    def __init__(self, teamName: str, ip: str, port: int):
         """ Constructor of the ClientCore Class """
-        self.__teamName : str = teamName
-        self.__ip  : str = ip
-        self.__port : int = port
-        self.serverInterface : ServerWrapper = ServerWrapper("./src/zappy_ai_src/libzappy_ai_api.so")
-        self.__mapY : int = 0
-        self.__mapX : int = 0
-        self.__placesLeft : int = 0
+        self.__teamName: str = teamName
+        self.__ip: str = ip
+        self.__port: int = port
+        self.serverInterface: ServerWrapper = ServerWrapper("./src/zappy_ai_src/libzappy_ai_api.so")
+        self.__mapY: int = 0
+        self.__mapX: int = 0
+        self.__placesLeft: int = 0
 
     def connectToServer(self) -> bool:
         """
@@ -22,22 +22,22 @@ class ClientCore:
         """
         if not self.serverInterface.getNecessaryFunctions():
             return False
-
-        if not self.serverInterface.ConnectToServer(self.__ip, self.__port):
-            print("There is no server at this ip " + self.__ip + " / port " + str(self.__port), file=stderr)
+        if not self.serverInterface.connectToServer(self.__ip, self.__port):
+            print(f"There is no server at this ip {self.__ip} / port {self.__port}", file=stderr)
             return False
-
-        while not self.serverInterface.GetResponseState():
+        while not self.serverInterface.getResponseState():
             pass
-        if not self.serverInterface.GetRepConnectToServer():
+        if not self.serverInterface.getRepConnectToServer():
             print("Failed to connect to server", file=stderr)
             return False
-
-        if not self.serverInterface.AskJoinTeam(self.__teamName):
+        if not self.serverInterface.askJoinTeam(self.__teamName):
             safeExitError()
-        while not self.serverInterface.GetResponseState():
+        while not self.serverInterface.getResponseState():
             pass
-        info : str = self.serverInterface.GetRepJoinTeam()
+        info: str = self.serverInterface.getRepJoinTeam()
+        if info is "":
+            print(f"The team name {self.__teamName} doesn't exist.", file=stderr)
+            return False
         infos = info.split(",")
         try:
             self.__mapX = int(infos[0])
@@ -52,5 +52,5 @@ class ClientCore:
         """ Main Loop of the ClientCore """
         if not self.connectToServer():
             return
-        newIA : Ai = Ai(self.__placesLeft, self.__teamName)
+        newIA: Ai = Ai(self.__placesLeft, self.__teamName)
         newIA.start()
