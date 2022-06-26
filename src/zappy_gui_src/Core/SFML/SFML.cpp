@@ -27,6 +27,13 @@ SFML::SFML(const sf::Vector2f mapSize) : _run(true)
     _interface.setEvent(_event);
     _interface.setWindow(_window);
     _interface.setMapSize(mapSize);
+    _runIntroMenu = true;
+    if (!_introMenuShape.second.loadFromFile("assets/logo.png"))
+        return;
+    _introMenuShape.first.setTexture(&_introMenuShape.second);
+    _introMenuShape.first.setSize(sf::Vector2f(_window.get()->getSize().x / 100, _window.get()->getSize().y / 100));
+    _introMenuShape.first.setPosition(sf::Vector2f(_window.get()->getSize().x / 2, _window.get()->getSize().y / 2) - sf::Vector2f(_introMenuShape.first.getSize().x / 2, _introMenuShape.first.getSize().y / 2));
+    _clock.restart();
 }
 
 void SFML::removeEntities(std::string &type)
@@ -41,8 +48,25 @@ void SFML::_changeMapSize(const sf::Vector2f mapSize)
     _interface.setMapSize(mapSize);
 }
 
+void SFML::_displayIntroMenu()
+{
+    if (_clock.getElapsedTime().asSeconds() > 3)
+        _runIntroMenu = false;
+    if (_introMenuShape.first.getSize().x < sf::Vector2f(_window.get()->getSize()).x || _introMenuShape.first.getSize().y < _window.get()->getSize().y) {
+        _introMenuShape.first.setSize(_introMenuShape.first.getSize() + sf::Vector2f(_window.get()->getSize().x / 100, _window.get()->getSize().y / 100));
+        _introMenuShape.first.setPosition(sf::Vector2f(_window.get()->getSize().x / 2, _window.get()->getSize().y / 2) - sf::Vector2f(_introMenuShape.first.getSize().x / 2, _introMenuShape.first.getSize().y / 2));
+    }
+    _window.get()->draw(_introMenuShape.first);
+}
+
 void SFML::display()
 {
+    if (_runIntroMenu) {
+        _window->clear(sf::Color(127, 127, 127, 255));
+        _displayIntroMenu();
+        _window->display();
+        return;
+    }
     _getEvent();
     if (!_window->isOpen())
         _run = false;
