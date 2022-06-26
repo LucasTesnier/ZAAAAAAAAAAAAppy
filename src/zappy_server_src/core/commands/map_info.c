@@ -71,7 +71,10 @@ bool send_map_info(server_data_t *serv)
     char *temp = NULL;
 
     peer = find_gui_peer(serv);
-
+    if (peer == NULL) {
+        dprintf(2, "No GUI client found.\n");
+        return false;
+    }
     if (serv->modified_entities->offset == 0)
         return true;
     temp = pack_modified_entities(serv->modified_entities);
