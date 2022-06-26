@@ -416,7 +416,8 @@ class Ai:
             safeExitError()
         self.__waitServerResponse()
         self.__setInventory(self.__lib.getRepInventory())
-        self.__setFrequency(int((tmp_food - self.__inventory.GetFood()) / 2))
+        frequency = int((tmp_food - self.__inventory.GetFood()) / 2)
+        self.__setFrequency(1 if frequency <= 0 else frequency)
 
     def __waitServerResponse(self):
         """This is used by AI to wait until the server's response, managing unexpected responses in the same time"""
