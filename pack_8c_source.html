@@ -195,21 +195,23 @@ $(document).ready(function(){initNavTree('pack_8c_source.html',''); initResizabl
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">char</span> *packed = NULL;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">switch</span> (entity-&gt;<a class="code" href="structentity__s.html#ae8f5a4ab886e8e496231e9b8c5d0f463">type</a>) {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="entity__types_8h.html#abc930b6ff6d1bb6d7bad31e9b0d39015a429942813daa009df45bb4454fa193f9">ENTITY_PLAYER_TYPE</a>:</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            packed = <a class="code" href="pack_8c.html#ae578b1ec2f00c9e14894b3e33bf261ea">pack_player</a>(entity);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="entity__types_8h.html#abc930b6ff6d1bb6d7bad31e9b0d39015aab7ce3a35088136f524b23abc8eaed4b">ENTITY_TILE_TYPE</a>:</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            packed = <a class="code" href="pack_8c.html#aebb28d2ff8ba85cdfc24ecd7c42d7822">pack_tile</a>(entity);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="entity__types_8h.html#abc930b6ff6d1bb6d7bad31e9b0d39015a94a9d51113eb85b39c7ccfbe43596c5b">ENTITY_EGG_TYPE</a>:</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            packed = <a class="code" href="pack_8c.html#ac2302f1705bb0a254e7299ec9bf80c9e">pack_egg</a>(entity);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">if</span> (entity == NULL)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">switch</span> (entity-&gt;<a class="code" href="structentity__s.html#ae8f5a4ab886e8e496231e9b8c5d0f463">type</a>) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="entity__types_8h.html#abc930b6ff6d1bb6d7bad31e9b0d39015a429942813daa009df45bb4454fa193f9">ENTITY_PLAYER_TYPE</a>:</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            packed = <a class="code" href="pack_8c.html#ae578b1ec2f00c9e14894b3e33bf261ea">pack_player</a>(entity);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="entity__types_8h.html#abc930b6ff6d1bb6d7bad31e9b0d39015aab7ce3a35088136f524b23abc8eaed4b">ENTITY_TILE_TYPE</a>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            packed = <a class="code" href="pack_8c.html#aebb28d2ff8ba85cdfc24ecd7c42d7822">pack_tile</a>(entity);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="entity__types_8h.html#abc930b6ff6d1bb6d7bad31e9b0d39015a94a9d51113eb85b39c7ccfbe43596c5b">ENTITY_EGG_TYPE</a>:</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            packed = <a class="code" href="pack_8c.html#ac2302f1705bb0a254e7299ec9bf80c9e">pack_egg</a>(entity);</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> packed;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">return</span> packed;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructentity__s_html_a735984d41155bc1032e09bece8f8d66d"><div class="ttname"><a href="structentity__s.html#a735984d41155bc1032e09bece8f8d66d">entity_s::data</a></div><div class="ttdeci">void * data</div><div class="ttdoc">Entity specific data.</div><div class="ttdef"><b>Definition:</b> <a href="entity_8h_source.html#l00035">entity.h:35</a></div></div>
