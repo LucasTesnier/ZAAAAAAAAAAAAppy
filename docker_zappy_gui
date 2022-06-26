@@ -1,9 +1,15 @@
 from epitechcontent/epitest-docker:latest
 
-COPY src .
-COPY cmake .
+RUN mkdir -p /opt/zappy_server
+
+WORKDIR /opt/zappy_server
+
+COPY src src
+ADD cmake cmake
 COPY CMakeLists.txt .
+
+RUN ls
 
 RUN cmake . -B ./build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
 
-CMD ["cmake", "--build", "./build", "--target", "zappy_server"]
+CMD ["cmake", "--build", "./build", "--target", "zappy_gui"]
