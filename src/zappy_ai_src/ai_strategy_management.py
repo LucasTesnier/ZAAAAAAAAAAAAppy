@@ -5,6 +5,7 @@ from ai_handle_response import Inventory, Map, Tile
 from ai_safe_error import safeExitError
 from ai_broadcast_to_object import BroadcastInfo
 from time import time
+import random
 
 """---------------------------------------------FILE BRIEF-----------------------------------------------------------"""
 """
@@ -42,27 +43,30 @@ SAFETY_MARGIN = 600
 """This is indication for the AI to switch to survival strategy under or equal to 300 units of time"""
 FOOD_LIMIT = 800
 
+"""This is indication for the AI that it can stop taking food and go farm another component"""
+ENOUGH_FOOD = 1200
+
 """This is the limit before the next try of elevation"""
 ELEVATION_LIMIT = 500
 
 """This is the limit before the next update of the mapVision"""
-MAP_VISION_UPDATE_LIMIT = 70
+MAP_VISION_UPDATE_LIMIT = 500
 
 """This is the limit before the next update of the inventory"""
-INVENTORY_UPDATE_LIMIT = 15
+INVENTORY_UPDATE_LIMIT = 500
 
 """This static array provides information of the density of the components in the map
     Values are given as a percentage
 """
-COMPONENT_DENSITY = {
-    "food": 50,
-    "linemate": 30,
-    "deraumere": 15,
-    "sibur": 10,
-    "mendiane": 10,
-    "phiras": 8,
-    "thystame": 5
-}
+COMPONENT_LIST = [
+    "food",
+    "linemate",
+    "deraumere",
+    "sibur",
+    "mendiane",
+    "phiras",
+    "thystame"
+]
 
 """This static array provides information of the scheduling for each command
     Keys represents the command and values represents time/f to execute the command
@@ -248,6 +252,14 @@ class Ai:
         """
         self.__ableToMove = True
 
+        """This private member informs the AI is in survival mode and need to take only food"""
+        self.__survivalModeOn = False
+
+        """This private member informs the AI a stock of food that it needs to take before doing any other actions
+            This can be useful to prepare elevation of other big actions like reach another teamMate
+        """
+        self.__foodStockCpt = 0
+
     def __del__(self):
         """Default Destructor of the AI class"""
         self.running = False
@@ -300,6 +312,15 @@ class Ai:
     def __setFrequency(self, frequency: int):
         self.__frequency = frequency
 
+    def __setSurvivalMode(self, mode: bool):
+        self.__survivalModeOn = mode
+
+    def __setFoodStock(self, stock: int):
+        self.__foodStockCpt = stock
+
+    def __decrFoodStock(self):
+        self.__foodStockCpt -= 1
+
     def __getAvailableSlots(self) -> int:
         return self.__availableSlots
 
@@ -342,6 +363,9 @@ class Ai:
     def __getAbleToMove(self) -> bool:
         return self.__ableToMove
 
+    def __getSurvivalMode(self) -> bool:
+        return self.__survivalModeOn
+
     def __getPlayerMaxRange(self) -> int:
         """This is used to know the maximal range of the player's vision depending on his level
                 The player range could be calculate as follow : maxRange = (x+1)²
@@ -349,6 +373,9 @@ class Ai:
             """
         playerLevel = self.__playerCurrentLevel + 1
         return playerLevel * playerLevel
+
+    def __getFoodStock(self):
+        return self.__foodStockCpt
 
     """ -------------------------------------------Public members functions------------------------------------------"""
 
@@ -454,9 +481,12 @@ class Ai:
         """This is used by AI to know when is the best moment to try an elevation"""
         if self.__getTargetComponent() != "nothing":
             return
+        if self.__getInventory().GetFood() < 1200:
+            return
         delta_time = time() - self.__getElevationTime()
         if delta_time >= ELEVATION_LIMIT / self.__getFrequency():
             self.__tryElevation()
+            self.__resetElevationTime()
 
     def __timeManagement(self):
         """This is used by AI to manage useful time recorder
@@ -464,6 +494,8 @@ class Ai:
             and when (limit * f) is reached, it triggers the update action
                 where f is the frequency
         """
+        if self.__getFoodStock():
+            return
         self.__inventoryTimeManagement()
         self.__mapVisionTimeManagement()
         self.__elevationManagement()
@@ -477,6 +509,8 @@ class Ai:
         """Main function of the AI Class
             Used to determine which strategy is better to use depending on the current situation of the player
         """
+        if self.__getFoodStock():
+            return
         if self.__getInventory().GetFood() <= FOOD_LIMIT:
             self.__survive()
         elif self.__getPlayerCurrentLevel() > 7:
@@ -488,12 +522,14 @@ class Ai:
         """This is used to trigger actions depending on previous configuration of the strategy
             Like getting the most required component at a time T
         """
-        component = "sibur" if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
+        component = COMPONENT_LIST[random.randint(0, 6)] if self.__getTargetComponent() == "nothing" else self.__getTargetComponent()
         self.__reachSpecificTile(self.__findClosestTileFromComponent(component))
         if not self.__lib.askTakeObject(component):
             safeExitError()
         self.__waitServerResponse()
         self.__lib.getRepTakeObject()
+        if component == "food" and self.__getFoodStock():
+            self.__decrFoodStock()
 
     def __isThereComponentOnThisTile(self, component: str, tile: Tile) -> bool:
         """This is used by AI to know if the specific component is present on the specific tile
@@ -588,11 +624,11 @@ class Ai:
             This function will request ask methods of the API and then wait the response to proceed
             Param :     index: int, representing the index of the tile you want to reach
         """
-        if index is -1:
+        if index == -1 or index == 0:
             return
         nb_forward_steps = 0
         front_tile_index = 0
-        for vector in reversed(PATH_REFERENCES[1:]):
+        for vector in reversed(PATH_REFERENCES[:]):
             if index <= vector.maxIndexInLine:
                 front_tile_index = vector.frontTileIndex
                 nb_forward_steps = PATH_REFERENCES.index(vector)
@@ -670,10 +706,10 @@ class Ai:
 
     def __survive(self):
         """This is used by the AI to find food and get food as fast as possible"""
-        if not self.__lib.askTakeObject("food"):
-            safeExitError()
-        self.__waitServerResponse()
-        self.__lib.getRepTakeObject()
+        if not self.__getFoodStock():
+            self.__setFoodStock(10)
+        self.__setTargetComponent("food")
+        self.__setSurvivalMode(True)
         self.__setAbleToMove(False)
 
     """-------------------------------------------------DETAILS---------------------------------------------------------
@@ -715,6 +751,10 @@ class Ai:
     def __farming(self):
         """This is the main function of farming strategy, it manages all actions to get components as fast as possible
         """
+        for i in range(7):
+            component = self.__getRequiredComponent(i)
+            if component != "nothing":
+                break
         self.__setTargetComponent(self.__getRequiredComponent())
         self.__setAbleToMove(True)
 
@@ -728,12 +768,14 @@ class Ai:
                 return i
         return -1
 
-    def __getRequiredComponent(self) -> str:
+    def __getRequiredComponent(self, next_level: int = 0) -> str:
         """This is used by the AI to know what is the required component missing for elevation
             Ordered from rarest to the least rare component
             return : the required component or nothing if all requirements are met
         """
-        playerLevel = self.__getPlayerCurrentLevel()
+        playerLevel = self.__getPlayerCurrentLevel() + next_level
+        if playerLevel > 8:
+            playerLevel = 8
         componentList = [
             "thystame",
             "phiras",
