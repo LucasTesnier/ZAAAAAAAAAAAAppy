@@ -145,14 +145,12 @@ void Inventory::setPosTextsInv()
 
 void Inventory::setPosTextsPlayer(int x, int y, int offset)
 {
-    if (_startPlayerText >= _textsPlayer.size())
-        return;
-    _textsPlayer.at(_startPlayerText + 0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
-    _textsPlayer.at(_startPlayerText + 1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
-    if (_startPlayerText + 2 >= _textsPlayer.size())
-        return;
-    _textsPlayer.at(_startPlayerText + 2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
-    _textsPlayer.at(_startPlayerText + 3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
+    try {
+        _textsPlayer.at(_startPlayerText + 0).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y));
+        _textsPlayer.at(_startPlayerText + 1).setPosition(sf::Vector2f(_body.getPosition().x + x, _body.getPosition().y + y + 60));
+        _textsPlayer.at(_startPlayerText + 2).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y));
+        _textsPlayer.at(_startPlayerText + 3).setPosition(sf::Vector2f(_body.getPosition().x + x + offset, _body.getPosition().y + y + 60));
+    } catch (...) {}
 }
 
 void Inventory::setPosTextsEgg(int x, int y, int offset)
@@ -251,26 +249,6 @@ void Inventory::update(bool forceUpdate)
     }
 }
 
-void Inventory::scroll(const float &scroll)
+void Inventory::scroll(const float &scroll __attribute__((unused)))
 {
-    sf::Vector2i mouse = sf::Mouse::getPosition(*_window);
-
-    if (mouse.x >= _textsPlayer.at(0).getPosition().x && mouse.x <= _textsPlayer.at(2).getPosition().x + _textsPlayer.at(2).getGlobalBounds().width) {
-        if (scroll >= 1) {
-            _startPlayerText += 2;
-        }
-        if (scroll <= 1) {
-            _startPlayerText -= 2;
-        }
-        if (_startPlayerText > _players.size())
-            _startPlayerText = _players.size() - 1;
-    }
-    if (mouse.x >= _textsEgg.at(0).getPosition().x && mouse.x <= _textsEgg.at(2).getPosition().x + _textsEgg.at(2).getGlobalBounds().width) {
-        if (scroll >= 1)
-            _startEggText += 2;
-        else
-            _startEggText -= 2;
-        if (_startEggText > _eggs.size())
-            _startEggText = _eggs.size() - 1;
-    }
 }

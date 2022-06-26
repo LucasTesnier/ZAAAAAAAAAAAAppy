@@ -12,11 +12,32 @@
 
 using namespace gui;
 
-const std::vector<std::string> PLAYERS_PATH = {
-    "assets/yellow_woman1.png",
-    "assets/yellow_woman2.png",
-    "assets/yellow_woman4.png",
-    "assets/yellow_woman3.png",
+const std::vector<std::vector<std::string>> PLAYERS_PATH = {{
+        "assets/yellow_woman1.png",
+        "assets/yellow_woman2.png",
+        "assets/yellow_woman4.png",
+        "assets/yellow_woman3.png",
+    }, {
+        "assets/purple_woman1.png",
+        "assets/purple_woman2.png",
+        "assets/purple_woman3.png",
+        "assets/purple_woman4.png",
+    }, {
+        "assets/pink_woman1.png",
+        "assets/pink_woman2.png",
+        "assets/pink_woman3.png",
+        "assets/pink_woman4.png",
+    }, {
+        "assets/black_woman1.png",
+        "assets/black_woman2.png",
+        "assets/black_woman3.png",
+        "assets/black_woman4.png",
+    }, {
+        "assets/white_woman1.png",
+        "assets/white_woman2.png",
+        "assets/white_woman3.png",
+        "assets/white_woman4.png",
+    }
 };
 
 Map::Map()
@@ -41,8 +62,13 @@ void Map::_initAnimationEntities()
             tmpAnim.addTexture(_ressourcesPaths.at(i), sf::Vector2f(), sf::Vector2f());
             _ressourcesAnim.emplace_back(tmpAnim);
         }
-        for (const std::string &it : PLAYERS_PATH) {
-            _playerAnimation.addTexture(it, sf::Vector2f(), sf::Vector2f());
+        std::size_t index = 0;
+        for (const std::vector<std::string> &PATHS : PLAYERS_PATH) {
+            _playerAnimation.push_back(Animation());
+            for (const std::string &it : PATHS) {
+                _playerAnimation.at(index).addTexture(it, sf::Vector2f(), sf::Vector2f());
+            }
+            index++;
         }
         _eggAnimation.addTexture(EGG_PATH, sf::Vector2f(), sf::Vector2f());
     } catch (AnimationException &e) {
@@ -260,6 +286,11 @@ void Map::addPlayer(gui::entity::Player &player)
     _sounds.at(SPAWN_SOUND)->play();
     _players.emplace_back(player);
     _tile[itop(sf::Vector2f(player.getPosition().first, player.getPosition().second))]->addPlayer(player);
+    for (auto &it : _teamsNames) {
+        if (it == player._team_name)
+            return;
+    }
+    _teamsNames.push_back(player._team_name);
 }
 
 void Map::removePlayer(gui::entity::Player &player)
@@ -300,26 +331,29 @@ void Map::addTilesInfo(gui::entity::Tile &tileInfo)
 
 void Map::_displayPlayers(Tile &tile)
 {
+    std::size_t index = 0;
+
     if (tile.getPlayers().size()) {
-        _playerAnimation.setSize(sf::Vector2f(40, 80));
-        _playerAnimation.setDuration(400);
-        _playerAnimation.setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
-        _playerAnimation.update();
-        _window->draw(_playerAnimation.getShape());
+        for (index = 0; tile.getPlayers().at(0).getTeamName() != _teamsNames.at(index); index++);
+        _playerAnimation.at(index % 4).setSize(sf::Vector2f(56 / 2, 188 / 2));
+        _playerAnimation.at(index % 4).setDuration(400);
+        _playerAnimation.at(index % 4).setPosition({tile.getGlobalBound().left + tile.getGlobalBound().width / 2 - _playerAnimation.at(index % 4).getGlobalBounds().width / 2, tile.getGlobalBound().top - 50});
+        _playerAnimation.at(index % 4).update();
+        _window->draw(_playerAnimation.at(index % 4).getShape());
         if (tile.getPlayers().size() >= 2) {
-            _playerAnimation.moveShape({-6, 6});
-            _playerAnimation.update();
-            _window->draw(_playerAnimation.getShape());
+            _playerAnimation.at(4).moveShape({-6, 6});
+            _playerAnimation.at(4).update();
+            _window->draw(_playerAnimation.at(4).getShape());
         }
         if (tile.getPlayers().size() >= 3) {
-            _playerAnimation.moveShape({12, 0});
-            _playerAnimation.update();
-            _window->draw(_playerAnimation.getShape());
+            _playerAnimation.at(4).moveShape({12, 0});
+            _playerAnimation.at(4).update();
+            _window->draw(_playerAnimation.at(4).getShape());
         }
         if (tile.getPlayers().size() >= 4) {
-            _playerAnimation.moveShape({-6, 6});
-            _playerAnimation.update();
-            _window->draw(_playerAnimation.getShape());
+            _playerAnimation.at(4).moveShape({-6, 6});
+            _playerAnimation.at(4).update();
+            _window->draw(_playerAnimation.at(4).getShape());
         }
     }
 }
