@@ -40,6 +40,10 @@ To use this project, you'll need Cmake 3.17.0 Compiler, SFML-devel library, pyth
 
 Zappy is developed with C. EPITECH impose the Epitech Coding Style. [Check it right here.](https://intra.epitech.eu/file/Public/technical-documentations/epitech_c_coding_style.pdf)
 
+### RFC Protocol
+
+You can see the RFC protocol used in the projet [right here](https://www.notion.so/invite/6b2651243888536dad66038e270b72d4df9ae117)
+
 ## Thank for reading
 
 Feel free to read the CONTRIBUTING.md

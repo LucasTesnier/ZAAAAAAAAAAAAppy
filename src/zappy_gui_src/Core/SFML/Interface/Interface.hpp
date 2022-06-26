@@ -68,6 +68,7 @@ namespace gui {
             /// \param player The player to be removed.
             inline void removePlayer(gui::entity::Player &player) {
                 _server.removePlayer(player);
+                _minimap.removePlayer(player.getUuid());
             };
 
             /// \brief Remove the egg passed as parameter from the server menu.
