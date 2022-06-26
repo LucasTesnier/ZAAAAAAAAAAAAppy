@@ -35,11 +35,11 @@ enum player_orientation_e dir)
 {
     position_t *pos = &player->position;
 
-    if (dir == NORTH)
-        pos->x = (map->width == 1) ? 0 : (pos->x - 1) % (map->width - 1);
+    if (dir == WEST)
+        pos->x = (pos->x - 1) < 0 ? (map->width - 1) :
+        (pos->x - 1) % (map->width - 1);
     else
-        pos->x = (pos->x - 1) < 0 ? map->width - 1 :
-            (pos->x - 1) % (map->width - 1);
+        pos->x = (map->width == 1) ? 0 : (pos->x + 1) % (map->width);
 }
 
 /// \brief Move an entity to a given direction
@@ -50,11 +50,12 @@ static void move_y(entity_t *player, map_t *map,
 enum player_orientation_e dir)
 {
     position_t *pos = &player->position;
-    if (dir == EAST)
-        pos->x = (map->height == 1) ? 0 : (pos->y + 1) % (map->height - 1);
+
+    if (dir == SOUTH)
+        pos->y = (map->height == 1) ? 0 : (pos->y + 1) % (map->height);
     else
-        pos->x = (pos->y - 1) < 0 ? (map->height - 1)
-            : (pos->y - 1) % (map->height - 1);
+        pos->y = (pos->y - 1) < 0 ? (map->height - 1) :
+        (pos->y - 1) % (map->height - 1);
 }
 
 /// \brief Cross all the entities on the tile_pos and push them
@@ -73,13 +74,13 @@ position_t tile_pos)
         if (!uuid_compare(((player_t *)entity->data)->uuid, player->uuid))
             continue;
         if (player->orientation == NORTH)
-            move_x(entity, serv->map, NORTH);
+            move_y(entity, serv->map, NORTH);
         if (player->orientation == SOUTH)
-            move_x(entity, serv->map, SOUTH);
+            move_y(entity, serv->map, SOUTH);
         if (player->orientation == EAST)
-            move_y(entity, serv->map, EAST);
+            move_x(entity, serv->map, EAST);
         if (player->orientation == WEST)
-            move_y(entity, serv->map, WEST);
+            move_x(entity, serv->map, WEST);
         send_unexpected_eject(get_eject_dir(serv, entity, tile_pos), serv,
             (player_t *)entity->data);
         entity_diff_add_entity(serv->modified_entities, entity);

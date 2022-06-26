@@ -29,10 +29,11 @@ To use this project, you'll need Cmake 3.17.0 Compiler, SFML-devel library, pyth
 
 ### Testing program
 ```bash
-    cmake . -B ./build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE=ON
+    rm -rf ./build 
+    cmake -B ./build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DTESTING=ON
     cmake --build ./build
     cd ./build
-    ctest --output-on-failure
+    ctest --ouput-on-failure
 ```
 
 ### Coding Style
