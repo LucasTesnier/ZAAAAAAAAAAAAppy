@@ -19,6 +19,5 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.EPI_MIRRORING_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          export GIT_SSH_COMMAND="ssh -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -p 2022 -l cavonstavant"
           git remote add mirror "${{ secrets.AZURE_REPO_URL }}"
-          git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
+          git push -c core.sshCommand="ssh -i ~/.ssh/EPI_MIRRORING_KEY -p 2022" --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
