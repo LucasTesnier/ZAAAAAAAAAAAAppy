@@ -5,6 +5,8 @@ on:
     branches: [ bonus/main ]
   delete:
     branches: [ bonus/main ]
+  workflow_dispatch:
+    branches: [ bonus/main ]
 
 jobs:
   to_azure:
