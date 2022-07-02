@@ -20,4 +20,4 @@ jobs:
           echo "${{ secrets.EPI_MIRRORING_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           git remote add mirror "${{ secrets.AZURE_REPO_URL }}"
-          git -c core.sshCommand="ssh -i ~/.ssh/id_rsa -p 2022" push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
+          git -c core.sshCommand="ssh -i ~/.ssh/id_rsa -p 2022 -o StrictHostKeyChecking=no" push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
