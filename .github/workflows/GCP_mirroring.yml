@@ -9,7 +9,7 @@ on:
     branches: [ bonus/main ]
 
 jobs:
-  to_azure:
+  to_GCP:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,4 +20,4 @@ jobs:
           target_repo_url:
             ${{ secrets.AZURE_REPO_URL }}
           ssh_private_key:
-            ${{ secrets.AZURE_MIRRORING_KEY }}
+            ${{ secrets.EPI_MIRRORING_KEY }}
