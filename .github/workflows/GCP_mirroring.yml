@@ -1,4 +1,4 @@
-name: Azure Mirroring
+name: GCP Mirroring
 
 on:
   push:
