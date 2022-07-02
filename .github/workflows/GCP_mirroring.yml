@@ -15,11 +15,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url:
-            cavonstavant@gmail.com@source.developers.google.com:2022/p/zappy-355118/r/ZAAAAAAAAAAAAppy
-          ssh_private_key:
-            ${{ secrets.EPI_MIRRORING_KEY }}
-          ssh_username:
-            cavonstavant
+      - run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EPI_MIRRORING_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          export GIT_SSH_CMD = "ssh -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -p 2022 -l cavonstavant"
+          git remote add mirror "cavonstavant@gmail.com@source.developers.google.com:2022/p/zappy-355118/r/ZAAAAAAAAAAAAppy"
+          git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
