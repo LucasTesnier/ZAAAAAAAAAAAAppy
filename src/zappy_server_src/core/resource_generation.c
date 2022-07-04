@@ -23,6 +23,7 @@ void scheduler_update_resource(scheduler_t *self, server_data_t *serv)
 
     if (!self || tick < 20)
         return;
-    generate_new_resource(serv->map, serv->modified_entities);
+    generate_new_ressource(serv->map, serv->arguments->generation_density,
+    serv->modified_entities);
     self->ressource = time(NULL);
 }

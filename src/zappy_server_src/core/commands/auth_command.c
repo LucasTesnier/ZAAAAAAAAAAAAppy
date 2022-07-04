@@ -33,7 +33,7 @@ player_list_t *player, server_data_t *serv __attribute__((unused)))
 bool command_login(char *arg, player_list_t *player,
 server_data_t *serv __attribute__((unused)))
 {
-    char *type = NULL;
+    char *type = "FLUTTER";
 
     if (!strncmp(arg, "GUI", 3)) {
         player->type = GUI;
@@ -44,6 +44,9 @@ server_data_t *serv __attribute__((unused)))
     if (!strncmp(arg, "AI", 2)) {
         player->type = AI;
         type = "AI";
+    }
+    if (!strncmp(arg, "FLUTTER", 7)) {
+        player->type = FLUTTER;
     }
     if (player->type == UNKNOWN)
         return print_retcode(402, arg, player->player_peer, false);

@@ -36,6 +36,13 @@ static const command_data_t gui_command_list[] = {
     {NULL, NULL, NULL}
 };
 
+static const command_data_t flutter_command_list[] = {
+    {"/logout", NULL, &command_logout},
+    {"/get_density", NULL, &command_get_density},
+    {"/push_density", "Args", &command_push_density},
+    {NULL, NULL, NULL}
+};
+
 /// \brief List of all the unknown command
 static const command_data_t unknown_command_list[] = {
     {"/login", "Args type", &command_login},
@@ -67,6 +74,35 @@ static bool find_gui_command(command_data_t *command, char *cmd)
     command->arg = NULL;
     if (cmd[strlen(gui_command_list[pos].name)] == '\0' &&
     !gui_command_list[pos].arg)
+        return true;
+    return false;
+}
+
+/// \brief Cross all the flutter command and try to match a command
+/// \param command Command info to fill
+/// \param cmd Command to match
+/// \return true When command is found
+/// \return false When command is not found
+static bool find_flutter_command(command_data_t *command, char *cmd)
+{
+    int pos = 0;
+
+    for (; flutter_command_list[pos].name; pos++)
+        if (!strncmp(flutter_command_list[pos].name, cmd,
+        strlen(flutter_command_list[pos].name)))
+            break;
+    if (!flutter_command_list[pos].name)
+        return false;
+    command->name = flutter_command_list[pos].name;
+    command->ptr = flutter_command_list[pos].ptr;
+    if (cmd[strlen(flutter_command_list[pos].name)] == ' ' &&
+    flutter_command_list[pos].arg) {
+        command->arg = cmd + strlen(flutter_command_list[pos].name) + 1;
+        return true;
+    }
+    command->arg = NULL;
+    if (cmd[strlen(flutter_command_list[pos].name)] == '\0' &&
+    !flutter_command_list[pos].arg)
         return true;
     return false;
 }
@@ -145,6 +181,8 @@ player_list_t *player_info)
         operation = find_gui_command(command_data, command);
     if (player_info->type == AI)
         operation = find_ai_command(command_data, command);
+    if (player_info->type == FLUTTER)
+        operation = find_flutter_command(command_data, command);
     if (player_info->type == UNKNOWN)
         operation = find_unknown_command(command_data, command);
     if (operation == false) {

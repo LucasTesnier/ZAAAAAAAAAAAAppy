@@ -350,12 +350,30 @@ void victory_detection(server_data_t *serv, char *team_name);
 /// \param team_name The name of the team to check
 void defeat_detection(server_data_t *serv, char *team_name);
 
-/// \brief Remove a plyer from his team
+/// \brief Remove a player from his team
 /// \param player The player informations
 /// \param serv The server informations
 /// \return true When operation succeed
 /// \return false When operation failed
 bool remove_player_from_team(player_t *player, server_data_t *serv);
+
+/// \brief Send the actual density param
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_get_density(char *arg,
+player_list_t *player, server_data_t *serv);
+
+/// \brief Change the density param
+/// \param arg Arg of the command
+/// \param player Player informations
+/// \param serv Server informations
+/// \return true When operation succeed
+/// \return false When operation failed
+bool command_push_density(char *arg,
+player_list_t *player, server_data_t *serv);
 
 /// \brief List of AI command end
 static const command_data_t ai_command_list_end[] = {

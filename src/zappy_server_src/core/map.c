@@ -69,11 +69,12 @@ entity_diff_t *modified_entities)
     entity_diff_add_entity(modified_entities, tile);
 }
 
-void generate_new_resource(map_t *map, entity_diff_t *modified_entities)
+void generate_new_ressource(map_t *map, float *gen_density,
+entity_diff_t *modified_entities)
 {
-    for (int i = 0; gen_list[i].name; i++) {
+    for (int i = 0; i < 7; i++) {
         for (int j = 0; j <
-        compute_ressource_number(map, gen_list[i].density) + 1; j++)
+        compute_ressource_number(map, gen_density[i]) + 1; j++)
             add_ressource_randomly(map, gen_list[i].name, modified_entities);
     }
 }
@@ -105,6 +106,7 @@ map_t *create_new_map(int width, int height)
             map->tiles[i * width + j]->data = create_new_tile();
         }
     }
-    generate_new_resource(map, NULL);
+    generate_new_ressource(map, (float []){0.5, 0.3, 0.15, 0.1,
+    0.1, 0.08, 0.05}, NULL);
     return map;
 }

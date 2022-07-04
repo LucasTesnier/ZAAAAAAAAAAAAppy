@@ -36,9 +36,10 @@ map_t *create_new_map(int width, int height);
 /// \return The tile at the given coordinates or NULL if an error occurred
 entity_t* get_tile(map_t *map, int x, int y);
 
-/// \brief Generate new resources on the map !
-/// \param map The map information's
-void generate_new_resource(map_t *map, entity_diff_t *modified_entities);
+/// \brief Generate new ressources on the map !
+/// \param map The map informations
+void generate_new_ressource(map_t *map, float *gen_density,
+entity_diff_t *modified_entities);
 
 /// \brief Utility function to print the map
 void display_map(map_t *map);
