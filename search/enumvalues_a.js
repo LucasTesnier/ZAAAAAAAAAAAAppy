@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['west_1578',['WEST',['../namespacegui_1_1entity.html#ad4c25d29eedd6a367b314a8352df4948ae9449e8683a8199dad36b07a63b2f523',1,'gui::entity::WEST()'],['../player_8h.html#ad4c25d29eedd6a367b314a8352df4948ae9449e8683a8199dad36b07a63b2f523',1,'WEST():&#160;player.h']]],
-  ['win_5fsound_1579',['WIN_SOUND',['../namespacegui.html#a0c42997b1efdcb1d74f28a577e75bdc9a0a8abce9e9d68b2c607af786d62ceafc',1,'gui']]]
+  ['unexpected_1588',['UNEXPECTED',['../zappy__ai__src_2network_2api_2include_2intern__data_8h.html#abdf8ea6a1e9b4e5228421e6ae9e8c376afb6b839a96a9da95547956098b7606ef',1,'UNEXPECTED():&#160;intern_data.h'],['../zappy__gui__src_2_core_2_network_2api_2include_2intern__data_8h.html#abdf8ea6a1e9b4e5228421e6ae9e8c376afb6b839a96a9da95547956098b7606ef',1,'UNEXPECTED():&#160;intern_data.h']]],
+  ['unknown_1589',['UNKNOWN',['../server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a6ce26a62afab55d7606ad4e92428b30c',1,'server.h']]]
 ];

@@ -1,5 +1,5 @@
 <map id="src/zappy_server_src/core/include/command_hold.h" name="src/zappy_server_src/core/include/command_hold.h">
-<area shape="rect" id="node1" title=" " alt="" coords="3168,5,3343,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3301,5,3476,61"/>
 <area shape="rect" id="node2" href="$command__hold_8c.html" title=" " alt="" coords="5,117,175,158"/>
 <area shape="rect" id="node3" href="$auth__command_8c.html" title=" " alt="" coords="199,117,445,158"/>
 <area shape="rect" id="node4" href="$broadcast__command_8c.html" title=" " alt="" coords="469,109,668,165"/>
@@ -25,8 +25,10 @@
 <area shape="rect" id="node24" href="$turn__command_8c.html" title=" " alt="" coords="5041,117,5283,158"/>
 <area shape="rect" id="node25" href="$unexpected__send_8c.html" title=" " alt="" coords="5307,109,5518,165"/>
 <area shape="rect" id="node26" href="$end__game__gestion_8c.html" title=" " alt="" coords="5542,117,5734,158"/>
-<area shape="rect" id="node27" href="$player__life_8c.html" title=" " alt="" coords="5759,117,5917,158"/>
-<area shape="rect" id="node28" href="$resource__generation_8c.html" title=" " alt="" coords="5942,117,6145,158"/>
-<area shape="rect" id="node29" href="$server__data_8c.html" title=" " alt="" coords="6169,117,6328,158"/>
-<area shape="rect" id="node30" href="$server__run_8c.html" title=" " alt="" coords="6352,117,6511,158"/>
+<area shape="rect" id="node27" href="$density__flutter_8h.html" title=" " alt="" coords="5759,109,5917,165"/>
+<area shape="rect" id="node29" href="$player__life_8c.html" title=" " alt="" coords="5941,117,6100,158"/>
+<area shape="rect" id="node30" href="$resource__generation_8c.html" title=" " alt="" coords="6125,117,6327,158"/>
+<area shape="rect" id="node31" href="$server__data_8c.html" title=" " alt="" coords="6352,117,6511,158"/>
+<area shape="rect" id="node32" href="$server__run_8c.html" title=" " alt="" coords="6535,117,6693,158"/>
+<area shape="rect" id="node28" href="$argument__handling_8c.html" title=" " alt="" coords="5741,213,5935,255"/>
 </map>

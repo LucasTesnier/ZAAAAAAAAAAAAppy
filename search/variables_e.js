@@ -1,18 +1,9 @@
 var searchData=
 [
-  ['safety_5fmargin_1490',['SAFETY_MARGIN',['../namespaceai__strategy__management.html#ac7defb44b4e1e9ddf8dbd6a1a7c39130',1,'ai_strategy_management']]],
-  ['scheduled_5faction_1491',['scheduled_action',['../structplayer__list__s.html#a63d3197b4cbe8959e5bccfcc57103698',1,'player_list_s']]],
-  ['scheduler_1492',['scheduler',['../structserver__data__s.html#a4f969eec7ebb194190e3c1f5041582d7',1,'server_data_s']]],
-  ['self_1493',['self',['../structtcp__server__s.html#a7a81356a75ebb4be1cd01d4590d95511',1,'tcp_server_s']]],
-  ['server_1494',['server',['../structserver__data__s.html#a6ab135d5b7fd0be5c49feb95da0af59a',1,'server_data_s']]],
-  ['server_5fstate_1495',['server_state',['../server_8h.html#ac53e2d316cf20221cf6500764b3c640c',1,'server_state():&#160;server_run.c'],['../server__run_8c.html#ac53e2d316cf20221cf6500764b3c640c',1,'server_state():&#160;server_run.c']]],
-  ['sibur_1496',['sibur',['../structcontainer__s.html#a67caafd53d1296ae22a8de42be3175a8',1,'container_s::sibur()'],['../structincantation__level__s.html#a67caafd53d1296ae22a8de42be3175a8',1,'incantation_level_s::sibur()']]],
-  ['size_5fx_1497',['size_x',['../structgui_1_1unpack_1_1_start.html#aec1dee03c858e0d3910c40c209890ab0',1,'gui::unpack::Start']]],
-  ['size_5fy_1498',['size_y',['../structgui_1_1unpack_1_1_start.html#a22aeb82e7a98517be5f90c810e423af0',1,'gui::unpack::Start']]],
-  ['sock_5ffd_1499',['sock_fd',['../structserver__s.html#a514331e6141a28289f8ddead55eadebd',1,'server_s::sock_fd()'],['../structpeer__s.html#a514331e6141a28289f8ddead55eadebd',1,'peer_s::sock_fd()'],['../structtcp__server__s.html#a514331e6141a28289f8ddead55eadebd',1,'tcp_server_s::sock_fd()']]],
-  ['srv_5faddr_1500',['srv_addr',['../structserver__s.html#aa7136c236ccd50b9d290ce07d346c47e',1,'server_s']]],
-  ['state_1501',['state',['../structzappy__server__s.html#ab30ba07e2a0bd07a15e45a92c32db9c5',1,'zappy_server_s::state()'],['../structtcp__server__s.html#ab30ba07e2a0bd07a15e45a92c32db9c5',1,'tcp_server_s::state()']]],
-  ['status_1502',['status',['../structplayer__s.html#ad1f0bff7112206922c9d5a87adad6f2b',1,'player_s']]],
-  ['stop_1503',['stop',['../structzappy__client__s.html#af5ee21423b6a1cbc8a26efd496474a51',1,'zappy_client_s::stop()'],['../structserver__s.html#ace565355400e925b4975b0411b3b13a8',1,'server_s::stop()']]],
-  ['survival_1504',['SURVIVAL',['../classai__strategy__mode_1_1_ai_strategy.html#a446da0de02ab478b44a4e30e846cacfa',1,'ai_strategy_mode::AiStrategy']]]
+  ['read_5ffds_1495',['read_fds',['../structserver__s.html#a19238a6905e03f2baf05c0d43f6b4188',1,'server_s::read_fds()'],['../structtcp__server__s.html#a19238a6905e03f2baf05c0d43f6b4188',1,'tcp_server_s::read_fds()']]],
+  ['repr_1496',['repr',['../structretcodes__s.html#acb63ca32f0302b8f9eaeeca4cf1fa8bc',1,'retcodes_s']]],
+  ['ressource_1497',['ressource',['../structscheduler__s.html#a2e385bfe6e1a319680cf57c700860291',1,'scheduler_s']]],
+  ['ressource_5fpath_1498',['RESSOURCE_PATH',['../_inventory_8cpp.html#a39d08d9db61a3ba49ddd1c2836af738b',1,'Inventory.cpp']]],
+  ['run_1499',['run',['../structserver__s.html#abe7150e66a6959955563b16a46441a8a',1,'server_s']]],
+  ['running_1500',['running',['../classai__strategy__management_1_1_ai.html#a1a015fe02c9cea18a5cf62656e257c97',1,'ai_strategy_management::Ai']]]
 ];

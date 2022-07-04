@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['offset_1465',['offset',['../structentity__diff__s.html#aadb6d6eb83e646653a1402032e45dcab',1,'entity_diff_s']]],
-  ['orientation_1466',['orientation',['../structplayer__s.html#a32757ee2ec4d309446bb91c6658dbe7b',1,'player_s']]],
-  ['output_5fbuffer_1467',['output_buffer',['../structserver__s.html#a40666d5f8da6d29c794fc4e980501fbb',1,'server_s::output_buffer()'],['../structpeer__s.html#ab75ead8c70738fdc98bda1e84a0527fb',1,'peer_s::output_buffer()']]]
+  ['name_1472',['name',['../structgenerate__s.html#a5ac083a645d964373f022d03df4849c8',1,'generate_s::name()'],['../structcommand__data__s.html#a5ac083a645d964373f022d03df4849c8',1,'command_data_s::name()'],['../structteam__s.html#a5ac083a645d964373f022d03df4849c8',1,'team_s::name()']]],
+  ['net_5fsrv_1473',['net_srv',['../structzappy__client__s.html#a7623a723a3d7c806ef9579583f3bb1d5',1,'zappy_client_s']]],
+  ['network_5fserver_1474',['network_server',['../structzappy__server__s.html#a211e047ff586e057871bf7df4c8ce8c0',1,'zappy_server_s']]],
+  ['number_1475',['number',['../structretcodes__s.html#a7106e2abc437ad981830d14176d15f09',1,'retcodes_s']]]
 ];

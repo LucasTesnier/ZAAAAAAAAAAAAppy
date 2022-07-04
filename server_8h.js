@@ -15,6 +15,7 @@ var server_8h =
     [ "client_type_s", "server_8h.html#ad8ed285ff076847698d9bdc1680aaed2", [
       [ "GUI", "server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a73c6901c7c648a6a735770bc038bb26a", null ],
       [ "AI", "server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a9c74caa56a3c05723eb1dbad44bc9bc3", null ],
+      [ "FLUTTER", "server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a4a336a90c1eb3f03b7857702be4b28c3", null ],
       [ "UNKNOWN", "server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a6ce26a62afab55d7606ad4e92428b30c", null ]
     ] ],
     [ "player_state_e", "server_8h.html#affac9094a814a8d62e37c45f9af9842d", [

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['view_5fangle_1518',['VIEW_ANGLE',['../_minimap_8cpp.html#a6ff7e817965b4cbd7fa0b98210478826',1,'Minimap.cpp']]]
+  ['uuid_1528',['uuid',['../structplayer__s.html#a0c9cfc131b27ae3b98b1533bba4c58ef',1,'player_s']]]
 ];

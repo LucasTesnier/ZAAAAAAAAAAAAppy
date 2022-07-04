@@ -1,15 +1,18 @@
 var searchData=
 [
-  ['team_1505',['team',['../structplayer__s.html#a908fd85f69a8db7ac338ad56bae04aea',1,'player_s']]],
-  ['team_5flist_1506',['team_list',['../structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc',1,'argument_s']]],
-  ['team_5fname_1507',['team_name',['../structegg__s.html#aaa1dce31be8b072b60a3182342b05999',1,'egg_s']]],
-  ['team_5fnumber_1508',['team_number',['../structgui_1_1unpack_1_1_start.html#a55655bd98a90593c959502c5ed8afae7',1,'gui::unpack::Start']]],
-  ['teams_1509',['teams',['../structserver__data__s.html#ab7aa6f97f572b5fb15937392de427123',1,'server_data_s']]],
-  ['teams_5fcolors_1510',['TEAMS_COLORS',['../_minimap_8cpp.html#a7a4d81132fa79528f8cd5a855b7f2139',1,'Minimap.cpp']]],
-  ['thystame_1511',['thystame',['../structcontainer__s.html#a4bb1612c9619b247bf5b0f20c75a034b',1,'container_s::thystame()'],['../structincantation__level__s.html#a4bb1612c9619b247bf5b0f20c75a034b',1,'incantation_level_s::thystame()']]],
-  ['ticks_1512',['ticks',['../structscheduler__event__s.html#a8d0065299615176169ceac2c65f38365',1,'scheduler_event_s']]],
-  ['tiles_1513',['tiles',['../structentity__wrapper__s.html#a028d3feb090066a335754d77e2e3fbbf',1,'entity_wrapper_s::tiles()'],['../structmap__s.html#a226f75d2c292e065e927e9498905d5e8',1,'map_s::tiles()']]],
-  ['time_5flimit_1514',['TIME_LIMIT',['../namespaceai__strategy__management.html#aee88db1a0aeee8e4fde882db0e5fdee8',1,'ai_strategy_management']]],
-  ['turn_5fnumber_1515',['turn_number',['../structbroadcast__data__s.html#a3adf390cc34a5ddcc00f2b2929dc3ec8',1,'broadcast_data_s']]],
-  ['type_1516',['type',['../structretcodes__s.html#aabae1aabf34d536d2969a9b823a3ade5',1,'retcodes_s::type()'],['../structentity__s.html#ae8f5a4ab886e8e496231e9b8c5d0f463',1,'entity_s::type()'],['../structplayer__list__s.html#af19b622c3e8f17047419b2a3ae4b826d',1,'player_list_s::type()']]]
+  ['safety_5fmargin_1501',['SAFETY_MARGIN',['../namespaceai__strategy__management.html#ac7defb44b4e1e9ddf8dbd6a1a7c39130',1,'ai_strategy_management']]],
+  ['scheduled_5faction_1502',['scheduled_action',['../structplayer__list__s.html#a63d3197b4cbe8959e5bccfcc57103698',1,'player_list_s']]],
+  ['scheduler_1503',['scheduler',['../structserver__data__s.html#a4f969eec7ebb194190e3c1f5041582d7',1,'server_data_s']]],
+  ['self_1504',['self',['../structtcp__server__s.html#a7a81356a75ebb4be1cd01d4590d95511',1,'tcp_server_s']]],
+  ['server_1505',['server',['../structserver__data__s.html#a6ab135d5b7fd0be5c49feb95da0af59a',1,'server_data_s']]],
+  ['server_5fstate_1506',['server_state',['../server_8h.html#ac53e2d316cf20221cf6500764b3c640c',1,'server_state():&#160;server_run.c'],['../server__run_8c.html#ac53e2d316cf20221cf6500764b3c640c',1,'server_state():&#160;server_run.c']]],
+  ['sibur_1507',['sibur',['../structcontainer__s.html#a67caafd53d1296ae22a8de42be3175a8',1,'container_s::sibur()'],['../structincantation__level__s.html#a67caafd53d1296ae22a8de42be3175a8',1,'incantation_level_s::sibur()']]],
+  ['size_5fx_1508',['size_x',['../structgui_1_1unpack_1_1_start.html#aec1dee03c858e0d3910c40c209890ab0',1,'gui::unpack::Start']]],
+  ['size_5fy_1509',['size_y',['../structgui_1_1unpack_1_1_start.html#a22aeb82e7a98517be5f90c810e423af0',1,'gui::unpack::Start']]],
+  ['sock_5ffd_1510',['sock_fd',['../structserver__s.html#a514331e6141a28289f8ddead55eadebd',1,'server_s::sock_fd()'],['../structpeer__s.html#a514331e6141a28289f8ddead55eadebd',1,'peer_s::sock_fd()'],['../structtcp__server__s.html#a514331e6141a28289f8ddead55eadebd',1,'tcp_server_s::sock_fd()']]],
+  ['srv_5faddr_1511',['srv_addr',['../structserver__s.html#aa7136c236ccd50b9d290ce07d346c47e',1,'server_s']]],
+  ['state_1512',['state',['../structzappy__server__s.html#ab30ba07e2a0bd07a15e45a92c32db9c5',1,'zappy_server_s::state()'],['../structtcp__server__s.html#ab30ba07e2a0bd07a15e45a92c32db9c5',1,'tcp_server_s::state()']]],
+  ['status_1513',['status',['../structplayer__s.html#ad1f0bff7112206922c9d5a87adad6f2b',1,'player_s']]],
+  ['stop_1514',['stop',['../structzappy__client__s.html#af5ee21423b6a1cbc8a26efd496474a51',1,'zappy_client_s::stop()'],['../structserver__s.html#ace565355400e925b4975b0411b3b13a8',1,'server_s::stop()']]],
+  ['survival_1515',['SURVIVAL',['../classai__strategy__mode_1_1_ai_strategy.html#a446da0de02ab478b44a4e30e846cacfa',1,'ai_strategy_mode::AiStrategy']]]
 ];

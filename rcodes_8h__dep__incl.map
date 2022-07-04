@@ -1,5 +1,5 @@
 <map id="src/zappy_server_src/core/include/rcodes.h" name="src/zappy_server_src/core/include/rcodes.h">
-<area shape="rect" id="node1" title=" " alt="" coords="2585,5,2749,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2699,5,2863,47"/>
 <area shape="rect" id="node2" href="$command__hold_8c.html" title=" " alt="" coords="5,102,175,143"/>
 <area shape="rect" id="node3" href="$auth__command_8c.html" title=" " alt="" coords="199,102,445,143"/>
 <area shape="rect" id="node4" href="$broadcast__command_8c.html" title=" " alt="" coords="469,95,668,151"/>
@@ -23,5 +23,7 @@
 <area shape="rect" id="node22" href="$take__command_8c.html" title=" " alt="" coords="4539,102,4785,143"/>
 <area shape="rect" id="node23" href="$turn__command_8c.html" title=" " alt="" coords="4809,102,5051,143"/>
 <area shape="rect" id="node24" href="$unexpected__send_8c.html" title=" " alt="" coords="5075,95,5286,151"/>
-<area shape="rect" id="node25" href="$player__life_8c.html" title=" " alt="" coords="5311,102,5469,143"/>
+<area shape="rect" id="node25" href="$density__flutter_8h.html" title=" " alt="" coords="5311,95,5469,151"/>
+<area shape="rect" id="node27" href="$player__life_8c.html" title=" " alt="" coords="5493,102,5652,143"/>
+<area shape="rect" id="node26" href="$argument__handling_8c.html" title=" " alt="" coords="5293,199,5487,240"/>
 </map>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['logout_1570',['LOGOUT',['../server_8h.html#affac9094a814a8d62e37c45f9af9842da86d6ca369e69a3a0f0c9bd063dd39a70',1,'server.h']]],
-  ['lose_5fsound_1571',['LOSE_SOUND',['../namespacegui.html#a0c42997b1efdcb1d74f28a577e75bdc9ae0bf858406d46cb6e035377f14fa68ec',1,'gui']]]
+  ['gui_1581',['GUI',['../server_8h.html#ad8ed285ff076847698d9bdc1680aaed2a73c6901c7c648a6a735770bc038bb26a',1,'server.h']]]
 ];

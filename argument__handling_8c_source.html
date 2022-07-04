@@ -97,119 +97,125 @@ $(document).ready(function(){initNavTree('argument__handling_8c_source.html','')
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="server_8h.html">server.h</a>&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="argument__handling_8h.html">argument_handling.h</a>&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> process_argument_handling(<a class="code" href="structargument__s.html">argument_t</a> *args, <span class="keywordtype">int</span> ac, <span class="keywordtype">char</span> **av,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">bool</span> *is_team)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">int</span> opt = 0;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">while</span> ((opt = getopt(ac, av, <span class="stringliteral">&quot;:p:x:y:nc:f:&quot;</span>)) != -1 &amp;&amp; opt != <span class="charliteral">&#39;?&#39;</span>) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;p&#39;</span>)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">port</a> = atol(optarg);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;x&#39;</span>)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">width</a> = atoi(optarg);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;y&#39;</span>)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">height</a> = atoi(optarg);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;c&#39;</span>)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> = atoi(optarg);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;f&#39;</span>)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> = atof(optarg);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;n&#39;</span>)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            *is_team = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;:&#39;</span>)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> process_team_list(<a class="code" href="structargument__s.html">argument_t</a> *args, <span class="keywordtype">int</span> ac, <span class="keywordtype">char</span> **av,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">bool</span> is_team)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">int</span> pos = 0;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> (!is_team) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please use the -n option.\n&quot;</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a> = malloc(<span class="keyword">sizeof</span>(<span class="keywordtype">char</span> *) * ac);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (!args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">for</span> (; optind &lt; ac; optind++) {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>[pos] = av[optind];</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        pos++;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>[pos] = NULL;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (pos == 0 || pos == 1) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a minimum of 2 teams.\n&quot;</span>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> process_integrity(<a class="code" href="structargument__s.html">argument_t</a> *args)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;{</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">port</a> == 0) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a valid port.\n&quot;</span>);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">width</a> == 0 || args-&gt;<a class="code" href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">height</a> == 0) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a valid map size.\n&quot;</span>);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> == 0 || args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> &gt; 6) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a valid client nb.\n&quot;</span>);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> == 0) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> = 100;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Default frequence set to 100.\n&quot;</span>);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="argument__handling_8h.html#a9d7ba09a596622227eeffcebe5c531a7">  103</a></span>&#160;<a class="code" href="structargument__s.html">argument_t</a> *<a class="code" href="argument__handling_8c.html#a9d7ba09a596622227eeffcebe5c531a7">argument_handling</a>(<span class="keywordtype">int</span> ac, <span class="keywordtype">char</span> **av)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;{</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="structargument__s.html">argument_t</a> *args = malloc(<span class="keyword">sizeof</span>(<a class="code" href="structargument__s.html">argument_t</a>) * 1);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">bool</span> is_team = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span> (args == NULL)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">port</a> = 0;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">width</a> = 0;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">height</a> = 0;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> = 0;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> = 0;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span> (!process_argument_handling(args, ac, av, &amp;is_team))</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span> (!process_integrity(args))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="density__flutter_8h.html">density_flutter.h</a>&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> process_argument_handling(<a class="code" href="structargument__s.html">argument_t</a> *args, <span class="keywordtype">int</span> ac, <span class="keywordtype">char</span> **av,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">bool</span> *is_team)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">int</span> opt = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">while</span> ((opt = getopt(ac, av, <span class="stringliteral">&quot;:p:x:y:nc:f:&quot;</span>)) != -1 &amp;&amp; opt != <span class="charliteral">&#39;?&#39;</span>) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;p&#39;</span>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">port</a> = atol(optarg);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;x&#39;</span>)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">width</a> = atoi(optarg);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;y&#39;</span>)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">height</a> = atoi(optarg);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;c&#39;</span>)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> = atoi(optarg);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;f&#39;</span>)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> = atof(optarg);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;n&#39;</span>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            *is_team = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> (opt == <span class="charliteral">&#39;:&#39;</span>)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> process_team_list(<a class="code" href="structargument__s.html">argument_t</a> *args, <span class="keywordtype">int</span> ac, <span class="keywordtype">char</span> **av,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">bool</span> is_team)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">int</span> pos = 0;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (!is_team) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please use the -n option.\n&quot;</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a> = malloc(<span class="keyword">sizeof</span>(<span class="keywordtype">char</span> *) * ac);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> (!args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span> (; optind &lt; ac; optind++) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>[pos] = av[optind];</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        pos++;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>[pos] = NULL;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (pos == 0 || pos == 1) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a minimum of 2 teams.\n&quot;</span>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> process_integrity(<a class="code" href="structargument__s.html">argument_t</a> *args)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;{</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">port</a> == 0) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a valid port.\n&quot;</span>);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">width</a> == 0 || args-&gt;<a class="code" href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">height</a> == 0) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a valid map size.\n&quot;</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> == 0 || args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> &gt; 6) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Please give a valid client nb.\n&quot;</span>);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> == 0) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> = 100;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        dprintf(2, <span class="stringliteral">&quot;Default frequence set to 100.\n&quot;</span>);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="argument__handling_8h.html#a9d7ba09a596622227eeffcebe5c531a7">  104</a></span>&#160;<a class="code" href="structargument__s.html">argument_t</a> *<a class="code" href="argument__handling_8c.html#a9d7ba09a596622227eeffcebe5c531a7">argument_handling</a>(<span class="keywordtype">int</span> ac, <span class="keywordtype">char</span> **av)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="structargument__s.html">argument_t</a> *args = malloc(<span class="keyword">sizeof</span>(<a class="code" href="structargument__s.html">argument_t</a>) * 1);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">bool</span> is_team = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span> (args == NULL)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">port</a> = 0;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">width</a> = 0;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">height</a> = 0;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">client_nb</a> = 0;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">freq</a> = 0;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    args-&gt;<a class="code" href="structargument__s.html#a6474c485d51789025d16b0b522fdb582">generation_density</a> = <a class="code" href="density__flutter_8h.html#a71f29859b75db76d4a5c0a36ca0d17d3">get_default_density_value</a>();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span> (!process_argument_handling(args, ac, av, &amp;is_team))</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (!process_team_list(args, ac, av, is_team))</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (!process_integrity(args))</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> args;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="argument__handling_8h.html#af900089553eb91711e0ae8037e947985">  124</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="argument__handling_8c.html#af900089553eb91711e0ae8037e947985">argument_destroy</a>(<a class="code" href="structargument__s.html">argument_t</a> *args)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;{</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">if</span> (!args)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    free(args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    free(args);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (!process_team_list(args, ac, av, is_team))</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> args;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="argument__handling_8h.html#af900089553eb91711e0ae8037e947985">  126</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="argument__handling_8c.html#af900089553eb91711e0ae8037e947985">argument_destroy</a>(<a class="code" href="structargument__s.html">argument_t</a> *args)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;{</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">if</span> (!args)</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    free(args-&gt;<a class="code" href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">team_list</a>);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    free(args-&gt;<a class="code" href="structargument__s.html#a6474c485d51789025d16b0b522fdb582">generation_density</a>);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    free(args);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructargument__s_html_af5f02fd6f6635c390da39dd7d735d5cc"><div class="ttname"><a href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">argument_s::team_list</a></div><div class="ttdeci">char ** team_list</div><div class="ttdoc">List of all the teams name.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00075">server.h:75</a></div></div>
-<div class="ttc" id="aargument__handling_8c_html_af900089553eb91711e0ae8037e947985"><div class="ttname"><a href="argument__handling_8c.html#af900089553eb91711e0ae8037e947985">argument_destroy</a></div><div class="ttdeci">void argument_destroy(argument_t *args)</div><div class="ttdoc">Destroy the argument structure.</div><div class="ttdef"><b>Definition:</b> <a href="argument__handling_8c_source.html#l00124">argument_handling.c:124</a></div></div>
-<div class="ttc" id="astructargument__s_html_a4409e94ad13a060b0ffbc0f371c80004"><div class="ttname"><a href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">argument_s::freq</a></div><div class="ttdeci">float freq</div><div class="ttdoc">Inverse multiplicative of the time in seconds, (1 / time)</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00079">server.h:79</a></div></div>
-<div class="ttc" id="aargument__handling_8c_html_a9d7ba09a596622227eeffcebe5c531a7"><div class="ttname"><a href="argument__handling_8c.html#a9d7ba09a596622227eeffcebe5c531a7">argument_handling</a></div><div class="ttdeci">argument_t * argument_handling(int ac, char **av)</div><div class="ttdoc">Hold the argument identification process.</div><div class="ttdef"><b>Definition:</b> <a href="argument__handling_8c_source.html#l00103">argument_handling.c:103</a></div></div>
-<div class="ttc" id="astructargument__s_html_a2474a5474cbff19523a51eb1de01cda4"><div class="ttname"><a href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">argument_s::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Width of the map.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00071">server.h:71</a></div></div>
-<div class="ttc" id="astructargument__s_html_ad0a1aca340ebfe1f9d9ceeffa6341830"><div class="ttname"><a href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">argument_s::client_nb</a></div><div class="ttdeci">int client_nb</div><div class="ttdoc">Max client number authorized.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00077">server.h:77</a></div></div>
-<div class="ttc" id="astructargument__s_html_a300b6806fe6818927fe4df08f2398124"><div class="ttname"><a href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">argument_s::port</a></div><div class="ttdeci">long port</div><div class="ttdoc">Port of the server.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00069">server.h:69</a></div></div>
-<div class="ttc" id="astructargument__s_html"><div class="ttname"><a href="structargument__s.html">argument_s</a></div><div class="ttdoc">Different settings of the game.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00067">server.h:67</a></div></div>
+<div class="ttc" id="astructargument__s_html_af5f02fd6f6635c390da39dd7d735d5cc"><div class="ttname"><a href="structargument__s.html#af5f02fd6f6635c390da39dd7d735d5cc">argument_s::team_list</a></div><div class="ttdeci">char ** team_list</div><div class="ttdoc">List of all the teams name.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00077">server.h:77</a></div></div>
+<div class="ttc" id="adensity__flutter_8h_html_a71f29859b75db76d4a5c0a36ca0d17d3"><div class="ttname"><a href="density__flutter_8h.html#a71f29859b75db76d4a5c0a36ca0d17d3">get_default_density_value</a></div><div class="ttdeci">float * get_default_density_value(void)</div><div class="ttdoc">Get the default density array.</div><div class="ttdef"><b>Definition:</b> <a href="density__flutter_8h_source.html#l00022">density_flutter.h:22</a></div></div>
+<div class="ttc" id="astructargument__s_html_a6474c485d51789025d16b0b522fdb582"><div class="ttname"><a href="structargument__s.html#a6474c485d51789025d16b0b522fdb582">argument_s::generation_density</a></div><div class="ttdeci">float * generation_density</div><div class="ttdoc">The density data.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00083">server.h:83</a></div></div>
+<div class="ttc" id="aargument__handling_8c_html_af900089553eb91711e0ae8037e947985"><div class="ttname"><a href="argument__handling_8c.html#af900089553eb91711e0ae8037e947985">argument_destroy</a></div><div class="ttdeci">void argument_destroy(argument_t *args)</div><div class="ttdoc">Destroy the argument structure.</div><div class="ttdef"><b>Definition:</b> <a href="argument__handling_8c_source.html#l00126">argument_handling.c:126</a></div></div>
+<div class="ttc" id="astructargument__s_html_a4409e94ad13a060b0ffbc0f371c80004"><div class="ttname"><a href="structargument__s.html#a4409e94ad13a060b0ffbc0f371c80004">argument_s::freq</a></div><div class="ttdeci">float freq</div><div class="ttdoc">Inverse multiplicative of the time in seconds, (1 / time)</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00081">server.h:81</a></div></div>
+<div class="ttc" id="aargument__handling_8c_html_a9d7ba09a596622227eeffcebe5c531a7"><div class="ttname"><a href="argument__handling_8c.html#a9d7ba09a596622227eeffcebe5c531a7">argument_handling</a></div><div class="ttdeci">argument_t * argument_handling(int ac, char **av)</div><div class="ttdoc">Hold the argument identification process.</div><div class="ttdef"><b>Definition:</b> <a href="argument__handling_8c_source.html#l00104">argument_handling.c:104</a></div></div>
+<div class="ttc" id="astructargument__s_html_a2474a5474cbff19523a51eb1de01cda4"><div class="ttname"><a href="structargument__s.html#a2474a5474cbff19523a51eb1de01cda4">argument_s::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">Width of the map.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00073">server.h:73</a></div></div>
+<div class="ttc" id="astructargument__s_html_ad0a1aca340ebfe1f9d9ceeffa6341830"><div class="ttname"><a href="structargument__s.html#ad0a1aca340ebfe1f9d9ceeffa6341830">argument_s::client_nb</a></div><div class="ttdeci">int client_nb</div><div class="ttdoc">Max client number authorized.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00079">server.h:79</a></div></div>
+<div class="ttc" id="astructargument__s_html_a300b6806fe6818927fe4df08f2398124"><div class="ttname"><a href="structargument__s.html#a300b6806fe6818927fe4df08f2398124">argument_s::port</a></div><div class="ttdeci">long port</div><div class="ttdoc">Port of the server.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00071">server.h:71</a></div></div>
+<div class="ttc" id="adensity__flutter_8h_html"><div class="ttname"><a href="density__flutter_8h.html">density_flutter.h</a></div></div>
+<div class="ttc" id="astructargument__s_html"><div class="ttname"><a href="structargument__s.html">argument_s</a></div><div class="ttdoc">Different settings of the game.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00069">server.h:69</a></div></div>
 <div class="ttc" id="aserver_8h_html"><div class="ttname"><a href="server_8h.html">server.h</a></div></div>
-<div class="ttc" id="astructargument__s_html_ad12fc34ce789bce6c8a05d8a17138534"><div class="ttname"><a href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">argument_s::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">Height of the map.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00073">server.h:73</a></div></div>
+<div class="ttc" id="astructargument__s_html_ad12fc34ce789bce6c8a05d8a17138534"><div class="ttname"><a href="structargument__s.html#ad12fc34ce789bce6c8a05d8a17138534">argument_s::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">Height of the map.</div><div class="ttdef"><b>Definition:</b> <a href="server_8h_source.html#l00075">server.h:75</a></div></div>
 <div class="ttc" id="aargument__handling_8h_html"><div class="ttname"><a href="argument__handling_8h.html">argument_handling.h</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

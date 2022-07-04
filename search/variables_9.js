@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['map_1452',['map',['../structserver__data__s.html#af2bb9dc718068dc88b8250185d0d6ab7',1,'server_data_s']]],
-  ['map_5fvision_5fupdate_5flimit_1453',['MAP_VISION_UPDATE_LIMIT',['../namespaceai__strategy__management.html#a5e15808ca795be38529a37d9945ba969',1,'ai_strategy_management']]],
-  ['max_5fmembers_1454',['max_members',['../structteam__s.html#a690cc9973e8ad998cd53e2d05a918b22',1,'team_s']]],
-  ['max_5fplayer_1455',['max_player',['../structgui_1_1unpack_1_1_start.html#aa1772bcd232124fc8fd97013f40c4310',1,'gui::unpack::Start']]],
-  ['max_5fteam_5fplayer_1456',['MAX_TEAM_PLAYER',['../namespaceai__strategy__management.html#a7168c2f5467bdd2116b5100d4ffe4259',1,'ai_strategy_management']]],
-  ['members_5fuuid_1457',['members_uuid',['../structteam__s.html#a14eae8a937ade561b8b6fcff47ee2c70',1,'team_s']]],
-  ['mendiane_1458',['mendiane',['../structcontainer__s.html#a2ec269a5d341945d865f7855c84f5cc5',1,'container_s::mendiane()'],['../structincantation__level__s.html#a2ec269a5d341945d865f7855c84f5cc5',1,'incantation_level_s::mendiane()']]],
-  ['modified_5fentities_1459',['modified_entities',['../structserver__data__s.html#a692a6a64d98270fd82dc76fc501654a0',1,'server_data_s']]],
-  ['movement_5flist_1460',['movement_list',['../structbroadcast__data__s.html#ad0d1ba47ff4ca4c953a18d0e793af78a',1,'broadcast_data_s']]]
+  ['level_1458',['level',['../structplayer__s.html#a9082f945c1d289684d0bcd51ee08e11e',1,'player_s']]],
+  ['level_5fmax_1459',['LEVEL_MAX',['../namespaceai__strategy__management.html#ac2081a6033f00d4fb871eb75f7197345',1,'ai_strategy_management']]],
+  ['level_5fup_5frequirements_1460',['LEVEL_UP_REQUIREMENTS',['../namespaceai__strategy__management.html#a8b7eb7dd0a3a8e7f011fd733d69260b0',1,'ai_strategy_management']]],
+  ['libinfo_1461',['libInfo',['../classai___d_l_lib__wrapper_1_1_d_l_lib_wrapper.html#a4e3ac384925ff14e170824604b08d1b5',1,'ai_DLLib_wrapper::DLLibWrapper']]],
+  ['linemate_1462',['linemate',['../structcontainer__s.html#a3ef8bcf627fbcab83817709a06326258',1,'container_s::linemate()'],['../structincantation__level__s.html#a3ef8bcf627fbcab83817709a06326258',1,'incantation_level_s::linemate()']]]
 ];

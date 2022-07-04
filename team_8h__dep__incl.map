@@ -1,5 +1,5 @@
 <map id="src/zappy_server_src/core/include/team.h" name="src/zappy_server_src/core/include/team.h">
-<area shape="rect" id="node1" title=" " alt="" coords="2917,5,3076,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3019,5,3177,47"/>
 <area shape="rect" id="node2" href="$auth__command_8c.html" title=" " alt="" coords="5,295,252,337"/>
 <area shape="rect" id="node3" href="$broadcast__command_8c.html" title=" " alt="" coords="276,288,475,344"/>
 <area shape="rect" id="node4" href="$broadcast__process_8c.html" title=" " alt="" coords="499,288,697,344"/>
@@ -22,17 +22,18 @@
 <area shape="rect" id="node21" href="$take__command_8c.html" title=" " alt="" coords="4577,295,4822,337"/>
 <area shape="rect" id="node22" href="$turn__command_8c.html" title=" " alt="" coords="4846,295,5089,337"/>
 <area shape="rect" id="node23" href="$unexpected__send_8c.html" title=" " alt="" coords="5113,288,5323,344"/>
-<area shape="rect" id="node24" href="$end__game__gestion_8c.html" title=" " alt="" coords="6318,295,6510,337"/>
-<area shape="rect" id="node25" href="$server_8h.html" title=" " alt="" coords="5496,95,5657,136"/>
-<area shape="rect" id="node35" href="$team_8c.html" title=" " alt="" coords="6027,95,6185,136"/>
-<area shape="rect" id="node36" href="$teams__remove_8c.html" title=" " alt="" coords="6209,95,6376,136"/>
-<area shape="rect" id="node26" href="$argument__handling_8c.html" title=" " alt="" coords="5269,191,5463,233"/>
-<area shape="rect" id="node27" href="$command__hold_8c.html" title=" " alt="" coords="5348,295,5517,337"/>
-<area shape="rect" id="node28" href="$command__hold_8h.html" title=" " alt="" coords="3351,184,3525,240"/>
-<area shape="rect" id="node30" href="$player__life_8c.html" title=" " alt="" coords="5541,295,5700,337"/>
-<area shape="rect" id="node31" href="$resource__generation_8c.html" title=" " alt="" coords="5725,295,5927,337"/>
-<area shape="rect" id="node32" href="$server__data_8c.html" title=" " alt="" coords="5952,295,6111,337"/>
-<area shape="rect" id="node33" href="$server__run_8c.html" title=" " alt="" coords="6135,295,6293,337"/>
-<area shape="rect" id="node34" href="$server__init_8c.html" title=" " alt="" coords="5792,191,5951,233"/>
+<area shape="rect" id="node24" href="$end__game__gestion_8c.html" title=" " alt="" coords="6551,295,6743,337"/>
+<area shape="rect" id="node25" href="$server_8h.html" title=" " alt="" coords="6013,95,6175,136"/>
+<area shape="rect" id="node30" href="$density__flutter_8h.html" title=" " alt="" coords="5348,288,5507,344"/>
+<area shape="rect" id="node36" href="$team_8c.html" title=" " alt="" coords="6669,95,6828,136"/>
+<area shape="rect" id="node37" href="$teams__remove_8c.html" title=" " alt="" coords="6852,95,7019,136"/>
+<area shape="rect" id="node26" href="$argument__handling_8c.html" title=" " alt="" coords="5873,392,6067,433"/>
+<area shape="rect" id="node27" href="$command__hold_8c.html" title=" " alt="" coords="6307,295,6476,337"/>
+<area shape="rect" id="node28" href="$command__hold_8h.html" title=" " alt="" coords="3516,184,3691,240"/>
+<area shape="rect" id="node31" href="$player__life_8c.html" title=" " alt="" coords="5531,295,5689,337"/>
+<area shape="rect" id="node32" href="$resource__generation_8c.html" title=" " alt="" coords="5714,295,5917,337"/>
+<area shape="rect" id="node33" href="$server__data_8c.html" title=" " alt="" coords="5941,295,6100,337"/>
+<area shape="rect" id="node34" href="$server__run_8c.html" title=" " alt="" coords="6124,295,6283,337"/>
+<area shape="rect" id="node35" href="$server__init_8c.html" title=" " alt="" coords="6384,191,6543,233"/>
 <area shape="rect" id="node29" href="$fork__utils_8c.html" title=" " alt="" coords="3500,295,3707,337"/>
 </map>

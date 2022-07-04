@@ -7,6 +7,7 @@ var dir_3e3e4e29ec68ae4572da874b5e70c298 =
     [ "command_hold.h", "command__hold_8h.html", "command__hold_8h" ],
     [ "container.h", "container_8h.html", "container_8h" ],
     [ "container_manip.h", "container__manip_8h.html", "container__manip_8h" ],
+    [ "density_flutter.h", "density__flutter_8h.html", "density__flutter_8h" ],
     [ "entrypoint.h", "entrypoint_8h.html", "entrypoint_8h" ],
     [ "incantation.h", "incantation_8h.html", null ],
     [ "map.h", "map_8h.html", "map_8h" ],
